@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// GuiEventObserver.hpp
+
 #include <SFML/Window/Event.hpp>
 
 // Interface for an observer that wants to receive GUI events.

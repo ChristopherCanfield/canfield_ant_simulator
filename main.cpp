@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include "util/Test.hpp"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
@@ -19,6 +21,8 @@ int main()
         window.draw(shape);
         window.display();
     }
+
+	Test t;
 
     return 0;
 }

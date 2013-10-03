@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// GuiEventManager.hpp
+
 class GuiEventObserver;
 class Clickable;
 
@@ -15,31 +19,39 @@ public:
 	// Processes GUI events by notifying subscribed observers. This should be
 	// called once per frame.
 	void update(const sf::Event& e);
+	
 	// Registers the observer for click events.
-	void addClickListener(const GuiEventObserver& o);
+	void addClickListener(GuiEventObserver& o);
+	
 	// Unregisters the observer for click events.
 	void removeClickListener(const GuiEventObserver& o);
-	// Registers the observer for mouse move events
-	void addMouseMoveListener(const GuiEventObserver& o);
+
+	// Registers the observer for mouse move events.
+	void addMouseMoveListener(GuiEventObserver& o);
+
 	// Unregisters the observer for mouse move events.
 	void removeMouseMoveListener(const GuiEventObserver& o);
+
 	// Registers the observer for key press events.
-	void addKeyPressListener(const GuiEventObserver& o);
+	void addKeyPressListener(GuiEventObserver& o);
+
 	// Unregisters the observer for key press events.
 	void removeKeyPressListener(const GuiEventObserver& o);
+
 	// Registers the Clickable for click events that fall within its bounding box.
-	void addDirectClickListener(const Clickable& c);
+	void addDirectClickListener(Clickable& c);
+
 	// Unregisters the Clickable for the click events that fall within its bounding box.
 	void removeDirectClickListener(const Clickable& c);
 
 private:
 	// The list of click observers.
-	std::vector<const GuiEventObserver*> clickObservers;
+	std::vector<GuiEventObserver*> clickObservers;
 	// The list of mouse moved observers.
-	std::vector<const GuiEventObserver*> mouseMoveObservers;
+	std::vector<GuiEventObserver*> mouseMoveObservers;
 	// The list of key press observers.
-	std::vector<const GuiEventObserver*> keyPressObservers;
+	std::vector<GuiEventObserver*> keyPressObservers;
 	// The list of direct click observers.
-	std::vector<const Clickable*> directClickObservers;
+	std::vector<Clickable*> directClickObservers;
 };
 
