@@ -16,6 +16,10 @@
 *.idb
 *.pdb
 *.tlog
+*.vcxproj
+*.filters
+*.user
+*.lastbuildstate
 
-**/Debug/
-**/Release/
+/Debug/*.*
+/Release/*.*
