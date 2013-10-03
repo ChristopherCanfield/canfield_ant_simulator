@@ -8,7 +8,7 @@ class Clickable;
 #include <vector>
 
 
-// Manager for low-level GUI events.
+// Manager for GUI events.
 class GuiEventManager
 {
 public:
@@ -33,8 +33,6 @@ public:
 	void removeDirectClickListener(const Clickable& c);
 
 private:
-	
-	void notifySubscribers();
 	// The list of click observers.
 	std::vector<const GuiEventObserver*> clickObservers;
 	// The list of mouse moved observers.
