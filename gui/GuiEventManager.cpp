@@ -63,12 +63,12 @@ void GuiEventManager::removeKeyPressListener(const GuiEventObserver& o)
 	removeIfMatchFound(keyPressObservers, o);
 }
 
-void GuiEventManager::addDirectClickListener(Clickable& c)
+void GuiEventManager::addDirectClickListener(DirectGuiEventObserver& c)
 {
 	directClickObservers.push_back(&c);
 }
 
-void GuiEventManager::removeDirectClickListener(const Clickable& c)
+void GuiEventManager::removeDirectClickListener(const DirectGuiEventObserver& c)
 {
 	for (auto observer = directClickObservers.begin(); observer != directClickObservers.end(); ++observer)
 	{
