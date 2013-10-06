@@ -1,6 +1,6 @@
 #include "GuiEventManager.hpp"
 #include "GuiEventObserver.hpp"
-#include "Clickable.hpp"
+#include "DirectGuiEventObserver.hpp"
 
 // Christopher D. Canfield
 // October 2013
@@ -9,8 +9,8 @@
 
 // Passes the event to the GuiEventObservers in the referenced vector.
 void notifyGuiEventObservers(const std::vector<GuiEventObserver*>& observers, const sf::Event& e);
-// Passes the event to the Clickable observers in the referenced vector.
-void notifyDirectClickObservers(const std::vector<Clickable*>& observers, const sf::Event& e);
+// Passes the event to the observers in the referenced vector.
+void notifyDirectGuiEventObservers(const std::vector<DirectGuiEventObserver*>& observers, const sf::Event& e);
 // Removes the specified observer from the referenced vector if it is found in the container.
 void removeIfMatchFound(std::vector<GuiEventObserver*>& observers, const GuiEventObserver& o);
 
@@ -20,7 +20,7 @@ void GuiEventManager::update(const sf::Event& e)
 {
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		notifyDirectClickObservers(directClickObservers, e);
+		notifyDirectGuiEventObservers(directClickObservers, e);
 		notifyGuiEventObservers(clickObservers, e);
 	}
 	else if (e.type == sf::Event::MouseMoved)
@@ -89,7 +89,7 @@ void notifyGuiEventObservers(const std::vector<GuiEventObserver*>& observers, co
 	}
 }
 
-void notifyDirectClickObservers(const std::vector<Clickable*>& observers, const sf::Event& e)
+void notifyDirectGuiEventObservers(const std::vector<DirectGuiEventObserver*>& observers, const sf::Event& e)
 {
 	for (auto observer : observers)
 	{
@@ -98,7 +98,7 @@ void notifyDirectClickObservers(const std::vector<Clickable*>& observers, const 
 		// bounding box.
 		if (boundingBox.contains(e.mouseButton.x, e.mouseButton.y))
 		{
-			observer->onClick();
+			observer->onDirectGuiEvent(e);
 		}
 	}
 }

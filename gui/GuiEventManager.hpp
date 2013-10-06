@@ -5,7 +5,7 @@
 // GuiEventManager.hpp
 
 class GuiEventObserver;
-class Clickable;
+class DirectGuiEventObserver;
 
 #include <SFML/Window/Event.hpp>
 
@@ -38,11 +38,11 @@ public:
 	// Unregisters the observer for key press events.
 	void removeKeyPressListener(const GuiEventObserver& o);
 
-	// Registers the Clickable for click events that fall within its bounding box.
-	void addDirectClickListener(Clickable& c);
+	// Registers the DirectGuiEventObserver for click events that fall within its bounding box.
+	void addDirectClickListener(DirectGuiEventObserver& c);
 
-	// Unregisters the Clickable for the click events that fall within its bounding box.
-	void removeDirectClickListener(const Clickable& c);
+	// Unregisters the DirectGuiEventObserver for the click events that fall within its bounding box.
+	void removeDirectClickListener(const DirectGuiEventObserver& c);
 
 private:
 	// The list of click observers.
@@ -52,6 +52,5 @@ private:
 	// The list of key press observers.
 	std::vector<GuiEventObserver*> keyPressObservers;
 	// The list of direct click observers.
-	std::vector<Clickable*> directClickObservers;
+	std::vector<DirectGuiEventObserver*> directClickObservers;
 };
-

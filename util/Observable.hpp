@@ -8,6 +8,7 @@
 
 #include <vector>
 
+
 // An interface for an observable object.
 template <class T>
 class Observable
