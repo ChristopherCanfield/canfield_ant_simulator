@@ -47,3 +47,18 @@ Edge GridNode::getRight() const
 {
 	return rightEdge;
 }
+
+uint GridNode::getX() const
+{
+	return pixelX;
+}
+
+uint GridNode::getY() const
+{
+	return pixelY;
+}
+
+GridLocation GridNode::getGridLocation() const
+{
+	return location;
+}

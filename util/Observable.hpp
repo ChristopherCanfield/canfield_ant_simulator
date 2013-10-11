@@ -38,7 +38,8 @@ void Observable<T>::removeObserver(const Observer<T>& o)
 	{
 		if (observer == &o)
 		{
-			observers.push_back(&o);
+			observers.erase(&o);
 		}
 	}
 }
+

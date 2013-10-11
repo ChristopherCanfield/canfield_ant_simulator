@@ -18,12 +18,17 @@ void Edge::set(GridNode& node, uint cost)
 	this->cost = cost;
 }
 
-GridNode& Edge::getNode() const
+GridNode* Edge::getNode() const
 {
-	return *node;
+	return node;
 }
 
 uint Edge::getCost() const
 {
 	return cost;
+}
+
+bool Edge::isEmpty() const
+{
+	return (node == nullptr);
 }

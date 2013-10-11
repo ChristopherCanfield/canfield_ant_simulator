@@ -10,5 +10,5 @@ template <class T>
 class Observer
 {
 public:
-	virtual void update(T observable) = 0;
+	virtual void update(T& observable) = 0;
 };

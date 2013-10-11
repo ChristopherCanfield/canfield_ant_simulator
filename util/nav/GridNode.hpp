@@ -8,8 +8,7 @@
 #include "Edge.hpp"
 #include "GridLocation.hpp"
 
-#include <vector>
-#include <unordered_map>
+#include <memory>
 
 
 // A node in a grid-based graph.
@@ -32,12 +31,10 @@ public:
 	Edge getRight() const;
 
 	uint getX() const;
-	void setX(uint x);
 
 	uint getY() const;
-	void setY(uint y);
 
-	GridLocation& getGridLocation() const;
+	GridLocation getGridLocation() const;
 
 private:
 	Edge upEdge;

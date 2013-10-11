@@ -17,9 +17,11 @@ public:
 
 	void set(GridNode& node, uint cost);
 
-	GridNode& getNode() const;
+	GridNode* getNode() const;
 
 	uint getCost() const;
+	
+	bool isEmpty() const;
 
 private:
 	GridNode* node;
