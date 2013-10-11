@@ -4,7 +4,7 @@
 // October 2013
 // Edge.hpp
 
-class GridNode;
+class Node;
 
 #include "../Typedefs.hpp"
 
@@ -13,18 +13,18 @@ class Edge
 {
 public:
 	Edge();
-	Edge(GridNode& node, uint cost);
+	Edge(Node& node, uint cost);
 
-	void set(GridNode& node, uint cost);
+	void set(Node& node, uint cost);
 
-	GridNode* getNode() const;
+	Node* getNode() const;
 
 	uint getCost() const;
 	
 	bool isEmpty() const;
 
 private:
-	GridNode* node;
+	Node* node;
 	uint cost;
 };
 

@@ -1,5 +1,9 @@
 #include "GridNode.hpp"
 
+// Christopher D. Canfield
+// October 2013
+// GridNode.cpp
+
 
 GridNode::GridNode(GridLocation gl, uint x, uint y) :
 	location(gl), pixelX(x), pixelY(y)

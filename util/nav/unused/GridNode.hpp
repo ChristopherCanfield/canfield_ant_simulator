@@ -4,9 +4,9 @@
 // October 2013
 // GridNode.hpp
 
-#include "../Typedefs.hpp"
-#include "Edge.hpp"
-#include "GridLocation.hpp"
+#include "../../Typedefs.hpp"
+#include "../Edge.hpp"
+#include "../GridLocation.hpp"
 
 #include <memory>
 

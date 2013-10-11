@@ -1,10 +1,7 @@
-﻿Build started 10/11/2013 1:07:25 AM.
+﻿Build started 10/11/2013 10:16:09 AM.
      1>Project "C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\SFML_View_Test_20130715\tests\tests.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\tests.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /FC /errorReport:prompt Edge_tests.cpp
-         Edge_tests.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\Debug\tests.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\lib" /LIBPATH:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\SFML_View_Test_20130715\Debug" Edge.obj GridLocation.obj GridNode.obj GuiEventManager.obj kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\Debug\tests.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\Debug\tests.lib" /MACHINE:X86 /DLL Debug\Edge_tests.obj
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\Debug\tests.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\lib" /LIBPATH:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\SFML_View_Test_20130715\Debug" Edge.obj GridLocation.obj GridNode.obj GuiEventManager.obj Node.obj kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\Debug\tests.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Canfield\Documents\Visual Studio 2012\Projects\cs664_canfield_final_project\Debug\tests.lib" /MACHINE:X86 /DLL Debug\Edge_tests.obj
          Debug\GridLocation_tests.obj
          Debug\stdafx.obj
          Debug\GridNode_tests.obj
@@ -14,4 +11,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.98
+Time Elapsed 00:00:01.27

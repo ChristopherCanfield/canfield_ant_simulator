@@ -1,5 +1,5 @@
 #include "Edge.hpp"
-#include "GridNode.hpp"
+#include "Node.hpp"
 
 
 Edge::Edge() :
@@ -7,18 +7,18 @@ Edge::Edge() :
 {
 }
 
-Edge::Edge(GridNode& node, uint cost) :
+Edge::Edge(Node& node, uint cost) :
 	node(&node), cost(cost)
 {
 }
 
-void Edge::set(GridNode& node, uint cost)
+void Edge::set(Node& node, uint cost)
 {
 	this->node = &node;
 	this->cost = cost;
 }
 
-GridNode* Edge::getNode() const
+Node* Edge::getNode() const
 {
 	return node;
 }
