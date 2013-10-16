@@ -39,10 +39,16 @@ public:
 	void removeKeyPressListener(const GuiEventObserver& o);
 
 	// Registers the DirectGuiEventObserver for click events that fall within its bounding box.
-	void addDirectClickListener(DirectGuiEventObserver& c);
+	void addDirectClickListener(DirectGuiEventObserver& o);
 
 	// Unregisters the DirectGuiEventObserver for the click events that fall within its bounding box.
-	void removeDirectClickListener(const DirectGuiEventObserver& c);
+	void removeDirectClickListener(const DirectGuiEventObserver& o);
+
+	// Registers the DirectGuiEventObserver for mouse move events that fall within its bounding box.
+	void addDirectMouseMoveListener(DirectGuiEventObserver& o);
+
+	// Unregisters the DirectGuiEventObserver for the mouse move events that fall within its bounding box.
+	void removeDirectMouseMoveListener(const DirectGuiEventObserver& o);
 
 private:
 	// The list of click observers.
@@ -53,4 +59,6 @@ private:
 	std::vector<GuiEventObserver*> keyPressObservers;
 	// The list of direct click observers.
 	std::vector<DirectGuiEventObserver*> directClickObservers;
+	// The list of direct mouse move observers.
+	std::vector<DirectGuiEventObserver*> directMouseMoveObservers;
 };

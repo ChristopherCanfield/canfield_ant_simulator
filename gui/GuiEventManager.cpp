@@ -33,6 +33,7 @@ void GuiEventManager::update(const sf::Event& e)
 	}
 }
 
+
 void GuiEventManager::addClickListener(GuiEventObserver& o)
 {
 	clickObservers.push_back(&o);
@@ -42,6 +43,7 @@ void GuiEventManager::removeClickListener(const GuiEventObserver& o)
 {
 	removeIfMatchFound(clickObservers, o);
 }
+
 
 void GuiEventManager::addMouseMoveListener(GuiEventObserver& o)
 {
@@ -53,6 +55,7 @@ void GuiEventManager::removeMouseMoveListener(const GuiEventObserver& o)
 	removeIfMatchFound(mouseMoveObservers, o);
 }
 
+
 void GuiEventManager::addKeyPressListener(GuiEventObserver& o)
 {
 	keyPressObservers.push_back(&o);
@@ -63,18 +66,36 @@ void GuiEventManager::removeKeyPressListener(const GuiEventObserver& o)
 	removeIfMatchFound(keyPressObservers, o);
 }
 
-void GuiEventManager::addDirectClickListener(DirectGuiEventObserver& c)
+
+void GuiEventManager::addDirectClickListener(DirectGuiEventObserver& o)
 {
-	directClickObservers.push_back(&c);
+	directClickObservers.push_back(&o);
 }
 
-void GuiEventManager::removeDirectClickListener(const DirectGuiEventObserver& c)
+void GuiEventManager::removeDirectClickListener(const DirectGuiEventObserver& o)
 {
 	for (auto observer = directClickObservers.begin(); observer != directClickObservers.end(); ++observer)
 	{
-		if (*observer == &c)
+		if (*observer == &o)
 		{
 			directClickObservers.erase(observer);
+		}
+	}
+}
+
+
+void GuiEventManager::addDirectMouseMoveListener(DirectGuiEventObserver& o)
+{
+	directMouseMoveObservers.push_back(&o);
+}
+
+void GuiEventManager::removeDirectMouseMoveListener(const DirectGuiEventObserver& o)
+{
+	for (auto observer = directMouseMoveObservers.begin(); observer != directClickObservers.end(); ++observer)
+	{
+		if (*observer == &o)
+		{
+			directMouseMoveObservers.erase(observer);
 		}
 	}
 }
