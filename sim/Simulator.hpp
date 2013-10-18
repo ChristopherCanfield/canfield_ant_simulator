@@ -4,9 +4,11 @@
 // October 2013
 // Simulator.hpp
 
+#include "../lib/boost/noncopyable.hpp"
 
 
-class Simulator
+class Simulator :
+		public boost::noncopyable
 {
 public:
 	Simulator();

@@ -17,9 +17,9 @@
 
 // Abstract class for a clickable button.
 class Button : 
-	public GuiWidget,
-	public DirectGuiEventObserver, 
-	public GuiEventObserver
+		public GuiWidget,
+		public DirectGuiEventObserver, 
+		public GuiEventObserver
 {
 public:
 	Button(GuiEventManager& manager);

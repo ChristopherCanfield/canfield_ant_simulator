@@ -11,7 +11,7 @@
 
 // Base class for GUI widgets.
 class GuiWidget :
-	public sf::Drawable
+		public sf::Drawable
 {
 public:
 	GuiWidget() {}

@@ -9,11 +9,14 @@ class DirectGuiEventObserver;
 
 #include <SFML/Window/Event.hpp>
 
+#include "../lib/boost/noncopyable.hpp"
+
 #include <vector>
 
 
 // Manager for GUI events.
-class GuiEventManager
+class GuiEventManager :
+		public boost::noncopyable
 {
 public:
 	// Processes GUI events by notifying subscribed observers. This should be
