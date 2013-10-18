@@ -7,9 +7,10 @@
 class GuiEventObserver;
 class DirectGuiEventObserver;
 
+
 #include <SFML/Window/Event.hpp>
 
-#include "../lib/boost/noncopyable.hpp"
+#include <boost/noncopyable.hpp>
 
 #include <vector>
 

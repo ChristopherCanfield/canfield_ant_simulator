@@ -9,7 +9,7 @@
 
 // A button that starts the simulation.
 class StartSimButton :
-	public Button
+		public Button
 {
 public:
 	StartSimButton(GuiEventManager& eventManager, Simulator& simulator);

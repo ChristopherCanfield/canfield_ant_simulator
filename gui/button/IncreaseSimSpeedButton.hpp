@@ -10,7 +10,7 @@
 
 // A button that increases the speed of the simulation.
 class IncreaseSimSpeedButton :
-	public Button
+		public Button
 {
 public:
 	IncreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator);

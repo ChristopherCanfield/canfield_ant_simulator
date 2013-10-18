@@ -10,7 +10,7 @@
 
 // A button that stops the simulation.
 class StopSimButton :
-	public Button
+		public Button
 {
 public:
 	StopSimButton(GuiEventManager& eventManager, Simulator& simulator);
