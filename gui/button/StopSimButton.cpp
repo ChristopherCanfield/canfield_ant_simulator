@@ -5,11 +5,19 @@
 // StopSimButton.hpp
 
 
-StopSimButton::StopSimButton(void)
+StopSimButton::StopSimButton(GuiEventManager& eventManager, Simulator& simulator) :
+		Button(eventManager), simulator(simulator)
+{
+	// TODO (2013-10-18): set button images.
+}
+
+
+StopSimButton::~StopSimButton()
 {
 }
 
 
-StopSimButton::~StopSimButton(void)
+void StopSimButton::onGuiEvent(const sf::Event& e)
 {
+	simulator.stop();
 }

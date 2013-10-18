@@ -5,11 +5,18 @@
 // StartSimButton.hpp
 
 
-StartSimButton::StartSimButton()
-{
-}
 
+StartSimButton::StartSimButton(GuiEventManager& eventManager, Simulator& simulator) :
+	Button(eventManager), simulator(simulator)
+{
+	// TODO (2013-10-18): set button images.
+}
 
 StartSimButton::~StartSimButton()
 {
+}
+
+void StartSimButton::onGuiEvent(const sf::Event& e)
+{
+	simulator.start();
 }

@@ -22,12 +22,15 @@ class Button :
 	public GuiEventObserver
 {
 public:
-	Button(GuiEventManager& manager, std::unique_ptr<sf::Sprite> defaultImage);
+	Button(GuiEventManager& manager);
 	virtual ~Button();
 
 	virtual void onGuiEvent(const sf::Event& e) override = 0;
 
 protected:
+	// Sets the default image for the button.
+	void setDefaultImage(std::unique_ptr<sf::Sprite> image);
+
 	// Sets the image used when the button is clicked. If no image is set, the 
 	// the default image will be used.
 	void setOnClickImage(std::unique_ptr<sf::Sprite> image);

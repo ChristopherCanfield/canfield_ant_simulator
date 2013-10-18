@@ -9,12 +9,13 @@
 #include <SFML/System/Vector2.hpp>
 
 
-
+// Base class for GUI widgets.
 class GuiWidget :
 	public sf::Drawable
 {
 public:
-	~GuiWidget() = 0;
+	GuiWidget() {}
+	virtual ~GuiWidget() {}
 	void setPosition(float x, float y);
 	void setPosition(int x, int y);
 	const sf::Vector2f& getPosition() const;

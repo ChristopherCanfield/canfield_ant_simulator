@@ -5,11 +5,17 @@
 // DecreaseSimSpeedButton.hpp
 
 
-DecreaseSimSpeedButton::DecreaseSimSpeedButton(void)
+DecreaseSimSpeedButton::DecreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator) :
+	Button(eventManager), simulator(simulator)
+{
+	// TODO (2013-10-18): set button images.
+}
+
+DecreaseSimSpeedButton::~DecreaseSimSpeedButton()
 {
 }
 
-
-DecreaseSimSpeedButton::~DecreaseSimSpeedButton(void)
+void DecreaseSimSpeedButton::onGuiEvent(const sf::Event& e)
 {
+	simulator.decreaseSpeed();
 }

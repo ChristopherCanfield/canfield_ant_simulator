@@ -5,11 +5,20 @@
 // DecreaseSimSpeedButton.hpp
 
 
+#include "../Button.hpp"
+#include "../../sim/Simulator.hpp"
 
-class DecreaseSimSpeedButton
+// A button that decreases the speed of the simulation.
+class DecreaseSimSpeedButton :
+	public Button
 {
 public:
-	DecreaseSimSpeedButton(void);
-	~DecreaseSimSpeedButton(void);
+	DecreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator);
+	~DecreaseSimSpeedButton();
+
+	virtual void onGuiEvent(const sf::Event& e) override;
+
+private:
+	Simulator& simulator;
 };
 

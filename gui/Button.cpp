@@ -4,8 +4,8 @@
 // October 2013
 // Button.cpp
 
-Button::Button(GuiEventManager& manager, std::unique_ptr<sf::Sprite> defaultImage) :
-	guiManager(manager), defaultImage(std::move(defaultImage))
+Button::Button(GuiEventManager& manager) :
+	guiManager(manager)
 {
 	guiManager.addDirectClickListener(*this);
 	guiManager.addMouseMoveListener(*this);
@@ -17,6 +17,13 @@ Button::~Button()
 {
 	guiManager.removeDirectClickListener(*this);
 	guiManager.removeMouseMoveListener(*this);
+	guiManager.removeDirectMouseMoveListener(*this);
+}
+
+void Button::setDefaultImage(std::unique_ptr<sf::Sprite> image)
+{
+	defaultImage = std::move(image);
+	currentImage = defaultImage.get();
 }
 
 // Sets the image used when the button is clicked. If no image is set, the 

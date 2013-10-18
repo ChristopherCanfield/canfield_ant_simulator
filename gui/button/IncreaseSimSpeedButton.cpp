@@ -5,11 +5,18 @@
 // IncreaseSimSpeedButton.hpp
 
 
-IncreaseSimSpeedButton::IncreaseSimSpeedButton(void)
+
+IncreaseSimSpeedButton::IncreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator) :
+	Button(eventManager), simulator(simulator)
+{
+	// TODO (2013-10-18): set button images.
+}
+
+IncreaseSimSpeedButton::~IncreaseSimSpeedButton()
 {
 }
 
-
-IncreaseSimSpeedButton::~IncreaseSimSpeedButton(void)
+void IncreaseSimSpeedButton::onGuiEvent(const sf::Event& e)
 {
+	simulator.increaseSpeed();
 }
