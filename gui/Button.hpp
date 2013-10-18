@@ -7,6 +7,7 @@
 #include "GuiEventManager.hpp"
 #include "GuiEventObserver.hpp"
 #include "DirectGuiEventObserver.hpp"
+#include "GuiWidget.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -16,7 +17,9 @@
 
 // Abstract class for a clickable button.
 class Button : 
-	public DirectGuiEventObserver, public GuiEventObserver
+	public GuiWidget,
+	public DirectGuiEventObserver, 
+	public GuiEventObserver
 {
 public:
 	Button(GuiEventManager& manager, std::unique_ptr<sf::Sprite> defaultImage);
@@ -32,6 +35,9 @@ protected:
 	// Sets the image used when the mouse hovers over the button. If no image is
 	// set, the default image will be used.
 	void setOnHoverImage(std::unique_ptr<sf::Sprite> image);
+
+	// Draws the button.
+	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 private:
 	// Reference to the GuiEventManager.

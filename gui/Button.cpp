@@ -42,3 +42,9 @@ void Button::setOnHoverImage(std::unique_ptr<sf::Sprite> image)
 
 	onHoverImage = std::move(image);
 }
+
+
+void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	target.draw(*currentImage, states);
+}
