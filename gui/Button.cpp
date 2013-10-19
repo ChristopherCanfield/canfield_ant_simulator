@@ -36,18 +36,31 @@ sf::FloatRect Button::getBoundingBox() const
 
 void Button::onDirectGuiEvent(const sf::Event& e)
 {
-	if (e.type == sf::Event::MouseMoved && onHoverImage != nullptr && 
-			currentImage != onHoverImage.get())
+	// Did the mouse click on the button?
+	if (e.type == sf::Event::MouseButtonReleased)
+	{
+		if (onClickImage != nullptr && onClickImage.get() != currentImage)
+		{
+			currentImage = onClickImage.get();
+			clickTimer.restart();
+		}
+	}
+	// Is the mouse hovering over the button?
+	else if (e.type == sf::Event::MouseMoved && onHoverImage != nullptr && 
+			currentImage != onHoverImage.get() && 
+			// Don't replace the onClickImage with the onHoverImage.
+			currentImage != onClickImage.get())
 	{
 		currentImage = onHoverImage.get();
+		hoverTimer.restart();
 	}
 }
 
 void Button::onGuiEvent(const sf::Event& e)
 {
-	if (e.tye == sf::Event::MouseMoved && hoverExpired())
+	if (e.type == sf::Event::MouseMoved && hoverTimerExpired())
 	{
-
+		currentImage = defaultImage.get();
 	}
 }
 
@@ -93,14 +106,20 @@ void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 //////// Private Methods ////////
 
-bool Button::hoverExpired() const
+bool Button::hoverTimerExpired() const
 {
-	// TODO: complete this.
-	//		- add an onHoverTime timer
-	//		- alternatively, register with the GuiEventManager when a hover event has
-	//			occurred, and then have the GuiEventManager call back when the hover timer
-	//			has expired.
+	const sf::Time max_hover_image_time = sf::milliseconds(500);
+
 	return (currentImage != nullptr &&
-			currentImage != onHoverImage.get() &&
-			onHoverTime
+			currentImage == onHoverImage.get() &&
+			clickTimer.getElapsedTime().asMilliseconds() > max_hover_image_time.asMilliseconds());
+}
+
+bool Button::clickTimerExpired() const
+{
+	const sf::Time max_click_image_time = sf::milliseconds(500);
+
+	return (currentImage != nullptr &&
+			currentImage == onClickImage.get() &&
+			clickTimer.getElapsedTime().asMilliseconds() > max_click_image_time.asMilliseconds());
 }

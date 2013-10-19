@@ -17,11 +17,14 @@ namespace cdc
 		Simulator();
 		~Simulator();
 
-		// Starts the simulation.
+		// Starts (unpauses) the simulation.
 		void start();
 
-		// Stops the simulation.
+		// Stops (pauses) the simulation.
 		void stop();
+
+		// Restarts (resets) the simulation.
+		void restart();
 
 		// Increases the speed of the simulation.
 		void increaseSpeed();

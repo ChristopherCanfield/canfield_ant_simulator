@@ -19,7 +19,11 @@ StartSimButton::~StartSimButton()
 {
 }
 
-void StartSimButton::onGuiEvent(const sf::Event& e)
+void StartSimButton::onDirectGuiEvent(const sf::Event& e)
 {
-	simulator.start();
+	Button::onDirectGuiEvent(e);
+	if (e.type == sf::Event::MouseButtonReleased)
+	{
+		simulator.start();
+	}
 }

@@ -19,7 +19,11 @@ IncreaseSimSpeedButton::~IncreaseSimSpeedButton()
 {
 }
 
-void IncreaseSimSpeedButton::onGuiEvent(const sf::Event& e)
+void IncreaseSimSpeedButton::onDirectGuiEvent(const sf::Event& e)
 {
-	simulator.increaseSpeed();
+	Button::onDirectGuiEvent(e);
+	if (e.type == sf::Event::MouseButtonReleased)
+	{
+		simulator.increaseSpeed();
+	}
 }

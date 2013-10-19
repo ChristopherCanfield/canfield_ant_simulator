@@ -21,13 +21,11 @@ StopSimButton::~StopSimButton()
 }
 
 
-void StopSimButton::onGuiEvent(const sf::Event& e)
-{
-	simulator.stop();
-}
-
-
 void StopSimButton::onDirectGuiEvent(const sf::Event& e)
 {
-
+	Button::onDirectGuiEvent(e);
+	if (e.type == sf::Event::MouseButtonReleased)
+	{
+		simulator.stop();
+	}
 }

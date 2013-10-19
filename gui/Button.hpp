@@ -10,7 +10,7 @@
 #include "GuiWidget.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/System/Time.hpp>
+#include <SFML/System.hpp>
 
 #include <vector>
 #include <memory>
@@ -64,7 +64,12 @@ namespace cdc
 		// The image used when the cursor hovers over the button.
 		std::unique_ptr<sf::Sprite> onHoverImage;
 
+		sf::Clock hoverTimer;
+		sf::Clock clickTimer;
+
 		// Whether the timer for the onHoverImage has has expired or not.
-		bool hoverExpired() const;
+		bool hoverTimerExpired() const;
+		// Whether the timer for the onClickImage has expired or not.
+		bool clickTimerExpired() const;
 	};
 }
