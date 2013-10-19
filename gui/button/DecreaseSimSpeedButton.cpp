@@ -21,5 +21,20 @@ DecreaseSimSpeedButton::~DecreaseSimSpeedButton()
 
 void DecreaseSimSpeedButton::onGuiEvent(const sf::Event& e)
 {
-	simulator.decreaseSpeed();
+	if (e.type == sf::Event::MouseMoved)
+	{
+		// TODO: do something.
+	}
+}
+
+void DecreaseSimSpeedButton::onDirectGuiEvent(const sf::Event& e)
+{
+	if (e.type == sf::Event::MouseButtonReleased)
+	{
+		simulator.decreaseSpeed();
+	}
+	else
+	{
+		Button::onDirectGuiEvent(e);
+	}
 }

@@ -10,9 +10,11 @@
 #include "GuiWidget.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Time.hpp>
 
 #include <vector>
 #include <memory>
+#include <stdexcept>
 
 
 namespace cdc 
@@ -27,7 +29,11 @@ namespace cdc
 		Button(GuiEventManager& manager);
 		virtual ~Button();
 
-		virtual void onGuiEvent(const sf::Event& e) override = 0;
+		virtual sf::FloatRect getBoundingBox() const override;
+
+		virtual void onGuiEvent(const sf::Event& e) override;
+
+		virtual void onDirectGuiEvent(const sf::Event& e) override;
 
 	protected:
 		// Sets the default image for the button.
@@ -57,5 +63,8 @@ namespace cdc
 		std::unique_ptr<sf::Sprite> onClickImage;
 		// The image used when the cursor hovers over the button.
 		std::unique_ptr<sf::Sprite> onHoverImage;
+
+		// Whether the timer for the onHoverImage has has expired or not.
+		bool hoverExpired() const;
 	};
 }

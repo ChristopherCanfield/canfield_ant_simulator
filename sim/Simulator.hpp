@@ -4,6 +4,8 @@
 // October 2013
 // Simulator.hpp
 
+#include "../util/Typedefs.hpp"
+
 #include <boost/noncopyable.hpp>
 
 namespace cdc 
@@ -29,6 +31,7 @@ namespace cdc
 
 	private:
 		bool started;
+		uint speed;
 	};
 }
 

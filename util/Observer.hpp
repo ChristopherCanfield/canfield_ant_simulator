@@ -11,6 +11,7 @@ namespace cdc
 	class Observer
 	{
 	public:
+		// Called when the observable is updated.
 		virtual void update(T& observable) = 0;
 	};
 }

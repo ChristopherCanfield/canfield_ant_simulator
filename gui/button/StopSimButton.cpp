@@ -25,3 +25,9 @@ void StopSimButton::onGuiEvent(const sf::Event& e)
 {
 	simulator.stop();
 }
+
+
+void StopSimButton::onDirectGuiEvent(const sf::Event& e)
+{
+
+}

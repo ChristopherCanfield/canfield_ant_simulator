@@ -19,6 +19,7 @@ namespace cdc
 		~DecreaseSimSpeedButton();
 
 		virtual void onGuiEvent(const sf::Event& e) override;
+		virtual void onDirectGuiEvent(const sf::Event& e) override;
 
 	private:
 		Simulator& simulator;

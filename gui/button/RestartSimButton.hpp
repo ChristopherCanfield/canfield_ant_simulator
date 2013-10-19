@@ -2,20 +2,20 @@
 
 // Christopher D. Canfield
 // October 2013
-// StopSimButton.hpp
+// RestartSimButton.hpp
 
 #include "../Button.hpp"
 #include "../../sim/Simulator.hpp"
 
 namespace cdc 
 {
-	// A button that stops the simulation.
-	class StopSimButton :
+	// A button that starts the simulation.
+	class RestartSimButton :
 			public Button
 	{
 	public:
-		StopSimButton(GuiEventManager& eventManager, Simulator& simulator);
-		~StopSimButton();
+		RestartSimButton(GuiEventManager& eventManager, Simulator& simulator);
+		~RestartSimButton();
 
 		virtual void onGuiEvent(const sf::Event& e) override;
 		virtual void onDirectGuiEvent(const sf::Event& e) override;

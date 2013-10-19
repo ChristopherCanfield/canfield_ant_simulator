@@ -17,13 +17,42 @@ Button::Button(GuiEventManager& manager) :
 	guiManager.addDirectMouseMoveListener(*this);
 }
 
-
 Button::~Button()
 {
 	guiManager.removeDirectClickListener(*this);
 	guiManager.removeMouseMoveListener(*this);
 	guiManager.removeDirectMouseMoveListener(*this);
 }
+
+sf::FloatRect Button::getBoundingBox() const
+{
+	// TODO: put a debug assertion here to ensure that the current image is not null.
+
+	if (currentImage != nullptr)
+	{
+		return currentImage->getGlobalBounds();
+	}
+}
+
+void Button::onDirectGuiEvent(const sf::Event& e)
+{
+	if (e.type == sf::Event::MouseMoved && onHoverImage != nullptr && 
+			currentImage != onHoverImage.get())
+	{
+		currentImage = onHoverImage.get();
+	}
+}
+
+void Button::onGuiEvent(const sf::Event& e)
+{
+	if (e.tye == sf::Event::MouseMoved && hoverExpired())
+	{
+
+	}
+}
+
+
+//////// Protected Methods ////////
 
 void Button::setDefaultImage(std::unique_ptr<sf::Sprite> image)
 {
@@ -59,4 +88,19 @@ void Button::setOnHoverImage(std::unique_ptr<sf::Sprite> image)
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(*currentImage, states);
+}
+
+
+//////// Private Methods ////////
+
+bool Button::hoverExpired() const
+{
+	// TODO: complete this.
+	//		- add an onHoverTime timer
+	//		- alternatively, register with the GuiEventManager when a hover event has
+	//			occurred, and then have the GuiEventManager call back when the hover timer
+	//			has expired.
+	return (currentImage != nullptr &&
+			currentImage != onHoverImage.get() &&
+			onHoverTime
 }

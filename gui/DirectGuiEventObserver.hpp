@@ -16,7 +16,8 @@ namespace cdc
 	public:
 		// The bounding box around the DirectGuiEventObserver. Only events that fall within this
 		// bounding box will be returned.
-		virtual sf::IntRect getBoundingBox() = 0;
+		virtual sf::FloatRect getBoundingBox() const = 0;
+
 		// Called when a relevant gui event has been detected by the manager.
 		virtual void onDirectGuiEvent(const sf::Event& e) = 0;
 	};
