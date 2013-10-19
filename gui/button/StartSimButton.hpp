@@ -7,17 +7,19 @@
 #include "../Button.hpp"
 #include "../../sim/Simulator.hpp"
 
-// A button that starts the simulation.
-class StartSimButton :
-		public Button
+namespace cdc 
 {
-public:
-	StartSimButton(GuiEventManager& eventManager, Simulator& simulator);
-	~StartSimButton();
+	// A button that starts the simulation.
+	class StartSimButton :
+			public Button
+	{
+	public:
+		StartSimButton(GuiEventManager& eventManager, Simulator& simulator);
+		~StartSimButton();
 
-	virtual void onGuiEvent(const sf::Event& e) override;
+		virtual void onGuiEvent(const sf::Event& e) override;
 
-private:
-	Simulator& simulator;
-};
-
+	private:
+		Simulator& simulator;
+	};
+}

@@ -4,6 +4,9 @@
 // October 2013
 // StartSimButton.hpp
 
+using cdc::StartSimButton;
+using cdc::GuiEventManager;
+using cdc::Simulator;
 
 
 StartSimButton::StartSimButton(GuiEventManager& eventManager, Simulator& simulator) :

@@ -4,6 +4,8 @@
 // October 2013
 // GuiWidget.cpp
 
+using cdc::GuiWidget;
+
 
 void GuiWidget::setPosition(float x, float y)
 {

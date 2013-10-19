@@ -10,39 +10,43 @@
 
 #include <vector>
 
-// A node in a graph.
-class Node
+
+namespace cdc 
 {
-public:
-	Node(GridLocation location, int pixelX, int pixelY);
+	// A node in a graph.
+	class Node
+	{
+	public:
+		Node(GridLocation location, int pixelX, int pixelY);
 	
-	// Adds an edge.
-	// - edge: the Edge to add.
-	// - addToConnectedNode: whether to add an Edge in the reverse direction to the 
-	//   newly connected node as well. If true, the same cost will be used for both
-	//   directions.
-	Node& addEdge(Edge edge, bool addToConnectedNode = true);
+		// Adds an edge.
+		// - edge: the Edge to add.
+		// - addToConnectedNode: whether to add an Edge in the reverse direction to the 
+		//   newly connected node as well. If true, the same cost will be used for both
+		//   directions.
+		Node& addEdge(Edge edge, bool addToConnectedNode = true);
 
-	// Returns a reference to the edge list.
-	std::vector<Edge>& getEdgeList();
+		// Returns a reference to the edge list.
+		std::vector<Edge>& getEdgeList();
 
-	// Returns a reference to an edge.
-	// - index: the edge's index in the Node's edge list.
-	Edge& getEdge(int index);
+		// Returns a reference to an edge.
+		// - index: the edge's index in the Node's edge list.
+		Edge& getEdge(int index);
 
-	// Gets the x location of the Node, in pixels.
-	int getPixelX() const;
-	// Gets the y location of the Node, in pixels.
-	int getPixelY() const;
+		// Gets the x location of the Node, in pixels.
+		int getPixelX() const;
+		// Gets the y location of the Node, in pixels.
+		int getPixelY() const;
 
-	uint getRow() const;
-	uint getColumn() const;
+		uint getRow() const;
+		uint getColumn() const;
 
-private:
-	std::vector<Edge> edges;
+	private:
+		std::vector<Edge> edges;
 
-	int pixelX;
-	int pixelY;
+		int pixelX;
+		int pixelY;
 
-	GridLocation location;
-};
+		GridLocation location;
+	};
+}

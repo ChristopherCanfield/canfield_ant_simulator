@@ -4,6 +4,10 @@
 // October 2013
 // StopSimButton.hpp
 
+using cdc::StopSimButton;
+using cdc::GuiEventManager;
+using cdc::Simulator;
+
 
 StopSimButton::StopSimButton(GuiEventManager& eventManager, Simulator& simulator) :
 		Button(eventManager), simulator(simulator)

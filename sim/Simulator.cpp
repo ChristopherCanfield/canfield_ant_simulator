@@ -5,6 +5,8 @@
 // October 2013
 // Simulator.hpp
 
+using cdc::Simulator;
+
 
 Simulator::Simulator()
 {

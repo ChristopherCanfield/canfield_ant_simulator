@@ -4,6 +4,7 @@
 #include "../sim/Simulator.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace cdc;
 
 namespace tests
 {

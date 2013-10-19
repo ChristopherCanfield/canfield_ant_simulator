@@ -4,6 +4,11 @@
 // October 2013
 // Button.cpp
 
+using cdc::Button;
+using cdc::GuiEventManager;
+
+
+
 Button::Button(GuiEventManager& manager) :
 	guiManager(manager)
 {

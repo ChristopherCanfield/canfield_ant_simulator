@@ -4,6 +4,7 @@
 // October 2013
 // GridLocation.cpp
 
+using cdc::GridLocation;
 
 bool GridLocation::operator==(const GridLocation& rhs) const 
 {

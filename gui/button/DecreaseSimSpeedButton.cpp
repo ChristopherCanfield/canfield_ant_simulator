@@ -4,6 +4,10 @@
 // October 2013
 // DecreaseSimSpeedButton.hpp
 
+using cdc::DecreaseSimSpeedButton;
+using cdc::GuiEventManager;
+using cdc::Simulator;
+
 
 DecreaseSimSpeedButton::DecreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator) :
 	Button(eventManager), simulator(simulator)

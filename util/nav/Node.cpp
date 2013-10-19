@@ -4,6 +4,10 @@
 // October 2013
 // Node.cpp
 
+using cdc::Node;
+using cdc::Edge;
+using cdc::GridLocation;
+
 
 Node::Node(GridLocation location, int pixelX, int pixelY) :
 	location(location), pixelX(pixelX), pixelY(pixelY)

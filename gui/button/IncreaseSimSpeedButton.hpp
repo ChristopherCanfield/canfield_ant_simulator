@@ -8,17 +8,19 @@
 #include "../Button.hpp"
 #include "../../sim/Simulator.hpp"
 
-// A button that increases the speed of the simulation.
-class IncreaseSimSpeedButton :
-		public Button
+namespace cdc 
 {
-public:
-	IncreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator);
-	~IncreaseSimSpeedButton();
+	// A button that increases the speed of the simulation.
+	class IncreaseSimSpeedButton :
+			public Button
+	{
+	public:
+		IncreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator);
+		~IncreaseSimSpeedButton();
 
-	virtual void onGuiEvent(const sf::Event& e) override;
+		virtual void onGuiEvent(const sf::Event& e) override;
 
-private:
-	Simulator& simulator;
-};
-
+	private:
+		Simulator& simulator;
+	};
+}

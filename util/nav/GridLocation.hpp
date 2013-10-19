@@ -6,21 +6,23 @@
 
 #include "../Typedefs.hpp"
 
-
-class GridLocation
+namespace cdc 
 {
-public:
-	GridLocation(uint row, uint col) :
-		row(row), column(col) {}
+	class GridLocation
+	{
+	public:
+		GridLocation(uint row, uint col) :
+			row(row), column(col) {}
 
-	uint getRow() const { return row; }
+		uint getRow() const { return row; }
 
-	uint getColumn() const { return column; }
+		uint getColumn() const { return column; }
 
-	bool operator==(const GridLocation &other) const;
-	bool operator!=(const GridLocation &other) const;
+		bool operator==(const GridLocation &other) const;
+		bool operator!=(const GridLocation &other) const;
 
-private:
-	uint row;
-	uint column;
-};
+	private:
+		uint row;
+		uint column;
+	};
+}

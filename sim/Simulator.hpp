@@ -6,29 +6,29 @@
 
 #include <boost/noncopyable.hpp>
 
-
-class Simulator :
-		public boost::noncopyable
+namespace cdc 
 {
-public:
-	Simulator();
-	~Simulator();
+	class Simulator :
+			public boost::noncopyable
+	{
+	public:
+		Simulator();
+		~Simulator();
 
-	// Starts the simulation.
-	void start();
+		// Starts the simulation.
+		void start();
 
-	// Stops the simulation.
-	void stop();
+		// Stops the simulation.
+		void stop();
 
-	// Increases the speed of the simulation.
-	void increaseSpeed();
+		// Increases the speed of the simulation.
+		void increaseSpeed();
 
-	// Decreases the speed of the simulation.
-	void decreaseSpeed();
+		// Decreases the speed of the simulation.
+		void decreaseSpeed();
 
-private:
-	bool started;
-
-
-};
+	private:
+		bool started;
+	};
+}
 

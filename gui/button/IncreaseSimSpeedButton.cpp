@@ -4,6 +4,9 @@
 // October 2013
 // IncreaseSimSpeedButton.hpp
 
+using cdc::IncreaseSimSpeedButton;
+using cdc::GuiEventManager;
+using cdc::Simulator;
 
 
 IncreaseSimSpeedButton::IncreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator) :

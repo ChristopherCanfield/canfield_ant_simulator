@@ -7,18 +7,19 @@
 #include "../Button.hpp"
 #include "../../sim/Simulator.hpp"
 
-
-// A button that stops the simulation.
-class StopSimButton :
-		public Button
+namespace cdc 
 {
-public:
-	StopSimButton(GuiEventManager& eventManager, Simulator& simulator);
-	~StopSimButton();
+	// A button that stops the simulation.
+	class StopSimButton :
+			public Button
+	{
+	public:
+		StopSimButton(GuiEventManager& eventManager, Simulator& simulator);
+		~StopSimButton();
 
-	virtual void onGuiEvent(const sf::Event& e) override;
+		virtual void onGuiEvent(const sf::Event& e) override;
 
-private:
-	Simulator& simulator;
-};
-
+	private:
+		Simulator& simulator;
+	};
+}

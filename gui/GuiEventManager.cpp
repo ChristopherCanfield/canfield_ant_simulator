@@ -7,6 +7,10 @@
 // GuiEventManager.cpp
 
 
+using cdc::GuiEventManager;
+using cdc::DirectGuiEventObserver;
+using cdc::GuiEventObserver;
+
 // Passes the event to the GuiEventObservers in the referenced vector.
 void notifyGuiEventObservers(const std::vector<GuiEventObserver*>& observers, const sf::Event& e);
 // Passes the event to the observers in the referenced vector.

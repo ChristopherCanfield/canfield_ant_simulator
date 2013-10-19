@@ -1,6 +1,9 @@
 #include "Edge.hpp"
 #include "Node.hpp"
 
+using cdc::Edge;
+using cdc::Node;
+
 
 Edge::Edge() :
 	node(nullptr), cost(999999)

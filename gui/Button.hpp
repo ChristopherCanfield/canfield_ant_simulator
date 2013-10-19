@@ -14,45 +14,48 @@
 #include <vector>
 #include <memory>
 
-// Abstract class for a clickable button.
-class Button : 
-		public GuiWidget,
-		public DirectGuiEventObserver, 
-		public GuiEventObserver
+
+namespace cdc 
 {
-public:
-	Button(GuiEventManager& manager);
-	virtual ~Button();
+	// Abstract class for a clickable button.
+	class Button : 
+			public GuiWidget,
+			public DirectGuiEventObserver, 
+			public GuiEventObserver
+	{
+	public:
+		Button(GuiEventManager& manager);
+		virtual ~Button();
 
-	virtual void onGuiEvent(const sf::Event& e) override = 0;
+		virtual void onGuiEvent(const sf::Event& e) override = 0;
 
-protected:
-	// Sets the default image for the button.
-	void setDefaultImage(std::unique_ptr<sf::Sprite> image);
+	protected:
+		// Sets the default image for the button.
+		void setDefaultImage(std::unique_ptr<sf::Sprite> image);
 
-	// Sets the image used when the button is clicked. If no image is set, the 
-	// the default image will be used.
-	void setOnClickImage(std::unique_ptr<sf::Sprite> image);
+		// Sets the image used when the button is clicked. If no image is set, the 
+		// the default image will be used.
+		void setOnClickImage(std::unique_ptr<sf::Sprite> image);
 	
-	// Sets the image used when the mouse hovers over the button. If no image is
-	// set, the default image will be used.
-	void setOnHoverImage(std::unique_ptr<sf::Sprite> image);
+		// Sets the image used when the mouse hovers over the button. If no image is
+		// set, the default image will be used.
+		void setOnHoverImage(std::unique_ptr<sf::Sprite> image);
 
-	// Draws the button.
-	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		// Draws the button.
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-private:
-	// Reference to the GuiEventManager.
-	GuiEventManager& guiManager;
+	private:
+		// Reference to the GuiEventManager.
+		GuiEventManager& guiManager;
 
-	// Pointer to the button's current image.
-	sf::Sprite* currentImage;
+		// Pointer to the button's current image.
+		sf::Sprite* currentImage;
 	
-	// The button's default image.
-	std::unique_ptr<sf::Sprite> defaultImage;
-	// The image used when the button is clicked.
-	std::unique_ptr<sf::Sprite> onClickImage;
-	// The image used when the cursor hovers over the button.
-	std::unique_ptr<sf::Sprite> onHoverImage;
-};
-
+		// The button's default image.
+		std::unique_ptr<sf::Sprite> defaultImage;
+		// The image used when the button is clicked.
+		std::unique_ptr<sf::Sprite> onClickImage;
+		// The image used when the cursor hovers over the button.
+		std::unique_ptr<sf::Sprite> onHoverImage;
+	};
+}

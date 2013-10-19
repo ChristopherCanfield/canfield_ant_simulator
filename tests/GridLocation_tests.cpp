@@ -4,6 +4,7 @@
 #include "../util/nav/GridLocation.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace cdc;
 
 namespace tests
 {
