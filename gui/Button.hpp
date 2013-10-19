@@ -14,7 +14,6 @@
 #include <vector>
 #include <memory>
 
-
 // Abstract class for a clickable button.
 class Button : 
 		public GuiWidget,
