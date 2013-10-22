@@ -1,36 +1,17 @@
 #include <SFML/Graphics.hpp>
 
-#include "gui/GuiEventManager.hpp"
+#include "app/App.hpp"
+#include "app/GuiTestApp.hpp"
+#include "app/AppRunner.hpp"
+
+
 
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
-
-	cdc::GuiEventManager eventManager;
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				window.close();
-			}
-			else
-			{
-				eventManager.update(event);
-			}
-
-		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
-
+	GuiTestApp app;
+	AppRunner runner;
+	runner.execute(app);
+	
 	return 0;
 }
