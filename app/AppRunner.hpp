@@ -3,12 +3,16 @@
 #include "App.hpp"
 
 
-class AppRunner
+namespace cdc 
 {
-public:
-	AppRunner() {}
-	~AppRunner() {}
 
-	void execute(App& app);
-};
+	class AppRunner
+	{
+	public:
+		AppRunner() {}
+		~AppRunner() {}
 
+		void execute(App& app);
+	};
+
+}

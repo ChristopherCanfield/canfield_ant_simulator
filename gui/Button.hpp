@@ -8,8 +8,11 @@
 #include "GuiEventObserver.hpp"
 #include "DirectGuiEventObserver.hpp"
 #include "GuiWidget.hpp"
+#include "../util/Observable.hpp"
+#include "../util/ObservableVector2.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/System.hpp>
 
 #include <vector>
@@ -23,7 +26,8 @@ namespace cdc
 	class Button : 
 			public GuiWidget,
 			public DirectGuiEventObserver, 
-			public GuiEventObserver
+			public GuiEventObserver,
+			public Observer<sf::Vector2f>
 	{
 	public:
 		Button(GuiEventManager& manager);
@@ -34,6 +38,8 @@ namespace cdc
 		virtual void onGuiEvent(const sf::Event& e) override;
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
+
+		virtual void update(sf::Vector2f& observable) override;
 
 	protected:
 		// Sets the default image for the button.
@@ -49,6 +55,10 @@ namespace cdc
 
 		// Draws the button.
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+		sf::Texture defaultTexture;
+		sf::Texture onClickTexture;
+		sf::Texture onHoverTexture;
 
 	private:
 		// Reference to the GuiEventManager.

@@ -12,7 +12,16 @@ using cdc::Simulator;
 IncreaseSimSpeedButton::IncreaseSimSpeedButton(GuiEventManager& eventManager, Simulator& simulator) :
 	Button(eventManager), simulator(simulator)
 {
-	// TODO (2013-10-18): set button images.
+	using namespace std;
+	using namespace sf;
+	
+	defaultTexture.loadFromFile("res/up_button_temp.png");
+	onClickTexture.loadFromFile("res/up_button_temp_click.png");
+	onHoverTexture.loadFromFile("res/up_button_temp_hover.png");
+
+	setDefaultImage(unique_ptr<Sprite>(new Sprite(defaultTexture)));
+	setOnClickImage(unique_ptr<Sprite>(new Sprite(onClickTexture)));
+	setOnHoverImage(unique_ptr<Sprite>(new Sprite(onHoverTexture)));
 }
 
 IncreaseSimSpeedButton::~IncreaseSimSpeedButton()

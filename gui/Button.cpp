@@ -6,6 +6,7 @@
 
 using cdc::Button;
 using cdc::GuiEventManager;
+using cdc::ObservableVector2;
 
 
 
@@ -15,6 +16,8 @@ Button::Button(GuiEventManager& manager) :
 	guiManager.addDirectClickListener(*this);
 	guiManager.addMouseMoveListener(*this);
 	guiManager.addDirectMouseMoveListener(*this);
+
+	position.addObserver(*this);
 }
 
 Button::~Button()
@@ -122,4 +125,17 @@ bool Button::clickTimerExpired() const
 	return (currentImage != nullptr &&
 			currentImage == onClickImage.get() &&
 			clickTimer.getElapsedTime().asMilliseconds() > max_click_image_time.asMilliseconds());
+}
+
+void Button::update(sf::Vector2f& observable)
+{
+	defaultImage->setPosition(observable);
+	if (onClickImage != nullptr)
+	{
+		onClickImage->setPosition(observable);
+	}
+	if (onHoverImage != nullptr)
+	{
+		onHoverImage->setPosition(observable);
+	}
 }

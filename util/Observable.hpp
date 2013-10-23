@@ -16,31 +16,48 @@ namespace cdc
 	{
 	public:
 		// Adds an observer.
-		void addObserver(Observer<T>& o);
+		void addObserver(cdc::Observer<T>& o);
 	
 		// Removes an observer.
-		void removeObserver(const Observer<T>& o);
+		void removeObserver(const cdc::Observer<T>& o);
 
 	protected:
-		std::vector<Observer<T>*> observers;
+		std::vector<cdc::Observer<T>*> observers;
+
+		void notifyObservers(T& notification);
 	};
 
 
 	template <class T>
-	void Observable<T>::addObserver(Observer<T>& o)
+	void Observable<T>::addObserver(cdc::Observer<T>& o)
 	{
 		observers.push_back(&o);
 	}
 
 	template <class T>
-	void Observable<T>::removeObserver(const Observer<T>& o)
+	void Observable<T>::removeObserver(const cdc::Observer<T>& o)
 	{
 		for (auto observer : observers)
 		{
-			if (observer == &o)
+			if (*observer == &o)
 			{
 				observers.erase(&o);
+				return;
 			}
 		}
+	}
+
+	template <class T>
+	void Observable<T>::notifyObservers(T& notification)
+	{
+		for (int i = 0; i < observers.size(); ++i)
+		{
+			observers[i]->update(notification);
+		}
+
+		//for (auto observer : observers)
+		//{
+		//	(*observer).update(*this);
+		//}
 	}
 }

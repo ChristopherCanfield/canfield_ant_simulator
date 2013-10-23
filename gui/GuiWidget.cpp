@@ -7,19 +7,22 @@
 using cdc::GuiWidget;
 
 
+GuiWidget::GuiWidget()
+{
+}
+
 void GuiWidget::setPosition(float x, float y)
 {
-	position.x = x;
-	position.y = y;
+	position.set(x, y);
 }
 
 void GuiWidget::setPosition(int x, int y)
 {
-	position.x = static_cast<float>(x);
-	position.y = static_cast<float>(y);
+	position.set(static_cast<float>(x), static_cast<float>(y));
 }
 
 const sf::Vector2f& GuiWidget::getPosition() const
 {
-	return position;
+	return position.get();
 }
+

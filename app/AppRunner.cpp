@@ -5,6 +5,10 @@
 #include <iomanip>
 
 
+using cdc::AppRunner;
+using cdc::App;
+
+
 void AppRunner::execute(App& app)
 {
 	try 

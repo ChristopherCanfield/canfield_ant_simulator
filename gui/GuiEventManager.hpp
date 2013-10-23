@@ -16,6 +16,7 @@ namespace cdc
 #include <boost/noncopyable.hpp>
 
 #include <vector>
+#include <list>
 
 
 namespace cdc 

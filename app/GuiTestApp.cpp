@@ -2,9 +2,18 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 
-GuiTestApp::GuiTestApp()
+using cdc::GuiTestApp;
+
+
+GuiTestApp::GuiTestApp() :
+	decreaseSpeedButton(eventManager, simulator),
+	increaseSpeedButton(eventManager, simulator),
+	restartButton(eventManager, simulator),
+	startButton(eventManager, simulator),
+	stopButton(eventManager, simulator)
 {
 }
 
@@ -19,7 +28,7 @@ void GuiTestApp::setup()
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(400, 400), "GUI Tests"));
 	window->setFramerateLimit(60);
 
-	// TODO: add gui elements for testing.
+	decreaseSpeedButton.setPosition(100, 100);
 }
 
 
@@ -45,7 +54,10 @@ bool GuiTestApp::run()
 
 	}
 
-	window->clear();
+	window->clear(sf::Color::White);
+
+	window->draw(decreaseSpeedButton);
+	
 	window->display();
 
 	return true;
