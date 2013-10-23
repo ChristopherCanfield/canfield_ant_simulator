@@ -1,5 +1,7 @@
 #include "Button.hpp"
 
+#include <iostream>
+
 // Christopher D. Canfield
 // October 2013
 // Button.cpp
@@ -7,6 +9,9 @@
 using cdc::Button;
 using cdc::GuiEventManager;
 using cdc::ObservableVector2;
+
+using std::cout;
+using std::endl;
 
 
 
@@ -46,6 +51,7 @@ void Button::onDirectGuiEvent(const sf::Event& e)
 		{
 			currentImage = onClickImage.get();
 			clickTimer.restart();
+			cout << "Button: onDirectGuiEvent: currentImage = onClickImage.get();" << endl;
 		}
 	}
 	// Is the mouse hovering over the button?
@@ -56,14 +62,20 @@ void Button::onDirectGuiEvent(const sf::Event& e)
 	{
 		currentImage = onHoverImage.get();
 		hoverTimer.restart();
+		cout << "Button: onDirectGuiEvent: currentImage = onHoverImage.get()" << endl;
 	}
 }
 
 void Button::onGuiEvent(const sf::Event& e)
 {
-	if (e.type == sf::Event::MouseMoved && hoverTimerExpired())
+	if (e.type == sf::Event::MouseMoved && currentImage != defaultImage.get())
 	{
-		currentImage = defaultImage.get();
+		if ((hoverTimerExpired() && currentImage == onHoverImage.get()) ||
+			(clickTimerExpired() && currentImage == onClickImage.get()))
+		{
+			currentImage = defaultImage.get();
+			cout << "Button: onGuiEvent: currentImage = defaultImage.get()" << endl;
+		}
 	}
 }
 
@@ -111,16 +123,16 @@ void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 bool Button::hoverTimerExpired() const
 {
-	const sf::Time max_hover_image_time = sf::milliseconds(500);
+	const sf::Time max_hover_image_time = sf::milliseconds(200);
 
 	return (currentImage != nullptr &&
 			currentImage == onHoverImage.get() &&
-			clickTimer.getElapsedTime().asMilliseconds() > max_hover_image_time.asMilliseconds());
+			hoverTimer.getElapsedTime().asMilliseconds() > max_hover_image_time.asMilliseconds());
 }
 
 bool Button::clickTimerExpired() const
 {
-	const sf::Time max_click_image_time = sf::milliseconds(500);
+	const sf::Time max_click_image_time = sf::milliseconds(300);
 
 	return (currentImage != nullptr &&
 			currentImage == onClickImage.get() &&

@@ -29,6 +29,7 @@ void GuiEventManager::update(const sf::Event& e)
 	}
 	else if (e.type == sf::Event::MouseMoved)
 	{
+		notifyDirectGuiEventObservers(directMouseMoveObservers, e);
 		notifyGuiEventObservers(mouseMoveObservers, e);
 	}
 	else if (e.type == sf::Event::KeyPressed)
@@ -124,12 +125,15 @@ void notifyGuiEventObservers(const std::vector<GuiEventObserver*>& observers, co
 
 void notifyDirectGuiEventObservers(const std::vector<DirectGuiEventObserver*>& observers, const sf::Event& e)
 {
+	int mouseX = (e.type == sf::Event::MouseMoved) ? e.mouseMove.x : e.mouseButton.x;
+	int mouseY = (e.type == sf::Event::MouseMoved) ? e.mouseMove.y : e.mouseButton.y;
+
 	for (auto observer : observers)
 	{
 		auto boundingBox = observer->getBoundingBox();
 		// Call the observer's onClick method if the click fell within the observer's
 		// bounding box.
-		if (boundingBox.contains(e.mouseButton.x, e.mouseButton.y))
+		if (boundingBox.contains(mouseX, mouseY))
 		{
 			observer->onDirectGuiEvent(e);
 		}

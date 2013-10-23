@@ -25,10 +25,14 @@ GuiTestApp::~GuiTestApp()
 
 void GuiTestApp::setup()
 {
-	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(400, 400), "GUI Tests"));
+	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
 	window->setFramerateLimit(60);
 
-	decreaseSpeedButton.setPosition(100, 100);
+	decreaseSpeedButton.setPosition(50, 50);
+	increaseSpeedButton.setPosition(150, 150);
+	startButton.setPosition(250, 250);
+	stopButton.setPosition(350, 350);
+	restartButton.setPosition(450, 450);
 }
 
 
@@ -57,6 +61,10 @@ bool GuiTestApp::run()
 	window->clear(sf::Color::White);
 
 	window->draw(decreaseSpeedButton);
+	window->draw(increaseSpeedButton);
+	window->draw(startButton);
+	window->draw(stopButton);
+	window->draw(restartButton);
 	
 	window->display();
 
