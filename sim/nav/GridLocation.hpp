@@ -4,7 +4,7 @@
 // October 2013
 // GridLocation.hpp
 
-#include "../Typedefs.hpp"
+#include "../util/Typedefs.hpp"
 
 namespace cdc 
 {

@@ -17,7 +17,7 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 Node& Node::addEdge(Edge edge, bool addToConnectedNode)
 {
 	edges.push_back(edge);
-	if (addToConnectedNode)
+	if (addToConnectedNode && edge.getNode() != nullptr)
 	{
 		edge.getNode()->addEdge(Edge(*this, edge.getCost()), false);
 	}

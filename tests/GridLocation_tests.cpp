@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "../util/nav/GridLocation.hpp"
+#include "../sim/nav/GridLocation.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;

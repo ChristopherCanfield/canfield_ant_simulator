@@ -6,7 +6,7 @@
 
 #include "Edge.hpp"
 #include "GridLocation.hpp"
-#include "../Typedefs.hpp"
+#include "../util/Typedefs.hpp"
 
 #include <vector>
 

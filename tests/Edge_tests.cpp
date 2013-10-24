@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "../util/nav/Edge.hpp"
-#include "../util/nav/Node.hpp"
+#include "../sim/nav/Edge.hpp"
+#include "../sim/nav/Node.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;

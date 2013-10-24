@@ -9,7 +9,7 @@ namespace cdc
 	class Node;
 }
 
-#include "../Typedefs.hpp"
+#include "../util/Typedefs.hpp"
 
 namespace cdc 
 {
@@ -18,10 +18,10 @@ namespace cdc
 	{
 	public:
 		Edge();
-		Edge(Node& node, uint cost);
+		Edge(cdc::Node& node, uint cost);
 
 		// Sets the attached node.
-		void set(Node& node, uint cost);
+		void set(cdc::Node& node, uint cost);
 
 		// Removes the connected node.
 		// TODO: remove this if it remains unused.
@@ -29,7 +29,7 @@ namespace cdc
 
 		// Returns the node that the edge is connected to, or nullptr if there
 		// is no connected node.
-		Node* getNode() const;
+		cdc::Node* getNode() const;
 
 		// Returns the cost of moving along the edge.
 		uint getCost() const;
@@ -40,7 +40,7 @@ namespace cdc
 
 	private:
 		// The connected node, or nullptr if no node is connected to the other edge.
-		Node* node;
+		cdc::Node* node;
 		// The cost of moving along the edge.
 		uint cost;
 	};
