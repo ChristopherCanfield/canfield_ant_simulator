@@ -15,6 +15,25 @@ GuiTestApp::GuiTestApp() :
 	startButton(eventManager, simulator),
 	stopButton(eventManager, simulator)
 {
+	nodes.push_back(Node(GridLocation(0, 0), 10, 10));
+	nodes.push_back(Node(GridLocation(0, 0), 40, 10));
+	nodes.push_back(Node(GridLocation(0, 0), 40, 40));
+	nodes.push_back(Node(GridLocation(0, 0), 10, 40));
+	nodes.push_back(Node(GridLocation(0, 0), 10, 80));
+
+	auto edge01 = std::make_shared<Edge>(nodes[0], nodes[1], 10);
+	auto edge12 = std::make_shared<Edge>(nodes[1], nodes[2], 10);
+	auto edge23 = std::make_shared<Edge>(nodes[2], nodes[3], 10);
+	auto edge30 = std::make_shared<Edge>(nodes[3], nodes[0], 10);
+	auto edge34 = std::make_shared<Edge>(nodes[3], nodes[4], 10);
+
+	nodes[0].addEdge(edge01).addEdge(edge30);
+	nodes[1].addEdge(edge01).addEdge(edge12);
+	nodes[2].addEdge(edge12).addEdge(edge23);
+	nodes[3].addEdge(edge23).addEdge(edge30).addEdge(edge34);
+	nodes[4].addEdge(edge34);
+
+	food.push_back(AntFood(60.f, 60.f));
 }
 
 
@@ -65,6 +84,20 @@ bool GuiTestApp::run()
 	window->draw(startButton);
 	window->draw(stopButton);
 	window->draw(restartButton);
+
+	for (auto& node : nodes)
+	{
+		for (auto edge : node.getEdgeList())
+		{
+			window->draw(*edge);
+		}
+		window->draw(node);
+	}
+
+	for (auto& f : food)
+	{
+		window->draw(f);
+	}
 	
 	window->display();
 

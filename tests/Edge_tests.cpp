@@ -15,37 +15,54 @@ namespace tests
 		
 		TEST_METHOD(Edge_create)
 		{
-			Node node(GridLocation(1, 2), 20, 30);
-			Edge edge(node, 5);
-			Edge edge2;
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
 		}
 
 		TEST_METHOD(Edge_set)
 		{
-			Edge edge;
-			Node node(GridLocation(1, 2), 20, 30);
-			edge.set(node, 10);
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode);
+			edge.set(endNode, 10);
+		}
+
+		TEST_METHOD(Edge_getStartNode)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode);
+			Assert::IsTrue(edge.getStartNode() == &startNode);
+		}
+
+		TEST_METHOD(Edge_getEndNode)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 10);
+			Assert::IsTrue(edge.getEndNode() == &endNode);
 		}
 
 		TEST_METHOD(Edge_getCost)
 		{
-			Node node(GridLocation(1, 2), 20, 30);
-			Edge edge(node, 5);
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
 			Assert::AreEqual(edge.getCost(), 5u);
 			Assert::AreNotEqual(edge.getCost(), 10u);
 		}
 
-		/*TEST_METHOD(Edge_getNode)
-		{
-			GridNode node(GridLocation(1, 2), 20, 30);
-			Edge edge(node, 5);
-			Assert::AreSame(*edge.getNode(), node);
-		}*/
-
 		TEST_METHOD(Edge_isEmpty)
 		{
-			Node node(GridLocation(1, 2), 20, 30);
-			Edge edge(node, 5);
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
 			Assert::IsFalse(edge.isEmpty());
 		}
 	};

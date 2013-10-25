@@ -7,6 +7,8 @@
 #include "../gui/button/RestartSimButton.hpp"
 #include "../gui/button/StartSimButton.hpp"
 #include "../gui/button/StopSimButton.hpp"
+#include "../sim/nav/Node.hpp"
+#include "../sim/AntFood.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -39,5 +41,11 @@ namespace cdc
 		RestartSimButton restartButton;
 		StartSimButton startButton;
 		StopSimButton stopButton;
+
+		// Nodes.
+		std::vector<Node> nodes;
+
+		// Ant food.
+		std::vector<AntFood> food;
 	};
 }

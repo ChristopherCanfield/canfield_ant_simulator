@@ -10,26 +10,28 @@ using cdc::GridLocation;
 
 
 Node::Node(GridLocation location, int pixelX, int pixelY) :
-	location(location), pixelX(pixelX), pixelY(pixelY)
+	location(location), 
+	pixelX(pixelX), 
+	pixelY(pixelY), 
+	circle(5)
 {
+	circle.setOrigin(circle.getLocalBounds().width / 2.f, circle.getLocalBounds().height / 2.f);
+	circle.setPosition(static_cast<float>(pixelX), static_cast<float>(pixelY));
+	circle.setFillColor(sf::Color::Blue);
 }
 
-Node& Node::addEdge(Edge edge, bool addToConnectedNode)
+Node& Node::addEdge(std::shared_ptr<Edge> edge)
 {
 	edges.push_back(edge);
-	if (addToConnectedNode && edge.getNode() != nullptr)
-	{
-		edge.getNode()->addEdge(Edge(*this, edge.getCost()), false);
-	}
 	return *this;
 }
 
-std::vector<Edge>& Node::getEdgeList()
+std::vector<std::shared_ptr<Edge>>& Node::getEdgeList()
 {
 	return edges;
 }
 
-Edge& Node::getEdge(int index)
+std::shared_ptr<Edge> Node::getEdge(uint index)
 {
 	return edges[index];
 }
@@ -52,4 +54,9 @@ uint Node::getRow() const
 uint Node::getColumn() const
 {
 	return location.getColumn();
+}
+
+void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	target.draw(circle, states);
 }

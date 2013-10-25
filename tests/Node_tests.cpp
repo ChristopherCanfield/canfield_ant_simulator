@@ -24,19 +24,11 @@ namespace tests
 		TEST_METHOD(Node_addEdge)
 		{
 			GridLocation location(5, 1);
-			Node node(location, 100, 200);
+			Node node1(location, 100, 200);
+			Node node2(location, 100, 200);
 
-			Edge edge;
-			node.addEdge(edge);
-		}
-
-		TEST_METHOD(Node_addEdge2)
-		{
-			GridLocation location(5, 1);
-			Node node(location, 100, 200);
-
-			Edge edge;
-			node.addEdge(edge, false);
+			auto edge = std::make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 		}
 
 		TEST_METHOD(Node_getEdgeList)
@@ -50,12 +42,13 @@ namespace tests
 		TEST_METHOD(Node_getEdge)
 		{
 			GridLocation location(5, 1);
-			Node node(location, 100, 200);
+			Node node1(location, 100, 200);
+			Node node2(location, 100, 200);
 
-			Edge edge;
-			node.addEdge(edge);
+			auto edge = std::make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 
-			auto edge2 = node.getEdge(0);
+			auto edge2 = node1.getEdge(0);
 		}
 
 		TEST_METHOD(Node_getPixelX)

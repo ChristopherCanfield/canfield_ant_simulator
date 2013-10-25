@@ -8,30 +8,31 @@
 #include "GridLocation.hpp"
 #include "../util/Typedefs.hpp"
 
+#include <SFML/Graphics.hpp>
+
 #include <vector>
+#include <memory>
 
 
 namespace cdc 
 {
 	// A node in a graph.
-	class Node
+	class Node :
+		public sf::Drawable
 	{
 	public:
 		Node(GridLocation location, int pixelX, int pixelY);
 	
 		// Adds an edge.
 		// - edge: the Edge to add.
-		// - addToConnectedNode: whether to add an Edge in the reverse direction to the 
-		//   newly connected node as well. If true, the same cost will be used for both
-		//   directions.
-		Node& addEdge(Edge edge, bool addToConnectedNode = true);
+		Node& addEdge(std::shared_ptr<Edge> edge);
 
 		// Returns a reference to the edge list.
-		std::vector<Edge>& getEdgeList();
+		std::vector<std::shared_ptr<Edge>>& getEdgeList();
 
 		// Returns a reference to an edge.
 		// - index: the edge's index in the Node's edge list.
-		Edge& getEdge(int index);
+		std::shared_ptr<Edge> getEdge(uint index);
 
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;
@@ -43,12 +44,18 @@ namespace cdc
 		// Returns the node's column in the navigation grid.
 		uint getColumn() const;
 
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
 	private:
-		std::vector<Edge> edges;
+		std::vector<std::shared_ptr<Edge>> edges;
 
 		int pixelX;
 		int pixelY;
 
+		// The node's row-column location.
 		GridLocation location;
+
+		// The graphical representation of the node.
+		sf::CircleShape circle;
 	};
 }
