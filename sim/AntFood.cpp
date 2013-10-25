@@ -9,6 +9,8 @@ AntFood::AntFood(float x, float y)
 	shape.setOrigin(shape.getLocalBounds().width / 2.f, shape.getLocalBounds().height / 2.f);
 	shape.setPosition(x, y);
 	shape.setFillColor(sf::Color(38, 170, 0));
+	shape.setOutlineColor(sf::Color::Black);
+	shape.setOutlineThickness(1.f);
 }
 
 AntFood::~AntFood()
