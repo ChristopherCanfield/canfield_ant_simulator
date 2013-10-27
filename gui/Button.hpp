@@ -15,6 +15,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System.hpp>
 
+#include <boost/noncopyable.hpp>
+
 #include <vector>
 #include <memory>
 #include <stdexcept>
@@ -24,6 +26,7 @@ namespace cdc
 {
 	// Abstract class for a clickable button.
 	class Button : 
+			private boost::noncopyable,
 			public GuiWidget,
 			public DirectGuiEventObserver, 
 			public GuiEventObserver,
@@ -31,6 +34,8 @@ namespace cdc
 	{
 	public:
 		Button(GuiEventManager& manager);
+		Button(Button&& other);
+		Button& Button::operator=(Button&& other);
 		virtual ~Button();
 
 		virtual sf::FloatRect getBoundingBox() const override;
@@ -61,6 +66,9 @@ namespace cdc
 		sf::Texture onHoverTexture;
 
 	private:
+		Button(const Button&);
+		Button& operator=(const Button& other);
+
 		// Reference to the GuiEventManager.
 		GuiEventManager& guiManager;
 

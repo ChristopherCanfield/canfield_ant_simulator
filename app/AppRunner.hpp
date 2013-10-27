@@ -2,6 +2,10 @@
 
 #include "App.hpp"
 
+// Christopher D. Canfield
+// October 2013
+// AppRunner.hpp
+
 
 namespace cdc 
 {

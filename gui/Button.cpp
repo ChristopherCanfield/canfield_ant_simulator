@@ -16,13 +16,62 @@ using std::endl;
 
 
 Button::Button(GuiEventManager& manager) :
-	guiManager(manager)
+	guiManager(manager),
+	currentImage(nullptr)
 {
 	guiManager.addDirectClickListener(*this);
 	guiManager.addMouseMoveListener(*this);
 	guiManager.addDirectMouseMoveListener(*this);
 
 	position.addObserver(*this);
+}
+
+Button::Button(Button&& other) :
+	hoverTimer(other.hoverTimer),
+	clickTimer(other.clickTimer),
+	guiManager(other.guiManager),
+	defaultImage(nullptr)
+{
+	if (defaultImage)
+	{
+		this->defaultImage = std::move(other.defaultImage);
+		this->currentImage = this->defaultImage.get();
+	}
+
+	if (onClickImage)
+	{
+		this->onClickImage = std::move(other.onClickImage);
+	}
+
+	if (onHoverImage)
+	{
+		this->onHoverImage = std::move(other.onHoverImage);
+	}
+}
+
+Button& Button::operator=(Button&& other)
+{
+	if (this != &other)
+	{
+		this->currentImage = nullptr;
+	
+		if (defaultImage != nullptr)
+		{
+			this->defaultImage = std::move(other.defaultImage);
+			this->currentImage = this->defaultImage.get();
+		}
+
+		if (onClickImage != nullptr)
+		{
+			this->onClickImage = std::move(other.onClickImage);
+		}
+
+		if (onHoverImage != nullptr)
+		{
+			this->onHoverImage = std::move(other.onHoverImage);
+		}
+	}
+	return *this;
 }
 
 Button::~Button()
@@ -115,7 +164,10 @@ void Button::setOnHoverImage(std::unique_ptr<sf::Sprite> image)
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(*currentImage, states);
+	if (currentImage != nullptr)
+	{
+		target.draw(*currentImage, states);
+	}
 }
 
 
@@ -141,12 +193,15 @@ bool Button::clickTimerExpired() const
 
 void Button::update(sf::Vector2f& observable)
 {
-	defaultImage->setPosition(observable);
-	if (onClickImage != nullptr)
+	if (defaultImage)
+	{
+		defaultImage->setPosition(observable);
+	}
+	if (onClickImage)
 	{
 		onClickImage->setPosition(observable);
 	}
-	if (onHoverImage != nullptr)
+	if (onHoverImage)
 	{
 		onHoverImage->setPosition(observable);
 	}

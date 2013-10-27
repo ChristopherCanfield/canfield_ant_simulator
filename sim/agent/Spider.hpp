@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// Spider.hpp
+
 #include "Agent.hpp"
 #include "../../gui/Button.hpp"
 #include "../knowledge/SpiderKnowledgeBase.hpp"
@@ -23,6 +27,9 @@ namespace cdc
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 
 	private:
+		static sf::Texture* texture;
+		static bool wasTextureLoaded;
+
 		SpiderKnowledgeBase kb;
 	};
 }

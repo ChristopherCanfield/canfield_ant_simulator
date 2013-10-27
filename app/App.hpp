@@ -1,5 +1,8 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// App.hpp
 
 namespace cdc 
 {

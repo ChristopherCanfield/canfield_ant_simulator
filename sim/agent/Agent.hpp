@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// Agent.hpp
+
 #include "../knowledge/Percept.hpp"
 
 

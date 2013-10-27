@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// Percept.hpp
+
 #include "Percept.hpp"
 
 

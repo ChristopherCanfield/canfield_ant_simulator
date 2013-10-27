@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// AntPercept.hpp
+
 #include "Percept.hpp"
 
 

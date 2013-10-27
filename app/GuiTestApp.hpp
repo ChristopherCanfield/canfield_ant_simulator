@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// GuiTestApp.hpp
+
 #include "App.hpp"
 #include "../gui/GuiEventManager.hpp"
 #include "../gui/button/DecreaseSimSpeedButton.hpp"
@@ -9,10 +13,14 @@
 #include "../gui/button/StopSimButton.hpp"
 #include "../sim/nav/Node.hpp"
 #include "../sim/AntFood.hpp"
+#include "../sim/agent/Ant.hpp"
+#include "../sim/agent/Spider.hpp"
 
 #include <SFML/Graphics.hpp>
 
 #include <memory>
+#include <vector>
+#include <list>
 
 
 namespace cdc 
@@ -47,5 +55,11 @@ namespace cdc
 
 		// Ant food.
 		std::vector<AntFood> food;
+
+		// Ants.
+		std::vector<std::shared_ptr<Ant>> ants;
+
+		// Spider.
+		std::vector<Spider*> spiders;
 	};
 }

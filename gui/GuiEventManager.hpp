@@ -23,7 +23,7 @@ namespace cdc
 {
 	// Manager for GUI events.
 	class GuiEventManager :
-			public boost::noncopyable
+			private boost::noncopyable
 	{
 	public:
 		// Processes GUI events by notifying subscribed observers. This should be

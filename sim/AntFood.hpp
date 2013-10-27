@@ -1,5 +1,9 @@
 #pragma once
 
+// Christopher D. Canfield
+// October 2013
+// AntFood.hpp
+
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
