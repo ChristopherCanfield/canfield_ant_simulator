@@ -1,5 +1,9 @@
 #include "SpiderPercept.hpp"
 
+// Christopher D. Canfield
+// October 2013
+// SpiderPercept.cpp
+
 using cdc::SpiderPercept;
 using cdc::Percept;
 

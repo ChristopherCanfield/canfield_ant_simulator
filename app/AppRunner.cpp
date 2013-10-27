@@ -4,6 +4,10 @@
 #include <iostream>
 #include <iomanip>
 
+// Christopher D. Canfield
+// October 2013
+// AppRunner.cpp
+
 
 using cdc::AppRunner;
 using cdc::App;

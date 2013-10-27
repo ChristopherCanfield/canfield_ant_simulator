@@ -3,6 +3,10 @@
 #include <iostream>
 #include <memory>
 
+// Christopher D. Canfield
+// October 2013
+// Ant.cpp
+
 using cdc::Ant;
 using cdc::Percept;
 using cdc::GuiEventManager;

@@ -15,6 +15,7 @@
 #include "../sim/AntFood.hpp"
 #include "../sim/agent/Ant.hpp"
 #include "../sim/agent/Spider.hpp"
+#include "../gui/ViewManager.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -61,5 +62,7 @@ namespace cdc
 
 		// Spider.
 		std::vector<Spider*> spiders;
+
+		ViewManager viewManager;
 	};
 }

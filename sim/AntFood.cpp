@@ -1,5 +1,9 @@
 #include "AntFood.hpp"
 
+// Christopher D. Canfield
+// October 2013
+// AntFood.cpp
+
 using cdc::AntFood;
 
 

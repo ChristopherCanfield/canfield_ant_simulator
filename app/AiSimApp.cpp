@@ -1,5 +1,8 @@
 #include "AiSimApp.hpp"
 
+// Christopher D. Canfield
+// October 2013
+// AiSimApp.cpp
 
 using cdc::AiSimApp;
 

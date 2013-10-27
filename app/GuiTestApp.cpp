@@ -7,6 +7,10 @@
 #include <iostream>
 #include <iomanip>
 
+// Christopher D. Canfield
+// October 2013
+// GuiTestApp.cpp
+
 
 using cdc::GuiTestApp;
 
@@ -16,7 +20,8 @@ GuiTestApp::GuiTestApp() :
 	increaseSpeedButton(eventManager, simulator),
 	restartButton(eventManager, simulator),
 	startButton(eventManager, simulator),
-	stopButton(eventManager, simulator)
+	stopButton(eventManager, simulator),
+	viewManager(eventManager, 1000, 1000, 800, 800)
 {
 	nodes.push_back(Node(GridLocation(0, 0), 10, 10));
 	nodes.push_back(Node(GridLocation(0, 0), 40, 10));
@@ -65,6 +70,9 @@ void GuiTestApp::setup()
 	startButton.setPosition(250, 250);
 	stopButton.setPosition(350, 350);
 	restartButton.setPosition(450, 450);
+
+	window->setView(viewManager.getView());
+	viewManager.setWindow(window.get());
 }
 
 
@@ -114,13 +122,11 @@ bool GuiTestApp::run()
 
 	for (auto& ant : ants)
 	{
-		std::cout << "drawing ant" << std::endl;
 		window->draw(*ant);
 	}
 
 	for (auto& spider : spiders)
 	{
-		std::cout << "drawing spider" << std::endl;
 		window->draw(*spider);
 	}
 

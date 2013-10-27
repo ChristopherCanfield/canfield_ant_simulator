@@ -3,6 +3,10 @@
 #include <iostream>
 #include <memory>
 
+// Christopher D. Canfield
+// October 2013
+// Spider.cpp
+
 
 using cdc::Spider;
 using cdc::Percept;

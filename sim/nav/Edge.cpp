@@ -1,6 +1,10 @@
 #include "Edge.hpp"
 #include "Node.hpp"
 
+// Christopher D. Canfield
+// October 2013
+// Edge.cpp
+
 using cdc::Edge;
 using cdc::Node;
 
