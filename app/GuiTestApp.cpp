@@ -52,6 +52,8 @@ GuiTestApp::GuiTestApp() :
 
 	spiders.push_back(new Spider(eventManager));
 	spiders[0]->setPosition(40, 400);
+
+	foodPile = new AntFoodPile(10, nodes[4]);
 }
 
 
@@ -129,6 +131,8 @@ bool GuiTestApp::run()
 	{
 		window->draw(*spider);
 	}
+
+	window->draw(*foodPile);
 
 	window->display();
 

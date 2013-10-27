@@ -29,7 +29,7 @@ Spider::Spider(GuiEventManager& manager) :
 
 		if (!Spider::texture->loadFromFile("res/spider.png"))
 		{
-			std::cout << "Unable to load spider image: res/spider.png";
+			std::cout << "Unable to load spider image: res/spider.png" << std::endl;
 		}
 		else
 		{

@@ -40,10 +40,10 @@ namespace cdc
 
 		// Returns the cost of moving along the edge.
 		uint getCost() const;
-	
-		// Returns true if there is no connected node. This is equivalent to the
-		// following: (getNode() == nullptr)
-		bool isEmpty() const;
+
+		uint getPheromone() const;
+		void increasePheromone();
+		void decreasePheromone();
 
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -55,6 +55,8 @@ namespace cdc
 
 		// The cost of moving along the edge.
 		uint cost;
+
+		uint pheromoneLevel;
 
 		// The graphical representation of the edge.
 		sf::VertexArray vertices;

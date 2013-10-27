@@ -57,13 +57,38 @@ namespace tests
 			Assert::AreNotEqual(edge.getCost(), 10u);
 		}
 
-		TEST_METHOD(Edge_isEmpty)
+		TEST_METHOD(Edge_getPheromone)
 		{
 			Node startNode(GridLocation(1, 2), 20, 30);
 			Node endNode(GridLocation(1, 2), 20, 30);
 
 			Edge edge(startNode, endNode, 5);
-			Assert::IsFalse(edge.isEmpty());
+			Assert::AreEqual(0u, edge.getPheromone());
+		}
+
+		TEST_METHOD(Edge_increasePheromone)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
+			edge.increasePheromone();
+			Assert::AreEqual(1u, edge.getPheromone());
+		}
+
+		TEST_METHOD(Edge_decreasePheromone)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
+			edge.decreasePheromone();
+			Assert::AreEqual(0u, edge.getPheromone());
+
+			edge.increasePheromone();
+			edge.increasePheromone();
+			edge.decreasePheromone();
+			Assert::AreEqual(1u, edge.getPheromone());
 		}
 	};
 }

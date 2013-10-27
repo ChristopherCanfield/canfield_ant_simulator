@@ -28,7 +28,7 @@ Ant::Ant(GuiEventManager& manager) :
 
 		if (!Ant::texture->loadFromFile("res/ant.png"))
 		{
-			std::cout << "Unable to load ant image: res/ant.png";
+			std::cout << "Unable to load ant image: res/ant.png" << std::endl;
 		}
 		else
 		{

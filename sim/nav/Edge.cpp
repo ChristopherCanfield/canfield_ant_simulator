@@ -12,7 +12,8 @@ using cdc::Node;
 Edge::Edge(cdc::Node& startNode) :
 	startNode(&startNode),
 	endNode(nullptr), 
-	cost(999999)
+	cost(999999),
+	pheromoneLevel(0)
 {
 	vertices.setPrimitiveType(sf::Lines);
 }
@@ -20,7 +21,8 @@ Edge::Edge(cdc::Node& startNode) :
 Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, uint cost) :
 	startNode(&startNode),
 	endNode(&endNode), 
-	cost(cost)
+	cost(cost),
+	pheromoneLevel(0)
 {
 	vertices.setPrimitiveType(sf::Lines);
 
@@ -64,9 +66,27 @@ uint Edge::getCost() const
 	return cost;
 }
 
-bool Edge::isEmpty() const
+uint Edge::getPheromone() const
 {
-	return (endNode == nullptr);
+	return pheromoneLevel;
+}
+
+void Edge::increasePheromone()
+{
+	const uint max = 10u;
+	if (pheromoneLevel < max)
+	{
+		++pheromoneLevel;
+	}
+}
+
+void Edge::decreasePheromone()
+{
+	const uint min = 0u;
+	if (pheromoneLevel > min)
+	{
+		--pheromoneLevel;
+	}
 }
 
 void Edge::draw(sf::RenderTarget &target, sf::RenderStates states) const
