@@ -1,15 +1,15 @@
-#include "StopSimButton.hpp"
+#include "PauseSimButton.hpp"
 
 // Christopher D. Canfield
 // October 2013
-// StopSimButton.hpp
+// PauseSimButton.hpp
 
-using cdc::StopSimButton;
+using cdc::PauseSimButton;
 using cdc::GuiEventManager;
 using cdc::Simulator;
 
 
-StopSimButton::StopSimButton(GuiEventManager& eventManager, Simulator& simulator) :
+PauseSimButton::PauseSimButton(GuiEventManager& eventManager, Simulator& simulator) :
 		Button(eventManager), simulator(simulator)
 {
 	using namespace std;
@@ -25,16 +25,16 @@ StopSimButton::StopSimButton(GuiEventManager& eventManager, Simulator& simulator
 }
 
 
-StopSimButton::~StopSimButton()
+PauseSimButton::~PauseSimButton()
 {
 }
 
 
-void StopSimButton::onDirectGuiEvent(const sf::Event& e)
+void PauseSimButton::onDirectGuiEvent(const sf::Event& e)
 {
 	Button::onDirectGuiEvent(e);
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		simulator.stop();
+		simulator.pause();
 	}
 }

@@ -1,15 +1,15 @@
-#include "RestartSimButton.hpp"
+#include "UnpauseSimButton.hpp"
 
 // Christopher D. Canfield
 // October 2013
-// RestartSimButton.hpp
+// UnpauseSimButton.hpp
 
-using cdc::RestartSimButton;
+using cdc::UnpauseSimButton;
 using cdc::GuiEventManager;
 using cdc::Simulator;
 
 
-RestartSimButton::RestartSimButton(GuiEventManager& eventManager, Simulator& simulator) :
+UnpauseSimButton::UnpauseSimButton(GuiEventManager& eventManager, Simulator& simulator) :
 	Button(eventManager), simulator(simulator)
 {
 	using namespace std;
@@ -24,16 +24,16 @@ RestartSimButton::RestartSimButton(GuiEventManager& eventManager, Simulator& sim
 	setOnHoverImage(unique_ptr<Sprite>(new Sprite(onHoverTexture)));
 }
 
-RestartSimButton::~RestartSimButton()
+UnpauseSimButton::~UnpauseSimButton()
 {
 }
 
 
-void RestartSimButton::onDirectGuiEvent(const sf::Event& e)
+void UnpauseSimButton::onDirectGuiEvent(const sf::Event& e)
 {
 	Button::onDirectGuiEvent(e);
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		simulator.restart();
+		simulator.unpause();
 	}
 }

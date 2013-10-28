@@ -4,9 +4,9 @@
 // October 2013
 // AntFoodPile.hpp
 
-#include "../util/Typedefs.hpp"
+#include "../../util/Typedefs.hpp"
 #include "AntFood.hpp"
-#include "nav/Node.hpp"
+#include "../nav/Node.hpp"
 
 #include <SFML/Graphics.hpp>
 

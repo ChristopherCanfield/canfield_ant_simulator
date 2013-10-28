@@ -2,7 +2,7 @@
 
 // Christopher D. Canfield
 // October 2013
-// RestartSimButton.hpp
+// UnpauseSimButton.hpp
 
 #include "../Button.hpp"
 #include "../../sim/Simulator.hpp"
@@ -10,12 +10,12 @@
 namespace cdc 
 {
 	// A button that starts the simulation.
-	class RestartSimButton :
+	class UnpauseSimButton :
 			public Button
 	{
 	public:
-		RestartSimButton(GuiEventManager& eventManager, Simulator& simulator);
-		~RestartSimButton();
+		UnpauseSimButton(GuiEventManager& eventManager, Simulator& simulator);
+		~UnpauseSimButton();
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 

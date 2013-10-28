@@ -18,9 +18,9 @@ using cdc::GuiTestApp;
 GuiTestApp::GuiTestApp() :
 	decreaseSpeedButton(eventManager, simulator),
 	increaseSpeedButton(eventManager, simulator),
-	restartButton(eventManager, simulator),
+	unpauseButton(eventManager, simulator),
 	startButton(eventManager, simulator),
-	stopButton(eventManager, simulator),
+	pauseButton(eventManager, simulator),
 	viewManager(eventManager, 1000, 1000, 800, 800)
 {
 	nodes.push_back(Node(GridLocation(0, 0), 10, 10));
@@ -70,8 +70,8 @@ void GuiTestApp::setup()
 	decreaseSpeedButton.setPosition(50, 50);
 	increaseSpeedButton.setPosition(150, 150);
 	startButton.setPosition(250, 250);
-	stopButton.setPosition(350, 350);
-	restartButton.setPosition(450, 450);
+	unpauseButton.setPosition(350, 350);
+	pauseButton.setPosition(450, 450);
 
 	window->setView(viewManager.getView());
 	viewManager.setWindow(window.get());
@@ -105,8 +105,8 @@ bool GuiTestApp::run()
 	window->draw(decreaseSpeedButton);
 	window->draw(increaseSpeedButton);
 	window->draw(startButton);
-	window->draw(stopButton);
-	window->draw(restartButton);
+	window->draw(unpauseButton);
+	window->draw(pauseButton);
 
 	for (auto& node : nodes)
 	{

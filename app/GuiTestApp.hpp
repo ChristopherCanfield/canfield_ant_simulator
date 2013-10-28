@@ -8,15 +8,15 @@
 #include "../gui/GuiEventManager.hpp"
 #include "../gui/button/DecreaseSimSpeedButton.hpp"
 #include "../gui/button/IncreaseSimSpeedButton.hpp"
-#include "../gui/button/RestartSimButton.hpp"
+#include "../gui/button/PauseSimButton.hpp"
 #include "../gui/button/StartSimButton.hpp"
-#include "../gui/button/StopSimButton.hpp"
+#include "../gui/button/UnpauseSimButton.hpp"
 #include "../sim/nav/Node.hpp"
-#include "../sim/AntFood.hpp"
+#include "../sim/worldobject/AntFood.hpp"
 #include "../sim/agent/Ant.hpp"
 #include "../sim/agent/Spider.hpp"
 #include "../gui/ViewManager.hpp"
-#include "../sim/AntFoodPile.hpp"
+#include "../sim/worldobject/AntFoodPile.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -48,9 +48,9 @@ namespace cdc
 		// Gui elements.
 		DecreaseSimSpeedButton decreaseSpeedButton;
 		IncreaseSimSpeedButton increaseSpeedButton;
-		RestartSimButton restartButton;
+		UnpauseSimButton unpauseButton;
 		StartSimButton startButton;
-		StopSimButton stopButton;
+		PauseSimButton pauseButton;
 
 		// Nodes.
 		std::vector<Node> nodes;

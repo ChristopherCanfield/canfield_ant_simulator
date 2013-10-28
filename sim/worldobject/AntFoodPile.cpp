@@ -51,7 +51,9 @@ std::shared_ptr<AntFood> AntFoodPile::getFood()
 	if (foodCount > 0)
 	{
 		--foodCount;
-		return std::make_shared<AntFood>(node->getPixelX(), node->getPixelY());
+		auto food = std::make_shared<AntFood>(static_cast<float>(node->getPixelX()), 
+				static_cast<float>(node->getPixelY()));
+		return food;
 	}
 	return nullptr;
 }

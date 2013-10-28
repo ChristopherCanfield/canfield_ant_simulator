@@ -29,27 +29,27 @@ Simulator::~Simulator()
 }
 
 
-// Starts the simulation.
+// Starts a new simulation.
 void Simulator::start()
 {
 	started = true;
 	cout << "Simulator: started" << endl;
-	// TODO: start the simulation.
+	// TODO: start a new simulation.
 }
 
-// Stops the simulation.
-void Simulator::stop()
+// Pauses the simulation.
+void Simulator::pause()
 {
 	started = false;
-	cout << "Simulator: stopped" << endl;
-	// TODO: stop the simulation.
+	cout << "Simulator: paused" << endl;
+	// TODO: pause the simulation.
 }
 
-void Simulator::restart()
+void Simulator::unpause()
 {
 	started = true;
-	cout << "Simulator: restarted" << endl;
-	// TODO: reset the simulation, and then start it.
+	cout << "Simulator: unpaused" << endl;
+	// TODO: unpause the simulation.
 }
 
 // Increases the speed of the simulation.
@@ -75,7 +75,7 @@ void Simulator::decreaseSpeed()
 		cout << "Simulator: speed decreased" << endl;
 		if (speed == 0)
 		{
-			stop();
+			pause();
 		}
 	}
 	else
