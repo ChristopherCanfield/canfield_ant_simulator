@@ -30,21 +30,21 @@ namespace tests
 			edge.set(endNode, 10);
 		}
 
-		TEST_METHOD(Edge_getStartNode)
+		TEST_METHOD(Edge_getNode1)
 		{
 			Node startNode(GridLocation(1, 2), 20, 30);
 
 			Edge edge(startNode);
-			Assert::IsTrue(edge.getStartNode() == &startNode);
+			Assert::IsTrue(edge.getNode1() == &startNode);
 		}
 
-		TEST_METHOD(Edge_getEndNode)
+		TEST_METHOD(Edge_getNode2)
 		{
 			Node startNode(GridLocation(1, 2), 20, 30);
 			Node endNode(GridLocation(1, 2), 20, 30);
 
 			Edge edge(startNode, endNode, 10);
-			Assert::IsTrue(edge.getEndNode() == &endNode);
+			Assert::IsTrue(edge.getNode2() == &endNode);
 		}
 
 		TEST_METHOD(Edge_getCost)

@@ -51,14 +51,28 @@ void Edge::set(cdc::Node& endNode, uint cost)
 			sf::Color(0, 0, 255)));
 }
 
-Node* Edge::getStartNode() const
+Node* Edge::getNode1() const
 {
 	return startNode;
 }
 
-Node* Edge::getEndNode() const
+Node* Edge::getNode2() const
 {
 	return endNode;
+}
+
+Node* Edge::getOppositeNode(Node& node) const
+{
+	if (startNode == &node)
+	{
+		return startNode;
+	}
+	else if (endNode == &node)
+	{
+		return endNode;
+	}
+	return nullptr;
+
 }
 
 uint Edge::getCost() const

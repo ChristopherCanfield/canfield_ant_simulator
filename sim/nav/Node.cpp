@@ -32,7 +32,7 @@ Node::~Node()
 	}
 }
 
-Node& Node::addEdge(Edge& edge)
+Node& Node::addEdge(Edge& edge, bool addEdgeToOppositeNode)
 {
 	for (auto& e : edges)
 	{
@@ -43,6 +43,13 @@ Node& Node::addEdge(Edge& edge)
 	}
 	edges.push_back(&edge);
 	
+	if (addEdgeToOppositeNode)
+	{
+		if (edge.getNode1() != nullptr)
+		{
+			edge.getNode1()->addEdge(edge, false);
+		}
+	}
 
 	return *this;
 }

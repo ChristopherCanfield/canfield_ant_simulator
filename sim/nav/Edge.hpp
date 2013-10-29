@@ -21,22 +21,24 @@ namespace cdc
 			public sf::Drawable
 	{
 	public:
-		Edge(cdc::Node& startNode);
-		Edge(cdc::Node& startNode, cdc::Node& endNode, uint cost);
+		Edge(Node& startNode);
+		Edge(Node& startNode, Node& endNode, uint cost);
 
 		// Sets the attached node.
-		void set(cdc::Node& endNode, uint cost);
+		void set(Node& endNode, uint cost);
 
 		// Removes the connected node.
 		// TODO: remove this if it remains unused.
 		//void removeConnectedNode();
 
-		// Returns the starting node that the edge is connected to.
-		cdc::Node* getStartNode() const;
+		// Returns the the first node that the edge is connected to.
+		Node* getNode1() const;
 
-		// Returns the ending node that the edge is connected to, or nullptr if there
+		// Returns the second node that the edge is connected to, or nullptr if there
 		// is no connected node.
-		cdc::Node* getEndNode() const;
+		Node* getNode2() const;
+
+		Node* getOppositeNode(Node& node) const;
 
 		// Returns the cost of moving along the edge.
 		uint getCost() const;
@@ -49,9 +51,9 @@ namespace cdc
 
 	private:
 		// The start node.
-		cdc::Node* startNode;
+		Node* startNode;
 		// The end node, or nullptr if no node is connected to the other edge
-		cdc::Node* endNode;
+		Node* endNode;
 
 		// The cost of moving along the edge.
 		uint cost;

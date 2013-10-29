@@ -26,7 +26,9 @@ namespace cdc
 	
 		// Adds an edge.
 		// - edge: the Edge to add.
-		Node& addEdge(Edge& edge);
+		// - addEdgeToOppositeNode: add the Edge to the opposite node as well.
+		//		In other words, if this is adding edge A->B, also add B->A.
+		Node& addEdge(Edge& edge, bool addEdgeToOppositeNode = true);
 
 		// Returns a reference to the edge list.
 		std::vector<Edge*>& getEdgeList();
