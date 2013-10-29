@@ -15,11 +15,12 @@ using namespace std;
 uint max_sim_speed = 60;
 uint min_sim_speed = 0;
 uint sim_speed_increment = 10;
+uint default_sim_speed = 30;
 
 
 Simulator::Simulator() :
 	started(false),
-	speed(60)
+	speed(default_sim_speed)
 {
 }
 

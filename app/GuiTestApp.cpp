@@ -21,7 +21,7 @@ GuiTestApp::GuiTestApp() :
 	unpauseButton(eventManager, simulator),
 	startButton(eventManager, simulator),
 	pauseButton(eventManager, simulator),
-	viewManager(eventManager, 1000, 1000, 800, 800)
+	viewManager(eventManager, 1000, 1000, 800, 800, 400, 200)
 {
 	nodes.push_back(Node(GridLocation(0, 0), 10, 10));
 	nodes.push_back(Node(GridLocation(0, 0), 40, 10));
@@ -73,7 +73,8 @@ void GuiTestApp::setup()
 	unpauseButton.setPosition(350, 350);
 	pauseButton.setPosition(450, 450);
 
-	window->setView(viewManager.getView());
+	window->setView(viewManager.getSimView());
+
 	viewManager.setWindow(window.get());
 }
 

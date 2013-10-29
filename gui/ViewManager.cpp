@@ -11,12 +11,18 @@ using cdc::ViewManager;
 using cdc::GuiEventManager;
 
 
-ViewManager::ViewManager(GuiEventManager& eventManager, uint worldWidth, uint worldHeight, uint viewWidth, uint viewHeight) :
+ViewManager::ViewManager(GuiEventManager& eventManager, 
+						 uint worldWidth, uint worldHeight, 
+						 uint simViewWidth, uint simViewHeight,
+						 uint uiViewWidth, uint uiViewHeight) :
 	worldWidth(worldWidth), 
 	worldHeight(worldHeight)
 {
-	view.setSize(static_cast<float>(viewWidth), static_cast<float>(viewHeight));
-	view.setCenter(viewWidth / 2.f, viewHeight / 2.f);
+	simView.setSize(static_cast<float>(simViewWidth), static_cast<float>(simViewHeight));
+	simView.setCenter(simViewWidth / 2.f, simViewHeight / 2.f);
+
+	uiView.setSize(static_cast<float>(uiViewWidth), static_cast<float>(uiViewHeight));
+	uiView.setCenter(uiViewWidth / 2.f, uiViewHeight / 2.f);
 
 	eventManager.addKeyPressListener(*this);
 }
@@ -26,9 +32,9 @@ ViewManager::~ViewManager()
 {
 }
 
-const sf::View& ViewManager::getView() const
+const sf::View& ViewManager::getSimView() const
 {
-	return view;
+	return simView;
 }
 
 void ViewManager::setWindow(sf::RenderWindow* window)
@@ -42,38 +48,38 @@ void ViewManager::onGuiEvent(const sf::Event& e)
 
 	if (e.key.code == sf::Keyboard::Left)
 	{
-		if (view.getCenter().x > view.getSize().x / 2.f)
+		if (simView.getCenter().x > simView.getSize().x / 2.f)
 		{
 			std::cout << "Left" << std::endl;
-			view.move(-movementAmount, 0.f);
-			window->setView(view);
+			simView.move(-movementAmount, 0.f);
+			window->setView(simView);
 		}
 	}
 	else if (e.key.code == sf::Keyboard::Right)
 	{
-		if (view.getCenter().x < (worldWidth - view.getSize().x / 2.f))
+		if (simView.getCenter().x < (worldWidth - simView.getSize().x / 2.f))
 		{
 			std::cout << "Right" << std::endl;
-			view.move(movementAmount, 0.f);
-			window->setView(view);
+			simView.move(movementAmount, 0.f);
+			window->setView(simView);
 		}
 	}
 	else if (e.key.code == sf::Keyboard::Up)
 	{
-		if (view.getCenter().y > view.getSize().y / 2.f)
+		if (simView.getCenter().y > simView.getSize().y / 2.f)
 		{
 			std::cout << "Up" << std::endl;
-			view.move(0.f, -movementAmount);
-			window->setView(view);
+			simView.move(0.f, -movementAmount);
+			window->setView(simView);
 		}
 	}
 	else if (e.key.code == sf::Keyboard::Down)
 	{
-		if (view.getCenter().y < (worldHeight - view.getSize().y / 2.f))
+		if (simView.getCenter().y < (worldHeight - simView.getSize().y / 2.f))
 		{
 			std::cout << "Down" << std::endl;
-			view.move(0.f, movementAmount);
-			window->setView(view);
+			simView.move(0.f, movementAmount);
+			window->setView(simView);
 		}
 	}
 }
