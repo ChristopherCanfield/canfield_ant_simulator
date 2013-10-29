@@ -1,4 +1,5 @@
 #include "Node.hpp"
+#include "../util/Vector2fAdapter.hpp"
 
 // Christopher D. Canfield
 // October 2013
@@ -16,7 +17,7 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 	circle(5)
 {
 	circle.setOrigin(circle.getLocalBounds().width / 2.f, circle.getLocalBounds().height / 2.f);
-	circle.setPosition(static_cast<float>(pixelX), static_cast<float>(pixelY));
+	circle.setPosition(Vector2fAdapter(pixelX, pixelY));
 	circle.setFillColor(sf::Color::Blue);
 }
 

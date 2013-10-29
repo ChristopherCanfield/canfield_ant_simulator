@@ -1,4 +1,5 @@
 #include "AntFoodPile.hpp"
+#include "../util/Vector2fAdapter.hpp"
 
 #include <iostream>
 
@@ -37,7 +38,7 @@ AntFoodPile::AntFoodPile(uint foodCount, Node& node) :
 
 	sprite.setTexture(*AntFoodPile::texture, true);
 	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
-	sprite.setPosition(node.getPixelX(), node.getPixelY());
+	sprite.setPosition(Vector2fAdapter(node.getPixelX(), node.getPixelY()));
 }
 
 

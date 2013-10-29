@@ -1,6 +1,7 @@
 #include "Button.hpp"
 
 #include <iostream>
+#include <cassert>
 
 // Christopher D. Canfield
 // October 2013
@@ -84,11 +85,9 @@ Button::~Button()
 sf::FloatRect Button::getBoundingBox() const
 {
 	// TODO: put a debug assertion here to ensure that the current image is not null.
+	assert(currentImage != nullptr);
 
-	if (currentImage != nullptr)
-	{
-		return currentImage->getGlobalBounds();
-	}
+	return currentImage->getGlobalBounds();
 }
 
 void Button::onDirectGuiEvent(const sf::Event& e)

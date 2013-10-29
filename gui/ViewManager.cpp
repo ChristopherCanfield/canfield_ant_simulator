@@ -1,4 +1,5 @@
 #include "ViewManager.hpp"
+#include "../util/Vector2fAdapter.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -18,10 +19,10 @@ ViewManager::ViewManager(GuiEventManager& eventManager,
 	worldWidth(worldWidth), 
 	worldHeight(worldHeight)
 {
-	simView.setSize(static_cast<float>(simViewWidth), static_cast<float>(simViewHeight));
+	simView.setSize(Vector2fAdapter(simViewWidth, simViewHeight));
 	simView.setCenter(simViewWidth / 2.f, simViewHeight / 2.f);
 
-	uiView.setSize(static_cast<float>(uiViewWidth), static_cast<float>(uiViewHeight));
+	uiView.setSize(Vector2fAdapter(uiViewWidth, uiViewHeight));
 	uiView.setCenter(uiViewWidth / 2.f, uiViewHeight / 2.f);
 
 	eventManager.addKeyPressListener(*this);

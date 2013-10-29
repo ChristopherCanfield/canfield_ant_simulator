@@ -1,5 +1,6 @@
 #include "Edge.hpp"
 #include "Node.hpp"
+#include "../util/Vector2fAdapter.hpp"
 
 // Christopher D. Canfield
 // October 2013
@@ -27,11 +28,11 @@ Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, uint cost) :
 	vertices.setPrimitiveType(sf::Lines);
 
 	vertices.append(sf::Vertex(
-			sf::Vector2f(startNode.getPixelX(), startNode.getPixelY()), 
+			Vector2fAdapter(startNode.getPixelX(), startNode.getPixelY()), 
 			sf::Color(0, 0, 255)));
 
 	vertices.append(sf::Vertex(
-			sf::Vector2f(endNode.getPixelX(), endNode.getPixelY()), 
+			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
 			sf::Color(0, 0, 255)));
 }
 
@@ -43,11 +44,11 @@ void Edge::set(cdc::Node& endNode, uint cost)
 	if (vertices.getVertexCount() > 0) vertices.clear();
 
 	vertices.append(sf::Vertex(
-			sf::Vector2f(startNode->getPixelX(), startNode->getPixelY()), 
+			Vector2fAdapter(startNode->getPixelX(), startNode->getPixelY()), 
 			sf::Color(0, 0, 255)));
 
 	vertices.append(sf::Vertex(
-			sf::Vector2f(endNode.getPixelX(), endNode.getPixelY()), 
+			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
 			sf::Color(0, 0, 255)));
 }
 

@@ -17,6 +17,7 @@ namespace cdc
 		~ObservableVector2();
 
 		void set(float x, float y);
+		void set(int x, int y);
 		void setX(float xy);
 		void setY(float y);
 

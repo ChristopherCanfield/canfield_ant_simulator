@@ -1,4 +1,5 @@
 #include "GuiWidget.hpp"
+#include "../util/Vector2fAdapter.hpp"
 
 // Christopher D. Canfield
 // October 2013
@@ -18,7 +19,7 @@ void GuiWidget::setPosition(float x, float y)
 
 void GuiWidget::setPosition(int x, int y)
 {
-	position.set(static_cast<float>(x), static_cast<float>(y));
+	position.set(x, y);
 }
 
 const sf::Vector2f& GuiWidget::getPosition() const

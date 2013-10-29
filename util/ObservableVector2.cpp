@@ -27,6 +27,13 @@ void ObservableVector2::set(float x, float y)
 	notifyObservers(position);
 }
 
+void ObservableVector2::set(int x, int y)
+{
+	position.x = static_cast<float>(x);
+	position.y = static_cast<float>(y);
+	notifyObservers(position);
+}
+
 void ObservableVector2::setX(float x)
 {
 	position.x = x;
