@@ -72,7 +72,6 @@ Node* Edge::getOppositeNode(Node& node) const
 		return endNode;
 	}
 	return nullptr;
-
 }
 
 uint Edge::getCost() const

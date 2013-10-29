@@ -50,6 +50,8 @@ namespace cdc
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	private:
+		void removeEdge(Edge& edge);
+
 		std::vector<Edge*> edges;
 
 		int pixelX;

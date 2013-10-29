@@ -26,6 +26,9 @@ Node::~Node()
 	{
 		if (edges[i] != nullptr)
 		{
+			auto node = edges[i]->getOppositeNode(*this);
+			node->removeEdge(*edges[i]);
+			
 			delete edges[i];
 			edges[i] = nullptr;
 		}
@@ -52,6 +55,17 @@ Node& Node::addEdge(Edge& edge, bool addEdgeToOppositeNode)
 	}
 
 	return *this;
+}
+
+void Node::removeEdge(Edge& edge)
+{
+	for (uint i = 0u; i < edges.size(); ++i)
+	{
+		if (edges[i] == &edge)
+		{
+			edges[i] = nullptr;
+		}
+	}
 }
 
 std::vector<Edge*>& Node::getEdgeList()
