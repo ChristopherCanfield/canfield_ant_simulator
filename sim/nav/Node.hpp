@@ -22,17 +22,18 @@ namespace cdc
 	{
 	public:
 		Node(GridLocation location, int pixelX, int pixelY);
+		~Node();
 	
 		// Adds an edge.
 		// - edge: the Edge to add.
-		Node& addEdge(std::shared_ptr<Edge> edge);
+		Node& addEdge(Edge& edge);
 
 		// Returns a reference to the edge list.
-		std::vector<std::shared_ptr<Edge>>& getEdgeList();
+		std::vector<Edge*>& getEdgeList();
 
 		// Returns a reference to an edge.
 		// - index: the edge's index in the Node's edge list.
-		std::shared_ptr<Edge> getEdge(uint index);
+		Edge* getEdge(uint index);
 
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;
@@ -47,7 +48,7 @@ namespace cdc
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	private:
-		std::vector<std::shared_ptr<Edge>> edges;
+		std::vector<Edge*> edges;
 
 		int pixelX;
 		int pixelY;

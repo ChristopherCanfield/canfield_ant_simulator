@@ -19,22 +19,32 @@ namespace tests
 
 		TEST_METHOD(Simulator_start)
 		{
-			// TODO: Your test code here
+			Simulator sim;
+			sim.start();
 		}
 
-		TEST_METHOD(Simulator_stop)
+		TEST_METHOD(Simulator_pause)
 		{
-			// TODO: Your test code here
+			Simulator sim;
+			sim.pause();
+		}
+
+		TEST_METHOD(Simulator_unpause)
+		{
+			Simulator sim;
+			sim.unpause();
 		}
 
 		TEST_METHOD(Simulator_increaseSpeed)
 		{
-			// TODO: Your test code here
+			Simulator sim;
+			sim.increaseSpeed();
 		}
 
 		TEST_METHOD(Simulator_decreaseSpeed)
 		{
-			// TODO: Your test code here
+			Simulator sim;
+			sim.decreaseSpeed();
 		}
 
 	};

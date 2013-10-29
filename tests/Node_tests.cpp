@@ -27,8 +27,8 @@ namespace tests
 			Node node1(location, 100, 200);
 			Node node2(location, 100, 200);
 
-			auto edge = std::make_shared<Edge>(node1, node2, 10);
-			node1.addEdge(edge);
+			auto edge = new Edge(node1, node2, 10);
+			node1.addEdge(*edge);
 		}
 
 		TEST_METHOD(Node_getEdgeList)
@@ -45,8 +45,8 @@ namespace tests
 			Node node1(location, 100, 200);
 			Node node2(location, 100, 200);
 
-			auto edge = std::make_shared<Edge>(node1, node2, 10);
-			node1.addEdge(edge);
+			auto edge = new Edge(node1, node2, 10);
+			node1.addEdge(*edge);
 
 			auto edge2 = node1.getEdge(0);
 		}

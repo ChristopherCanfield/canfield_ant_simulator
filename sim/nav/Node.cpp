@@ -20,18 +20,39 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 	circle.setFillColor(sf::Color::Blue);
 }
 
-Node& Node::addEdge(std::shared_ptr<Edge> edge)
+Node::~Node()
 {
-	edges.push_back(edge);
+	for (uint i = 0u; i < edges.size(); ++i)
+	{
+		if (edges[i] != nullptr)
+		{
+			delete edges[i];
+			edges[i] = nullptr;
+		}
+	}
+}
+
+Node& Node::addEdge(Edge& edge)
+{
+	for (auto& e : edges)
+	{
+		if (&edge == e)
+		{
+			return *this;
+		}
+	}
+	edges.push_back(&edge);
+	
+
 	return *this;
 }
 
-std::vector<std::shared_ptr<Edge>>& Node::getEdgeList()
+std::vector<Edge*>& Node::getEdgeList()
 {
 	return edges;
 }
 
-std::shared_ptr<Edge> Node::getEdge(uint index)
+Edge* Node::getEdge(uint index)
 {
 	return edges[index];
 }

@@ -50,7 +50,7 @@ namespace cdc
 	template <class T>
 	void Observable<T>::notifyObservers(T& notification)
 	{
-		for (auto i = 0; i < observers.size(); ++i)
+		for (auto i = 0u; i < observers.size(); ++i)
 		{
 			observers[i]->update(notification);
 		}
