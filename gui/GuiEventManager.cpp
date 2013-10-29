@@ -125,8 +125,8 @@ void notifyGuiEventObservers(const std::vector<GuiEventObserver*>& observers, co
 
 void notifyDirectGuiEventObservers(const std::vector<DirectGuiEventObserver*>& observers, const sf::Event& e)
 {
-	int mouseX = (e.type == sf::Event::MouseMoved) ? e.mouseMove.x : e.mouseButton.x;
-	int mouseY = (e.type == sf::Event::MouseMoved) ? e.mouseMove.y : e.mouseButton.y;
+	float mouseX = static_cast<float>((e.type == sf::Event::MouseMoved) ? e.mouseMove.x : e.mouseButton.x);
+	float mouseY = static_cast<float>((e.type == sf::Event::MouseMoved) ? e.mouseMove.y : e.mouseButton.y);
 
 	for (auto observer : observers)
 	{
