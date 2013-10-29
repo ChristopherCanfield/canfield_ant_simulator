@@ -17,3 +17,9 @@ uint cdc::Search::manhattanHeuristic(Node& startNode, Node& endNode)
 
 	return (rowDiff + columnDiff);
 }
+
+
+std::queue<Node*> cdc::Search::aStar(Node& startNode, Node& endNode, std::vector<Node>& navGraph)
+{
+
+}

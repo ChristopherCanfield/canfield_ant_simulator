@@ -7,6 +7,8 @@
 #include "../util/Typedefs.hpp"
 #include "Node.hpp"
 
+#include <queue>
+#include <vector>
 
 namespace cdc
 {
@@ -14,5 +16,7 @@ namespace cdc
 	namespace Search
 	{
 		uint manhattanHeuristic(Node& startNode, Node& endNode);
+
+		std::queue<Node*> aStar(Node& startNode, Node& endNode, std::vector<Node>& navGraph);
 	}
 }
