@@ -20,6 +20,9 @@ namespace cdc
 		// Returns the distance using a Manhattan-based (grid) calculation.
 		static uint manhattanHeuristic(Node& startNode, Node& endNode);
 
+		// Returns the straight line distance between two nodes.
+		static uint straightLineHeuristic(Node& startNode, Node& endNode);
+
 		// The A* search algorithm.
 		static std::queue<Node*> aStar(const Node& startNode, const Node& endNode, std::vector<Node>& navGraph);
 
