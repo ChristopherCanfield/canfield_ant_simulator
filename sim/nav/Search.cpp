@@ -1,4 +1,5 @@
 #include "Search.hpp"
+#include "PathKey.hpp"
 
 #include <cmath>
 
@@ -8,6 +9,9 @@
 
 
 using cdc::Node;
+using cdc::PathKey;
+
+static std::unordered_map<PathKey, std::queue<Node*>> paths;
 
 
 uint cdc::Search::manhattanHeuristic(Node& startNode, Node& endNode)
@@ -19,7 +23,8 @@ uint cdc::Search::manhattanHeuristic(Node& startNode, Node& endNode)
 }
 
 
-std::queue<Node*> cdc::Search::aStar(Node& startNode, Node& endNode, std::vector<Node>& navGraph)
+std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, std::vector<Node>& navGraph)
 {
-
+	// TODO (2013-10-30): implement this.
+	return std::queue<Node*>();
 }

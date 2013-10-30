@@ -103,3 +103,9 @@ void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(circle, states);
 }
+
+bool Node::operator==(const Node& other) const
+{
+	return (getColumn() == other.getColumn() &&
+			getRow() == other.getRow());
+}

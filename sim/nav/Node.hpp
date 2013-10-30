@@ -49,6 +49,8 @@ namespace cdc
 
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+		bool Node::operator==(const Node& other) const;
+
 	private:
 		void removeEdge(Edge& edge);
 

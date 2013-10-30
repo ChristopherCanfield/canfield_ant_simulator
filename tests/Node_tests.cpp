@@ -45,10 +45,13 @@ namespace tests
 			Node node1(location, 100, 200);
 			Node node2(location, 100, 200);
 
-			auto edge = new Edge(node1, node2, 10);
+			Edge* edge = new Edge(node1, node2, 10);
 			node1.addEdge(*edge);
 
-			auto edge2 = node1.getEdge(0);
+			Edge* edge2 = node1.getEdge(0);
+			Edge* edge3 = node1.getEdgeList()[0];
+			Assert::IsTrue(edge3 == edge2);
+			Assert::IsTrue(edge == edge2);
 		}
 
 		TEST_METHOD(Node_getPixelX)
@@ -57,6 +60,7 @@ namespace tests
 			Node node(location, 100, 200);
 
 			auto pixelX = node.getPixelX();
+			Assert::AreEqual(pixelX, 100);
 		}
 
 		TEST_METHOD(Node_getPixelY)
@@ -65,6 +69,7 @@ namespace tests
 			Node node(location, 100, 200);
 
 			auto pixelY = node.getPixelY();
+			Assert::AreEqual(pixelY, 200);
 		}
 
 		TEST_METHOD(Node_getRow)
@@ -73,6 +78,7 @@ namespace tests
 			Node node(location, 100, 200);
 
 			auto row = node.getRow();
+			Assert::AreEqual(row, 5u);
 		}
 
 		TEST_METHOD(Node_getColumn)
@@ -81,6 +87,7 @@ namespace tests
 			Node node(location, 100, 200);
 
 			auto column = node.getColumn();
+			Assert::AreEqual(column, 1u);
 		}
 	};
 }
