@@ -62,7 +62,7 @@ Node* Edge::getNode2() const
 	return endNode;
 }
 
-Node* Edge::getOppositeNode(Node& node) const
+Node* Edge::getOppositeNode(const Node& node) const
 {
 	if (startNode == &node)
 	{

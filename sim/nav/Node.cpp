@@ -69,12 +69,12 @@ void Node::removeEdge(Edge& edge)
 	}
 }
 
-std::vector<Edge*>& Node::getEdgeList()
+const std::vector<Edge*>& Node::getEdgeList() const
 {
 	return edges;
 }
 
-Edge* Node::getEdge(uint index)
+const Edge* Node::getEdge(uint index) const
 {
 	return edges[index];
 }

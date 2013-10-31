@@ -31,11 +31,11 @@ namespace cdc
 		Node& addEdge(Edge& edge, bool addEdgeToOppositeNode = true);
 
 		// Returns a reference to the edge list.
-		std::vector<Edge*>& getEdgeList();
+		const std::vector<Edge*>& getEdgeList() const;
 
 		// Returns a reference to an edge.
 		// - index: the edge's index in the Node's edge list.
-		Edge* getEdge(uint index);
+		const Edge* getEdge(uint index) const;
 
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;
@@ -64,5 +64,39 @@ namespace cdc
 
 		// The graphical representation of the node.
 		sf::CircleShape circle;
+	};
+}
+
+
+namespace std
+{
+	template<>
+	class hash<cdc::Node>
+	{
+	public:
+		// Adapted from Joshua Bock, "Effective Java, 2nd Edition".
+		std::size_t operator()(const cdc::Node& key) const
+		{
+			std::size_t result = 17;
+			result = 31 * result + key.getColumn();
+			result = 31 * result + key.getRow();
+
+			return result;
+		}
+	};
+
+	template<>
+	class hash<cdc::Node>
+	{
+	public:
+		// Adapted from Joshua Bock, "Effective Java, 2nd Edition".
+		std::size_t operator()(const cdc::Node* key) const
+		{
+			std::size_t result = 17;
+			result = 31 * result + key->getColumn();
+			result = 31 * result + key->getRow();
+
+			return result;
+		}
 	};
 }

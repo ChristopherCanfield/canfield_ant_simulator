@@ -10,6 +10,8 @@
 
 #include <queue>
 #include <vector>
+#include <list>
+#include <unordered_set>
 #include <unordered_map>
 
 namespace cdc
@@ -28,7 +30,7 @@ namespace cdc
 
 	private:
 		static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::list<Node*>& frontier);
-		static void expandFrontier(std::list<Node*>& frontier);
+		static void expandFrontier(const Node* lowestCostNode, std::list<Node*>& frontier, std::unordered_set<Node*>& closed);
 
 		// Contains previously calculated paths from start nodes to end nodes.
 		// - key: NodeMapKey made up of a start node and end node.

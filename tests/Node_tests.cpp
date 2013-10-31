@@ -48,7 +48,7 @@ namespace tests
 			Edge* edge = new Edge(node1, node2, 10);
 			node1.addEdge(*edge);
 
-			Edge* edge2 = node1.getEdge(0);
+			const Edge* edge2 = node1.getEdge(0);
 			Edge* edge3 = node1.getEdgeList()[0];
 			Assert::IsTrue(edge3 == edge2);
 			Assert::IsTrue(edge == edge2);
