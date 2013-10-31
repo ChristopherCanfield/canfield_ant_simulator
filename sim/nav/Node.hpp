@@ -84,19 +84,4 @@ namespace std
 			return result;
 		}
 	};
-
-	template<>
-	class hash<cdc::Node>
-	{
-	public:
-		// Adapted from Joshua Bock, "Effective Java, 2nd Edition".
-		std::size_t operator()(const cdc::Node* key) const
-		{
-			std::size_t result = 17;
-			result = 31 * result + key->getColumn();
-			result = 31 * result + key->getRow();
-
-			return result;
-		}
-	};
 }

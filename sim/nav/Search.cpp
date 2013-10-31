@@ -73,7 +73,7 @@ void cdc::Search::expandFrontier(const Node* lowestCostNode, std::list<Node*>& f
 		Node* node = edge->getOppositeNode(*lowestCostNode);
 		if (node != nullptr)
 		{
-			auto c = closed.find(lowestCostNode); 
-			if ()
+			//auto c = closed.find(lowestCostNode);
+		}
 	}
 }
