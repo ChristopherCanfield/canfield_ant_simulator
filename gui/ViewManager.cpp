@@ -26,6 +26,7 @@ ViewManager::ViewManager(GuiEventManager& eventManager,
 	uiView.setCenter(uiViewWidth / 2.f, uiViewHeight / 2.f);
 
 	eventManager.addKeyPressListener(*this);
+	eventManager.addMouseWheelListener(*this);
 }
 
 
@@ -45,8 +46,23 @@ void ViewManager::setWindow(sf::RenderWindow* window)
 
 void ViewManager::onGuiEvent(const sf::Event& e)
 {
-	// TODO: call moveMainView if key event.
-	// TODO: zoom in or out if mouse wheel event.
+	if (e.type == sf::Event::KeyPressed)
+	{
+		moveMainView(e);
+	}
+	else if (e.type == sf::Event::MouseWheelMoved)
+	{
+		if (e.mouseWheel.delta > 0)
+		{
+			simView.zoom(0.95);
+		}
+		else if (e.mouseWheel.delta < 0)
+		{
+			simView.zoom(1.05);
+		}
+
+		window->setView(simView);
+	}
 }
 
 
