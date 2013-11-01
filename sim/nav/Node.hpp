@@ -74,14 +74,11 @@ namespace std
 	class hash<cdc::Node>
 	{
 	public:
-		// Adapted from Joshua Bock, "Effective Java, 2nd Edition".
+		// Adapted from Bjarne Stroustrup, "A Tour of C++"
 		std::size_t operator()(const cdc::Node& key) const
 		{
-			std::size_t result = 17;
-			result = 31 * result + key.getColumn();
-			result = 31 * result + key.getRow();
-
-			return result;
+			return hash<uint>()(key.getColumn()) ^
+					hash<uint>()(key.getRow());
 		}
 	};
 }

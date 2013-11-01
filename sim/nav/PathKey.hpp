@@ -31,16 +31,13 @@ namespace std
 	class hash<cdc::PathKey>
 	{
 	public:
-		// Adapted from Joshua Bock, "Effective Java, 2nd Edition".
+		// Adapted from Bjarne Stroustrup, "A Tour of C++"
 		std::size_t operator()(const cdc::PathKey& key) const
 		{
-			std::size_t result = 17;
-			result = 31 * result + key.getStartNode().getColumn();
-			result = 31 * result + key.getStartNode().getRow();
-			result = 31 * result + key.getEndNode().getColumn();
-			result = 31 * result + key.getEndNode().getRow();
-
-			return result;
+			return hash<uint>()(key.getStartNode().getColumn()) ^
+					hash<uint>()(key.getStartNode().getRow()) ^
+					hash<uint>()(key.getEndNode().getColumn()) ^
+					hash<uint>()(key.getEndNode().getRow());
 		}
 	};
 }
