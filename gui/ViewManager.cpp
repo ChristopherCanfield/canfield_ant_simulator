@@ -45,6 +45,13 @@ void ViewManager::setWindow(sf::RenderWindow* window)
 
 void ViewManager::onGuiEvent(const sf::Event& e)
 {
+	// TODO: call moveMainView if key event.
+	// TODO: zoom in or out if mouse wheel event.
+}
+
+
+void ViewManager::moveMainView(const sf::Event& e)
+{
 	const float movementAmount = 25.f;
 
 	if (e.key.code == sf::Keyboard::Left)

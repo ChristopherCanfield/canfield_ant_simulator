@@ -30,6 +30,8 @@ namespace cdc
 		const sf::View& getUiView() const;
 
 	private:
+		void moveMainView(const sf::Event& e);
+
 		uint worldWidth;
 		uint worldHeight;
 

@@ -42,6 +42,12 @@ namespace cdc
 		// Unregisters the observer for mouse move events.
 		void removeMouseMoveListener(const GuiEventObserver& o);
 
+		// Registers the observer for mouse wheel events.
+		void addMouseWheelListener(GuiEventObserver& o);
+
+		// Unregisters the observer for mouse wheel events.
+		void removeMouseWheelListener(const GuiEventObserver& o);
+
 		// Registers the observer for key press events.
 		void addKeyPressListener(GuiEventObserver& o);
 
@@ -65,6 +71,8 @@ namespace cdc
 		std::vector<GuiEventObserver*> clickObservers;
 		// The list of mouse moved observers.
 		std::vector<GuiEventObserver*> mouseMoveObservers;
+		// The list of mouse move observers.
+		std::vector<GuiEventObserver*> mouseWheelObservers;
 		// The list of key press observers.
 		std::vector<GuiEventObserver*> keyPressObservers;
 		// The list of direct click observers.

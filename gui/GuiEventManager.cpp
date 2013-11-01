@@ -36,6 +36,10 @@ void GuiEventManager::update(const sf::Event& e)
 	{
 		notifyGuiEventObservers(keyPressObservers, e);
 	}
+	else if (e.type == sf::Event::MouseWheelMoved)
+	{
+		notifyGuiEventObservers(mouseWheelObservers, e);
+	}
 }
 
 
@@ -58,6 +62,17 @@ void GuiEventManager::addMouseMoveListener(GuiEventObserver& o)
 void GuiEventManager::removeMouseMoveListener(const GuiEventObserver& o)
 {
 	removeIfMatchFound(mouseMoveObservers, o);
+}
+
+
+void GuiEventManager::addMouseWheelListener(GuiEventObserver& o)
+{
+	mouseWheelObservers.push_back(&o);
+}
+
+void GuiEventManager::removeMouseWheelListener(const GuiEventObserver& o)
+{
+	removeIfMatchFound(mouseWheelObservers, o);
 }
 
 
