@@ -6,20 +6,26 @@
 #include <vector>
 
 
-class PathNode
+namespace cdc
 {
-public:
-	PathNode();
+	// A wrapper around a Node that includes the cost of getting to the Node
+	// (edge cost + heuristic cost).
+	class PathNode
+	{
+	public:
+		PathNode(Node& node, uint cost);
 	
-/	const std::vector<Edge*> getEdges() const;
+		const std::vector<Edge*> getEdgeList() const;
 
-	const Node& getNode() const;
+		const Node& getNode() const;
 
-	uint getCost() const;
+		uint getCost() const;
 
-private:
-	const std::vector<Edge*>& edges;
-	const Node& node;
+		bool operator==(const PathNode& other) const;
+		bool operator==(const Node& other) const;
 
-};
-
+	private:
+		const Node& node;
+		uint cost;
+	};
+}

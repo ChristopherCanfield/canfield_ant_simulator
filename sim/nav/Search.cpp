@@ -69,7 +69,7 @@ Node* cdc::Search::findLowestCost(const Node& startNode, const Node& endNode, co
 	return lowestCostNode;
 }
 
-void cdc::Search::expandFrontier(const Node* lowestCostNode, std::list<Node*>& frontier, std::unordered_set<Node*>& searched)
+void cdc::Search::expandFrontier(const Node* lowestCostNode, std::vector<Node*>& frontier, std::unordered_set<Node*>& searched)
 {
 	// TODO (2013-10-30): implement this.
 	for (auto edge : lowestCostNode->getEdgeList())
