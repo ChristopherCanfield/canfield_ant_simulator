@@ -17,7 +17,8 @@ namespace cdc
 	class PathNode
 	{
 	public:
-		PathNode(Node& node, uint cost);
+		PathNode(const Node& node, uint cost);
+		PathNode operator=(const PathNode& rhs);
 	
 		const std::vector<Edge*> getEdgeList() const;
 

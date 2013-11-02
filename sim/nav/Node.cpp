@@ -109,3 +109,8 @@ bool Node::operator==(const Node& other) const
 	return (getColumn() == other.getColumn() &&
 			getRow() == other.getRow());
 }
+
+bool Node::operator!=(const Node& other) const
+{
+	return !(*this == other);
+}

@@ -4,11 +4,6 @@
 // October 2013
 // Edge.hpp
 
-namespace cdc 
-{ 
-	class Node;
-}
-
 #include "../util/Typedefs.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -16,6 +11,9 @@ namespace cdc
 
 namespace cdc 
 {
+	class Node;
+	class PathNode;
+
 	// An edge between nodes in the graph.
 	class Edge :
 			public sf::Drawable
@@ -39,6 +37,7 @@ namespace cdc
 		Node* getNode2() const;
 
 		Node* getOppositeNode(const Node& node) const;
+		Node* getOppositeNode(const PathNode& node) const;
 
 		// Returns the cost of moving along the edge.
 		uint getCost() const;

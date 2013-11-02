@@ -28,7 +28,12 @@ namespace cdc
 
 		// The A* search algorithm.
 		// Returns a queue of Node* from startNode to endNode.
-		static std::queue<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph);
+		//	- startNode: The start of the path.
+		//	- endNode: The end of the path.
+		//	- navGraph: The navigation graph.
+		//	- hueristic: A function pointer to the hueristic that should be used.
+		static std::queue<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
+				uint (*heuristic)(const Node& startNode, const Node& endNode));
 
 	private:
 		static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier);

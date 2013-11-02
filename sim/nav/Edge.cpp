@@ -1,5 +1,6 @@
 #include "Edge.hpp"
 #include "Node.hpp"
+#include "PathNode.hpp"
 #include "../util/Vector2fAdapter.hpp"
 
 // Christopher D. Canfield
@@ -8,6 +9,7 @@
 
 using cdc::Edge;
 using cdc::Node;
+using cdc::PathNode;
 
 
 Edge::Edge(cdc::Node& startNode) :
@@ -73,6 +75,11 @@ Node* Edge::getOppositeNode(const Node& node) const
 		return endNode;
 	}
 	return nullptr;
+}
+
+Node* Edge::getOppositeNode(const PathNode& node) const
+{
+	return getOppositeNode(node.getNode());
 }
 
 uint Edge::getCost() const

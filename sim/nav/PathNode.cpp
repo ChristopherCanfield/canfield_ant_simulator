@@ -10,10 +10,15 @@ using cdc::Node;
 using cdc::Edge;
 
 
-PathNode::PathNode(Node& node, uint cost) :
-		node(node),
+PathNode::PathNode(const Node& node, uint cost) :
+		node(const_cast<Node&>(node)),
 		cost(cost)
 {
+}
+
+PathNode PathNode::operator=(const PathNode& rhs)
+{
+	return PathNode(rhs.getNode(), rhs.getCost());
 }
 
 const std::vector<Edge*> PathNode::getEdgeList() const

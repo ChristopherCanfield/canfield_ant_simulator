@@ -11,8 +11,10 @@
 
 using cdc::Node;
 using cdc::PathKey;
+using cdc::PathNode;
 
 static std::unordered_map<PathKey, std::queue<Node*>> paths;
+
 
 
 uint cdc::Search::manhattanHeuristic(const Node& startNode, const Node& endNode)
@@ -37,14 +39,66 @@ uint cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endNo
 }
 
 
-std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph)
+// Comparator for A* priority queue.
+class PathNodeComparison
 {
-	// TODO (2013-10-30): implement this.
-	std::vector<Node*> frontier;
+public:
+	bool operator()(PathNode& node1, PathNode& node2)
+	{
+		return (node1.getCost() > node2.getCost());
+	}
+};
+
+std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
+									 uint (*heuristic)(const Node& startNode, const Node& endNode))
+{
+	using namespace std;
+
+	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
+	PathNode firstNode(startNode, 0);
+	frontier.push(firstNode);
+
+	queue<Node*> path;
 	std::unordered_set<Node*> searched;
 
+	while (!frontier.empty())
+	{
+		// Get lowest cost node.
+		auto lowestCost = frontier.top();
+		frontier.pop();
 
-	return std::queue<Node*>();
+		path.push(&lowestCost.getNode());
+		
+		// Return the path if the goal has been reached.
+		if (lowestCost.getNode() == endNode)
+		{
+			return path;
+		}
+
+		for (auto& edge : lowestCost.getEdgeList())
+		{
+			auto& currentNode = *edge->getOppositeNode(lowestCost);
+
+			// Calculate the cost for traversing this edge.
+			uint h = heuristic(currentNode, endNode);
+			uint g = edge->getCost();
+			uint cost = h + g;
+
+			// Determine if this node has already been traversed.
+			auto exists = find(searched.begin(), searched.end(), &currentNode);
+			if (exists == searched.end())
+			{
+
+				frontier.push(PathNode(currentNode, cost));
+				searched.insert(&currentNode);
+
+				// TODO (2013-11-02): What happens if a better way is found 
+				// to a node? 
+			}
+		}
+	}
+
+	return path;
 }
 
 // TODO (2013-10-30): Test this.
