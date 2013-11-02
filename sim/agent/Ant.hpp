@@ -25,7 +25,7 @@ namespace cdc
 		Ant(Ant&& other);
 		virtual ~Ant();
 
-		virtual void update(const Percept& percept) override;
+		virtual void update(long ticks, const Percept& percept) override;
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 

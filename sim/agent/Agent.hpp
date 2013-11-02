@@ -14,6 +14,6 @@ namespace cdc
 	{
 	public:
 		// Called once per simulation tick.
-		virtual void update(const Percept& percept) = 0;
+		virtual void update(long ticks, const Percept& percept) = 0;
 	};
 }

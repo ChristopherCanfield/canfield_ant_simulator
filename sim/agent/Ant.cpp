@@ -53,7 +53,7 @@ Ant::~Ant()
 {
 }
 
-void Ant::update(const Percept& percept)
+void Ant::update(long ticks, const Percept& percept)
 {
 
 }

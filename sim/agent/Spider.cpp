@@ -49,7 +49,7 @@ Spider::~Spider()
 
 }
 
-void Spider::update(const Percept& percept)
+void Spider::update(long ticks, const Percept& percept)
 {
 
 }
