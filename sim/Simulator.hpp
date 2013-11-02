@@ -7,6 +7,9 @@
 #include "../util/Typedefs.hpp"
 #include "agent/Ant.hpp"
 #include "agent/Spider.hpp"
+#include "worldobject/AntFood.hpp"
+#include "worldobject/AntFoodPile.hpp"
+#include "world/World.hpp"
 
 #include <boost/noncopyable.hpp>
 
@@ -21,11 +24,11 @@ namespace cdc
 			public boost::noncopyable
 	{
 	public:
-		Simulator();
+		Simulator(GuiEventManager& eventManager);
 		~Simulator();
 
 		// Starts a new simulation.
-		void start();
+		void start(std::unique_ptr<World> world);
 
 		// Pauses the simulation.
 		void pause();
@@ -40,11 +43,12 @@ namespace cdc
 		void decreaseSpeed();
 
 	private:
+		GuiEventManager& eventManager;
+		
 		bool started;
 		uint speed;
 
-		std::vector<std::unique_ptr<Ant>> ants;
-		std::vector<std::unique_ptr<Spider>> spiders;
+		std::unique_ptr<World> world;
 	};
 }
 

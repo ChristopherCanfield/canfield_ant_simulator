@@ -1,4 +1,6 @@
 #include "Simulator.hpp"
+#include "world/World.hpp"
+#include "../gui/GuiEventManager.hpp"
 
 #include <iostream>
 
@@ -8,6 +10,8 @@
 // Simulator.hpp
 
 using cdc::Simulator;
+using cdc::World;
+using cdc::GuiEventManager;
 
 using namespace std;
 
@@ -18,7 +22,8 @@ uint sim_speed_increment = 10;
 uint default_sim_speed = 30;
 
 
-Simulator::Simulator() :
+Simulator::Simulator(GuiEventManager& eventManager) :
+	eventManager(eventManager),
 	started(false),
 	speed(default_sim_speed)
 {
@@ -31,10 +36,14 @@ Simulator::~Simulator()
 
 
 // Starts a new simulation.
-void Simulator::start()
+void Simulator::start(std::unique_ptr<World> world)
 {
+	this->world = std::move(world);
+	this->world->create(eventManager);
+
 	started = true;
 	cout << "Simulator: started" << endl;
+
 	// TODO: start a new simulation.
 }
 

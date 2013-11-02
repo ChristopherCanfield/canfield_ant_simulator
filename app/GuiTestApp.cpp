@@ -21,7 +21,8 @@ GuiTestApp::GuiTestApp() :
 	unpauseButton(eventManager, simulator),
 	startButton(eventManager, simulator),
 	pauseButton(eventManager, simulator),
-	viewManager(eventManager, 1000, 1000, 800, 800, 400, 200)
+	viewManager(eventManager, 1000, 1000, 800, 800, 200, 800),
+	simulator(eventManager)
 {
 	nodes.push_back(Node(GridLocation(0, 0), 10, 10));
 	nodes.push_back(Node(GridLocation(0, 0), 40, 10));
@@ -71,11 +72,11 @@ void GuiTestApp::setup()
 	increaseSpeedButton.setPosition(150, 150);
 	startButton.setPosition(250, 250);
 	unpauseButton.setPosition(350, 350);
-	pauseButton.setPosition(450, 450);
-
-	window->setView(viewManager.getSimView());
+	pauseButton.setPosition(25, 450);
 
 	viewManager.setWindow(window.get());
+	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	//viewManager.getUiView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 0.2f));
 }
 
 
@@ -102,6 +103,8 @@ bool GuiTestApp::run()
 	}
 
 	window->clear(sf::Color::White);
+
+	window->setView(viewManager.getSimView());
 
 	window->draw(decreaseSpeedButton);
 	window->draw(increaseSpeedButton);

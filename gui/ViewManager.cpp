@@ -34,9 +34,14 @@ ViewManager::~ViewManager()
 {
 }
 
-const sf::View& ViewManager::getSimView() const
+sf::View& ViewManager::getSimView()
 {
 	return simView;
+}
+
+sf::View& ViewManager::getUiView()
+{
+	return uiView;
 }
 
 void ViewManager::setWindow(sf::RenderWindow* window)

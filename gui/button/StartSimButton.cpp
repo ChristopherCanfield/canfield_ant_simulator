@@ -1,4 +1,5 @@
 #include "StartSimButton.hpp"
+#include "../sim/world/SimpleWorld.hpp"
 
 // Christopher D. Canfield
 // October 2013
@@ -7,6 +8,8 @@
 using cdc::StartSimButton;
 using cdc::GuiEventManager;
 using cdc::Simulator;
+
+using std::unique_ptr;
 
 
 StartSimButton::StartSimButton(GuiEventManager& eventManager, Simulator& simulator) :
@@ -33,6 +36,7 @@ void StartSimButton::onDirectGuiEvent(const sf::Event& e)
 	Button::onDirectGuiEvent(e);
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		simulator.start();
+		unique_ptr<World> world = unique_ptr<World>(new SimpleWorld());
+		simulator.start(move(world));
 	}
 }

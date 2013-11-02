@@ -17,7 +17,7 @@ namespace cdc
 	{
 	public:
 		AntFood(float x, float y);
-		~AntFood();
+		virtual ~AntFood();
 
 		const sf::Vector2f& getPosition();
 		void setPosition(float x, float y);

@@ -26,8 +26,8 @@ namespace cdc
 		virtual void onGuiEvent(const sf::Event& e) override;
 
 		void setWindow(sf::RenderWindow* window);
-		const sf::View& getSimView() const;
-		const sf::View& getUiView() const;
+		sf::View& getSimView();
+		sf::View& getUiView();
 
 	private:
 		void moveMainView(const sf::Event& e);

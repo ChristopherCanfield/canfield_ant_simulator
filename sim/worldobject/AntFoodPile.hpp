@@ -21,7 +21,7 @@ namespace cdc
 	{
 	public:
 		AntFoodPile(uint foodCount, Node& node);
-		~AntFoodPile();
+		virtual ~AntFoodPile();
 
 		std::shared_ptr<AntFood> getFood();
 
