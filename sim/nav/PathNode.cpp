@@ -1,6 +1,10 @@
 #include "PathNode.hpp"
 
 
+// Christopher D. Canfield
+// October 2013
+// PathNode.cpp
+
 using cdc::PathNode;
 using cdc::Node;
 using cdc::Edge;
@@ -17,7 +21,7 @@ const std::vector<Edge*> PathNode::getEdgeList() const
 	return node.getEdgeList();
 }
 
-const Node& PathNode::getNode() const
+Node& PathNode::getNode() const
 {
 	return node;
 }

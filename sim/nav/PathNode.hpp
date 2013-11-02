@@ -5,6 +5,10 @@
 
 #include <vector>
 
+// Christopher D. Canfield
+// October 2013
+// PathNode.hpp
+
 
 namespace cdc
 {
@@ -17,7 +21,7 @@ namespace cdc
 	
 		const std::vector<Edge*> getEdgeList() const;
 
-		const Node& getNode() const;
+		Node& getNode() const;
 
 		uint getCost() const;
 
@@ -25,7 +29,7 @@ namespace cdc
 		bool operator==(const Node& other) const;
 
 	private:
-		const Node& node;
+		Node& node;
 		uint cost;
 	};
 }

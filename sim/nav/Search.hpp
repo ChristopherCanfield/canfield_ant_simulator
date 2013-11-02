@@ -7,6 +7,7 @@
 #include "../util/Typedefs.hpp"
 #include "Node.hpp"
 #include "PathKey.hpp"
+#include "PathNode.hpp"
 
 #include <queue>
 #include <vector>
@@ -30,8 +31,8 @@ namespace cdc
 		static std::queue<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph);
 
 	private:
-		static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<Node*>& frontier);
-		static void expandFrontier(const Node* lowestCostNode, std::vector<Node*>& frontier, std::unordered_set<Node*>& searched);
+		static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier);
+		static void expandFrontier(const Node* lowestCostNode, std::vector<PathNode>& frontier, std::unordered_set<Node*>& searched);
 
 		// Contains previously calculated paths from start nodes to end nodes.
 		// - key: NodeMapKey made up of a start node and end node.

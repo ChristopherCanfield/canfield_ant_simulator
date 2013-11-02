@@ -26,7 +26,7 @@ namespace tests
 			Ant ant(manager);
 
 			GenericPercept percept;
-			ant.update(percept);
+			ant.update(10, percept);
 		}
 	};
 }

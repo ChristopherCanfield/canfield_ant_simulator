@@ -5,11 +5,18 @@
 // Simulator.hpp
 
 #include "../util/Typedefs.hpp"
+#include "agent/Ant.hpp"
+#include "agent/Spider.hpp"
 
 #include <boost/noncopyable.hpp>
 
+#include <vector>
+#include <memory>
+
+
 namespace cdc 
 {
+	// The ant world simulator.
 	class Simulator :
 			public boost::noncopyable
 	{
@@ -35,6 +42,9 @@ namespace cdc
 	private:
 		bool started;
 		uint speed;
+
+		std::vector<std::unique_ptr<Ant>> ants;
+		std::vector<std::unique_ptr<Spider>> spiders;
 	};
 }
 

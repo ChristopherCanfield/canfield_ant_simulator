@@ -26,7 +26,7 @@ namespace tests
 			Spider spider(manager);
 
 			GenericPercept percept;
-			spider.update(percept);
+			spider.update(20, percept);
 		}
 	};
 }
