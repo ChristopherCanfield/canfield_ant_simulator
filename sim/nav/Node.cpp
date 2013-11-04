@@ -1,6 +1,8 @@
 #include "Node.hpp"
 #include "../util/Vector2fAdapter.hpp"
 
+#include <stdexcept>
+
 // Christopher D. Canfield
 // October 2013
 // Node.cpp
@@ -8,6 +10,8 @@
 using cdc::Node;
 using cdc::Edge;
 using cdc::GridLocation;
+using std::shared_ptr;
+using std::out_of_range;
 
 
 Node::Node(GridLocation location, int pixelX, int pixelY) :
@@ -23,7 +27,7 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 
 Node::~Node()
 {
-	for (uint i = 0u; i < edges.size(); ++i)
+	/*for (uint i = 0u; i < edges.size(); ++i)
 	{
 		if (edges[i] != nullptr)
 		{
@@ -33,50 +37,62 @@ Node::~Node()
 			delete edges[i];
 			edges[i] = nullptr;
 		}
-	}
+	}*/
 }
 
-Node& Node::addEdge(Edge& edge, bool addEdgeToOppositeNode)
+Node& Node::addEdge(shared_ptr<Edge> edge, bool addEdgeToOppositeNode)
 {
 	for (auto& e : edges)
 	{
-		if (&edge == e)
+		if (edge == e)
 		{
 			return *this;
 		}
 	}
-	edges.push_back(&edge);
+	edges.push_back(edge);
 	
 	if (addEdgeToOppositeNode)
 	{
-		if (edge.getNode1() != nullptr)
+		if (edge->getNode1() != nullptr)
 		{
-			edge.getNode1()->addEdge(edge, false);
+			edge->getNode1()->addEdge(edge, false);
 		}
 	}
 
 	return *this;
 }
 
-void Node::removeEdge(Edge& edge)
+void Node::removeEdge(Edge& edge, bool removeEdgeFromOpposite)
 {
-	for (uint i = 0u; i < edges.size(); ++i)
+	for (auto e = edges.begin(); e != edges.end(); ++e)
 	{
-		if (edges[i] == &edge)
+		if (*(*e) == edge)
 		{
-			edges[i] = nullptr;
+			if (removeEdgeFromOpposite)
+			{
+				(*e)->getOppositeNode(*this)->removeEdge(*(*e), false);
+			}
+			edges.erase(e);
+			return;
 		}
 	}
 }
 
-const std::vector<Edge*>& Node::getEdgeList() const
+const std::vector<shared_ptr<Edge>>& Node::getEdgeList() const
 {
 	return edges;
 }
 
-const Edge* Node::getEdge(uint index) const
+const Edge& Node::getEdge(uint index) const
 {
-	return edges[index];
+	if (index < edges.size())
+	{
+		return *edges[index].get();
+	}
+	else
+	{
+		throw out_of_range("Index provided to Node::getEdge is out of range. Index: " + index);
+	}
 }
 
 int Node::getPixelX() const

@@ -7,6 +7,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
+using namespace std;
 
 namespace tests
 {
@@ -27,8 +28,8 @@ namespace tests
 			Node node1(location, 100, 200);
 			Node node2(location, 100, 200);
 
-			auto edge = new Edge(node1, node2, 10);
-			node1.addEdge(*edge);
+			auto edge = make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 		}
 
 		TEST_METHOD(Node_getEdgeList)
@@ -45,13 +46,13 @@ namespace tests
 			Node node1(location, 100, 200);
 			Node node2(location, 100, 200);
 
-			Edge* edge = new Edge(node1, node2, 10);
-			node1.addEdge(*edge);
+			auto edge = make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 
-			const Edge* edge2 = node1.getEdge(0);
-			Edge* edge3 = node1.getEdgeList()[0];
-			Assert::IsTrue(edge3 == edge2);
-			Assert::IsTrue(edge == edge2);
+			const auto edge2 = node1.getEdge(0);
+			auto edge3 = node1.getEdgeList()[0];
+			Assert::IsTrue(*edge3 == edge2);
+			Assert::IsTrue(*edge == edge2);
 		}
 
 		TEST_METHOD(Node_getPixelX)

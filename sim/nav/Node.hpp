@@ -28,14 +28,17 @@ namespace cdc
 		// - edge: the Edge to add.
 		// - addEdgeToOppositeNode: add the Edge to the opposite node as well.
 		//		In other words, if this is adding edge A->B, also add B->A.
-		Node& addEdge(Edge& edge, bool addEdgeToOppositeNode = true);
+		Node& addEdge(std::shared_ptr<Edge> edge, bool addEdgeToOppositeNode = true);
+
+		// Removes an edge.
+		void Node::removeEdge(Edge& edge, bool removeEdgeFromOpposite = true);
 
 		// Returns a reference to the edge list.
-		const std::vector<Edge*>& getEdgeList() const;
+		const std::vector<std::shared_ptr<Edge>>& getEdgeList() const;
 
 		// Returns a reference to an edge.
 		// - index: the edge's index in the Node's edge list.
-		const Edge* getEdge(uint index) const;
+		const Edge& getEdge(uint index) const;
 
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;
@@ -55,7 +58,7 @@ namespace cdc
 	private:
 		void removeEdge(Edge& edge);
 
-		std::vector<Edge*> edges;
+		std::vector<std::shared_ptr<Edge>> edges;
 
 		int pixelX;
 		int pixelY;

@@ -117,3 +117,16 @@ void Edge::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		target.draw(vertices, states);
 	}
 }
+
+bool Edge::operator==(const Edge& other) const
+{
+	return (this->getCost() == other.getCost() &&
+			this->getNode1() == other.getNode1() &&
+			this->getNode2() == other.getNode2() &&
+			this->getPheromone() == other.getPheromone());
+}
+
+bool Edge::operator!=(const Edge& other) const
+{
+	return !(*this == other);
+}

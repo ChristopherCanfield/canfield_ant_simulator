@@ -6,6 +6,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 using namespace cdc;
+using namespace std;
 
 namespace tests
 {
@@ -68,7 +69,7 @@ namespace tests
 			Node startNode(GridLocation(1, 2), 20, 30);
 			Node endNode(GridLocation(1, 2), 20, 30);
 
-			Edge edge(startNode, endNode, 5);
+			auto edge = make_shared<Edge>(startNode, endNode, 5);
 			startNode.addEdge(edge);
 
 			PathNode pathNode(startNode, 100u);

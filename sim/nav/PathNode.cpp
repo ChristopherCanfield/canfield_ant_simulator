@@ -21,7 +21,7 @@ PathNode PathNode::operator=(const PathNode& rhs)
 	return PathNode(rhs.getNode(), rhs.getCost());
 }
 
-const std::vector<Edge*> PathNode::getEdgeList() const
+const std::vector<std::shared_ptr<Edge>> PathNode::getEdgeList() const
 {
 	return node.getEdgeList();
 }

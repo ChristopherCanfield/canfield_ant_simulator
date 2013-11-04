@@ -3,6 +3,9 @@
 
 #include "../sim/nav/Search.hpp"
 
+#include <iostream>
+#include <iomanip>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
 using namespace std;
@@ -101,7 +104,7 @@ namespace tests
 				path.pop();
 			}
 
-			Assert::IsTrue(*node == node[11]);
+			Assert::IsTrue(*node == navGraph[7]);
 		}
 
 		TEST_METHOD(Search_AStarManhattan_1)
@@ -118,7 +121,7 @@ namespace tests
 				path.pop();
 			}
 
-			Assert::IsTrue(*node == node[11]);
+			Assert::IsTrue(*node == navGraph[7]);
 		}
 
 		vector<Node> createNavGraph1()
@@ -137,43 +140,43 @@ namespace tests
 			navGraph.push_back(Node(GridLocation(2, 2), 10, 20));	// 10
 			navGraph.push_back(Node(GridLocation(2, 3), 10, 20));	// 11
 
-			Edge edge_00_01(navGraph[0], navGraph[1], 1);
-			Edge edge_00_10(navGraph[0], navGraph[4], 1);
+			auto edge_00_01 = make_shared<Edge>(navGraph[0], navGraph[1], 1);
+			auto edge_00_10 = make_shared<Edge>(navGraph[0], navGraph[4], 1);
 			navGraph[0].addEdge(edge_00_01).addEdge(edge_00_10);
 			
-			Edge edge_01_02(navGraph[1], navGraph[2], 1);
-			Edge edge_01_11(navGraph[1], navGraph[5], 1);
+			auto edge_01_02 = make_shared<Edge>(navGraph[1], navGraph[2], 1);
+			auto edge_01_11 = make_shared<Edge>(navGraph[1], navGraph[5], 1);
 			navGraph[1].addEdge(edge_01_02).addEdge(edge_01_11);
 
-			Edge edge_02_03(navGraph[2], navGraph[3], 1);
-			Edge edge_02_12(navGraph[2], navGraph[6], 1);
+			auto edge_02_03 = make_shared<Edge>(navGraph[2], navGraph[3], 1);
+			auto edge_02_12 = make_shared<Edge>(navGraph[2], navGraph[6], 1);
 			navGraph[2].addEdge(edge_02_03).addEdge(edge_02_12);
 
-			Edge edge_03_13(navGraph[3], navGraph[7], 1);
+			auto edge_03_13 = make_shared<Edge>(navGraph[3], navGraph[7], 1);
 			navGraph[3].addEdge(edge_03_13);
 
-			Edge edge_10_11(navGraph[4], navGraph[5], 1);
-			Edge edge_10_20(navGraph[4], navGraph[8], 1);
+			auto edge_10_11 = make_shared<Edge>(navGraph[4], navGraph[5], 1);
+			auto edge_10_20 = make_shared<Edge>(navGraph[4], navGraph[8], 1);
 			navGraph[4].addEdge(edge_10_11).addEdge(edge_10_20);
 
-			Edge edge_11_12(navGraph[5], navGraph[6], 1);
-			Edge edge_11_21(navGraph[5], navGraph[9], 1);
+			auto edge_11_12 = make_shared<Edge>(navGraph[5], navGraph[6], 1);
+			auto edge_11_21 = make_shared<Edge>(navGraph[5], navGraph[9], 1);
 			navGraph[5].addEdge(edge_11_12).addEdge(edge_11_21);
 
-			Edge edge_12_13(navGraph[6], navGraph[7], 1);
-			Edge edge_12_22(navGraph[6], navGraph[10], 1);
+			auto edge_12_13 = make_shared<Edge>(navGraph[6], navGraph[7], 1);
+			auto edge_12_22 = make_shared<Edge>(navGraph[6], navGraph[10], 1);
 			navGraph[6].addEdge(edge_12_13).addEdge(edge_12_22);
 
-			Edge edge_13_23(navGraph[7], navGraph[11], 1);
+			auto edge_13_23 = make_shared<Edge>(navGraph[7], navGraph[11], 1);
 			navGraph[7].addEdge(edge_13_23);
 
-			Edge edge_20_21(navGraph[8], navGraph[9], 1);
+			auto edge_20_21 = make_shared<Edge>(navGraph[8], navGraph[9], 1);
 			navGraph[8].addEdge(edge_20_21);
 
-			Edge edge_21_22(navGraph[9], navGraph[10], 1);
+			auto edge_21_22 = make_shared<Edge>(navGraph[9], navGraph[10], 1);
 			navGraph[9].addEdge(edge_21_22);
 
-			Edge edge_22_23(navGraph[10], navGraph[11], 1);
+			auto edge_22_23 = make_shared<Edge>(navGraph[10], navGraph[11], 1);
 			navGraph[10].addEdge(edge_22_23);
 
 			return navGraph;
