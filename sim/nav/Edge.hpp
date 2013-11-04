@@ -37,7 +37,7 @@ namespace cdc
 		Node* getNode2() const;
 
 		Node* getOppositeNode(const Node& node) const;
-		Node* getOppositeNode(const PathNode& node) const;
+		Node* getOppositeNode(PathNode node) const;
 
 		// Returns the cost of moving along the edge.
 		uint getCost() const;

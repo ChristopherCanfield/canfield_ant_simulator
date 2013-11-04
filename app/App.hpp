@@ -10,8 +10,6 @@ namespace cdc
 	class App
 	{
 	public:
-		virtual ~App() {}
-
 		// Called when the app is launched.
 		virtual void setup() = 0;
 

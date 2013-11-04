@@ -30,7 +30,7 @@ namespace tests
 			Node node2(GridLocation(3, 1), 100, 200);
 			PathNode pathNode2(node2, 100u);
 
-			Assert::IsTrue(pathNode == pathNode);
+			Assert::IsTrue(pathNode == node);
 			Assert::IsFalse(pathNode == pathNode2);
 		}
 

@@ -3,6 +3,9 @@
 
 #include "../sim/nav/Edge.hpp"
 #include "../sim/nav/Node.hpp"
+#include "../sim/nav/PathNode.hpp"
+
+#include <memory>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
@@ -89,6 +92,63 @@ namespace tests
 			edge.increasePheromone();
 			edge.decreasePheromone();
 			Assert::AreEqual(1u, edge.getPheromone());
+		}
+
+		TEST_METHOD(Edge_getOppositeNode)
+		{
+			using namespace std;
+
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(2, 1), 20, 30);
+
+			auto edge = make_shared<Edge>(startNode, endNode, 5);
+			Node* oppNode = edge->getOppositeNode(startNode);
+
+			Assert::AreEqual(startNode.getRow(), oppNode->getRow());
+			Assert::AreNotEqual(endNode.getRow(), oppNode->getRow());
+			Assert::AreEqual(startNode.getColumn(), oppNode->getColumn());
+			Assert::AreNotEqual(endNode.getColumn(), oppNode->getColumn());
+
+			Assert::IsTrue(startNode == *oppNode);
+			Assert::IsFalse(endNode == *oppNode);
+		}
+
+		TEST_METHOD(Edge_getOppositeNode2)
+		{
+			using namespace std;
+
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(2, 1), 20, 30);
+
+			auto edge = make_shared<Edge>(startNode, endNode, 5);
+			Node* oppNode = edge->getOppositeNode(endNode);
+
+			Assert::AreNotEqual(startNode.getRow(), oppNode->getRow());
+			Assert::AreEqual(endNode.getRow(), oppNode->getRow());
+			Assert::AreNotEqual(startNode.getColumn(), oppNode->getColumn());
+			Assert::AreEqual(endNode.getColumn(), oppNode->getColumn());
+
+			Assert::IsFalse(startNode == *oppNode);
+			Assert::IsTrue(endNode == *oppNode);
+		}
+
+		TEST_METHOD(Edge_getOppositeNode_PathNode)
+		{
+			using namespace std;
+
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(2, 1), 20, 30);
+
+			auto edge = make_shared<Edge>(startNode, endNode, 5);
+			Node* oppNode = edge->getOppositeNode(PathNode(startNode, 10u));
+
+			Assert::AreNotEqual(startNode.getRow(), oppNode->getRow());
+			Assert::AreEqual(endNode.getRow(), oppNode->getRow());
+			Assert::AreNotEqual(startNode.getColumn(), oppNode->getColumn());
+			Assert::AreEqual(endNode.getColumn(), oppNode->getColumn());
+
+			Assert::IsFalse(startNode == *oppNode);
+			Assert::IsTrue(endNode == *oppNode);
 		}
 	};
 }

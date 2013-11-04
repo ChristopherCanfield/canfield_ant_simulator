@@ -32,8 +32,9 @@ namespace cdc
 		//	- endNode: The end of the path.
 		//	- navGraph: The navigation graph.
 		//	- hueristic: A function pointer to the hueristic that should be used.
+		//	- debug: Whether to print debug messages.
 		static std::queue<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
-				uint (*heuristic)(const Node& startNode, const Node& endNode));
+				uint (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
 
 	private:
 		static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier);

@@ -4,18 +4,26 @@
 #include "app/GuiTestApp.hpp"
 #include "app/AppRunner.hpp"
 #include "app/AiSimApp.hpp"
+#include "app/AStarTestApp.hpp"
 
-#define GUI_TESTS
+// Define GUI_TESTS to run the gui test app.
+//#define GUI_TESTS
+// Or, define SEARCH_TESTS to run the search test app.
+#define SEARCH_TESTS
+// Or, define neither to run the simulator.
 
 using cdc::AiSimApp;
 using cdc::GuiTestApp;
 using cdc::AppRunner;
+using cdc::AStarTestApp;
 
 
 int main()
 {
-	#ifdef GUI_TESTS
+	#if defined(GUI_TESTS)
 		GuiTestApp app;
+	#elif defined(SEARCH_TESTS)
+		AStarTestApp app;
 	#else
 		AiSimApp app;
 	#endif

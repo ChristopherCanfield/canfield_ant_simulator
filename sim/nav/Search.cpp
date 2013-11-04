@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
 // Christopher D. Canfield
 // October 2013
@@ -50,47 +51,62 @@ public:
 };
 
 std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
-									 uint (*heuristic)(const Node& startNode, const Node& endNode))
+									 uint (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
 {
 	using namespace std;
 
 	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
 	PathNode firstNode(startNode, 0);
-	frontier.push(firstNode);
+	if (debug) cout << "start node: " << startNode.getRow() << "," << startNode.getColumn() << endl;
+	if (debug) cout << "end node: " << endNode.getRow() << "," << endNode.getColumn() << endl;
 
 	queue<Node*> path;
 	std::unordered_set<Node*> searched;
+
+	searched.insert(&const_cast<Node&>(startNode));
+	frontier.push(firstNode);
 
 	while (!frontier.empty())
 	{
 		// Get lowest cost node.
 		auto lowestCost = frontier.top();
 		frontier.pop();
+		if (debug) cout << "popped from frontier: " << lowestCost.getNode().getRow() 
+				<< "," << lowestCost.getNode().getColumn() << endl;
 
 		path.push(&lowestCost.getNode());
 		
 		// Return the path if the goal has been reached.
 		if (lowestCost.getNode() == endNode)
 		{
+			if (debug) cout << "reached end node; returning" << endl;
 			return path;
 		}
 
-		for (auto& edge : lowestCost.getEdgeList())
+		auto edges = lowestCost.getEdgeList();
+		for (auto& edge : edges)
 		{
-			auto& currentNode = *edge->getOppositeNode(lowestCost);
+			auto currentNode = edge->getOppositeNode(lowestCost);
+			if (debug) cout << "current node: " << currentNode->getRow() << "," 
+					<< currentNode->getColumn() << endl;
 
 			// Calculate the cost for traversing this edge.
-			uint h = heuristic(currentNode, endNode);
+			uint h = heuristic(*currentNode, endNode);
 			uint g = edge->getCost();
 			uint cost = h + g;
+			if (debug) cout << "  current node cost: " << cost << endl;
 
 			// Determine if this node has already been traversed.
-			auto exists = find(searched.begin(), searched.end(), &currentNode);
-			if (exists == searched.end())
+			auto foundNode = find(searched.begin(), searched.end(), currentNode);
+			bool notFound = (foundNode == searched.end());
+			// If it does not already exist, add it to the frontier.
+			if (notFound)
 			{
+				frontier.push(PathNode(*currentNode, cost));
+				searched.insert(currentNode);
 
-				frontier.push(PathNode(currentNode, cost));
-				searched.insert(&currentNode);
+				if (debug) cout << "adding to frontier: " << currentNode->getRow() << "," 
+					<< currentNode->getColumn() << endl;
 
 				// TODO (2013-11-02): What happens if a better way is found 
 				// to a node? 

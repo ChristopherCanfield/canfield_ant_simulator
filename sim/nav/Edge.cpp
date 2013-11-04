@@ -66,18 +66,18 @@ Node* Edge::getNode2() const
 
 Node* Edge::getOppositeNode(const Node& node) const
 {
-	if (startNode == &node)
+	if (*startNode == node)
 	{
 		return startNode;
 	}
-	else if (endNode == &node)
+	else if (*endNode == node)
 	{
 		return endNode;
 	}
 	return nullptr;
 }
 
-Node* Edge::getOppositeNode(const PathNode& node) const
+Node* Edge::getOppositeNode(PathNode node) const
 {
 	return getOppositeNode(node.getNode());
 }
