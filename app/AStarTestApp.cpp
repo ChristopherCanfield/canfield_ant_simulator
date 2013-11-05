@@ -20,6 +20,10 @@ AStarTestApp::AStarTestApp()
 {
 }
 
+AStarTestApp::~AStarTestApp()
+{
+}
+
 
 void AStarTestApp::setup()
 {

@@ -15,6 +15,7 @@ namespace cdc
 	class Goal
 	{
 	public:
+		virtual ~Goal() {}
 		virtual void update(AgentType& agent, uint ticks, PerceptType& percept) = 0;
 	};
 }

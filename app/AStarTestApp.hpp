@@ -15,6 +15,7 @@ namespace cdc
 	{
 	public:
 		AStarTestApp();
+		virtual ~AStarTestApp();
 
 		virtual void setup() override;
 

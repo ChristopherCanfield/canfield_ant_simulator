@@ -16,6 +16,6 @@ namespace cdc
 	public:
 		// Converts a percept into an ant percept.
 		AntPercept(const Percept& percept);
-		~AntPercept();
+		virtual ~AntPercept();
 	};
 }

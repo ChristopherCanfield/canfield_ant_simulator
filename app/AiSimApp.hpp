@@ -15,7 +15,7 @@ namespace cdc
 	{
 	public:
 		AiSimApp();
-		~AiSimApp();
+		virtual ~AiSimApp();
 
 		virtual void setup() override;
 

@@ -12,6 +12,8 @@ namespace cdc
 	class GuiEventObserver
 	{
 	public:
+		virtual ~GuiEventObserver() {}
+
 		// Called when a subscribed event type occurs.
 		virtual void onGuiEvent(const sf::Event& e) = 0;
 	};

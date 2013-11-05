@@ -13,6 +13,8 @@ namespace cdc
 	class Agent
 	{
 	public:
+		virtual ~Agent() {}
+
 		// Called once per simulation tick.
 		virtual void update(long ticks, const Percept& percept) = 0;
 	};

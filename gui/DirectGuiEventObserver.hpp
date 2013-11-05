@@ -14,6 +14,8 @@ namespace cdc
 	class DirectGuiEventObserver
 	{
 	public:
+		virtual ~DirectGuiEventObserver() {}
+
 		// The bounding box around the DirectGuiEventObserver. Only events that fall within this
 		// bounding box will be returned.
 		virtual sf::FloatRect getBoundingBox() const = 0;

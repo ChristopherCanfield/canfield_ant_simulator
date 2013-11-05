@@ -10,5 +10,7 @@ namespace cdc
 	// Interface for Percepts.
 	class Percept
 	{
+	public:
+		virtual ~Percept() {}
 	};
 }
