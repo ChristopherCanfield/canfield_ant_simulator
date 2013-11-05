@@ -14,7 +14,7 @@ namespace tests
 		
 		TEST_METHOD(AntGoal_create)
 		{
-			AntGoal antGoal();
+			AntGoal antGoal;
 		}
 
 		TEST_METHOD(AntGoal_update)
