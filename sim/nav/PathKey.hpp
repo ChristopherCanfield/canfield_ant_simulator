@@ -13,6 +13,7 @@ namespace cdc
 	{
 	public:
 		PathKey(const Node& startNode, const Node& endNode);
+
 		const Node& getStartNode() const;
 		const Node& getEndNode() const;
 		bool operator==(const PathKey& other) const;

@@ -16,7 +16,7 @@ using cdc::Node;
 using cdc::PathKey;
 using cdc::PathNode;
 
-static std::unordered_map<PathKey, std::deque<Node*>> paths;
+std::unordered_map<PathKey, std::deque<Node*>> cdc::Search::paths;
 
 
 
@@ -57,10 +57,18 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 {
 	using namespace std;
 
-	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
-	PathNode firstNode(startNode, 0);
 	if (debug) cout << "start node: " << startNode.getRow() << "," << startNode.getColumn() << endl;
 	if (debug) cout << "end node: " << endNode.getRow() << "," << endNode.getColumn() << endl;
+
+	// Check if the path was already computed. If it was, return it.
+	if (paths.count(PathKey(startNode, endNode)) != 0)
+	{
+		if (debug) cout << "+path found in map; returning" << endl;
+		return paths[PathKey(startNode, endNode)];
+	}
+
+	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
+	PathNode firstNode(startNode, 0);
 
 	deque<Node*> path;
 	std::unordered_set<Node*> searched;
@@ -82,6 +90,8 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 		if (lowestCost.getNode() == endNode)
 		{
 			if (debug) cout << "+reached end node; returning" << endl;
+			// Add path to map.
+			paths[PathKey(startNode, endNode)] = path;
 			return path;
 		}
 

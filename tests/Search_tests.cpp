@@ -141,6 +141,50 @@ namespace tests
 			Assert::IsTrue(*node == navGraph[3]);
 		}
 
+		TEST_METHOD(Search_AStarStraightLine_cache1)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[3], navGraph[9], navGraph,
+					cdc::Search::straightLineHeuristic);
+			auto path2 = cdc::Search::aStar(navGraph[3], navGraph[9], navGraph,
+					cdc::Search::straightLineHeuristic);
+			
+			Node* endNode1 = path.back();
+			Node* endNode2 = path2.back();
+
+			Node* startNode1 = path.front();
+			Node* startNode2 = path2.front();
+
+			Assert::IsTrue(endNode1 == endNode2);
+			Assert::IsTrue(startNode1 == startNode2);
+			Assert::IsTrue(*endNode1 == navGraph[9]);
+			Assert::IsTrue(*startNode1 == navGraph[3]);
+		}
+
+		TEST_METHOD(Search_AStarStraightLine_cache2)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
+					cdc::Search::straightLineHeuristic);
+			auto path2 = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
+					cdc::Search::straightLineHeuristic);
+			
+			Node* endNode1 = path.back();
+			Node* endNode2 = path2.back();
+
+			Node* startNode1 = path.front();
+			Node* startNode2 = path2.front();
+
+			Assert::IsTrue(endNode1 == endNode2);
+			Assert::IsTrue(startNode1 == startNode2);
+			Assert::IsTrue(*endNode1 == navGraph[3]);
+			Assert::IsTrue(*startNode1 == navGraph[9]);
+		}
+
+
+
 		TEST_METHOD(Search_AStarManhattan_1)
 		{
 			auto navGraph = createNavGraph1();
@@ -190,6 +234,44 @@ namespace tests
 			}
 
 			Assert::IsTrue(*node == navGraph[3]);
+		}
+
+		TEST_METHOD(Search_AStarManhattan_cache1)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
+					cdc::Search::manhattanHeuristic);
+
+			auto path2 = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
+					cdc::Search::manhattanHeuristic);
+			
+			Node* endNode1 = path.back();
+			Node* endNode2 = path2.back();
+
+			Node* startNode1 = path.back();
+			Node* startNode2 = path2.back();
+
+			Assert::IsTrue(endNode1 == endNode2);
+			Assert::IsTrue(startNode1 == startNode2);
+			Assert::IsTrue(*endNode1 == navGraph[3]);
+		}
+
+		TEST_METHOD(Search_AStarManhattan_cache2)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[3], navGraph[9], navGraph,
+					cdc::Search::manhattanHeuristic);
+
+			auto path2 = cdc::Search::aStar(navGraph[3], navGraph[9], navGraph,
+					cdc::Search::manhattanHeuristic);
+			
+			Node* endNode1 = path.back();
+			Node* endNode2 = path2.back();
+
+			Assert::IsTrue(endNode1 == endNode2);
+			Assert::IsTrue(*endNode2 == navGraph[9]);
 		}
 
 		vector<Node> createNavGraph1()

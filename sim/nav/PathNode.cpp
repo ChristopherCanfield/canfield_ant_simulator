@@ -24,7 +24,7 @@ PathNode::PathNode(const PathNode& pathNode) :
 
 PathNode& PathNode::operator=(const PathNode& rhs)
 {
-	if (*this == rhs)
+	if (this == &rhs)
 	{
 		return *this;
 	}
