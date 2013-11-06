@@ -102,7 +102,7 @@ namespace tests
 			Node endNode(GridLocation(2, 1), 20, 30);
 
 			auto edge = make_shared<Edge>(startNode, endNode, 5);
-			Node* oppNode = edge->getOppositeNode(startNode);
+			Node* oppNode = edge->getOppositeNode(endNode);
 
 			Assert::AreEqual(startNode.getRow(), oppNode->getRow());
 			Assert::AreNotEqual(endNode.getRow(), oppNode->getRow());
@@ -121,7 +121,7 @@ namespace tests
 			Node endNode(GridLocation(2, 1), 20, 30);
 
 			auto edge = make_shared<Edge>(startNode, endNode, 5);
-			Node* oppNode = edge->getOppositeNode(endNode);
+			Node* oppNode = edge->getOppositeNode(startNode);
 
 			Assert::AreNotEqual(startNode.getRow(), oppNode->getRow());
 			Assert::AreEqual(endNode.getRow(), oppNode->getRow());

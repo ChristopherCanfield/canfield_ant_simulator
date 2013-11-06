@@ -140,16 +140,16 @@ Node* cdc::Search::findLowestCost(const Node& startNode, const Node& endNode, co
 	return lowestCostNode;
 }
 
-void cdc::Search::expandFrontier(const Node* lowestCostNode, std::vector<PathNode>& frontier, std::unordered_set<Node*>& searched)
-{
-	// TODO (2013-10-30): implement this.
-	for (auto edge : lowestCostNode->getEdgeList())
-	{
-		Node* node = edge->getOppositeNode(*lowestCostNode);
-		if (node != nullptr)
-		{
-			auto c = std::find(searched.begin(), searched.end(), node);
-			//auto c = closed.find(lowestCostNode);
-		}
-	}
-}
+//void cdc::Search::expandFrontier(const Node* lowestCostNode, std::vector<PathNode>& frontier, std::unordered_set<Node*>& searched)
+//{
+//	// TODO (2013-10-30): implement this.
+//	for (auto edge : lowestCostNode->getEdgeList())
+//	{
+//		Node* node = edge->getOppositeNode(*lowestCostNode);
+//		if (node != nullptr)
+//		{
+//			auto c = std::find(searched.begin(), searched.end(), node);
+//			//auto c = closed.find(lowestCostNode);
+//		}
+//	}
+//}
