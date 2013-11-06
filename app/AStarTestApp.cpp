@@ -36,17 +36,21 @@ bool AStarTestApp::run()
 	vector<Node> navGraph = createNavGraph1();
 	auto path = Search::aStar(navGraph[0], navGraph[7], navGraph, Search::straightLineHeuristic, true);
 	Search::printPath(path);
-	cout << endl;
+	cout << endl << endl;
 
 	path = Search::aStar(navGraph[7], navGraph[0], navGraph, Search::straightLineHeuristic, true);
 	Search::printPath(path);
-	cout << endl;
+	cout << endl << endl;
 
 	path = Search::aStar(navGraph[10], navGraph[1], navGraph, Search::straightLineHeuristic, true);
 	Search::printPath(path);
-	cout << endl;
+	cout << endl << endl;
 
-	cout << endl;
+	// Test cache functionality.
+	path = Search::aStar(navGraph[10], navGraph[1], navGraph, Search::straightLineHeuristic, true);
+	Search::printPath(path);
+	cout << endl << endl;
+
 	system("PAUSE");
 	return false;
 }
