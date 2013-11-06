@@ -12,6 +12,7 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
 
 
 namespace cdc 
@@ -70,6 +71,8 @@ namespace cdc
 		sf::CircleShape circle;
 	};
 }
+
+std::ostream& operator<<(std::ostream& stream, const cdc::Node& node);
 
 
 namespace std

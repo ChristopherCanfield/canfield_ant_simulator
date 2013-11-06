@@ -11,24 +11,37 @@ using cdc::Edge;
 
 
 PathNode::PathNode(const Node& node, uint cost) :
-		node(const_cast<Node&>(node)),
+		node(const_cast<Node*>(&node)),
 		cost(cost)
 {
 }
 
-PathNode PathNode::operator=(const PathNode& rhs)
+PathNode::PathNode(const PathNode& pathNode) :
+	node(pathNode.node),
+	cost(pathNode.cost)
 {
-	return PathNode(rhs.getNode(), rhs.getCost());
+}
+
+PathNode& PathNode::operator=(const PathNode& rhs)
+{
+	if (*this == rhs)
+	{
+		return *this;
+	}
+
+	this->node = rhs.node;
+	this->cost = rhs.cost;
+	return *this;
 }
 
 const std::vector<std::shared_ptr<Edge>> PathNode::getEdgeList() const
 {
-	return node.getEdgeList();
+	return node->getEdgeList();
 }
 
 Node& PathNode::getNode() const
 {
-	return node;
+	return *node;
 }
 
 uint PathNode::getCost() const

@@ -9,10 +9,8 @@
 #include "PathKey.hpp"
 #include "PathNode.hpp"
 
-#include <queue>
+#include <deque>
 #include <vector>
-#include <list>
-#include <unordered_set>
 #include <unordered_map>
 
 namespace cdc
@@ -33,16 +31,18 @@ namespace cdc
 		//	- navGraph: The navigation graph.
 		//	- hueristic: A function pointer to the hueristic that should be used.
 		//	- debug: Whether to print debug messages.
-		static std::queue<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
+		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
 				uint (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
 
+		static void printPath(std::deque<Node*> path);
+
 	private:
-		static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier);
+		//static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier);
 		//static void expandFrontier(const Node* lowestCostNode, std::vector<PathNode>& frontier, std::unordered_set<Node*>& searched);
 
 		// Contains previously calculated paths from start nodes to end nodes.
 		// - key: NodeMapKey made up of a start node and end node.
 		// - value: queue of Node* making up the path
-		static std::unordered_map<PathKey, std::queue<Node*>> paths;
+		static std::unordered_map<PathKey, std::deque<Node*>> paths;
 	};
 }

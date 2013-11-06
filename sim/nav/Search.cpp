@@ -1,9 +1,11 @@
 #include "Search.hpp"
 #include "PathKey.hpp"
 
+#include <unordered_set>
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <queue>
 
 // Christopher D. Canfield
 // October 2013
@@ -14,7 +16,7 @@ using cdc::Node;
 using cdc::PathKey;
 using cdc::PathNode;
 
-static std::unordered_map<PathKey, std::queue<Node*>> paths;
+static std::unordered_map<PathKey, std::deque<Node*>> paths;
 
 
 
@@ -50,7 +52,7 @@ public:
 	}
 };
 
-std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
+std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
 									 uint (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
 {
 	using namespace std;
@@ -60,7 +62,7 @@ std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 	if (debug) cout << "start node: " << startNode.getRow() << "," << startNode.getColumn() << endl;
 	if (debug) cout << "end node: " << endNode.getRow() << "," << endNode.getColumn() << endl;
 
-	queue<Node*> path;
+	deque<Node*> path;
 	std::unordered_set<Node*> searched;
 
 	searched.insert(&const_cast<Node&>(startNode));
@@ -69,44 +71,47 @@ std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 	while (!frontier.empty())
 	{
 		// Get lowest cost node.
-		auto lowestCost = frontier.top();
+		PathNode lowestCost(frontier.top());
 		frontier.pop();
-		if (debug) cout << "popped from frontier: " << lowestCost.getNode().getRow() 
+		if (debug) cout << endl << "popped from frontier: " << lowestCost.getNode().getRow() 
 				<< "," << lowestCost.getNode().getColumn() << endl;
 
-		path.push(&lowestCost.getNode());
+		path.push_back(&lowestCost.getNode());
 		
 		// Return the path if the goal has been reached.
 		if (lowestCost.getNode() == endNode)
 		{
-			if (debug) cout << "reached end node; returning" << endl;
+			if (debug) cout << "+reached end node; returning" << endl;
 			return path;
 		}
 
 		auto edges = lowestCost.getEdgeList();
-		for (auto& edge : edges)
+		for (auto edge : edges)
 		{
 			auto currentNode = edge->getOppositeNode(lowestCost);
-			if (debug) cout << "current node: " << currentNode->getRow() << "," 
+			if (debug) cout << "|-searching edge: current node: " << currentNode->getRow() << "," 
 					<< currentNode->getColumn() << endl;
 
 			// Calculate the cost for traversing this edge.
 			uint h = heuristic(*currentNode, endNode);
 			uint g = edge->getCost();
 			uint cost = h + g;
-			if (debug) cout << "  current node cost: " << cost << endl;
+			if (debug) cout << "|---current node cost: " << cost << endl;
 
 			// Determine if this node has already been traversed.
 			auto foundNode = find(searched.begin(), searched.end(), currentNode);
-			bool notFound = (foundNode == searched.end());
-			// If it does not already exist, add it to the frontier.
-			if (notFound)
-			{
-				frontier.push(PathNode(*currentNode, cost));
-				searched.insert(currentNode);
+			bool found = (foundNode != searched.end());
+			if (debug) cout << "|---found: " << found << endl;
 
-				if (debug) cout << "adding to frontier: " << currentNode->getRow() << "," 
+			// If it was not already searched, add it to the frontier.
+			if (!found)
+			{
+				if (debug) cout << "|---adding to frontier: " << currentNode->getRow() << "," 
 					<< currentNode->getColumn() << endl;
+
+				auto currentPathNode = PathNode(*currentNode, cost);
+				frontier.push(currentPathNode);
+				searched.insert(currentNode);
 
 				// TODO (2013-11-02): What happens if a better way is found 
 				// to a node? 
@@ -114,31 +119,43 @@ std::queue<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 		}
 	}
 
+	if (debug) cout << "-no path found; returning" << endl;
 	return path;
 }
 
-// TODO (2013-10-30): Test this.
-Node* cdc::Search::findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier)
+
+void cdc::Search::printPath(std::deque<Node*> path)
 {
-	Node* lowestCostNode = nullptr;
-	uint lowestCost = 99999u;
-
-	for (auto node : frontier)
+	while (!path.empty())
 	{
-		auto distance = straightLineHeuristic(startNode, endNode);
-		for (auto edge : node.getEdgeList())
-		{
-			if ((distance + edge->getCost()) < lowestCost)
-			{
-				lowestCost = distance + edge->getCost();
-				lowestCostNode = &node.getNode();
-				break;
-			}
-		}
+		auto node = path.front();
+		std::cout << " " << *node;
+		path.pop_front();
 	}
-
-	return lowestCostNode;
 }
+
+// TODO (2013-10-30): Test this.
+//Node* cdc::Search::findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier)
+//{
+//	Node* lowestCostNode = nullptr;
+//	uint lowestCost = 99999u;
+//
+//	for (auto node : frontier)
+//	{
+//		auto distance = straightLineHeuristic(startNode, endNode);
+//		for (auto edge : node.getEdgeList())
+//		{
+//			if ((distance + edge->getCost()) < lowestCost)
+//			{
+//				lowestCost = distance + edge->getCost();
+//				lowestCostNode = &node.getNode();
+//				break;
+//			}
+//		}
+//	}
+//
+//	return lowestCostNode;
+//}
 
 //void cdc::Search::expandFrontier(const Node* lowestCostNode, std::vector<PathNode>& frontier, std::unordered_set<Node*>& searched)
 //{

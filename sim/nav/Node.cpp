@@ -53,9 +53,10 @@ Node& Node::addEdge(shared_ptr<Edge> edge, bool addEdgeToOppositeNode)
 	
 	if (addEdgeToOppositeNode)
 	{
-		if (edge->getNode1() != nullptr)
+		auto oppNode = edge->getOppositeNode(*this);
+		if (oppNode != nullptr)
 		{
-			edge->getNode1()->addEdge(edge, false);
+			oppNode->addEdge(edge, false);
 		}
 	}
 
@@ -129,4 +130,10 @@ bool Node::operator==(const Node& other) const
 bool Node::operator!=(const Node& other) const
 {
 	return !(*this == other);
+}
+
+std::ostream& operator<< (std::ostream& stream, const Node& node)
+{
+	stream << "(" << node.getRow() << "," << node.getColumn() << ")";
+	return stream;
 }

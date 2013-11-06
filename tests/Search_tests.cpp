@@ -101,10 +101,44 @@ namespace tests
 			while (!path.empty())
 			{
 				node = path.front();
-				path.pop();
+				path.pop_front();
 			}
 
 			Assert::IsTrue(*node == navGraph[7]);
+		}
+
+		TEST_METHOD(Search_AStarStraightLine_2)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[0], navGraph[11], navGraph,
+					cdc::Search::straightLineHeuristic);
+			
+			Node* node = nullptr;
+			while (!path.empty())
+			{
+				node = path.front();
+				path.pop_front();
+			}
+
+			Assert::IsTrue(*node == navGraph[11]);
+		}
+
+		TEST_METHOD(Search_AStarStraightLine_3)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
+					cdc::Search::straightLineHeuristic);
+			
+			Node* node = nullptr;
+			while (!path.empty())
+			{
+				node = path.front();
+				path.pop_front();
+			}
+
+			Assert::IsTrue(*node == navGraph[3]);
 		}
 
 		TEST_METHOD(Search_AStarManhattan_1)
@@ -118,10 +152,44 @@ namespace tests
 			while (!path.empty())
 			{
 				node = path.front();
-				path.pop();
+				path.pop_front();
 			}
 
 			Assert::IsTrue(*node == navGraph[7]);
+		}
+
+		TEST_METHOD(Search_AStarManhattan_2)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[0], navGraph[11], navGraph,
+					cdc::Search::manhattanHeuristic);
+			
+			Node* node = nullptr;
+			while (!path.empty())
+			{
+				node = path.front();
+				path.pop_front();
+			}
+
+			Assert::IsTrue(*node == navGraph[11]);
+		}
+
+		TEST_METHOD(Search_AStarManhattan_3)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
+					cdc::Search::manhattanHeuristic);
+			
+			Node* node = nullptr;
+			while (!path.empty())
+			{
+				node = path.front();
+				path.pop_front();
+			}
+
+			Assert::IsTrue(*node == navGraph[3]);
 		}
 
 		vector<Node> createNavGraph1()

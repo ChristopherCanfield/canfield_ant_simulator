@@ -5,6 +5,8 @@
 #include "../sim/nav/PathNode.hpp"
 #include "../sim/nav/Search.hpp"
 
+#include <iostream>
+
 // Christopher D. Canfield
 // November 2013
 // AStarTestApp.cpp
@@ -33,7 +35,20 @@ bool AStarTestApp::run()
 {
 	vector<Node> navGraph = createNavGraph1();
 	auto path = Search::aStar(navGraph[0], navGraph[7], navGraph, Search::straightLineHeuristic, true);
-	return true;
+	Search::printPath(path);
+	cout << endl;
+
+	path = Search::aStar(navGraph[7], navGraph[0], navGraph, Search::straightLineHeuristic, true);
+	Search::printPath(path);
+	cout << endl;
+
+	path = Search::aStar(navGraph[10], navGraph[1], navGraph, Search::straightLineHeuristic, true);
+	Search::printPath(path);
+	cout << endl;
+
+	cout << endl;
+	system("PAUSE");
+	return false;
 }
 
 void AStarTestApp::teardown() 
