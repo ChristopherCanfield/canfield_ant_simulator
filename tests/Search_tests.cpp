@@ -141,6 +141,25 @@ namespace tests
 			Assert::IsTrue(*node == navGraph[3]);
 		}
 
+		TEST_METHOD(Search_AStarStraightLine_sameStartEnd)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[6], navGraph[6], navGraph,
+					cdc::Search::straightLineHeuristic);
+			
+			Assert::AreEqual(path.size(), 1u);
+
+			Node* node = nullptr;
+			while (!path.empty())
+			{
+				node = path.front();
+				path.pop_front();
+			}
+
+			Assert::IsTrue(*node == navGraph[6]);
+		}
+
 		TEST_METHOD(Search_AStarStraightLine_cache1)
 		{
 			auto navGraph = createNavGraph1();
@@ -183,8 +202,6 @@ namespace tests
 			Assert::IsTrue(*startNode1 == navGraph[9]);
 		}
 
-
-
 		TEST_METHOD(Search_AStarManhattan_1)
 		{
 			auto navGraph = createNavGraph1();
@@ -226,6 +243,25 @@ namespace tests
 			auto path = cdc::Search::aStar(navGraph[9], navGraph[3], navGraph,
 					cdc::Search::manhattanHeuristic);
 			
+			Node* node = nullptr;
+			while (!path.empty())
+			{
+				node = path.front();
+				path.pop_front();
+			}
+
+			Assert::IsTrue(*node == navGraph[3]);
+		}
+
+		TEST_METHOD(Search_AStarManhattan_sameStartEnd)
+		{
+			auto navGraph = createNavGraph1();
+
+			auto path = cdc::Search::aStar(navGraph[3], navGraph[3], navGraph,
+					cdc::Search::manhattanHeuristic);
+			
+			Assert::AreEqual(path.size(), 1u);
+
 			Node* node = nullptr;
 			while (!path.empty())
 			{
