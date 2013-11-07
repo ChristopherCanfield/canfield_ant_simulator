@@ -21,7 +21,7 @@ Edge::Edge(cdc::Node& startNode) :
 	vertices.setPrimitiveType(sf::Lines);
 }
 
-Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, uint cost) :
+Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, float cost) :
 	startNode(&startNode),
 	endNode(&endNode), 
 	cost(cost),
@@ -38,7 +38,24 @@ Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, uint cost) :
 			sf::Color(0, 0, 255)));
 }
 
-void Edge::set(cdc::Node& endNode, uint cost)
+Edge::Edge(Node& startNode, Node& endNode, int cost) :
+	startNode(&startNode),
+	endNode(&endNode),
+	cost(static_cast<float>(cost)),
+	pheromoneLevel(0)
+{
+	vertices.setPrimitiveType(sf::Lines);
+
+	vertices.append(sf::Vertex(
+			Vector2fAdapter(startNode.getPixelX(), startNode.getPixelY()), 
+			sf::Color(0, 0, 255)));
+
+	vertices.append(sf::Vertex(
+			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
+			sf::Color(0, 0, 255)));
+}
+
+void Edge::set(cdc::Node& endNode, float cost)
 {
 	this->endNode = &endNode;
 	this->cost = cost;
@@ -82,7 +99,7 @@ Node* Edge::getOppositeNode(PathNode node) const
 	return getOppositeNode(node.getNode());
 }
 
-uint Edge::getCost() const
+float Edge::getCost() const
 {
 	return cost;
 }

@@ -14,15 +14,23 @@
 using namespace cdc;
 using namespace std;
 
-static sf::Texture rockTexture;
-static sf::Texture waterTexture;
+static sf::Texture* rockTexture;
+static sf::Texture* waterTexture;
 
 
-bool loadTexture(sf::Texture& texture, string path)
+bool loadTexture(sf::Texture* texture, string path)
 {
-	if (texture.getSize() == sf::Vector2u())
+	if (texture == nullptr)
 	{
-		return  texture.loadFromFile(path);
+		try
+		{
+			texture = new sf::Texture();
+			return  texture->loadFromFile(path);
+		}
+		catch (...)
+		{
+			return false;
+		}
 	}
 
 	return true;
@@ -50,7 +58,7 @@ sf::Sprite SolidObject::createRock(std::vector<Node>& navGraph, int left, int to
 
 	if (loadTexture(rockTexture, path))
 	{
-		return sf::Sprite(rockTexture);
+		return sf::Sprite(*rockTexture);
 	}
 	else
 	{
@@ -65,7 +73,7 @@ sf::Sprite SolidObject::createWater(std::vector<Node>& navGraph, int left, int t
 
 	if (loadTexture(rockTexture, path))
 	{
-		return sf::Sprite(waterTexture);
+		return sf::Sprite(*waterTexture);
 	}
 	else
 	{

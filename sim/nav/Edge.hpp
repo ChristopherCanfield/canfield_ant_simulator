@@ -20,10 +20,11 @@ namespace cdc
 	{
 	public:
 		Edge(Node& startNode);
-		Edge(Node& startNode, Node& endNode, uint cost);
+		Edge(Node& startNode, Node& endNode, float cost);
+		Edge(Node& startNode, Node& endNode, int cost);
 
 		// Sets the attached node.
-		void set(Node& endNode, uint cost);
+		void set(Node& endNode, float cost);
 
 		// Removes the connected node.
 		// TODO: remove this if it remains unused.
@@ -40,7 +41,7 @@ namespace cdc
 		Node* getOppositeNode(PathNode node) const;
 
 		// Returns the cost of moving along the edge.
-		uint getCost() const;
+		float getCost() const;
 
 		uint getPheromone() const;
 		void increasePheromone();
@@ -58,7 +59,7 @@ namespace cdc
 		Node* endNode;
 
 		// The cost of moving along the edge.
-		uint cost;
+		float cost;
 
 		uint pheromoneLevel;
 

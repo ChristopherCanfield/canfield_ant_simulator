@@ -19,10 +19,10 @@ namespace cdc
 	{
 	public:
 		// Returns the distance using a Manhattan-based (grid) calculation.
-		static uint manhattanHeuristic(const Node& startNode, const Node& endNode);
+		static float manhattanHeuristic(const Node& startNode, const Node& endNode);
 
 		// Returns the straight line distance between two nodes.
-		static uint straightLineHeuristic(const Node& startNode, const Node& endNode);
+		static float straightLineHeuristic(const Node& startNode, const Node& endNode);
 
 		// The A* search algorithm.
 		// Returns a queue of Node* from startNode to endNode.
@@ -32,7 +32,7 @@ namespace cdc
 		//	- hueristic: A function pointer to the hueristic that should be used.
 		//	- debug: Whether to print debug messages.
 		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
-				uint (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
+				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
 
 		static void printPath(std::deque<Node*> path);
 

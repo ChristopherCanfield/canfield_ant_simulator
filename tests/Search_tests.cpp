@@ -24,7 +24,7 @@ namespace tests
 			Node node2(GridLocation(15, 21), 10, 20);
 
 			auto heuristicDistance = cdc::Search::straightLineHeuristic(node1, node2);
-			Assert::AreEqual(22u, heuristicDistance);
+			Assert::AreEqual(22.f, heuristicDistance);
 		}
 
 		TEST_METHOD(Search_straightLineHeuristic_2)
@@ -33,7 +33,7 @@ namespace tests
 			Node node2(GridLocation(15, 11), 10, 10);
 
 			auto heuristicDistance = cdc::Search::straightLineHeuristic(node1, node2);
-			Assert::AreEqual(14u, heuristicDistance);
+			Assert::AreEqual(14.f, heuristicDistance);
 		}
 
 		TEST_METHOD(Search_straightLineHeuristic_3)
@@ -42,7 +42,7 @@ namespace tests
 			Node node2(GridLocation(25, 21), 20, 20);
 
 			auto heuristicDistance = cdc::Search::straightLineHeuristic(node1, node2);
-			Assert::AreEqual(28u, heuristicDistance);
+			Assert::AreEqual(28.f, heuristicDistance);
 		}
 
 		TEST_METHOD(Search_straightLineHeuristic_4)
@@ -51,7 +51,7 @@ namespace tests
 			Node node2(GridLocation(5, 1), 10, 10);
 
 			auto heuristicDistance = cdc::Search::straightLineHeuristic(node1, node2);
-			Assert::AreEqual(28u, heuristicDistance);
+			Assert::AreEqual(28.f, heuristicDistance);
 		}
 
 		TEST_METHOD(Search_manhattanHeuristic_1)
@@ -60,7 +60,7 @@ namespace tests
 			Node node2(GridLocation(6, 1), 10, 20);
 
 			auto distance = cdc::Search::manhattanHeuristic(node1, node2);
-			Assert::AreEqual(1u, distance);
+			Assert::AreEqual(1.f, distance);
 		}
 
 		TEST_METHOD(Search_manhattanHeuristic_2)
@@ -69,7 +69,7 @@ namespace tests
 			Node node2(GridLocation(6, 1), 10, 20);
 
 			auto distance = cdc::Search::manhattanHeuristic(node2, node1);
-			Assert::AreEqual(1u, distance);
+			Assert::AreEqual(1.f, distance);
 		}
 
 		TEST_METHOD(Search_manhattanHeuristic_3)
@@ -78,7 +78,7 @@ namespace tests
 			Node node2(GridLocation(6, 3), 10, 20);
 
 			auto distance = cdc::Search::manhattanHeuristic(node1, node2);
-			Assert::AreEqual(5u, distance);
+			Assert::AreEqual(5.f, distance);
 		}
 
 		TEST_METHOD(Search_manhattanHeuristic_4)
@@ -87,7 +87,7 @@ namespace tests
 			Node node2(GridLocation(3, 3), 10, 20);
 
 			auto distance = cdc::Search::manhattanHeuristic(node1, node2);
-			Assert::AreEqual(2u, distance);
+			Assert::AreEqual(2.f, distance);
 		}
 
 		TEST_METHOD(Search_AStarStraightLine_1)
@@ -364,6 +364,51 @@ namespace tests
 
 			auto edge_22_23 = make_shared<Edge>(navGraph[10], navGraph[11], 1);
 			navGraph[10].addEdge(edge_22_23);
+
+			return navGraph;
+		}
+
+		vector<Node> createNavGraph2()
+		{
+			vector<Node> navGraph;
+			navGraph.push_back(Node(GridLocation(0, 0), 10, 20));	// 0
+			navGraph.push_back(Node(GridLocation(0, 1), 10, 20));	// 1
+			navGraph.push_back(Node(GridLocation(0, 2), 10, 20));	// 2
+			navGraph.push_back(Node(GridLocation(1, 0), 10, 20));	// 3
+			navGraph.push_back(Node(GridLocation(1, 1), 10, 20));	// 4
+			navGraph.push_back(Node(GridLocation(1, 2), 10, 20));	// 5
+			navGraph.push_back(Node(GridLocation(2, 0), 10, 20));	// 6
+			navGraph.push_back(Node(GridLocation(2, 1), 10, 20));	// 7
+			navGraph.push_back(Node(GridLocation(2, 2), 10, 20));	// 8
+
+			auto edge_00_01 = make_shared<Edge>(navGraph[0], navGraph[1], 1);
+			auto edge_00_10 = make_shared<Edge>(navGraph[0], navGraph[4], 1);
+			auto edge_00_11 = make_shared<Edge>(navGraph[0], navGraph[4], 1.4f);
+			navGraph[0].addEdge(edge_00_01).addEdge(edge_00_10);
+			
+			auto edge_01_02 = make_shared<Edge>(navGraph[1], navGraph[2], 1);
+			auto edge_01_11 = make_shared<Edge>(navGraph[1], navGraph[5], 1);
+			navGraph[1].addEdge(edge_01_02).addEdge(edge_01_11);
+
+			auto edge_02_12 = make_shared<Edge>(navGraph[2], navGraph[6], 1);
+			navGraph[2].addEdge(edge_02_12);
+
+			auto edge_10_11 = make_shared<Edge>(navGraph[4], navGraph[5], 1);
+			auto edge_10_20 = make_shared<Edge>(navGraph[4], navGraph[8], 1);
+			navGraph[4].addEdge(edge_10_11).addEdge(edge_10_20);
+
+			auto edge_11_12 = make_shared<Edge>(navGraph[5], navGraph[6], 1);
+			auto edge_11_21 = make_shared<Edge>(navGraph[5], navGraph[9], 1);
+			navGraph[5].addEdge(edge_11_12).addEdge(edge_11_21);
+
+			auto edge_12_22 = make_shared<Edge>(navGraph[6], navGraph[10], 1);
+			navGraph[6].addEdge(edge_12_22);
+
+			auto edge_20_21 = make_shared<Edge>(navGraph[8], navGraph[9], 1);
+			navGraph[8].addEdge(edge_20_21);
+
+			auto edge_21_22 = make_shared<Edge>(navGraph[9], navGraph[10], 1);
+			navGraph[9].addEdge(edge_21_22);
 
 			return navGraph;
 		}

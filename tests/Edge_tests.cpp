@@ -55,9 +55,9 @@ namespace tests
 			Node startNode(GridLocation(1, 2), 20, 30);
 			Node endNode(GridLocation(1, 2), 20, 30);
 
-			Edge edge(startNode, endNode, 5);
-			Assert::AreEqual(edge.getCost(), 5u);
-			Assert::AreNotEqual(edge.getCost(), 10u);
+			Edge edge(startNode, endNode, 5.f);
+			Assert::AreEqual(edge.getCost(), 5.f);
+			Assert::AreNotEqual(edge.getCost(), 10.f);
 		}
 
 		TEST_METHOD(Edge_getPheromone)
@@ -101,7 +101,7 @@ namespace tests
 			Node startNode(GridLocation(1, 2), 20, 30);
 			Node endNode(GridLocation(2, 1), 20, 30);
 
-			auto edge = make_shared<Edge>(startNode, endNode, 5);
+			auto edge = make_shared<Edge>(startNode, endNode, 5.f);
 			Node* oppNode = edge->getOppositeNode(endNode);
 
 			Assert::AreEqual(startNode.getRow(), oppNode->getRow());
@@ -140,7 +140,7 @@ namespace tests
 			Node endNode(GridLocation(2, 1), 20, 30);
 
 			auto edge = make_shared<Edge>(startNode, endNode, 5);
-			PathNode pathNode(startNode, 10u);
+			PathNode pathNode(startNode, 10);
 			Node* oppNode = edge->getOppositeNode(pathNode);
 
 			Assert::AreNotEqual(startNode.getRow(), oppNode->getRow());

@@ -20,7 +20,7 @@ std::unordered_map<PathKey, std::deque<Node*>> cdc::Search::paths;
 
 
 
-uint cdc::Search::manhattanHeuristic(const Node& startNode, const Node& endNode)
+float cdc::Search::manhattanHeuristic(const Node& startNode, const Node& endNode)
 {
 	int rowDiff = std::abs(static_cast<int>(startNode.getRow()) - static_cast<int>(endNode.getRow()));
 	int columnDiff = std::abs(static_cast<int>(startNode.getColumn()) - static_cast<int>(endNode.getColumn()));
@@ -28,7 +28,7 @@ uint cdc::Search::manhattanHeuristic(const Node& startNode, const Node& endNode)
 	return (rowDiff + columnDiff);
 }
 
-uint cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endNode)
+float cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endNode)
 {
 	float startRow = static_cast<float>(startNode.getRow());
 	float endRow = static_cast<float>(endNode.getRow());
@@ -53,7 +53,7 @@ public:
 };
 
 std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
-									 uint (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
+									 float (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
 {
 	using namespace std;
 
@@ -103,9 +103,9 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 					<< currentNode->getColumn() << endl;
 
 			// Calculate the cost for traversing this edge.
-			uint h = heuristic(*currentNode, endNode);
-			uint g = edge->getCost();
-			uint cost = h + g;
+			float h = heuristic(*currentNode, endNode);
+			float g = edge->getCost();
+			float cost = h + g;
 			if (debug) cout << "|---current node cost: " << cost << endl;
 
 			// Determine if this node has already been traversed.

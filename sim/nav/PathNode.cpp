@@ -10,15 +10,21 @@ using cdc::Node;
 using cdc::Edge;
 
 
-PathNode::PathNode(const Node& node, uint cost) :
+PathNode::PathNode(const Node& node, float cost) :
 		node(const_cast<Node*>(&node)),
 		cost(cost)
 {
 }
 
+PathNode::PathNode(const Node& node, int cost) :
+		node(const_cast<Node*>(&node)),
+		cost(static_cast<float>(cost))
+{
+}
+
 PathNode::PathNode(const PathNode& pathNode) :
-	node(pathNode.node),
-	cost(pathNode.cost)
+		node(pathNode.node),
+		cost(pathNode.cost)
 {
 }
 
@@ -44,7 +50,7 @@ Node& PathNode::getNode() const
 	return *node;
 }
 
-uint PathNode::getCost() const
+float PathNode::getCost() const
 {
 	return cost;
 }

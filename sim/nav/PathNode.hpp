@@ -19,14 +19,16 @@ namespace cdc
 	{
 	public:
 		PathNode(const PathNode& pathNode);
-		PathNode(const Node& node, uint cost);
+		PathNode(const Node& node, float cost);
+		PathNode(const Node& node, int cost);
+
 		PathNode& operator=(const PathNode& rhs);
 	
 		const std::vector<std::shared_ptr<Edge>> getEdgeList() const;
 
 		Node& getNode() const;
 
-		uint getCost() const;
+		float getCost() const;
 
 		bool operator==(const PathNode& other) const;
 		bool operator==(const Node& other) const;
@@ -35,6 +37,6 @@ namespace cdc
 		// Reference to a node. This is a non-owning class.
 		Node* node;
 		// The cost of the path.
-		uint cost;
+		float cost;
 	};
 }
