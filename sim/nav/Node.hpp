@@ -32,7 +32,7 @@ namespace cdc
 		Node& addEdge(std::shared_ptr<Edge> edge, bool addEdgeToOppositeNode = true);
 
 		// Removes an edge.
-		void Node::removeEdge(Edge& edge, bool removeEdgeFromOpposite = true);
+		void removeEdge(Edge& edge, bool removeEdgeFromOpposite = true);
 
 		// Returns a reference to the edge list.
 		const std::vector<std::shared_ptr<Edge>>& getEdgeList() const;
@@ -50,6 +50,10 @@ namespace cdc
 		uint getRow() const;
 		// Returns the node's column in the navigation grid.
 		uint getColumn() const;
+
+		// Returns true if the node is connected to the navigation graph 
+		// (i.e., it has at least one edge).
+		bool isConnected() const;
 
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

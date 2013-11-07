@@ -116,6 +116,11 @@ uint Node::getColumn() const
 	return location.getColumn();
 }
 
+bool Node::isConnected() const
+{
+	return (edges.size() != 0);
+}
+
 void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(circle, states);
