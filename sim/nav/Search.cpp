@@ -22,10 +22,15 @@ std::unordered_map<PathKey, std::deque<Node*>> cdc::Search::paths;
 
 float cdc::Search::manhattanHeuristic(const Node& startNode, const Node& endNode)
 {
-	int rowDiff = std::abs(static_cast<int>(startNode.getRow()) - static_cast<int>(endNode.getRow()));
-	int columnDiff = std::abs(static_cast<int>(startNode.getColumn()) - static_cast<int>(endNode.getColumn()));
+	int startRow = static_cast<int>(startNode.getRow());
+	int endRow = static_cast<int>(endNode.getRow());
+	int startColumn = static_cast<int>(startNode.getColumn());
+	int endColumn = static_cast<int>(endNode.getColumn());
 
-	return (rowDiff + columnDiff);
+	int rowDiff = std::abs(startRow - endRow);
+	int columnDiff = std::abs(startColumn - endColumn);
+
+	return (static_cast<float>(rowDiff + columnDiff));
 }
 
 float cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endNode)
@@ -38,7 +43,7 @@ float cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endN
 	float rowSquared = (startRow - endRow) * (startRow - endRow);
 	float columnSquared = (startColumn - endColumn) * (startColumn - endColumn);
 
-	return static_cast<uint>(std::sqrt(rowSquared + columnSquared));
+	return std::sqrt(rowSquared + columnSquared);
 }
 
 
@@ -52,7 +57,7 @@ public:
 	}
 };
 
-std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
+std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 									 float (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
 {
 	using namespace std;

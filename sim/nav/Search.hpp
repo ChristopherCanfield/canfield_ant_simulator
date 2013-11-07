@@ -31,7 +31,7 @@ namespace cdc
 		//	- navGraph: The navigation graph.
 		//	- hueristic: A function pointer to the hueristic that should be used.
 		//	- debug: Whether to print debug messages.
-		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode, const std::vector<Node>& navGraph,
+		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode,
 				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
 
 		static void printPath(std::deque<Node*> path);
