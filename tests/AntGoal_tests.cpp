@@ -12,15 +12,15 @@ namespace tests
 	{
 	public:
 		
-		TEST_METHOD(AntGoal_create)
-		{
-			AntGoal antGoal;
-		}
+		//TEST_METHOD(AntGoal_create)
+		//{
+		//	AntGoal antGoal;
+		//}
 
-		TEST_METHOD(AntGoal_update)
-		{
-			// TODO: create the AntGoal::update test.
-			Assert::IsTrue(false);
-		}
+		//TEST_METHOD(AntGoal_update)
+		//{
+		//	// TODO: create the AntGoal::update test.
+		//	Assert::IsTrue(false);
+		//}
 	};
 }

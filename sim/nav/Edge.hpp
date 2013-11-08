@@ -19,7 +19,7 @@ namespace cdc
 			public sf::Drawable
 	{
 	public:
-		Edge(Node& startNode);
+		explicit Edge(Node& startNode);
 		Edge(Node& startNode, Node& endNode, float cost);
 		Edge(Node& startNode, Node& endNode, int cost);
 

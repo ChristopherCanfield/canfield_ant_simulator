@@ -24,7 +24,7 @@ namespace cdc
 			public boost::noncopyable
 	{
 	public:
-		Simulator(GuiEventManager& eventManager);
+		explicit Simulator(GuiEventManager& eventManager);
 		~Simulator();
 
 		// Starts a new simulation.

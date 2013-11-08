@@ -28,8 +28,7 @@ namespace cdc
 		// Returns a queue of Node* from startNode to endNode.
 		//	- startNode: The start of the path.
 		//	- endNode: The end of the path.
-		//	- navGraph: The navigation graph.
-		//	- hueristic: A function pointer to the hueristic that should be used.
+		//	- heuristic: A function pointer to the heuristic that should be used.
 		//	- debug: Whether to print debug messages.
 		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode,
 				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);

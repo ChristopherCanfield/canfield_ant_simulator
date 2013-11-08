@@ -19,7 +19,7 @@ namespace cdc
 			public Button
 	{
 	public:
-		Spider(GuiEventManager& manager);
+		explicit Spider(GuiEventManager& manager);
 		virtual ~Spider();
 
 		virtual void update(long ticks, const Percept& percept) override;

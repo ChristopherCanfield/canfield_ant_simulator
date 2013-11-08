@@ -33,7 +33,7 @@ namespace cdc
 			public Observer<sf::Vector2f>
 	{
 	public:
-		Button(GuiEventManager& manager);
+		explicit Button(GuiEventManager& manager);
 		Button(Button&& other);
 		Button& Button::operator=(Button&& other);
 		virtual ~Button();
