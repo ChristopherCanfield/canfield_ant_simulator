@@ -4,18 +4,18 @@
 
 // Christopher D. Canfield
 // November 2013
-// AntExplore.hpp
+// AntFindFood.hpp
 
 
 namespace cdc 
 {
-	// A top-level goal that instructs the ant to explore the map.
-	class AntExplore :
+	// A subgoal that instructs the ant to find food.
+	class AntFindFood :
 			public AntGoal
 	{
 	public:
-		AntExplore();
-		virtual ~AntExplore();
+		AntFindFood();
+		virtual ~AntFindFood();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
 	};

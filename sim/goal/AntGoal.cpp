@@ -1,5 +1,9 @@
 #include "AntGoal.hpp"
 
+// Christopher D. Canfield
+// November 2013
+// AntGoal.cpp
+
 using cdc::AntGoal;
 using cdc::Ant;
 using cdc::AntPercept;

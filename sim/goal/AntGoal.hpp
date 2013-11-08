@@ -4,6 +4,10 @@
 #include "../agent/Ant.hpp"
 #include "../knowledge/AntPercept.hpp"
 
+// Christopher D. Canfield
+// November 2013
+// AntGoal.hpp
+
 
 namespace cdc
 {

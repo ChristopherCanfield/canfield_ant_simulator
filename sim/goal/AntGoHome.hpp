@@ -1,8 +1,24 @@
 #pragma once
-class AntGoHome
+
+#include "AntGoal.hpp"
+
+
+// Christopher D. Canfield
+// November 2013
+// AntGoHome.hpp
+
+
+namespace cdc 
 {
-public:
-	AntGoHome(void);
-	virtual ~AntGoHome(void);
-};
+	// A subgoal that instructs the ant to return home.
+	class AntGoHome :
+			public AntGoal
+	{
+	public:
+		AntGoHome();
+		virtual ~AntGoHome();
+
+		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
+	};
+}
 
