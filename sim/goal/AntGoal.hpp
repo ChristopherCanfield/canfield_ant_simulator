@@ -14,6 +14,13 @@ namespace cdc
 	public:
 		AntGoal();
 		virtual ~AntGoal();
-		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
+		virtual void update(Ant& agent, uint ticks, AntPercept& percept) = 0;
+		virtual bool isFinished() const override;
+
+	protected:
+		void setFinished(bool finished);
+
+	private:
+		bool finished;
 	};
 }

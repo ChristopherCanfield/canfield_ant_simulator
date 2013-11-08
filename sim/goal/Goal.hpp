@@ -17,5 +17,6 @@ namespace cdc
 	public:
 		virtual ~Goal() {}
 		virtual void update(AgentType& agent, uint ticks, PerceptType& percept) = 0;
+		virtual bool isFinished() const = 0;
 	};
 }

@@ -6,7 +6,8 @@ using cdc::AntPercept;
 
 
 
-AntGoal::AntGoal()
+AntGoal::AntGoal() :
+	finished(false)
 {
 }
 
@@ -16,7 +17,12 @@ AntGoal::~AntGoal()
 }
 
 
-void AntGoal::update(Ant& agent, uint ticks, AntPercept& percept)
+bool AntGoal::isFinished() const
 {
+	return finished;
+}
 
+void AntGoal::setFinished(bool finished)
+{
+	this->finished = finished;
 }
