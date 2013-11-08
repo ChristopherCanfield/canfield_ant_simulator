@@ -1,5 +1,7 @@
 #include "AntForage.hpp"
 #include "../worldobject/AntHome.hpp"
+#include "../worldobject/AntFoodPile.hpp"
+#include "../sim/nav/Node.hpp"
 
 #include <cassert>
 
@@ -11,6 +13,8 @@ using cdc::AntForage;
 using cdc::Ant;
 using cdc::AntPercept;
 using cdc::AntHome;
+using cdc::AntFoodPile;
+using cdc::Node;
 
 
 AntForage::AntForage() :
@@ -31,15 +35,31 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 	else
 	{
+		// If food was found, pick it up.
 		if (currentSubgoal == &antFindFoodSubgoal)
 		{
-			// TODO: get the node that has the food, and take food from it.
-			assert(false);
+			if (ant.getNode() != nullptr)
+			{
+				auto& foodPileNode = *ant.getNode();
+				
+				if (foodPileNode.getAntFoodPile() != nullptr)
+				{
+					auto& foodPile = *foodPileNode.getAntFoodPile();
+					// If the food pile has food available, take one and pick it up.
+					if (foodPile.takeFood())
+					{
+						ant.stats.isHoldingFood = true;
+						ant.kb.lastKnownFoodPosition = &foodPileNode;
+					}
+				}
+			}
+			// Bring the food home.
+			currentSubgoal = &antGoHomeSubgoal;
 		}
 		else if (currentSubgoal == &antGoHomeSubgoal)
 		{
 			// If the ant is holding food, add it to the anthill's store.
-			if (ant.isHoldingFood)
+			if (ant.stats.isHoldingFood)
 			{
 				auto& anthill = ant.kb.home;
 				anthill.addFood();

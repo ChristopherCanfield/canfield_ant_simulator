@@ -22,8 +22,7 @@ sf::Texture* Ant::texture = nullptr;
 
 Ant::Ant(GuiEventManager& manager, AntHome& home) :
 		Button(manager),
-		kb(home),
-		isHoldingFood(false)
+		kb(home)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -53,7 +52,7 @@ Ant::Ant(GuiEventManager& manager, AntHome& home) :
 Ant::Ant(Ant&& other) :
 	Button(std::move(other)),
 	kb(std::move(other.kb)),
-	isHoldingFood(other.isHoldingFood)
+	stats(other.stats)
 {
 }
 
@@ -73,13 +72,29 @@ Node* Ant::getLastKnownFoodPosition() const
 
 uint Ant::getHunger() const
 {
-	return kb.hunger;
+	return stats.hunger;
 }
 
 AntHome& Ant::getHome() const
 {
 	return kb.home;
 }
+
+bool Ant::isDead() const
+{
+	return stats.isDead;
+}
+
+void Ant::kill()
+{
+	stats.isDead = true;
+}
+
+Node* Ant::getNode() const
+{
+	return kb.lastNodePassed;
+}
+
 
 
 void Ant::onDirectGuiEvent(const sf::Event& e)
@@ -89,7 +104,16 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 
 
 Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home) :
+	home(home),
+	lastKnownFoodPosition(nullptr),
+	lastNodePassed(nullptr)
+{
+}
+
+Ant::AntStats::AntStats() :
 	hungerIncreaseRate(120),	// default ticks per second is 30, so this gives a rate of 4 seconds per increase in hunger.
-	home(home)
+	hunger(0),
+	isHoldingFood(false),
+	isDead(false)
 {
 }

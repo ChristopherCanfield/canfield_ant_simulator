@@ -33,6 +33,8 @@ namespace cdc
 		Node& getNode() const;
 
 	private:
+		AntHome& operator=(const AntHome& rhs);
+
 		uint foodCount;
 		Node& node;
 	};

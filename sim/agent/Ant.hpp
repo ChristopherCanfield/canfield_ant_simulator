@@ -40,6 +40,14 @@ namespace cdc
 		// Returns the ant's home.
 		AntHome& getHome() const;
 
+		// Returns the last node that this ant passed.
+		Node* getNode() const;
+
+		// Returns true if the ant is dead, or false if alive.
+		bool isDead() const;
+		// Kill's the ant (sets isDead to true).
+		void kill();
+
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 
 		friend class AntEat;
@@ -49,24 +57,32 @@ namespace cdc
 		Ant(const Ant&);
 		Ant& operator=(const Ant& other);
 
-		bool isHoldingFood;
+		struct AntStats
+		{
+			AntStats();
+			// The ant's hunger level, from 0 to 100.
+			uint hunger;
+			// The number of simulation ticks that pass before the ant's hunger
+			// level increases. The default ticks per second rate is 30.
+			const uint hungerIncreaseRate;
+
+			bool isHoldingFood;
+
+			bool isDead;
+		private:
+			AntStats& operator=(const AntStats& rhs);
+		};
+		AntStats stats;
 
 		struct AntKnowledgeBase
 		{
 			AntKnowledgeBase(AntHome& home);
-
 			Node* lastKnownFoodPosition;
 			AntHome& home;
-			uint hunger;
-
-			// The number of simulation ticks that pass before the ant's hunger
-			// level increases.
-			const uint hungerIncreaseRate;
-
+			Node* lastNodePassed;
 		private:
 			AntKnowledgeBase& operator=(const AntKnowledgeBase& rhs);
 		};
-
 		AntKnowledgeBase kb;
 
 		static sf::Texture* texture;

@@ -44,10 +44,12 @@ GuiTestApp::GuiTestApp() :
 	nodes[3].addEdge(edge23).addEdge(edge30).addEdge(edge34);
 	nodes[4].addEdge(edge34);
 
+	antHome = new AntHome(nodes[0]);
+
 	food.push_back(AntFood(60.f, 60.f));
 
-	auto ant1 = std::make_shared<Ant>(eventManager, antHome);
-	auto ant2 = std::make_shared<Ant>(eventManager, antHome);
+	auto ant1 = std::make_shared<Ant>(eventManager, *antHome);
+	auto ant2 = std::make_shared<Ant>(eventManager, *antHome);
 	ants.push_back(ant1);
 	ants.push_back(ant2);
 	ant1->setPosition(40, 200);

@@ -1,5 +1,7 @@
 #include "AntEat.hpp"
 #include "../worldobject/AntHome.hpp"
+#include "../nav/Node.hpp"
+#include "../worldobject/AntFoodPile.hpp"
 
 #include <cassert>
 
@@ -12,6 +14,8 @@ using cdc::AntEat;
 using cdc::Ant;
 using cdc::AntPercept;
 using cdc::AntHome;
+using cdc::Node;
+using cdc::AntFoodPile;
 
 
 AntEat::AntEat() :
@@ -40,22 +44,37 @@ void AntEat::update(Ant& ant, uint ticks, AntPercept& percept)
 			// Take food from anthill if available, and eat it.
 			if (home.takeFood())
 			{
-				ant.kb.hunger = 0;
+				ant.stats.hunger = 0;
 				setFinished(true);
 			}
 			else
 			{
-				// Change subgoal to find food, because there is no food available
-				// in the anthill.
+				// If no food is available in the anthill, change the subgoal 
+				// to Find Food.
 				currentSubgoal = &antFindFoodSubgoal;
 			}
 			
 		}
+
 		// Found food outside of home.
 		else if (currentSubgoal == &antFindFoodSubgoal)
 		{
-			// TODO: get the food from the node, and eat it.
-			assert(false);
+			if (ant.getNode() != nullptr)
+			{
+				auto& foodPileNode = *ant.getNode();
+				
+				if (foodPileNode.getAntFoodPile() != nullptr)
+				{
+					auto& foodPile = *foodPileNode.getAntFoodPile();
+					// If the food pile has food available, take one and eat it.
+					if (foodPile.takeFood())
+					{
+						ant.stats.hunger = 0;
+						ant.kb.lastKnownFoodPosition = &foodPileNode;
+					}
+				}
+			}
+			setFinished(true);
 		}
 	}
 }

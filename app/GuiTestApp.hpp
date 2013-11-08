@@ -57,7 +57,7 @@ namespace cdc
 		std::vector<Node> nodes;
 
 		AntFoodPile* foodPile;
-		AntHome antHome;
+		AntHome* antHome;
 
 		// Ant food.
 		std::vector<AntFood> food;
