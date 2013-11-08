@@ -10,11 +10,13 @@
 
 namespace cdc
 {
+	class Node;
+
 	// The home for a colony of Ants. Stores food and generates new ants.
 	class AntHome
 	{
 	public:
-		AntHome();
+		AntHome(Node& node);
 		~AntHome();
 
 		// Returns a count of the food stored in the anthill.
@@ -27,7 +29,11 @@ namespace cdc
 		// Adds one food to the anthill store.
 		void addFood();
 
+		// Returns the node that the anthill is attached to.
+		Node& getNode() const;
+
 	private:
 		uint foodCount;
+		Node& node;
 	};
 }

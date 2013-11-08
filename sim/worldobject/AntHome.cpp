@@ -1,14 +1,17 @@
 #include "AntHome.hpp"
+#include "../nav/Node.hpp"
 
 // Christopher D. Canfield
 // November 2013
 // AntHome.hpp
 
 using cdc::AntHome;
+using cdc::Node;
 
 
-AntHome::AntHome() :
-	foodCount(0)
+AntHome::AntHome(Node& node) :
+	foodCount(0),
+	node(node)
 {
 }
 
@@ -39,4 +42,10 @@ bool AntHome::takeFood()
 void AntHome::addFood()
 {
 	++foodCount;
+}
+
+
+Node& AntHome::getNode() const
+{
+	return node;
 }
