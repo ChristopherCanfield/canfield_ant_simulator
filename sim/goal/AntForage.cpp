@@ -14,7 +14,7 @@ using cdc::AntHome;
 
 
 AntForage::AntForage() :
-	currentSubgoal(&antGoHomeSubgoal)
+	currentSubgoal(&antFindFoodSubgoal)
 {
 }
 
@@ -31,29 +31,20 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 	else
 	{
-		// Reached home, so attempt to get food there.
-		if (currentSubgoal == &antGoHomeSubgoal)
+		if (currentSubgoal == &antFindFoodSubgoal)
 		{
-			auto home = ant.getHome();
-			// Take food from anthill if available, and eat it.
-			if (home.takeFood())
-			{
-				ant.kb.hunger = 0;
-				setFinished(true);
-			}
-			else
-			{
-				// Change subgoal to find food, because there is no food available
-				// in the anthill.
-				currentSubgoal = &antFindFoodSubgoal;
-			}
-			
-		}
-		// Found food outside of home.
-		else if (currentSubgoal == &antFindFoodSubgoal)
-		{
-			// TODO: get the food from the node, and eat it.
+			// TODO: get the node that has the food, and take food from it.
 			assert(false);
+		}
+		else if (currentSubgoal == &antGoHomeSubgoal)
+		{
+			// If the ant is holding food, add it to the anthill's store.
+			if (ant.isHoldingFood)
+			{
+				auto& anthill = ant.kb.home;
+				anthill.addFood();
+			}
+			setFinished(true);
 		}
 	}
 }

@@ -23,7 +23,12 @@ namespace cdc
 		AntFoodPile(uint foodCount, Node& node);
 		virtual ~AntFoodPile();
 
-		std::shared_ptr<AntFood> getFood();
+		// Returns the amount of food remaining in the pile.
+		uint getFoodCount() const;
+
+		// Returns true if food was successfully taken, or false if not 
+		// (i.e., no food is available).
+		bool takeFood();
 
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

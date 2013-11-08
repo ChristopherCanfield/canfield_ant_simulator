@@ -42,6 +42,9 @@ namespace tests
 
 			Assert::IsTrue(home.takeFood());
 			Assert::AreEqual(0u, home.getFoodCount());
+
+			Assert::IsFalse(home.takeFood());
+			Assert::AreEqual(0u, home.getFoodCount());
 		}
 	};
 }

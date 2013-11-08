@@ -42,11 +42,14 @@ namespace cdc
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 
+		friend class AntEat;
 		friend class AntForage;
 
 	private:
 		Ant(const Ant&);
 		Ant& operator=(const Ant& other);
+
+		bool isHoldingFood;
 
 		struct AntKnowledgeBase
 		{

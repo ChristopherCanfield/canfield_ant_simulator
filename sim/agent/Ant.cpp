@@ -22,7 +22,8 @@ sf::Texture* Ant::texture = nullptr;
 
 Ant::Ant(GuiEventManager& manager, AntHome& home) :
 		Button(manager),
-		kb(home)
+		kb(home),
+		isHoldingFood(false)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -51,7 +52,8 @@ Ant::Ant(GuiEventManager& manager, AntHome& home) :
 
 Ant::Ant(Ant&& other) :
 	Button(std::move(other)),
-	kb(std::move(other.kb))
+	kb(std::move(other.kb)),
+	isHoldingFood(other.isHoldingFood)
 {
 }
 

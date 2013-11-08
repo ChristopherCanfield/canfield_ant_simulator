@@ -49,8 +49,12 @@ AntFoodPile::~AntFoodPile()
 	node->setAntFoodPile(nullptr);
 }
 
+uint AntFoodPile::getFoodCount() const
+{
+	return foodCount;
+}
 
-std::shared_ptr<AntFood> AntFoodPile::getFood()
+bool AntFoodPile::takeFood()
 {
 	if (foodCount > 0)
 	{
@@ -59,12 +63,9 @@ std::shared_ptr<AntFood> AntFoodPile::getFood()
 		{
 			node->setAntFoodPile(nullptr);
 		}
-
-		auto food = std::make_shared<AntFood>(static_cast<float>(node->getPixelX()), 
-				static_cast<float>(node->getPixelY()));
-		return food;
+		return true;
 	}
-	return nullptr;
+	return false;
 }
 
 void AntFoodPile::draw(sf::RenderTarget &target, sf::RenderStates states) const
