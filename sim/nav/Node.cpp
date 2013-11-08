@@ -1,5 +1,6 @@
 #include "Node.hpp"
 #include "../util/Vector2fAdapter.hpp"
+#include "../worldobject/AntFoodPile.hpp"
 
 #include <stdexcept>
 
@@ -10,6 +11,7 @@
 using cdc::Node;
 using cdc::Edge;
 using cdc::GridLocation;
+using cdc::AntFoodPile;
 using std::shared_ptr;
 using std::out_of_range;
 
@@ -27,17 +29,6 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 
 Node::~Node()
 {
-	/*for (uint i = 0u; i < edges.size(); ++i)
-	{
-		if (edges[i] != nullptr)
-		{
-			auto node = edges[i]->getOppositeNode(*this);
-			node->removeEdge(*edges[i]);
-			
-			delete edges[i];
-			edges[i] = nullptr;
-		}
-	}*/
 }
 
 Node& Node::addEdge(shared_ptr<Edge> edge, bool addEdgeToOppositeNode)
@@ -120,6 +111,17 @@ bool Node::isConnected() const
 {
 	return (edges.size() != 0);
 }
+
+void Node::setAntFoodPile(AntFoodPile* antFoodPile)
+{
+	this->antFoodPile = antFoodPile;
+}
+
+AntFoodPile* Node::getAntFoodPile() const
+{
+	return antFoodPile;
+}
+
 
 void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {

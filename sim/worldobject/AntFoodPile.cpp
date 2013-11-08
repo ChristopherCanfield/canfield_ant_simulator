@@ -39,11 +39,14 @@ AntFoodPile::AntFoodPile(uint foodCount, Node& node) :
 	sprite.setTexture(*AntFoodPile::texture, true);
 	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
 	sprite.setPosition(Vector2fAdapter(node.getPixelX(), node.getPixelY()));
+
+	node.setAntFoodPile(this);
 }
 
 
 AntFoodPile::~AntFoodPile()
 {
+	node->setAntFoodPile(nullptr);
 }
 
 
@@ -52,6 +55,11 @@ std::shared_ptr<AntFood> AntFoodPile::getFood()
 	if (foodCount > 0)
 	{
 		--foodCount;
+		if (foodCount == 0)
+		{
+			node->setAntFoodPile(nullptr);
+		}
+
 		auto food = std::make_shared<AntFood>(static_cast<float>(node->getPixelX()), 
 				static_cast<float>(node->getPixelY()));
 		return food;

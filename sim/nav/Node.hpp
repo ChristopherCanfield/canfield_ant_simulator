@@ -17,6 +17,8 @@
 
 namespace cdc 
 {
+	class AntFoodPile;
+
 	// A node in a graph.
 	class Node :
 		public sf::Drawable
@@ -55,6 +57,12 @@ namespace cdc
 		// (i.e., it has at least one edge).
 		bool isConnected() const;
 
+		// Sets the ant food pile at this node.
+		// - antFoodPile: A non-owning pointer to an AntFoodPile, or nullptr.
+		void setAntFoodPile(AntFoodPile* antFoodPile);
+		// Gets a non-owning pointer to the ant food pile at this node.
+		AntFoodPile* getAntFoodPile() const;
+
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		bool operator==(const Node& other) const;
@@ -73,6 +81,8 @@ namespace cdc
 
 		// The graphical representation of the node.
 		sf::CircleShape circle;
+
+		AntFoodPile* antFoodPile;
 	};
 }
 
