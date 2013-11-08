@@ -1,6 +1,8 @@
 #pragma once
 
 #include "AntGoal.hpp"
+#include "AntGoHome.hpp"
+#include "AntFindFood.hpp"
 
 // Christopher D. Canfield
 // November 2013
@@ -19,6 +21,10 @@ namespace cdc
 		virtual ~AntEat();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
+
+	private:
+		AntGoHome antGoHomeSubgoal;
+		AntFindFood antFindFoodSubgoal;
 	};
 }
 

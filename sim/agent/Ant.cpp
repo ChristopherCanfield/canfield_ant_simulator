@@ -1,4 +1,6 @@
 #include "Ant.hpp"
+#include "../nav/Node.hpp"
+#include "../worldobject/AntHome.hpp"
 
 #include <iostream>
 #include <memory>
@@ -10,14 +12,17 @@
 using cdc::Ant;
 using cdc::Percept;
 using cdc::GuiEventManager;
+using cdc::Node;
+using cdc::AntHome;
 
 
 bool Ant::wasTextureLoaded = false;
 sf::Texture* Ant::texture = nullptr;
 
 
-Ant::Ant(GuiEventManager& manager) :
-		Button(manager)
+Ant::Ant(GuiEventManager& manager, AntHome& home) :
+		Button(manager),
+		kb(home)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -45,7 +50,8 @@ Ant::Ant(GuiEventManager& manager) :
 }
 
 Ant::Ant(Ant&& other) :
-	Button(std::move(other))
+	Button(std::move(other)),
+	kb(std::move(other.kb))
 {
 }
 
@@ -58,7 +64,25 @@ void Ant::update(long ticks, const Percept& percept)
 
 }
 
+Node* Ant::getLastKnownFoodPosition() const
+{
+
+}
+
+uint Ant::getHunger() const
+{
+	return kb.hunger;
+}
+
+
 void Ant::onDirectGuiEvent(const sf::Event& e)
 {
 
+}
+
+
+Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home) :
+	hungerIncreaseRate(120),	// default ticks per second is 30, so this gives a rate of 4 seconds per increase in hunger.
+	home(home)
+{
 }
