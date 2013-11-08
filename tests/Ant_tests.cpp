@@ -4,6 +4,7 @@
 #include "../sim/agent/Ant.hpp"
 #include "../gui/GuiEventManager.hpp"
 #include "../sim/knowledge/GenericPercept.hpp"
+#include "../sim/worldobject/AntHome.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
@@ -17,13 +18,15 @@ namespace tests
 		TEST_METHOD(Ant_create)
 		{
 			GuiEventManager manager;
-			Ant ant(manager);
+			AntHome home;
+			Ant ant(manager, home);
 		}
 
 		TEST_METHOD(Ant_update)
 		{
 			GuiEventManager manager;
-			Ant ant(manager);
+			AntHome home;
+			Ant ant(manager, home);
 
 			GenericPercept percept;
 			ant.update(10, percept);

@@ -20,7 +20,7 @@ namespace tests
 			Spider spider(manager);
 		}
 
-		TEST_METHOD(Ant_update)
+		TEST_METHOD(Spider_update)
 		{
 			GuiEventManager manager;
 			Spider spider(manager);

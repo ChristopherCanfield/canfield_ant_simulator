@@ -6,7 +6,6 @@
 
 #include "Agent.hpp"
 #include "../../gui/Button.hpp"
-#include "../knowledge/AntKnowledgeBase.hpp"
 #include "../knowledge/Percept.hpp"
 #include "../knowledge/AntPercept.hpp"
 #include "../util/Typedefs.hpp"
@@ -60,6 +59,9 @@ namespace cdc
 			// The number of simulation ticks that pass before the ant's hunger
 			// level increases.
 			const uint hungerIncreaseRate;
+
+		private:
+			AntKnowledgeBase& operator=(const AntKnowledgeBase& rhs);
 		};
 
 		AntKnowledgeBase kb;

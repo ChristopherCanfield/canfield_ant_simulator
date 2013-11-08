@@ -17,6 +17,7 @@
 #include "../sim/agent/Spider.hpp"
 #include "../gui/ViewManager.hpp"
 #include "../sim/worldobject/AntFoodPile.hpp"
+#include "../sim/worldobject/AntHome.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -56,6 +57,7 @@ namespace cdc
 		std::vector<Node> nodes;
 
 		AntFoodPile* foodPile;
+		AntHome antHome;
 
 		// Ant food.
 		std::vector<AntFood> food;

@@ -46,8 +46,8 @@ GuiTestApp::GuiTestApp() :
 
 	food.push_back(AntFood(60.f, 60.f));
 
-	auto ant1 = std::make_shared<Ant>(eventManager);
-	auto ant2 = std::make_shared<Ant>(eventManager);
+	auto ant1 = std::make_shared<Ant>(eventManager, antHome);
+	auto ant2 = std::make_shared<Ant>(eventManager, antHome);
 	ants.push_back(ant1);
 	ants.push_back(ant2);
 	ant1->setPosition(40, 200);
