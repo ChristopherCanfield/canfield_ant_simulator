@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../util/Typedefs.hpp"
+
 
 // Christopher D. Canfield
 // November 2013
@@ -14,5 +16,18 @@ namespace cdc
 	public:
 		AntHome();
 		~AntHome();
+
+		// Returns a count of the food stored in the anthill.
+		uint getFoodCount() const;
+
+		// Takes one food. Returns true if successful, or false if not 
+		// (i.e., there wasn't enough food).
+		bool takeFood();
+
+		// Adds one food to the anthill store.
+		void addFood();
+
+	private:
+		uint foodCount;
 	};
 }

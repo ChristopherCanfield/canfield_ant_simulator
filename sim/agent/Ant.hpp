@@ -38,7 +38,12 @@ namespace cdc
 		// Returns the ant's hunger level, from 0 (full/satiated) to 100 (starving).
 		uint getHunger() const;
 
+		// Returns the ant's home.
+		AntHome& getHome() const;
+
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
+
+		friend class AntForage;
 
 	private:
 		Ant(const Ant&);

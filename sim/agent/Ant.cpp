@@ -66,7 +66,7 @@ void Ant::update(long ticks, const Percept& percept)
 
 Node* Ant::getLastKnownFoodPosition() const
 {
-
+	return kb.lastKnownFoodPosition;
 }
 
 uint Ant::getHunger() const
@@ -74,10 +74,15 @@ uint Ant::getHunger() const
 	return kb.hunger;
 }
 
+AntHome& Ant::getHome() const
+{
+	return kb.home;
+}
+
 
 void Ant::onDirectGuiEvent(const sf::Event& e)
 {
-
+	
 }
 
 

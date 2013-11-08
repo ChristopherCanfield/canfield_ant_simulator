@@ -24,6 +24,7 @@ namespace cdc
 	private:
 		AntFindFood antFindFoodSubgoal;
 		AntGoHome antGoHomeSubgoal;
+		AntGoal* currentSubgoal;
 	};
 }
 
