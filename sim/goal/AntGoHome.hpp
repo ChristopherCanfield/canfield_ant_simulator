@@ -2,6 +2,8 @@
 
 #include "AntGoal.hpp"
 
+#include <deque>
+
 
 // Christopher D. Canfield
 // November 2013
@@ -10,6 +12,8 @@
 
 namespace cdc 
 {
+	class Node;
+
 	// A subgoal that instructs the ant to return home.
 	class AntGoHome :
 			public AntGoal
@@ -19,6 +23,12 @@ namespace cdc
 		virtual ~AntGoHome();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
+
+	private:
+		// The path to the ant's home.
+		std::deque<Node*> path;
+
+		Node* currentTarget;
 	};
 }
 

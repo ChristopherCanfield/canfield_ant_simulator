@@ -54,8 +54,11 @@ namespace cdc
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 
+		// The AntGoal classes are friends, because they control the ant and 
+		// need access to details that should not be made public.
 		friend class AntEat;
 		friend class AntForage;
+		friend class AntGoHome;
 
 	private:
 		Ant(const Ant&);
