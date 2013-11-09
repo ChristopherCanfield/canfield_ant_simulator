@@ -20,9 +20,9 @@ namespace cdc
 	namespace SolidObject
 	{
 		// Returns a sprite representing a rock.
-		sf::Sprite createRock(std::vector<Node>& navGraph, int left, int top, int width, int height);
+		sf::Sprite createRock(std::vector<Node>& navGraph, int left, int top);
 
 		// Returns a sprite representing water.
-		sf::Sprite createWater(std::vector<Node>& navGraph, int left, int top, int width, int height);
+		sf::Sprite createWater(std::vector<Node>& navGraph, int left, int top);
 	}
 }
