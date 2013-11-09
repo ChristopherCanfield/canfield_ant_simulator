@@ -42,8 +42,7 @@ void removeBlockedEdges(std::vector<Node>& navGraph, int left, int top, int widt
 
 	for (auto node : navGraph)
 	{
-		sf::Rect<int> nodeRect(node.getPixelX() - 1, node.getPixelY() - 1, 2, 2);
-		if (blockedRect.intersects(nodeRect))
+		if (blockedRect.intersects(node.getBoundingBox()))
 		{
 			auto edges = node.getEdgeList();
 			edges.clear();
@@ -58,7 +57,10 @@ sf::Sprite SolidObject::createRock(std::vector<Node>& navGraph, int left, int to
 
 	if (loadTexture(rockTexture, path))
 	{
-		return sf::Sprite(*rockTexture);
+		auto sprite = sf::Sprite(*rockTexture);
+		sprite.setPosition(left + (width / 2.f), top + (height / 2.f));
+		removeBlockedEdges(navGraph, left, top, width, height);
+		return sprite;
 	}
 	else
 	{
@@ -73,7 +75,10 @@ sf::Sprite SolidObject::createWater(std::vector<Node>& navGraph, int left, int t
 
 	if (loadTexture(rockTexture, path))
 	{
-		return sf::Sprite(*waterTexture);
+		auto sprite = sf::Sprite(*waterTexture);
+		sprite.setPosition(left + (width / 2.f), top + (height / 2.f));
+		removeBlockedEdges(navGraph, left, top, width, height);
+		return sprite;
 	}
 	else
 	{

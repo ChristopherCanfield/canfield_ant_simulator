@@ -48,6 +48,8 @@ namespace cdc
 		// Gets the y location of the Node, in pixels.
 		int getPixelY() const;
 
+		sf::Rect<int> getBoundingBox() const;
+
 		// Returns the node's row in the navigation grid.
 		uint getRow() const;
 		// Returns the node's column in the navigation grid.

@@ -59,11 +59,11 @@ void ViewManager::onGuiEvent(const sf::Event& e)
 	{
 		if (e.mouseWheel.delta > 0)
 		{
-			simView.zoom(0.95);
+			simView.zoom(0.95f);
 		}
 		else if (e.mouseWheel.delta < 0)
 		{
-			simView.zoom(1.05);
+			simView.zoom(1.05f);
 		}
 
 		window->setView(simView);
