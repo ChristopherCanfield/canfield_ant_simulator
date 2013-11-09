@@ -2,21 +2,25 @@
 
 // Christopher D. Canfield
 // October 2013
-// Ants.hpp
+// Ant.hpp
 
 #include "Agent.hpp"
 #include "../../gui/Button.hpp"
 #include "../knowledge/Percept.hpp"
 #include "../knowledge/AntPercept.hpp"
 #include "../util/Typedefs.hpp"
+#include "../util/Random.hpp"
 
 #include <SFML/Graphics.hpp>
+
+#include <memory>
 
 
 namespace cdc
 {
 	class Node;
 	class AntHome;
+	class AntGoal;
 
 	// An ant intelligent agent.
 	class Ant :
@@ -57,14 +61,23 @@ namespace cdc
 		Ant(const Ant&);
 		Ant& operator=(const Ant& other);
 
+		// The ant's non-knowledge info.
 		struct AntStats
 		{
 			AntStats();
+
 			// The ant's hunger level, from 0 to 100.
 			uint hunger;
+
 			// The number of simulation ticks that pass before the ant's hunger
 			// level increases. The default ticks per second rate is 30.
 			const uint hungerIncreaseRate;
+
+			// The next tick that will cause the ant's hunger to increase.
+			long nextHungerIncrease;
+
+			// The max hunger that the ant can have. If this is exceeded, the ant dies.
+			const uint maxHunger;
 
 			bool isHoldingFood;
 
@@ -74,6 +87,7 @@ namespace cdc
 		};
 		AntStats stats;
 
+		// The ant's knowledge base.
 		struct AntKnowledgeBase
 		{
 			AntKnowledgeBase(AntHome& home);
@@ -85,8 +99,20 @@ namespace cdc
 		};
 		AntKnowledgeBase kb;
 
+		// The ant's current goal.
+		std::unique_ptr<AntGoal> goal;
+
+		Random random;
+
+		// Ant texture; used by all ants.
 		static sf::Texture* texture;
 		static bool wasTextureLoaded;
+
+		// Increases the ant's hunger when appropriate.
+		void processHunger(long ticks, AntStats& stats);
+
+		// Gets a new goal for the ant.
+		std::unique_ptr<AntGoal> getNewGoal(AntStats& stats);
 	};
 }
 

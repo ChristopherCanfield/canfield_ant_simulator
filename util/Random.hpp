@@ -25,7 +25,6 @@ namespace cdc
 
 	private:
 		Random(const Random& other);
-		Random(Random& other);
 
 		static std::default_random_engine rand;
 		static bool isSeeded;

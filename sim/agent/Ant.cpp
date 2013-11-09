@@ -1,9 +1,12 @@
 #include "Ant.hpp"
 #include "../nav/Node.hpp"
 #include "../worldobject/AntHome.hpp"
+#include "../goal/AntGoal.hpp"
+#include "../goal/AntEat.hpp"
+#include "../goal/AntForage.hpp"
+#include "../goal/AntExplore.hpp"
 
 #include <iostream>
-#include <memory>
 
 // Christopher D. Canfield
 // October 2013
@@ -14,6 +17,9 @@ using cdc::Percept;
 using cdc::GuiEventManager;
 using cdc::Node;
 using cdc::AntHome;
+using cdc::AntGoal;
+
+using std::unique_ptr;
 
 
 bool Ant::wasTextureLoaded = false;
@@ -62,7 +68,21 @@ Ant::~Ant()
 
 void Ant::update(long ticks, const Percept& percept)
 {
-
+	if (!isDead())
+	{
+		processHunger(ticks, stats);
+		
+		// Process the goal if one is set, or set a new one if not.
+		if (goal != nullptr && !goal->isFinished())
+		{
+			auto antPercept = AntPercept(percept);
+			goal->update(*this, ticks, antPercept);
+		}
+		else
+		{
+			goal = getNewGoal(stats);
+		}
+	}
 }
 
 Node* Ant::getLastKnownFoodPosition() const
@@ -103,6 +123,55 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 }
 
 
+////// Private methods //////
+
+void Ant::processHunger(long ticks, AntStats& stats)
+{
+	if (ticks >= stats.nextHungerIncrease)
+	{
+		if (stats.hunger >= stats.maxHunger)
+		{
+			stats.isDead = true;
+		}
+		else
+		{
+			++stats.hunger;
+			stats.nextHungerIncrease += stats.hungerIncreaseRate;
+		}
+	}
+}
+
+unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
+{
+	using std::move;
+
+	const uint hungry = 60;
+
+	// Look for food if hungry. This takes priority over other potential goals.
+	if (stats.hunger > hungry)
+	{
+		auto newGoal = unique_ptr<AntEat>(new AntEat());
+		return move(newGoal);
+	}
+
+	// The chance that the ant will explore rather than forage, from 1 to 10.
+	const int exploreChance = 2;
+	int decision = random.getInteger(1, 10);
+	if (decision <= exploreChance)
+	{
+		auto newGoal = unique_ptr<AntExplore>(new AntExplore());
+		return move(newGoal);
+	}
+	else
+	{
+		auto newGoal = unique_ptr<AntForage>(new AntForage());
+		return move(newGoal);
+	}
+}
+
+
+////// Struct constructors //////
+
 Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home) :
 	home(home),
 	lastKnownFoodPosition(nullptr),
@@ -113,6 +182,8 @@ Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home) :
 Ant::AntStats::AntStats() :
 	hungerIncreaseRate(120),	// default ticks per second is 30, so this gives a rate of 4 seconds per increase in hunger.
 	hunger(0),
+	nextHungerIncrease(hungerIncreaseRate),
+	maxHunger(100),
 	isHoldingFood(false),
 	isDead(false)
 {
