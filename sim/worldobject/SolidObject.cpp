@@ -70,15 +70,16 @@ sf::Sprite SolidObject::createRock(std::vector<Node>& navGraph, int left, int to
 }
 
 
-sf::Sprite SolidObject::createWater(std::vector<Node>& navGraph, int left, int top, int width, int height)
+sf::Sprite SolidObject::createWater(std::vector<Node>& navGraph, int left, int top)
 {
 	const string path = "res/water.png";
 
 	if (loadTexture(rockTexture, path))
 	{
 		auto sprite = sf::Sprite(*waterTexture);
-		sprite.setPosition(left + (width / 2.f), top + (height / 2.f));
-		removeBlockedEdges(navGraph, left, top, width, height);
+		sprite.setPosition(left + (sprite.getGlobalBounds().width / 2.f), 
+				top + (sprite.getGlobalBounds().height / 2.f));
+		removeBlockedEdges(navGraph, left, top, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
 		return sprite;
 	}
 	else

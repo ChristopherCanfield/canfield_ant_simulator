@@ -9,7 +9,8 @@
 
 namespace cdc 
 {
-	// A top-level goal that instructs the ant to explore the map.
+	// A top-level goal that instructs the ant to explore the map. The ant does
+	// not look for anything specific, but does take note of food it finds.
 	class AntExplore :
 			public AntGoal
 	{

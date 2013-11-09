@@ -9,7 +9,9 @@
 
 namespace cdc 
 {
-	// A subgoal that instructs the ant to find food.
+	// A subgoal that instructs the ant to find food. Once the food
+	// has been found, isFinished() returns true. Other goals or subgoals are then
+	// used to actually determine what to do with the food (eat / pick up)
 	class AntFindFood :
 			public AntGoal
 	{
