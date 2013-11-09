@@ -4,6 +4,10 @@
 
 #include <random>
 
+// Christopher D. Canfield
+// November 2013
+// Random.hpp
+
 
 namespace cdc
 {
@@ -16,6 +20,7 @@ namespace cdc
 		explicit Random(uint seed);
 		Random();
 
+		// Returns a random integer, between min and max, inclusive.
 		int getInteger(int min, int max); 
 
 	private:

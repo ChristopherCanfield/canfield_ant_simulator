@@ -2,6 +2,10 @@
 
 #include <random>
 
+// Christopher D. Canfield
+// November 2013
+// Random.cpp
+
 // Adapted from Bjarne Stroustrup: http://www.stroustrup.com/C++11FAQ.html#std-random
 // as well as cplusplus.com: http://www.cplusplus.com/reference/random/
 
