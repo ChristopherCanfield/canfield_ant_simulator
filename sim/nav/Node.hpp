@@ -13,6 +13,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <functional>
 
 
 namespace cdc 
@@ -51,7 +52,7 @@ namespace cdc
 		// Gets the y location of the Node, in pixels.
 		int getPixelY() const;
 
-		sf::Rect<int> getBoundingBox() const;
+		sf::Rect<float> getBoundingBox() const;
 
 		// Returns the node's row in the navigation grid.
 		uint getRow() const;

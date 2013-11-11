@@ -89,5 +89,24 @@ namespace tests
 			NavGraphHelper graph(navGraph);
 			Assert::AreEqual(4u, graph.getMaxColumn());
 		}
+
+		TEST_METHOD(NavGraphHelper_getNode)
+		{
+			auto node1 = make_unique<Node>(GridLocation(5, 1), 100, 200);
+			auto node2 = make_unique<Node>(GridLocation(4, 4), 100, 300);
+			
+			auto edge = make_shared<Edge>(*node1.get(), *node2.get(), 10);
+			node1->addEdge(edge);
+
+			vector<unique_ptr<Node>> navGraph;
+
+			navGraph.push_back(std::move(node1));
+			navGraph.push_back(std::move(node2));
+
+			NavGraphHelper graph(navGraph);
+			auto node = graph.getNode(GridLocation(5, 1));
+			Assert::IsTrue(navGraph[0].get() == node);
+			Assert::IsFalse(navGraph[1].get() == node);
+		}
 	};
 }

@@ -62,6 +62,7 @@ namespace cdc
 		friend class AntForage;
 		friend class AntGoHome;
 		friend class AntExplore;
+		friend class AntMoveToLocation;
 
 	private:
 		Ant(const Ant&);

@@ -3,6 +3,7 @@
 #include "AntGoal.hpp"
 
 #include <deque>
+#include <memory>
 
 // Christopher D. Canfield
 // November 2013
@@ -24,6 +25,7 @@ namespace cdc
 
 	private:
 		std::deque<Node*> path;
+		std::unique_ptr<AntGoal> subgoal;
 
 		Node& getNewTarget(const Ant& ant);
 		void processNextInPath(Ant& ant);

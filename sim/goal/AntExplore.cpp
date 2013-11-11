@@ -2,10 +2,12 @@
 #include "../agent/Ant.hpp"
 #include "../util/Random.hpp"
 #include "../util/MathHelper.hpp"
+#include "../util/make_unique.hpp"
 #include "../sim/nav/NavGraphHelper.hpp"
 #include "../sim/nav/GridLocation.hpp"
 #include "../sim/nav/Search.hpp"
 #include "../worldobject/AntHome.hpp"
+#include "../goal/AntMoveToLocation.hpp"
 
 #include <cmath>
 
@@ -40,27 +42,29 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 		return;
 	}
 
-	if (path.empty())
+	if (subgoal == nullptr || subgoal->isFinished())
 	{
-		// if the path is empty, get a new target.
-		const auto& target = getNewTarget(ant);
-		const auto currentNode = (ant.getNode() != nullptr) ? ant.getNode() : &ant.kb.home.getNode();
-		// Set the path to the target.
-		path = Search::aStar(*currentNode, target, Search::straightLineHeuristic);
-	}
-	else 
-	{
-		if (ant.getBoundingBox().intersects(path.front()->getBoundingBox()))
+		if (path.empty())
+		{
+			// if the path is empty, get a new target.
+			const auto& target = getNewTarget(ant);
+			const auto currentNode = (ant.getNode() != nullptr) ? ant.getNode() : &ant.kb.home.getNode();
+			
+			// Set the path to the target.
+			path = Search::aStar(*currentNode, target, Search::straightLineHeuristic);
+
+			// Pop the first node off the queue, because that's the node that the
+			// ant is currently on.
+			path.pop_front();
+		}
+		else 
 		{
 			processNextInPath(ant);
 		}
-		else
-		{
-			// Move the ant toward the target.
-			float newPositionX = ant.getPosition().x + (ant.stats.movementVector.x * ant.stats.movementSpeed);
-			float newPositionY = ant.getPosition().y + (ant.stats.movementVector.y * ant.stats.movementSpeed);
-			ant.setPosition(newPositionX, newPositionY);
-		}
+	}
+	else
+	{
+		subgoal->update(ant, ticks, percept);
 	}
 }
 
@@ -100,6 +104,8 @@ void AntExplore::processNextInPath(Ant& ant)
 	{
 		// Turn the ant to face the new target node.
 		auto& target = path.front();
+		subgoal = make_unique<AntMoveToLocation>(ant, *target);
+
 		float angle = MathHelper::angleInRadians(ant.getPosition().x, ant.getPosition().y, 
 				target->getPixelX(), target->getPixelY());
 

@@ -36,9 +36,9 @@ bool loadTexture(sf::Texture* texture, string path)
 	return true;
 }
 
-void removeBlockedEdges(vector<unique_ptr<Node>>& navGraph, int left, int top, int width, int height)
+void removeBlockedEdges(vector<unique_ptr<Node>>& navGraph, int left, int top, float width, float height)
 {
-	sf::Rect<int> blockedRect(left, top, width, height);
+	sf::Rect<float> blockedRect(static_cast<float>(left), static_cast<float>(top), width, height);
 
 	for (auto& node : navGraph)
 	{

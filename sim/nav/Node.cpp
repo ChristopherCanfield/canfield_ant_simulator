@@ -123,11 +123,11 @@ int Node::getPixelY() const
 	return pixelY;
 }
 
-sf::Rect<int> Node::getBoundingBox() const
+sf::Rect<float> Node::getBoundingBox() const
 {
-	const int width = 6;
-	const int height = 6;
-	return sf::Rect<int>(pixelX - 3, pixelY - 3, width, height);
+	const float width = 6;
+	const float height = 6;
+	return sf::Rect<float>(pixelX - 3.f, pixelY - 3.f, width, height);
 }
 
 uint Node::getRow() const

@@ -19,7 +19,6 @@ namespace tests
 		{
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
-
 		}
 
 		TEST_METHOD(Node_addEdge)
@@ -89,6 +88,15 @@ namespace tests
 
 			auto column = node.getColumn();
 			Assert::AreEqual(column, 1u);
+		}
+
+		TEST_METHOD(Node_getBoundingBox)
+		{
+			GridLocation location(5, 1);
+			Node node(location, 100, 200);
+
+			sf::Rect<float> boundingBox(100.f - 3.f, 200.f - 3.f, 6.f, 6.f);
+			Assert::IsTrue(boundingBox == node.getBoundingBox());
 		}
 	};
 }

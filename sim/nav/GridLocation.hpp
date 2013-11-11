@@ -6,6 +6,9 @@
 
 #include "../util/Typedefs.hpp"
 
+#include <functional>
+
+
 namespace cdc 
 {
 	// A row,column location on the navigation grid.
@@ -29,5 +32,20 @@ namespace cdc
 	private:
 		uint row;
 		uint column;
+	};
+}
+
+namespace std
+{
+	template<>
+	class hash<cdc::GridLocation>
+	{
+	public:
+		// Adapted from Bjarne Stroustrup, "A Tour of C++"
+		std::size_t operator()(const cdc::GridLocation& key) const
+		{
+			return hash<uint>()(key.getColumn()) ^
+					hash<uint>()(key.getRow());
+		}
 	};
 }
