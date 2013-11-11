@@ -2,6 +2,8 @@
 
 #include "AntGoal.hpp"
 
+#include <deque>
+
 // Christopher D. Canfield
 // November 2013
 // AntExplore.hpp
@@ -19,6 +21,9 @@ namespace cdc
 		virtual ~AntExplore();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
+
+	private:
+		std::deque<Node*> path;
 	};
 }
 

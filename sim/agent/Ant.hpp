@@ -28,7 +28,7 @@ namespace cdc
 			public Button
 	{
 	public:
-		explicit Ant(GuiEventManager& manager, AntHome& home);
+		Ant(GuiEventManager& manager, AntHome& home);
 		Ant(Ant&& other);
 		virtual ~Ant();
 

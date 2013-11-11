@@ -12,6 +12,8 @@ namespace cdc
 	class GridLocation
 	{
 	public:
+		GridLocation() :
+			row(0), column(0) {}
 		GridLocation(uint row, uint col) :
 			row(row), column(col) {}
 

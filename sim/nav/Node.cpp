@@ -14,6 +14,7 @@ using cdc::GridLocation;
 using cdc::AntFoodPile;
 using std::shared_ptr;
 using std::out_of_range;
+using std::vector;
 
 
 Node::Node(GridLocation location, int pixelX, int pixelY) :
@@ -25,6 +26,31 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 	circle.setOrigin(circle.getLocalBounds().width / 2.f, circle.getLocalBounds().height / 2.f);
 	circle.setPosition(Vector2fAdapter(pixelX, pixelY));
 	circle.setFillColor(sf::Color::Blue);
+}
+
+// Move constructor and move assignment operator from http://msdn.microsoft.com/en-us/library/vstudio/dd293665.aspx
+
+Node::Node(const Node&& other) :
+	location(other.location), 
+	pixelX(other.pixelX), 
+	pixelY(other.pixelY), 
+	circle(other.circle)
+{
+	edges = std::move(other.edges);
+}
+
+Node& Node::operator=(const Node&& other)
+{
+	if (this != &other)
+	{
+		edges = std::move(other.edges);
+		pixelX = other.pixelX;
+		pixelY = other.pixelY;
+		location = other.location;
+		circle = other.circle;
+		antFoodPile = other.antFoodPile;
+	}
+	return *this;
 }
 
 Node::~Node()

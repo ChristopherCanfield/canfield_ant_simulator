@@ -26,6 +26,9 @@ namespace cdc
 	public:
 		Node(GridLocation location, int pixelX, int pixelY);
 		~Node();
+
+		Node(const Node&& other);
+		Node& operator=(const Node&& other);
 	
 		// Adds an edge.
 		// - edge: the Edge to add.
@@ -71,6 +74,9 @@ namespace cdc
 		bool operator!=(const Node& other) const;
 
 	private:
+		Node(const Node&);
+		Node& operator=(const Node&);
+
 		void removeEdge(Edge& edge);
 
 		std::vector<std::shared_ptr<Edge>> edges;

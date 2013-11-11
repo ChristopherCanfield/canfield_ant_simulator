@@ -20,5 +20,14 @@ AntExplore::~AntExplore()
 
 void AntExplore::update(Ant& agent, uint ticks, AntPercept& percept)
 {
+	if (isFinished())
+	{
+		return;
+	}
+
+	if (path.empty())
+	{
+		
+	}
 
 }
