@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include <vector>
+#include <memory>
 
 // Christopher D. Canfield
 // November 2013
@@ -20,9 +21,9 @@ namespace cdc
 	namespace SolidObject
 	{
 		// Returns a sprite representing a rock.
-		sf::Sprite createRock(std::vector<Node>& navGraph, int left, int top);
+		sf::Sprite createRock(std::vector<std::unique_ptr<Node>>& navGraph, int left, int top);
 
 		// Returns a sprite representing water.
-		sf::Sprite createWater(std::vector<Node>& navGraph, int left, int top);
+		sf::Sprite createWater(std::vector<std::unique_ptr<Node>>& navGraph, int left, int top);
 	}
 }

@@ -1,15 +1,15 @@
-#include <SFML/Graphics.hpp>
-
 #include "app/App.hpp"
 #include "app/GuiTestApp.hpp"
 #include "app/AppRunner.hpp"
 #include "app/AiSimApp.hpp"
 #include "app/AStarTestApp.hpp"
 
+#include <SFML/Graphics.hpp>
+
 // Define GUI_TESTS to run the gui test app.
 //#define GUI_TESTS
 // Or, define SEARCH_TESTS to run the search test app.
-#define SEARCH_TESTS
+//#define SEARCH_TESTS
 // Or, define neither to run the simulator.
 
 using cdc::AiSimApp;

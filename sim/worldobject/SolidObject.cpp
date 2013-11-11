@@ -36,22 +36,21 @@ bool loadTexture(sf::Texture* texture, string path)
 	return true;
 }
 
-void removeBlockedEdges(std::vector<Node>& navGraph, int left, int top, int width, int height)
+void removeBlockedEdges(vector<unique_ptr<Node>>& navGraph, int left, int top, int width, int height)
 {
 	sf::Rect<int> blockedRect(left, top, width, height);
 
-	for (auto node : navGraph)
+	for (auto& node : navGraph)
 	{
-		if (blockedRect.intersects(node.getBoundingBox()))
+		if (blockedRect.intersects(node->getBoundingBox()))
 		{
-			auto edges = node.getEdgeList();
+			auto edges = node->getEdgeList();
 			edges.clear();
 		}
 	}
 }
 
-
-sf::Sprite SolidObject::createRock(std::vector<Node>& navGraph, int left, int top)
+sf::Sprite cdc::SolidObject::createRock(vector<unique_ptr<Node>>& navGraph, int left, int top)
 {
 	const string path = "res/rock.png";
 
@@ -70,7 +69,7 @@ sf::Sprite SolidObject::createRock(std::vector<Node>& navGraph, int left, int to
 }
 
 
-sf::Sprite SolidObject::createWater(std::vector<Node>& navGraph, int left, int top)
+sf::Sprite cdc::SolidObject::createWater(std::vector<unique_ptr<Node>>& navGraph, int left, int top)
 {
 	const string path = "res/water.png";
 
