@@ -1,5 +1,6 @@
 #include "Ant.hpp"
 #include "../nav/Node.hpp"
+#include "../nav/NavGraphHelper.hpp"
 #include "../worldobject/AntHome.hpp"
 #include "../goal/AntGoal.hpp"
 #include "../goal/AntEat.hpp"
@@ -16,6 +17,7 @@ using cdc::Ant;
 using cdc::Percept;
 using cdc::GuiEventManager;
 using cdc::Node;
+using cdc::NavGraphHelper;
 using cdc::AntHome;
 using cdc::AntGoal;
 
@@ -26,9 +28,9 @@ bool Ant::wasTextureLoaded = false;
 sf::Texture* Ant::texture = nullptr;
 
 
-Ant::Ant(GuiEventManager& manager, AntHome& home) :
+Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper) :
 		Button(manager),
-		kb(home)
+		kb(home, graphHelper)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -172,8 +174,9 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 
 ////// Struct constructors //////
 
-Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home) :
+Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home, NavGraphHelper& graphHelper) :
 	home(home),
+	navGraphHelper(graphHelper),
 	lastKnownFoodPosition(nullptr),
 	lastNodePassed(nullptr)
 {

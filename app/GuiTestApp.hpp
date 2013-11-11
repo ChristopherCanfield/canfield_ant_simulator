@@ -12,6 +12,7 @@
 #include "../gui/button/StartSimButton.hpp"
 #include "../gui/button/UnpauseSimButton.hpp"
 #include "../sim/nav/Node.hpp"
+#include "../sim/nav/NavGraphHelper.hpp"
 #include "../sim/worldobject/AntFood.hpp"
 #include "../sim/agent/Ant.hpp"
 #include "../sim/agent/Spider.hpp"
@@ -54,7 +55,9 @@ namespace cdc
 		PauseSimButton pauseButton;
 
 		// Nodes.
-		std::vector<Node> nodes;
+		std::vector<std::unique_ptr<Node>> nodes;
+
+		NavGraphHelper navGraphHelper;
 
 		AntFoodPile* foodPile;
 		AntHome* antHome;

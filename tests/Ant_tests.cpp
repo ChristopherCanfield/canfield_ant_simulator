@@ -6,9 +6,11 @@
 #include "../sim/knowledge/GenericPercept.hpp"
 #include "../sim/worldobject/AntHome.hpp"
 #include "../sim/nav/Node.hpp"
+#include "../sim/nav/NavGraphHelper.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
+using namespace std;
 
 namespace tests
 {
@@ -22,8 +24,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 		}
 
 		TEST_METHOD(Ant_update)
@@ -32,8 +36,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 
 			GenericPercept percept;
 			ant.update(10, percept);
@@ -45,8 +51,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 
 			Assert::IsTrue(nullptr == ant.getLastKnownFoodPosition());
 		}
@@ -57,8 +65,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
-			
-			Ant ant(manager, home);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
+
+			Ant ant(manager, home, graph);
 
 			Assert::AreEqual(0u, ant.getHunger());
 		}
@@ -69,8 +79,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 
 			Assert::IsTrue(&home == &ant.getHome());
 		}
@@ -81,8 +93,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 
 			Assert::IsTrue(nullptr == ant.getNode());
 		}
@@ -93,8 +107,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 
 			Assert::IsFalse(ant.isDead());
 		}
@@ -105,8 +121,10 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
+			vector<unique_ptr<Node>> vec;
+			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home);
+			Ant ant(manager, home, graph);
 			
 			ant.kill();
 			Assert::IsTrue(ant.isDead());

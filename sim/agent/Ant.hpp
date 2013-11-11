@@ -19,6 +19,7 @@
 namespace cdc
 {
 	class Node;
+	class NavGraphHelper;
 	class AntHome;
 	class AntGoal;
 
@@ -28,7 +29,7 @@ namespace cdc
 			public Button
 	{
 	public:
-		Ant(GuiEventManager& manager, AntHome& home);
+		Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
 		Ant(Ant&& other);
 		virtual ~Ant();
 
@@ -93,10 +94,11 @@ namespace cdc
 		// The ant's knowledge base.
 		struct AntKnowledgeBase
 		{
-			AntKnowledgeBase(AntHome& home);
+			AntKnowledgeBase(AntHome& home, NavGraphHelper& navGraphHelper);
 			Node* lastKnownFoodPosition;
 			AntHome& home;
 			Node* lastNodePassed;
+			NavGraphHelper& navGraphHelper;
 		private:
 			AntKnowledgeBase& operator=(const AntKnowledgeBase& rhs);
 		};
