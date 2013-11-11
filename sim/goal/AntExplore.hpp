@@ -24,6 +24,9 @@ namespace cdc
 
 	private:
 		std::deque<Node*> path;
+
+		Node& getNewTarget(const Ant& ant);
+		void processNextInPath(Ant& ant);
 	};
 }
 

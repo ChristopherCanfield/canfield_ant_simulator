@@ -5,6 +5,7 @@
 #include "../util/Typedefs.hpp"
 
 #include <vector>
+#include <unordered_map>
 #include <memory>
 
 // Christopher D. Canfield
@@ -32,8 +33,13 @@ namespace cdc
 		uint getMaxRow() const;
 		uint getMaxColumn() const;
 
+		// Returns the node at the specified location, or nullptr if no node 
+		// is found.
+		Node* getNode(GridLocation location);
+
 	private:
 		std::vector<std::unique_ptr<Node>>* navGraph;
+		std::unordered_map<GridLocation, Node*> nodes;
 		uint maxRow;
 		uint maxColumn;
 	};

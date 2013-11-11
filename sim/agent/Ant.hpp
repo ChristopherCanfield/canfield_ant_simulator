@@ -12,6 +12,7 @@
 #include "../util/Random.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include <memory>
 
@@ -60,6 +61,7 @@ namespace cdc
 		friend class AntEat;
 		friend class AntForage;
 		friend class AntGoHome;
+		friend class AntExplore;
 
 	private:
 		Ant(const Ant&);
@@ -84,6 +86,10 @@ namespace cdc
 			const uint maxHunger;
 
 			bool isHoldingFood;
+
+			sf::Vector2f movementVector;
+			// The movement speed, per simulation tick.
+			const float movementSpeed;
 
 			bool isDead;
 		private:

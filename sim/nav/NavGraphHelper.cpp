@@ -80,3 +80,23 @@ uint NavGraphHelper::getMaxColumn() const
 {
 	return maxColumn;
 }
+
+Node* NavGraphHelper::getNode(GridLocation location)
+{
+	if (nodes.count(location) != 0)
+	{
+		return nodes[location];
+	}
+	else
+	{
+		MatchesLocation predicateFunctor(location);
+		auto foundNode = std::find_if(navGraph->cbegin(), navGraph->cend(), predicateFunctor);
+		if (foundNode == navGraph->cend())
+		{
+			return nullptr;
+		}
+
+		nodes[location] = foundNode->get();
+		return foundNode->get();
+	}
+}
