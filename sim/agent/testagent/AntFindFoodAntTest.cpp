@@ -3,7 +3,7 @@
 #include "../../nav/NavGraphHelper.hpp"
 #include "../../worldobject/AntHome.hpp"
 #include "../../goal/AntGoal.hpp"
-#include "../../goal/AntExplore.hpp"
+#include "../../goal/AntFindFood.hpp"
 #include "../util/make_unique.hpp"
 
 // Christopher D. Canfield

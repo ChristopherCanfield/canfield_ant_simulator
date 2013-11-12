@@ -19,6 +19,8 @@ namespace cdc
 
 		virtual void update(long ticks, const Percept& percept) override;
 
+		virtual bool isGoalFinished() const override;
+
 		friend class AntMoveToLocation;
 	};
 }

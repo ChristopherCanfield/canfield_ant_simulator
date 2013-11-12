@@ -14,6 +14,6 @@ namespace cdc
 			Ant(manager, home, navGraphHelper) {}
 		virtual ~AntGoalTester() {}
 		virtual void update(long ticks, const Percept& percept) override {}
-		virtual bool isGoalFinished() const {}
+		virtual bool isGoalFinished() const = 0;
 	};
 }

@@ -22,7 +22,7 @@ namespace tests
 				int getVal() const { return val; }
 			private:
 				int val;
-			}
+			};
 
 			auto test = make_unique<ZeroArg>();
 			Assert::AreEqual(10, test->getVal());
