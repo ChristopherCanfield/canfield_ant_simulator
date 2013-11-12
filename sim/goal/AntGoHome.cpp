@@ -51,16 +51,21 @@ void AntGoHome::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 	else if (subgoal->isFinished())
 	{
-		auto homeLocation = ant.kb.home.getNode();
+		auto& homeLocation = ant.kb.home.getNode();
 		path.pop_front();
 
+		// If the path is now empty, we've reached the end, so set finished to true.
 		if (path.empty())
 		{
 			setFinished(true);
 		}
-
-
-		// TODO: finish this.
+		// If the path is not empty, set the MoveToLocation subgoal to go to the 
+		// next node.
+		else
+		{
+			AntMoveToLocation* moveToLocationGoal = dynamic_cast<AntMoveToLocation*>(subgoal.get());
+			moveToLocationGoal->reset(ant, *path.front());
+		}
 	}
 	else
 	{

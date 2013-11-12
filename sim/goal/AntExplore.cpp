@@ -52,15 +52,8 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 			
 			// Set the path to the target.
 			path = Search::aStar(*currentNode, target, Search::straightLineHeuristic);
-
-			// Pop the first node off the queue, because that's the node that the
-			// ant is currently on.
-			path.pop_front();
 		}
-		else 
-		{
-			processNextInPath(ant);
-		}
+		processNextInPath(ant);
 	}
 	else
 	{
@@ -105,11 +98,5 @@ void AntExplore::processNextInPath(Ant& ant)
 		// Turn the ant to face the new target node.
 		auto& target = path.front();
 		subgoal = make_unique<AntMoveToLocation>(ant, *target);
-
-		float angle = MathHelper::angleInRadians(ant.getPosition().x, ant.getPosition().y, 
-				target->getPixelX(), target->getPixelY());
-
-		ant.stats.movementVector.x = cos(angle);
-		ant.stats.movementVector.y = sin(angle);
 	}
 }
