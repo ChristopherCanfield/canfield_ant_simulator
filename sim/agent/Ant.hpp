@@ -63,11 +63,9 @@ namespace cdc
 		friend class AntGoHome;
 		friend class AntExplore;
 		friend class AntMoveToLocation;
+		friend class AntFindFood;
 
-	private:
-		Ant(const Ant&);
-		Ant& operator=(const Ant& other);
-
+	protected:
 		// The ant's non-knowledge info.
 		struct AntStats
 		{
@@ -116,12 +114,16 @@ namespace cdc
 
 		Random random;
 
+		// Increases the ant's hunger when appropriate.
+		void processHunger(long ticks, AntStats& stats);
+
+	private:
+		Ant(const Ant&);
+		Ant& operator=(const Ant& other);
+
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;
 		static bool wasTextureLoaded;
-
-		// Increases the ant's hunger when appropriate.
-		void processHunger(long ticks, AntStats& stats);
 
 		// Gets a new goal for the ant.
 		std::unique_ptr<AntGoal> getNewGoal(AntStats& stats);

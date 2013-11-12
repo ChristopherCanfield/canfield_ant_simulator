@@ -48,7 +48,7 @@ namespace tests
 			AntMoveToLocation goal(ant, node);
 
 			Node node2(location, 100, 200);
-			goal.reset(node2);
+			goal.reset(ant, node2);
 		}
 	};
 }

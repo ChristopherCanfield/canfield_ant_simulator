@@ -18,7 +18,7 @@ using namespace cdc::MathHelper;
 AntMoveToLocation::AntMoveToLocation(Ant& ant, Node& target) :
 	target(&target)
 {
-	calculateMovementVectors();
+	calculateMovementVectors(ant);
 }
 
 
