@@ -7,6 +7,7 @@
 #include "../util/Typedefs.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
 
 namespace cdc 
@@ -26,10 +27,6 @@ namespace cdc
 		// Sets the attached node.
 		void set(Node& endNode, float cost);
 
-		// Removes the connected node.
-		// TODO: remove this if it remains unused.
-		//void removeConnectedNode();
-
 		// Returns the the first node that the edge is connected to.
 		Node* getNode1() const;
 
@@ -46,6 +43,8 @@ namespace cdc
 		uint getPheromone() const;
 		void increasePheromone();
 		void decreasePheromone();
+		void setPheromoneNextNode(Node& node);
+		Node* getPheromoneNextNode() const;
 
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -61,9 +60,37 @@ namespace cdc
 		// The cost of moving along the edge.
 		float cost;
 
-		uint pheromoneLevel;
-
 		// The graphical representation of the edge.
 		sf::VertexArray vertices;
+
+		// Ant pheromone, which ants use to create paths leading from home to food.
+		// Pheromones are put onto edges.
+		class Pheromone
+		{
+		public:
+			Pheromone();
+			~Pheromone();
+
+			// Increases the strength of the pheromone.
+			void increase();
+			// Decreases the strength of the pheromone.
+			void decrease();
+
+			// Gets the strength of the pheromone.
+			uint getStrength() const;
+
+			// Sets the next node in the path leading from home to food.
+			void setNextNode(Node& node);
+			// Gets the next node in the path leading from home to food.
+			Node* getNextNode() const;
+
+		private:
+			// The strength of the pheromone.
+			uint strength;
+			// The next node in the path leading from home to food.
+			Node* nextNode;
+		};
+
+		Pheromone pheromone;
 	};
 }

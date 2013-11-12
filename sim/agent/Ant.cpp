@@ -121,7 +121,8 @@ Node* Ant::getNode() const
 
 void Ant::onDirectGuiEvent(const sf::Event& e)
 {
-	
+	// TODO: replace this with correct functionality.
+	std::cout << "Ant event" << std::endl;
 }
 
 

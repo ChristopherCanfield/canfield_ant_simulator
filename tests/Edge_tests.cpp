@@ -94,6 +94,31 @@ namespace tests
 			Assert::AreEqual(1u, edge.getPheromone());
 		}
 
+		TEST_METHOD(Edge_setPheromoneNextNode)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
+			edge.setPheromoneNextNode(startNode);
+			edge.setPheromoneNextNode(endNode);
+		}
+
+		TEST_METHOD(Edge_getPheromoneNextNode)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			Edge edge(startNode, endNode, 5);
+			Assert::IsNull(edge.getPheromoneNextNode());
+
+			edge.setPheromoneNextNode(startNode);
+			Assert::IsTrue(&startNode == edge.getPheromoneNextNode());
+
+			edge.setPheromoneNextNode(endNode);
+			Assert::IsTrue(&endNode == edge.getPheromoneNextNode());
+		}
+
 		TEST_METHOD(Edge_getOppositeNode)
 		{
 			using namespace std;
