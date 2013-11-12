@@ -5,6 +5,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include <iostream>
+
 // Christopher D. Canfield
 // October 2013
 // GuiEventManager.cpp
@@ -38,7 +40,7 @@ void GuiEventManager::update(const sf::Event& e, const sf::RenderWindow& window)
 	else if (e.type == sf::Event::MouseMoved)
 	{
 		sf::Event clonedEvent(e);
-		sf::Vector2i location(e.mouseButton.x, e.mouseButton.y);
+		sf::Vector2i location(e.mouseMove.x, e.mouseMove.y);
 		clonedEvent.mouseMove.x = static_cast<int>(window.mapPixelToCoords(location).x);
 		clonedEvent.mouseMove.y = static_cast<int>(window.mapPixelToCoords(location).y);
 
