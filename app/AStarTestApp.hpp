@@ -18,9 +18,7 @@ namespace cdc
 		virtual ~AStarTestApp();
 
 		virtual void setup() override;
-
 		virtual bool run() override;
-
 		virtual void teardown() override;
 	};
 }
