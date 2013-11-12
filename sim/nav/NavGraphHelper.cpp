@@ -68,7 +68,14 @@ bool NavGraphHelper::isValid(GridLocation nodeLocation) const
 {
 	MatchesLocation predicateFunctor(nodeLocation);
 	auto foundItem = std::find_if(navGraph->cbegin(), navGraph->cend(), predicateFunctor);
-	return (foundItem != navGraph->cend());
+	if (foundItem != navGraph->cend())
+	{
+		return ((*foundItem)->getEdgeList().size() > 0);
+	}
+	else
+	{
+		return false;
+	}
 }
 
 uint NavGraphHelper::getMaxRow() const

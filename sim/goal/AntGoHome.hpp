@@ -3,6 +3,7 @@
 #include "AntGoal.hpp"
 
 #include <deque>
+#include <memory>
 
 
 // Christopher D. Canfield
@@ -29,6 +30,8 @@ namespace cdc
 		std::deque<Node*> path;
 
 		Node* currentTarget;
+
+		std::unique_ptr<AntGoal> subgoal;
 	};
 }
 

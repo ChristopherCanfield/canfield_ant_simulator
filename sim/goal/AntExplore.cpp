@@ -1,4 +1,5 @@
 #include "AntExplore.hpp"
+#include "AntMoveToLocation.hpp"
 #include "../agent/Ant.hpp"
 #include "../util/Random.hpp"
 #include "../util/MathHelper.hpp"
@@ -7,7 +8,6 @@
 #include "../sim/nav/GridLocation.hpp"
 #include "../sim/nav/Search.hpp"
 #include "../worldobject/AntHome.hpp"
-#include "../goal/AntMoveToLocation.hpp"
 
 #include <cmath>
 
