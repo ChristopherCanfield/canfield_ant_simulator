@@ -1,26 +1,27 @@
 #pragma once
 
-// Christopher D. Canfield
-// October 2013
-// GuiEventManager.hpp
-
-namespace cdc 
-{
-	class GuiEventObserver;
-	class DirectGuiEventObserver;
-}
-
-
-#include <SFML/Window/Event.hpp>
-
 #include <boost/noncopyable.hpp>
 
 #include <vector>
 #include <list>
 
+// Christopher D. Canfield
+// October 2013
+// GuiEventManager.hpp
+
+namespace sf 
+{
+	class Event;
+	class RenderWindow;
+}
+
+
 
 namespace cdc 
 {
+	class GuiEventObserver;
+	class DirectGuiEventObserver;
+
 	// Manager for GUI events.
 	class GuiEventManager :
 			private boost::noncopyable
@@ -28,7 +29,7 @@ namespace cdc
 	public:
 		// Processes GUI events by notifying subscribed observers. This should be
 		// called once per frame.
-		void update(const sf::Event& e);
+		void update(const sf::Event& e, const sf::RenderWindow& window);
 	
 		// Registers the observer for click events.
 		void addClickListener(GuiEventObserver& o);

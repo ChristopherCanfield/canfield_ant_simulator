@@ -2,6 +2,9 @@
 #include "GuiEventObserver.hpp"
 #include "DirectGuiEventObserver.hpp"
 
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 // Christopher D. Canfield
 // October 2013
 // GuiEventManager.cpp
@@ -20,17 +23,27 @@ void removeIfMatchFound(std::vector<GuiEventObserver*>& observers, const GuiEven
 
 
 
-void GuiEventManager::update(const sf::Event& e)
+void GuiEventManager::update(const sf::Event& e, const sf::RenderWindow& window)
 {
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		notifyDirectGuiEventObservers(directClickObservers, e);
-		notifyGuiEventObservers(clickObservers, e);
+		sf::Event clonedEvent(e);
+		sf::Vector2i location(e.mouseButton.x, e.mouseButton.y);
+		clonedEvent.mouseButton.x = static_cast<int>(window.mapPixelToCoords(location).x);
+		clonedEvent.mouseButton.y = static_cast<int>(window.mapPixelToCoords(location).y);
+
+		notifyDirectGuiEventObservers(directClickObservers, clonedEvent);
+		notifyGuiEventObservers(clickObservers, clonedEvent);
 	}
 	else if (e.type == sf::Event::MouseMoved)
 	{
-		notifyDirectGuiEventObservers(directMouseMoveObservers, e);
-		notifyGuiEventObservers(mouseMoveObservers, e);
+		sf::Event clonedEvent(e);
+		sf::Vector2i location(e.mouseButton.x, e.mouseButton.y);
+		clonedEvent.mouseMove.x = static_cast<int>(window.mapPixelToCoords(location).x);
+		clonedEvent.mouseMove.y = static_cast<int>(window.mapPixelToCoords(location).y);
+
+		notifyDirectGuiEventObservers(directMouseMoveObservers, clonedEvent);
+		notifyGuiEventObservers(mouseMoveObservers, clonedEvent);
 	}
 	else if (e.type == sf::Event::KeyPressed)
 	{

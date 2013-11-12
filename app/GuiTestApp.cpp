@@ -104,7 +104,7 @@ bool GuiTestApp::run()
 		}
 		else
 		{
-			eventManager.update(event);
+			eventManager.update(event, *window);
 		}
 
 	}

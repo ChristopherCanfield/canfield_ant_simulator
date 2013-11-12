@@ -3,7 +3,8 @@
 
 #include "../gui/GuiEventManager.hpp"
 
-#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
@@ -14,8 +15,6 @@ namespace tests
 	{
 	public:
 
-		// TODO (2013-10-16): More tests are needed.
-		
 		TEST_METHOD(GuiEventManager_create)
 		{
 			GuiEventManager manager;
@@ -23,9 +22,10 @@ namespace tests
 
 		TEST_METHOD(GuiEventManager_update_noValidEvent)
 		{
+			sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 			GuiEventManager manager;
 			sf::Event event;
-			manager.update(event);
+			manager.update(event, window);
 		}
 
 	};
