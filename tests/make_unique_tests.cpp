@@ -12,6 +12,21 @@ namespace tests
 	TEST_CLASS(make_unique_tests)
 	{
 	public:
+
+		TEST_METHOD(make_unique_0)
+		{
+			class ZeroArg {
+			public:
+				ZeroArg() : 
+					val(10) {}
+				int getVal() const { return val; }
+			private:
+				int val;
+			}
+
+			auto test = make_unique<ZeroArg>();
+			Assert::AreEqual(10, test->getVal());
+		}
 		
 		TEST_METHOD(make_unique_1)
 		{

@@ -3,6 +3,8 @@
 #include "../../nav/NavGraphHelper.hpp"
 #include "../../worldobject/AntHome.hpp"
 #include "../../goal/AntGoal.hpp"
+#include "../../goal/AntEat.hpp"
+#include "../util/make_unique.hpp"
 
 // Christopher D. Canfield
 // November 2013
@@ -12,8 +14,9 @@ using namespace cdc;
 
 
 AntEatTestAnt::AntEatTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper) :
-	Ant(manager, home, navGraphHelper)
+	AntGoalTester(manager, home, navGraphHelper)
 {
+	goal = make_unique<AntEat>();
 }
 
 AntEatTestAnt::~AntEatTestAnt()
@@ -25,5 +28,9 @@ void AntEatTestAnt::update(long ticks, const Percept& percept)
 
 }
 
+bool AntEatTestAnt::isGoalFinished() const
+{
+	return goal->isFinished();
+}
 
 

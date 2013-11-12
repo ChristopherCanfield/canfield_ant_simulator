@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ant.hpp"
+#include "AntGoalTester.hpp"
 
 // Christopher D. Canfield
 // November 2013
@@ -11,7 +11,7 @@ namespace cdc
 {
 	// An ant used to explore the AntFindFood goal.
 	class AntFindFoodAntTest :
-		public Ant
+		public AntGoalTester
 	{
 	public:
 		AntFindFoodAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);

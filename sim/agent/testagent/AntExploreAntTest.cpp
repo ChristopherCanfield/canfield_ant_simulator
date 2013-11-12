@@ -3,6 +3,8 @@
 #include "../../nav/NavGraphHelper.hpp"
 #include "../../worldobject/AntHome.hpp"
 #include "../../goal/AntGoal.hpp"
+#include "../../goal/AntExplore.hpp"
+#include "../util/make_unique.hpp"
 
 // Christopher D. Canfield
 // November 2013
@@ -12,8 +14,9 @@ using namespace cdc;
 
 
 AntExploreAntTest::AntExploreAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper) :
-	Ant(manager, home, navGraphHelper)
+	AntGoalTester(manager, home, navGraphHelper)
 {
+	goal = make_unique<AntExplore>();
 }
 
 AntExploreAntTest::~AntExploreAntTest()
@@ -25,5 +28,8 @@ void AntExploreAntTest::update(long ticks, const Percept& percept)
 
 }
 
-
+bool AntExploreAntTest::isGoalFinished() const
+{
+	return goal->isFinished();
+}
 

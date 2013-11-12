@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ant.hpp"
+#include "AntGoalTester.hpp"
 
 // Christopher D. Canfield
 // November 2013
@@ -11,10 +11,10 @@ namespace cdc
 {
 	// An ant used to test the AntMoveToLocation goal.
 	class AntMoveToLocationAntTest :
-		public Ant
+		public AntGoalTester
 	{
 	public:
-		AntMoveToLocationAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
+		AntMoveToLocationAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& target);
 		virtual ~AntMoveToLocationAntTest();
 
 		virtual void update(long ticks, const Percept& percept) override;

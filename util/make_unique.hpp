@@ -11,6 +11,12 @@
 // However, VS2012 does not support variadic templates.
 
 
+template<class T>
+std::unique_ptr<T> make_unique()
+{
+	return std::unique_ptr<T>(new T());
+}
+
 template<class T, class Arg1>
 std::unique_ptr<T> make_unique(Arg1&& arg1)
 {
