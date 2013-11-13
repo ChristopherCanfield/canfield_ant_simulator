@@ -1,4 +1,4 @@
-#include "AntEatTestAnt.hpp"
+#include "AntEatAntTest.hpp"
 #include "../../nav/Node.hpp"
 #include "../../nav/NavGraphHelper.hpp"
 #include "../../worldobject/AntHome.hpp"
@@ -8,27 +8,27 @@
 
 // Christopher D. Canfield
 // November 2013
-// AntEatTestAnt.cpp
+// AntEatAntTest.cpp
 
 using namespace cdc;
 
 
-AntEatTestAnt::AntEatTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper) :
+AntEatAntTest::AntEatAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper) :
 	AntGoalTester(manager, home, navGraphHelper)
 {
 	goal = make_unique<AntEat>();
 }
 
-AntEatTestAnt::~AntEatTestAnt()
+AntEatAntTest::~AntEatAntTest()
 {
 }
 
-void AntEatTestAnt::update(long ticks, const Percept& percept)
+void AntEatAntTest::update(long ticks, const Percept& percept)
 {
 
 }
 
-bool AntEatTestAnt::isGoalFinished() const
+bool AntEatAntTest::isGoalFinished() const
 {
 	return goal->isFinished();
 }

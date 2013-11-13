@@ -4,18 +4,18 @@
 
 // Christopher D. Canfield
 // November 2013
-// AntEatTestAnt.hpp
+// AntEatAntTest.hpp
 
 
 namespace cdc
 {
 	// An ant used for testing the AntEat goal.
-	class AntEatTestAnt :
+	class AntEatAntTest :
 		public AntGoalTester
 	{
 	public:
-		AntEatTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
-		virtual ~AntEatTestAnt();
+		AntEatAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
+		virtual ~AntEatAntTest();
 
 		virtual void update(long ticks, const Percept& percept) override;
 
