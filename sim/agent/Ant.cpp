@@ -52,9 +52,8 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	auto antSprite = std::unique_ptr<sf::Sprite>(new sf::Sprite(*Ant::texture));			
 	setDefaultImage(std::move(antSprite));
 
-	// Ants don't need to know about mouse move events or indirect click events.
+	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
-	manager.removeClickListener(*this);
 
 	moveToNode(startNode);
 }
