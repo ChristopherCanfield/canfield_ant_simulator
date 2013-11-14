@@ -118,7 +118,7 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 
 void createNavGraph1(vector<Node>& navGraph)
 {
-	navGraph.reserve(11);
+	navGraph.reserve(12);
 	navGraph.push_back(Node(GridLocation(0, 0), 50, 50));	// 0
 	navGraph.push_back(Node(GridLocation(0, 1), 150, 50));	// 1
 	navGraph.push_back(Node(GridLocation(0, 2), 250, 50));	// 2
