@@ -58,12 +58,12 @@ bool AntGoalTestApp::run()
 	++ticks;
 
 	window->clear(sf::Color::Green);
-	window->draw(*ant);
 
 	for (auto& node : navGraph)
 	{
 		window->draw(node);
 	}
+	window->draw(*ant);
 
 	window->display();
 
@@ -84,7 +84,9 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 	cout << "  4: AntForage" << endl;
 	cout << "  5: AntGoHome" << endl;
 	cout << "  6: AntMoveToNode" << endl;
-	cout << "  7: Run all tests" << endl;
+	cout << "  7: AntFollowPath" << endl;
+	cout << "  8: Run all tests" << endl;
+	cout << "Type: ";
 
 	int goalType;
 	cin >> goalType;
@@ -110,7 +112,9 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, target);
 		break;
 	case 7:
-
+		// TODO: AntFollowPath.
+	case 8:
+		// TODO: run all tests.
 	default:
 		throw runtime_error("Invalid goal selection");
 	}
