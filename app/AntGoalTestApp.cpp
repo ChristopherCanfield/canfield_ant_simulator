@@ -110,18 +110,18 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 void createNavGraph1(vector<Node>& navGraph)
 {
 	navGraph.reserve(11);
-	navGraph.push_back(Node(GridLocation(0, 0), 10, 20));	// 0
+	navGraph.push_back(Node(GridLocation(0, 0), 10, 10));	// 0
 	navGraph.push_back(Node(GridLocation(0, 1), 10, 20));	// 1
-	navGraph.push_back(Node(GridLocation(0, 2), 10, 20));	// 2
-	navGraph.push_back(Node(GridLocation(0, 3), 10, 20));	// 3
-	navGraph.push_back(Node(GridLocation(1, 0), 10, 20));	// 4
-	navGraph.push_back(Node(GridLocation(1, 1), 10, 20));	// 5
-	navGraph.push_back(Node(GridLocation(1, 2), 10, 20));	// 6
-	navGraph.push_back(Node(GridLocation(1, 3), 10, 20));	// 7
-	navGraph.push_back(Node(GridLocation(2, 0), 10, 20));	// 8
-	navGraph.push_back(Node(GridLocation(2, 1), 10, 20));	// 9
-	navGraph.push_back(Node(GridLocation(2, 2), 10, 20));	// 10
-	navGraph.push_back(Node(GridLocation(2, 3), 10, 20));	// 11
+	navGraph.push_back(Node(GridLocation(0, 2), 10, 30));	// 2
+	navGraph.push_back(Node(GridLocation(0, 3), 10, 40));	// 3
+	navGraph.push_back(Node(GridLocation(1, 0), 20, 10));	// 4
+	navGraph.push_back(Node(GridLocation(1, 1), 20, 20));	// 5
+	navGraph.push_back(Node(GridLocation(1, 2), 20, 30));	// 6
+	navGraph.push_back(Node(GridLocation(1, 3), 20, 40));	// 7
+	navGraph.push_back(Node(GridLocation(2, 0), 30, 10));	// 8
+	navGraph.push_back(Node(GridLocation(2, 1), 30, 20));	// 9
+	navGraph.push_back(Node(GridLocation(2, 2), 30, 30));	// 10
+	navGraph.push_back(Node(GridLocation(2, 3), 30, 40));	// 11
 
 	auto edge_00_01 = make_shared<Edge>(navGraph[0], navGraph[1], 1);
 	auto edge_00_10 = make_shared<Edge>(navGraph[0], navGraph[4], 1);
