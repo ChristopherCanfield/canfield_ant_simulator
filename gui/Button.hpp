@@ -15,6 +15,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System.hpp>
 
+#include <Poco/UUID.h>
+
 #include <boost/noncopyable.hpp>
 
 #include <vector>
@@ -48,6 +50,8 @@ namespace cdc
 
 		virtual void update(sf::Vector2f& observable) override;
 
+		virtual Poco::UUID getObserverId() const override;
+
 	protected:
 		// Sets the default image for the button.
 		void setDefaultImage(std::unique_ptr<sf::Sprite> image);
@@ -73,6 +77,8 @@ namespace cdc
 
 		// Reference to the GuiEventManager.
 		GuiEventManager& guiManager;
+
+		Poco::UUID id;
 
 		// Pointer to the button's current image.
 		sf::Sprite* currentImage;

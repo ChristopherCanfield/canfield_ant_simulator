@@ -51,7 +51,6 @@ void AntGoHome::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 	else if (subgoal->isFinished())
 	{
-		auto& homeLocation = ant.kb.home.getNode();
 		path.pop_front();
 
 		// If the path is now empty, we've reached the end, so set finished to true.

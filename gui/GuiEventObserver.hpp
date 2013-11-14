@@ -6,6 +6,11 @@
 
 #include <SFML/Window/Event.hpp>
 
+namespace Poco
+{
+	class UUID;
+}
+
 namespace cdc 
 {
 	// Interface for an observer that wants to receive GUI events.
@@ -16,5 +21,8 @@ namespace cdc
 
 		// Called when a subscribed event type occurs.
 		virtual void onGuiEvent(const sf::Event& e) = 0;
+
+		// Returns a unique ID that is used to identify observers.
+		virtual Poco::UUID getObserverId() const = 0;
 	};
 }

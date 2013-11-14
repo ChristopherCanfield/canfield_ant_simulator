@@ -7,6 +7,11 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Window/Event.hpp>
 
+namespace Poco
+{
+	class UUID;
+}
+
 namespace cdc 
 {
 	// An object that wants to receive events that occur directly within the bounding box
@@ -22,5 +27,8 @@ namespace cdc
 
 		// Called when a relevant gui event has been detected by the manager.
 		virtual void onDirectGuiEvent(const sf::Event& e) = 0;
+
+		// Returns a unique ID that is used to identify observers.
+		virtual Poco::UUID getObserverId() const = 0;
 	};
 }

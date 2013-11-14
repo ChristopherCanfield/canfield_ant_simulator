@@ -10,6 +10,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <Poco/UUID.h>
+
 namespace cdc
 {
 
@@ -25,12 +27,16 @@ namespace cdc
 
 		virtual void onGuiEvent(const sf::Event& e) override;
 
+		Poco::UUID getObserverId() const;
+
 		void setWindow(sf::RenderWindow* window);
 		sf::View& getSimView();
 		sf::View& getUiView();
 
 	private:
 		void moveMainView(const sf::Event& e);
+
+		Poco::UUID id;
 
 		uint worldWidth;
 		uint worldHeight;

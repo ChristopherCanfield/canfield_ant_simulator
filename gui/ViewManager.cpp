@@ -1,6 +1,8 @@
 #include "ViewManager.hpp"
 #include "../util/Vector2fAdapter.hpp"
 
+#include <Poco/UUIDGenerator.h>
+
 #include <iostream>
 #include <iomanip>
 
@@ -19,6 +21,9 @@ ViewManager::ViewManager(GuiEventManager& eventManager,
 	worldWidth(worldWidth), 
 	worldHeight(worldHeight)
 {
+	Poco::UUIDGenerator& generator = Poco::UUIDGenerator::defaultGenerator();
+	id = generator.createRandom();
+
 	simView.setSize(Vector2fAdapter(simViewWidth, simViewHeight));
 	simView.setCenter(simViewWidth / 2.f, simViewHeight / 2.f);
 
@@ -68,6 +73,11 @@ void ViewManager::onGuiEvent(const sf::Event& e)
 
 		window->setView(simView);
 	}
+}
+
+Poco::UUID ViewManager::getObserverId() const
+{
+	return id;
 }
 
 

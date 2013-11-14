@@ -1,5 +1,7 @@
 #include "Button.hpp"
 
+#include <Poco/UUIDGenerator.h>
+
 #include <iostream>
 #include <cassert>
 
@@ -15,11 +17,13 @@ using std::cout;
 using std::endl;
 
 
-
 Button::Button(GuiEventManager& manager) :
 	guiManager(manager),
 	currentImage(nullptr)
 {
+	Poco::UUIDGenerator& generator = Poco::UUIDGenerator::defaultGenerator();
+	id = generator.createRandom();
+
 	guiManager.addDirectClickListener(*this);
 	guiManager.addMouseMoveListener(*this);
 	guiManager.addDirectMouseMoveListener(*this);
@@ -88,6 +92,11 @@ sf::FloatRect Button::getBoundingBox() const
 	assert(currentImage != nullptr);
 
 	return currentImage->getGlobalBounds();
+}
+
+Poco::UUID Button::getObserverId() const
+{
+	return id;
 }
 
 void Button::setRotation(float rotation)

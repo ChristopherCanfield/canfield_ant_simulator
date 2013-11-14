@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 // Christopher D. Canfield
 // November 2013
 // MathHelper.hpp
@@ -12,7 +14,13 @@ namespace cdc
 		const float pi = 3.14159265359f;
 
 		// Calculates the angle between two points, in radians.
-		float angleInRadians(float point1x, float point1y, float point2x, float point2y);
+		template <class Point1Type, class Point2Type>
+		float angleInRadians(Point1Type point1x, Point1Type point1y, Point2Type point2x, Point2Type point2y)
+		{
+			float deltaX = static_cast<float>(point2x) - static_cast<float>(point1x);
+			float deltaY = static_cast<float>(point2y) - static_cast<float>(point1y);
+			return std::atan2(deltaY, deltaX);
+		}
 
 		// Converts degrees to radians.
 		template <class T>

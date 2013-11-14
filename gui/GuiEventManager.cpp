@@ -5,6 +5,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include <Poco/UUID.h>
+
 #include <iostream>
 
 // Christopher D. Canfield
@@ -113,7 +115,7 @@ void GuiEventManager::removeDirectClickListener(const DirectGuiEventObserver& o)
 	{
 		for (auto observer = directClickObservers.begin(); observer != directClickObservers.end();)
 		{
-			if (*observer == &o)
+			if ((*observer)->getObserverId() == o.getObserverId())
 			{
 				observer = directClickObservers.erase(observer);
 			}
@@ -137,7 +139,7 @@ void GuiEventManager::removeDirectMouseMoveListener(const DirectGuiEventObserver
 	{
 		for (auto observer = directMouseMoveObservers.begin(); observer != directMouseMoveObservers.end();)
 		{
-			if (*observer == &o)
+			if ((*observer)->getObserverId() == o.getObserverId())
 			{
 				observer = directMouseMoveObservers.erase(observer);
 			}
@@ -182,7 +184,7 @@ void removeIfMatchFound(std::vector<GuiEventObserver*>& observers, const GuiEven
 	{
 		for (auto observer = observers.begin(); observer != observers.end();)
 		{
-			if (*observer == &o)
+			if ((*observer)->getObserverId() == o.getObserverId())
 			{
 				observer = observers.erase(observer);
 			}
