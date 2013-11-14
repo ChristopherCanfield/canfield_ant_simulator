@@ -7,7 +7,7 @@
 #include "../sim/agent/testagent/AntFindFoodAntTest.hpp"
 #include "../sim/agent/testagent/AntForageAntTest.hpp"
 #include "../sim/agent/testagent/AntGoHomeAntTest.hpp"
-#include "../sim/agent/testagent/AntMoveToLocationAntTest.hpp"
+#include "../sim/agent/testagent/AntMoveToNodeAntTest.hpp"
 #include "../util/make_unique.hpp"
 #include "../sim/knowledge/GenericPercept.hpp"
 
@@ -43,6 +43,7 @@ void AntGoalTestApp::setup()
 	navGraphHelper = NavGraphHelper(navGraph);
 
 	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[6]);
+	ant->moveToNode(navGraph[0]);
 
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
 	window->setFramerateLimit(60);
@@ -59,6 +60,12 @@ bool AntGoalTestApp::run()
 
 	window->clear(sf::Color::Green);
 	window->draw(*ant);
+
+	for (auto& node : navGraph)
+	{
+		window->draw(node);
+	}
+
 	window->display();
 
 	return !ant->isGoalFinished();
@@ -77,7 +84,7 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 	cout << "  3: AntFindFood" << endl;
 	cout << "  4: AntForage" << endl;
 	cout << "  5: AntGoHome" << endl;
-	cout << "  6: AntMoveToLocation" << endl;
+	cout << "  6: AntMoveToNode" << endl;
 
 	int goalType;
 	cin >> goalType;
@@ -100,7 +107,7 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 		return make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper);
 		break;
 	case 6:
-		return make_unique<AntMoveToLocationAntTest>(manager, home, navGraphHelper, target);
+		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, target);
 		break;
 	default:
 		throw runtime_error("Invalid goal selection");
@@ -110,18 +117,18 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 void createNavGraph1(vector<Node>& navGraph)
 {
 	navGraph.reserve(11);
-	navGraph.push_back(Node(GridLocation(0, 0), 10, 10));	// 0
-	navGraph.push_back(Node(GridLocation(0, 1), 10, 20));	// 1
-	navGraph.push_back(Node(GridLocation(0, 2), 10, 30));	// 2
-	navGraph.push_back(Node(GridLocation(0, 3), 10, 40));	// 3
-	navGraph.push_back(Node(GridLocation(1, 0), 20, 10));	// 4
-	navGraph.push_back(Node(GridLocation(1, 1), 20, 20));	// 5
-	navGraph.push_back(Node(GridLocation(1, 2), 20, 30));	// 6
-	navGraph.push_back(Node(GridLocation(1, 3), 20, 40));	// 7
-	navGraph.push_back(Node(GridLocation(2, 0), 30, 10));	// 8
-	navGraph.push_back(Node(GridLocation(2, 1), 30, 20));	// 9
-	navGraph.push_back(Node(GridLocation(2, 2), 30, 30));	// 10
-	navGraph.push_back(Node(GridLocation(2, 3), 30, 40));	// 11
+	navGraph.push_back(Node(GridLocation(0, 0), 50, 50));	// 0
+	navGraph.push_back(Node(GridLocation(0, 1), 50, 150));	// 1
+	navGraph.push_back(Node(GridLocation(0, 2), 50, 250));	// 2
+	navGraph.push_back(Node(GridLocation(0, 3), 50, 350));	// 3
+	navGraph.push_back(Node(GridLocation(1, 0), 150, 50));	// 4
+	navGraph.push_back(Node(GridLocation(1, 1), 150, 150));	// 5
+	navGraph.push_back(Node(GridLocation(1, 2), 150, 250));	// 6
+	navGraph.push_back(Node(GridLocation(1, 3), 150, 350));	// 7
+	navGraph.push_back(Node(GridLocation(2, 0), 250, 50));	// 8
+	navGraph.push_back(Node(GridLocation(2, 1), 250, 150));	// 9
+	navGraph.push_back(Node(GridLocation(2, 2), 250, 250));	// 10
+	navGraph.push_back(Node(GridLocation(2, 3), 250, 350));	// 11
 
 	auto edge_00_01 = make_shared<Edge>(navGraph[0], navGraph[1], 1);
 	auto edge_00_10 = make_shared<Edge>(navGraph[0], navGraph[4], 1);

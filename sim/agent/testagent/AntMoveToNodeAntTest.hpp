@@ -4,25 +4,23 @@
 
 // Christopher D. Canfield
 // November 2013
-// AntForageAntTest.hpp
+// AntMoveToNodeAntTest.hpp
 
 
 namespace cdc
 {
-	// An ant used to test the AntForage goal.
-	class AntForageAntTest :
+	// An ant used to test the AntMoveToNode goal.
+	class AntMoveToNodeAntTest :
 		public AntGoalTester
 	{
 	public:
-		AntForageAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
-		virtual ~AntForageAntTest();
+		AntMoveToNodeAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& target);
+		virtual ~AntMoveToNodeAntTest();
 
 		virtual void update(long ticks, const Percept& percept) override;
 
 		virtual bool isGoalFinished() const override;
 
 		friend class AntMoveToNode;
-		friend class AntGoHome;
-		friend class AntForage;
 	};
 }

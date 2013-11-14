@@ -159,7 +159,13 @@ AntFoodPile* Node::getAntFoodPile() const
 void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	target.draw(circle, states);
+
+	for (auto& edge : edges)
+	{
+		target.draw(*edge, states);
+	}
 }
+
 
 bool Node::operator==(const Node& other) const
 {

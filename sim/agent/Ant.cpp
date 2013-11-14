@@ -87,6 +87,12 @@ void Ant::update(long ticks, const Percept& percept)
 	}
 }
 
+void Ant::moveToNode(const Node& node)
+{
+	kb.lastNodePassed = const_cast<Node*>(&node);
+	setPosition(node.getPixelX(), node.getPixelY());
+}
+
 Node* Ant::getLastKnownFoodPosition() const
 {
 	return kb.lastKnownFoodPosition;
@@ -190,6 +196,6 @@ Ant::AntStats::AntStats() :
 	maxHunger(100),
 	isHoldingFood(false),
 	isDead(false),
-	movementSpeed(0.05f)
+	movementSpeed(0.5f)
 {
 }

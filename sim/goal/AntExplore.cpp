@@ -1,5 +1,5 @@
 #include "AntExplore.hpp"
-#include "AntMoveToLocation.hpp"
+#include "AntMoveToNode.hpp"
 #include "../agent/Ant.hpp"
 #include "../util/Random.hpp"
 #include "../util/MathHelper.hpp"
@@ -97,6 +97,6 @@ void AntExplore::processNextInPath(Ant& ant)
 	{
 		// Turn the ant to face the new target node.
 		auto& target = path.front();
-		subgoal = make_unique<AntMoveToLocation>(ant, *target);
+		subgoal = make_unique<AntMoveToNode>(ant, *target);
 	}
 }

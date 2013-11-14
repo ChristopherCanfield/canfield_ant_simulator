@@ -36,6 +36,9 @@ namespace cdc
 
 		virtual void update(long ticks, const Percept& percept) override;
 
+		// Moves the ant to the specified node.
+		void moveToNode(const Node& node);
+
 		// Returns the last known Node to contain food, or nullptr if no Node
 		// is known to have food.
 		Node* getLastKnownFoodPosition() const;
@@ -62,7 +65,7 @@ namespace cdc
 		friend class AntForage;
 		friend class AntGoHome;
 		friend class AntExplore;
-		friend class AntMoveToLocation;
+		friend class AntMoveToNode;
 		friend class AntFindFood;
 
 	protected:

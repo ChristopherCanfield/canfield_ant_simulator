@@ -21,7 +21,7 @@ namespace cdc
 
 		virtual bool isGoalFinished() const override;
 
-		friend class AntMoveToLocation;
+		friend class AntMoveToNode;
 		friend class AntGoHome;
 		friend class AntFindFood;
 	};

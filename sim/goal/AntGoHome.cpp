@@ -1,5 +1,5 @@
 #include "AntGoHome.hpp"
-#include "AntMoveToLocation.hpp"
+#include "AntMoveToNode.hpp"
 #include "../nav/Node.hpp"
 #include "../nav/Search.hpp"
 #include "../worldobject/AntHome.hpp"
@@ -14,7 +14,7 @@ using cdc::Ant;
 using cdc::AntPercept;
 using cdc::Node;
 using cdc::Search;
-using cdc::AntMoveToLocation;
+using cdc::AntMoveToNode;
 using cdc::AntHome;
 
 
@@ -63,7 +63,7 @@ void AntGoHome::update(Ant& ant, uint ticks, AntPercept& percept)
 		// next node.
 		else
 		{
-			AntMoveToLocation* moveToLocationGoal = dynamic_cast<AntMoveToLocation*>(subgoal.get());
+			AntMoveToNode* moveToLocationGoal = dynamic_cast<AntMoveToNode*>(subgoal.get());
 			moveToLocationGoal->reset(ant, *path.front());
 		}
 	}

@@ -1,36 +1,41 @@
-#include "AntMoveToLocation.hpp"
+#include "AntMoveToNode.hpp"
 #include "../knowledge/AntPercept.hpp"
 #include "../nav/Node.hpp"
 #include "../agent/Ant.hpp"
 #include "../util/MathHelper.hpp"
 
+#include <iostream>
+
 // Christopher D. Canfield
 // November 2013
-// AntMoveToLocation.cpp
+// AntMoveToNode.cpp
 
-using cdc::AntMoveToLocation;
+using cdc::AntMoveToNode;
 using cdc::Node;
 using cdc::AntPercept;
 using cdc::Ant;
 using namespace cdc::MathHelper;
+using namespace std;
 
 
-AntMoveToLocation::AntMoveToLocation(Ant& ant, Node& target) :
-	target(&target)
+AntMoveToNode::AntMoveToNode(Ant& ant, Node& target, bool debug) :
+	target(&target),
+	debug(debug)
 {
 	calculateMovementVectors(ant);
 }
 
 
-AntMoveToLocation::~AntMoveToLocation()
+AntMoveToNode::~AntMoveToNode()
 {
 }
 
-void AntMoveToLocation::update(Ant& ant, uint ticks, AntPercept& percept)
+void AntMoveToNode::update(Ant& ant, uint ticks, AntPercept& percept)
 {
 	if (ant.getBoundingBox().intersects(target->getBoundingBox()))
 	{
 		setFinished(true);
+		if (debug) cout << "Reached node" << endl;
 	}
 	else
 	{
@@ -41,14 +46,14 @@ void AntMoveToLocation::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 }
 
-void AntMoveToLocation::reset(Ant& ant, Node& newTarget)
+void AntMoveToNode::reset(Ant& ant, Node& newTarget)
 {
 	target = &newTarget;
 	calculateMovementVectors(ant);
 	setFinished(false);
 }
 
-void AntMoveToLocation::calculateMovementVectors(Ant& ant)
+void AntMoveToNode::calculateMovementVectors(Ant& ant)
 {
 	// Turn the ant to face the new target node.
 	float angle = MathHelper::angleInRadians(ant.getPosition().x, ant.getPosition().y, 
