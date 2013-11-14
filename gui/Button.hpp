@@ -42,8 +42,6 @@ namespace cdc
 
 		virtual sf::FloatRect getBoundingBox() const override;
 
-		void setRotation(float rotation);
-
 		virtual void onGuiEvent(const sf::Event& e) override;
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
@@ -53,6 +51,9 @@ namespace cdc
 		virtual Poco::UUID getObserverId() const override;
 
 	protected:
+		void setRotation(float rotation);
+		void setOriginToCenter();
+
 		// Sets the default image for the button.
 		void setDefaultImage(std::unique_ptr<sf::Sprite> image);
 

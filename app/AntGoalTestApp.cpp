@@ -120,17 +120,17 @@ void createNavGraph1(vector<Node>& navGraph)
 {
 	navGraph.reserve(11);
 	navGraph.push_back(Node(GridLocation(0, 0), 50, 50));	// 0
-	navGraph.push_back(Node(GridLocation(0, 1), 50, 150));	// 1
-	navGraph.push_back(Node(GridLocation(0, 2), 50, 250));	// 2
-	navGraph.push_back(Node(GridLocation(0, 3), 50, 350));	// 3
-	navGraph.push_back(Node(GridLocation(1, 0), 150, 50));	// 4
+	navGraph.push_back(Node(GridLocation(0, 1), 150, 50));	// 1
+	navGraph.push_back(Node(GridLocation(0, 2), 250, 50));	// 2
+	navGraph.push_back(Node(GridLocation(0, 3), 350, 50));	// 3
+	navGraph.push_back(Node(GridLocation(1, 0), 50, 150));	// 4
 	navGraph.push_back(Node(GridLocation(1, 1), 150, 150));	// 5
-	navGraph.push_back(Node(GridLocation(1, 2), 150, 250));	// 6
-	navGraph.push_back(Node(GridLocation(1, 3), 150, 350));	// 7
-	navGraph.push_back(Node(GridLocation(2, 0), 250, 50));	// 8
-	navGraph.push_back(Node(GridLocation(2, 1), 250, 150));	// 9
+	navGraph.push_back(Node(GridLocation(1, 2), 250, 150));	// 6
+	navGraph.push_back(Node(GridLocation(1, 3), 350, 150));	// 7
+	navGraph.push_back(Node(GridLocation(2, 0), 50, 250));	// 8
+	navGraph.push_back(Node(GridLocation(2, 1), 150, 250));	// 9
 	navGraph.push_back(Node(GridLocation(2, 2), 250, 250));	// 10
-	navGraph.push_back(Node(GridLocation(2, 3), 250, 350));	// 11
+	navGraph.push_back(Node(GridLocation(2, 3), 350, 250));	// 11
 
 	auto edge_00_01 = make_shared<Edge>(navGraph[0], navGraph[1], 1);
 	auto edge_00_10 = make_shared<Edge>(navGraph[0], navGraph[4], 1);

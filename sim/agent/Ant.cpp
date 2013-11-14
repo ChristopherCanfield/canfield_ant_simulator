@@ -51,6 +51,7 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 
 	auto antSprite = std::unique_ptr<sf::Sprite>(new sf::Sprite(*Ant::texture));			
 	setDefaultImage(std::move(antSprite));
+	setOriginToCenter();
 
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
@@ -197,6 +198,6 @@ Ant::AntStats::AntStats() :
 	maxHunger(100),
 	isHoldingFood(false),
 	isDead(false),
-	movementSpeed(0.5f)
+	movementSpeed(0.75f)
 {
 }

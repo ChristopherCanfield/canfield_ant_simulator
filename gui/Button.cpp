@@ -115,6 +115,22 @@ void Button::setRotation(float rotation)
 	}
 }
 
+void Button::setOriginToCenter()
+{
+	if (defaultImage)
+	{
+		defaultImage->setOrigin(defaultImage->getGlobalBounds().width / 1.9f, defaultImage->getGlobalBounds().height / 1.9f);
+	}
+	if (onClickImage)
+	{
+		onClickImage->setOrigin(onClickImage->getGlobalBounds().width / 1.9f, onClickImage->getGlobalBounds().height / 1.9f);
+	}
+	if (onHoverImage)
+	{
+		onHoverImage->setOrigin(onHoverImage->getGlobalBounds().width / 1.9f, onHoverImage->getGlobalBounds().height / 1.9f);
+	}
+}
+
 void Button::onDirectGuiEvent(const sf::Event& e)
 {
 	// Did the mouse click on the button?
