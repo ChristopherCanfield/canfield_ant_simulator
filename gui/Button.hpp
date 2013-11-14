@@ -40,6 +40,8 @@ namespace cdc
 
 		virtual sf::FloatRect getBoundingBox() const override;
 
+		void setRotation(float rotation);
+
 		virtual void onGuiEvent(const sf::Event& e) override;
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;

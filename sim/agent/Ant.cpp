@@ -28,7 +28,7 @@ bool Ant::wasTextureLoaded = false;
 sf::Texture* Ant::texture = nullptr;
 
 
-Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper) :
+Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
 		Button(manager),
 		kb(home, graphHelper)
 {
@@ -55,6 +55,8 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper) :
 	// Ants don't need to know about mouse move events or indirect click events.
 	manager.removeMouseMoveListener(*this);
 	manager.removeClickListener(*this);
+
+	moveToNode(startNode);
 }
 
 Ant::Ant(Ant&& other) :
@@ -118,9 +120,9 @@ void Ant::kill()
 	stats.isDead = true;
 }
 
-Node* Ant::getNode() const
+Node& Ant::getNode() const
 {
-	return kb.lastNodePassed;
+	return *kb.lastNodePassed;
 }
 
 

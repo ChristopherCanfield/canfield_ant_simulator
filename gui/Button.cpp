@@ -90,6 +90,22 @@ sf::FloatRect Button::getBoundingBox() const
 	return currentImage->getGlobalBounds();
 }
 
+void Button::setRotation(float rotation)
+{
+	if (defaultImage)
+	{
+		defaultImage->setRotation(rotation);
+	}
+	if (onClickImage)
+	{
+		onClickImage->setRotation(rotation);
+	}
+	if (onHoverImage)
+	{
+		onHoverImage->setRotation(rotation);
+	}
+}
+
 void Button::onDirectGuiEvent(const sf::Event& e)
 {
 	// Did the mouse click on the button?

@@ -30,14 +30,11 @@ namespace cdc
 			public Button
 	{
 	public:
-		Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
+		Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode);
 		Ant(Ant&& other);
 		virtual ~Ant();
 
 		virtual void update(long ticks, const Percept& percept) override;
-
-		// Moves the ant to the specified node.
-		void moveToNode(const Node& node);
 
 		// Returns the last known Node to contain food, or nullptr if no Node
 		// is known to have food.
@@ -50,7 +47,7 @@ namespace cdc
 		AntHome& getHome() const;
 
 		// Returns the last node that this ant passed.
-		Node* getNode() const;
+		Node& getNode() const;
 
 		// Returns true if the ant is dead, or false if alive.
 		bool isDead() const;
@@ -123,6 +120,9 @@ namespace cdc
 	private:
 		Ant(const Ant&);
 		Ant& operator=(const Ant& other);
+
+		// Moves the ant to the specified node.
+		void moveToNode(const Node& node);
 
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;

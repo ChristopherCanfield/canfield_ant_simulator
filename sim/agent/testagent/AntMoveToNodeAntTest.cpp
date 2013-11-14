@@ -13,10 +13,10 @@
 using namespace cdc;
 
 
-AntMoveToNodeAntTest::AntMoveToNodeAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& target) :
-	AntGoalTester(manager, home, navGraphHelper)
+AntMoveToNodeAntTest::AntMoveToNodeAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode, Node& target) :
+	AntGoalTester(manager, home, navGraphHelper, startNode)
 {
-	goal = make_unique<AntMoveToNode>(*this, target);
+	goal = make_unique<AntMoveToNode>(*this, target, true);
 }
 
 AntMoveToNodeAntTest::~AntMoveToNodeAntTest()

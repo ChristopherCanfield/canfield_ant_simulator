@@ -23,7 +23,7 @@ using namespace std;
 using namespace cdc;
 
 void createNavGraph1(vector<Node>& graph);
-unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& node);
+unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& startNode, Node& node);
 
 
 AntGoalTestApp::AntGoalTestApp() :
@@ -42,8 +42,7 @@ void AntGoalTestApp::setup()
 	createNavGraph1(navGraph);
 	navGraphHelper = NavGraphHelper(navGraph);
 
-	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[6]);
-	ant->moveToNode(navGraph[0]);
+	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1]);
 
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
 	window->setFramerateLimit(60);
@@ -76,7 +75,7 @@ void AntGoalTestApp::teardown()
 
 }
 
-unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& target)
+unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& startNode, Node& target)
 {
 	cout << "Ant goal tester type: " << endl;
 	cout << "  1: AntEat" << endl;
@@ -85,6 +84,7 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 	cout << "  4: AntForage" << endl;
 	cout << "  5: AntGoHome" << endl;
 	cout << "  6: AntMoveToNode" << endl;
+	cout << "  7: Run all tests" << endl;
 
 	int goalType;
 	cin >> goalType;
@@ -92,23 +92,25 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 	switch (goalType)
 	{
 	case 1:
-		return make_unique<AntEatAntTest>(manager, home, navGraphHelper);
+		return make_unique<AntEatAntTest>(manager, home, navGraphHelper, startNode);
 		break;
 	case 2:
-		return make_unique<AntExploreAntTest>(manager, home, navGraphHelper);
+		return make_unique<AntExploreAntTest>(manager, home, navGraphHelper, startNode);
 		break;
 	case 3:
-		return make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper);
+		return make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode);
 		break;
 	case 4:
-		return make_unique<AntForageAntTest>(manager, home, navGraphHelper);
+		return make_unique<AntForageAntTest>(manager, home, navGraphHelper, startNode);
 		break;
 	case 5:
-		return make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper);
+		return make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper, startNode);
 		break;
 	case 6:
-		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, target);
+		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, target);
 		break;
+	case 7:
+
 	default:
 		throw runtime_error("Invalid goal selection");
 	}

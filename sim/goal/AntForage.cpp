@@ -38,19 +38,16 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 		// If food was found, pick it up.
 		if (currentSubgoal == &antFindFoodSubgoal)
 		{
-			if (ant.getNode() != nullptr)
-			{
-				auto& foodPileNode = *ant.getNode();
+			auto& foodPileNode = ant.getNode();
 				
-				if (foodPileNode.getAntFoodPile() != nullptr)
+			if (foodPileNode.getAntFoodPile() != nullptr)
+			{
+				auto& foodPile = *foodPileNode.getAntFoodPile();
+				// If the food pile has food available, take one and pick it up.
+				if (foodPile.takeFood())
 				{
-					auto& foodPile = *foodPileNode.getAntFoodPile();
-					// If the food pile has food available, take one and pick it up.
-					if (foodPile.takeFood())
-					{
-						ant.stats.isHoldingFood = true;
-						ant.kb.lastKnownFoodPosition = &foodPileNode;
-					}
+					ant.stats.isHoldingFood = true;
+					ant.kb.lastKnownFoodPosition = &foodPileNode;
 				}
 			}
 			// Bring the food home.

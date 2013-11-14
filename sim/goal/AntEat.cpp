@@ -59,19 +59,16 @@ void AntEat::update(Ant& ant, uint ticks, AntPercept& percept)
 		// Found food outside of home.
 		else if (currentSubgoal == &antFindFoodSubgoal)
 		{
-			if (ant.getNode() != nullptr)
-			{
-				auto& foodPileNode = *ant.getNode();
+			auto& foodPileNode = ant.getNode();
 				
-				if (foodPileNode.getAntFoodPile() != nullptr)
+			if (foodPileNode.getAntFoodPile() != nullptr)
+			{
+				auto& foodPile = *foodPileNode.getAntFoodPile();
+				// If the food pile has food available, take one and eat it.
+				if (foodPile.takeFood())
 				{
-					auto& foodPile = *foodPileNode.getAntFoodPile();
-					// If the food pile has food available, take one and eat it.
-					if (foodPile.takeFood())
-					{
-						ant.stats.hunger = 0;
-						ant.kb.lastKnownFoodPosition = &foodPileNode;
-					}
+					ant.stats.hunger = 0;
+					ant.kb.lastKnownFoodPosition = &foodPileNode;
 				}
 			}
 			setFinished(true);

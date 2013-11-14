@@ -48,10 +48,10 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 		{
 			// if the path is empty, get a new target.
 			const auto& target = getNewTarget(ant);
-			const auto currentNode = (ant.getNode() != nullptr) ? ant.getNode() : &ant.kb.home.getNode();
+			const auto& currentNode = ant.getNode();
 			
 			// Set the path to the target.
-			path = Search::aStar(*currentNode, target, Search::straightLineHeuristic);
+			path = Search::aStar(currentNode, target, Search::straightLineHeuristic);
 		}
 		processNextInPath(ant);
 	}

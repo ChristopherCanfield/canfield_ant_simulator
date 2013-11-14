@@ -54,7 +54,7 @@ namespace tests
 			public:
 				FourArg(int a, int b, int c, int d) :
 					a(a), b(b), c(c), d(d) {}
-				int getA() { return a; } 
+				int getD() { return d; } 
 			private:
 				int a;
 				int b;
@@ -63,7 +63,27 @@ namespace tests
 			};
 
 			auto test = make_unique<FourArg>(1, 2, 3, 4);
-			Assert::AreEqual(1, test->getA());
+			Assert::AreEqual(4, test->getD());
+		}
+
+		TEST_METHOD(make_unique_5)
+		{
+			class FiveArg
+			{
+			public:
+				FiveArg(int a, int b, int c, int d, int e) :
+					a(a), b(b), c(c), d(d), e(e) {}
+				int getE() { return e; } 
+			private:
+				int a;
+				int b;
+				int c;
+				int d;
+				int e;
+			};
+
+			auto test = make_unique<FiveArg>(1, 2, 3, 4, 5);
+			Assert::AreEqual(5, test->getE());
 		}
 	};
 }

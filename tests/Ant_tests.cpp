@@ -25,9 +25,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 		}
 
 		TEST_METHOD(Ant_update)
@@ -37,9 +38,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 
 			GenericPercept percept;
 			ant.update(10, percept);
@@ -52,9 +54,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 
 			Assert::IsTrue(nullptr == ant.getLastKnownFoodPosition());
 		}
@@ -66,9 +69,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 
 			Assert::AreEqual(0u, ant.getHunger());
 		}
@@ -80,9 +84,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 
 			Assert::IsTrue(&home == &ant.getHome());
 		}
@@ -94,11 +99,12 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 
-			Assert::IsTrue(nullptr == ant.getNode());
+			Assert::IsTrue(vec[0] == ant.getNode());
 		}
 
 		TEST_METHOD(Ant_isDead)
@@ -108,9 +114,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 
 			Assert::IsFalse(ant.isDead());
 		}
@@ -122,9 +129,10 @@ namespace tests
 			Node node(location, 100, 200);
 			AntHome home(node);
 			vector<Node> vec;
+			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			
-			Ant ant(manager, home, graph);
+			Ant ant(manager, home, graph, vec[0]);
 			
 			ant.kill();
 			Assert::IsTrue(ant.isDead());

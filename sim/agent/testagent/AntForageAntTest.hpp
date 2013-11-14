@@ -14,7 +14,7 @@ namespace cdc
 		public AntGoalTester
 	{
 	public:
-		AntForageAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper);
+		AntForageAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode);
 		virtual ~AntForageAntTest();
 
 		virtual void update(long ticks, const Percept& percept) override;

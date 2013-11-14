@@ -13,8 +13,8 @@
 using namespace cdc;
 
 
-AntForageAntTest::AntForageAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper) :
-	AntGoalTester(manager, home, navGraphHelper)
+AntForageAntTest::AntForageAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode) :
+	AntGoalTester(manager, home, navGraphHelper, startNode)
 {
 	goal = make_unique<AntForage>();
 }

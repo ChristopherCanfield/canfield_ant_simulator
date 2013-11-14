@@ -13,8 +13,8 @@
 using namespace cdc;
 
 
-AntExploreAntTest::AntExploreAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper) :
-	AntGoalTester(manager, home, navGraphHelper)
+AntExploreAntTest::AntExploreAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode) :
+	AntGoalTester(manager, home, navGraphHelper, startNode)
 {
 	goal = make_unique<AntExplore>();
 }

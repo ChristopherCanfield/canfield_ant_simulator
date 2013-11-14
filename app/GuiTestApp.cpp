@@ -52,8 +52,8 @@ GuiTestApp::GuiTestApp() :
 
 	navGraphHelper = NavGraphHelper(nodes);
 
-	auto ant1 = std::make_shared<Ant>(eventManager, *antHome, navGraphHelper);
-	auto ant2 = std::make_shared<Ant>(eventManager, *antHome, navGraphHelper);
+	auto ant1 = std::make_shared<Ant>(eventManager, *antHome, navGraphHelper, nodes[0]);
+	auto ant2 = std::make_shared<Ant>(eventManager, *antHome, navGraphHelper, nodes[0]);
 	ants.push_back(ant1);
 	ants.push_back(ant2);
 	ant1->setPosition(40, 200);

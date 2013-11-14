@@ -23,6 +23,8 @@ AntMoveToNode::AntMoveToNode(Ant& ant, Node& target, bool debug) :
 	debug(debug)
 {
 	calculateMovementVectors(ant);
+	if (debug) cout << "target: (" << target.getRow() << "," << target.getColumn() << "); " <<
+			target.getPixelX() << "," << target.getPixelY() << "px" << endl;
 }
 
 
@@ -59,6 +61,8 @@ void AntMoveToNode::calculateMovementVectors(Ant& ant)
 	float angle = MathHelper::angleInRadians(ant.getPosition().x, ant.getPosition().y, 
 			target->getPixelX(), target->getPixelY());
 
+	if (MathHelper::radiansToDegrees(debug)) cout << "Angle: " << angle << endl;
+	ant.setRotation(MathHelper::radiansToDegrees(angle));
 	ant.stats.movementVector.x = cos(angle);
 	ant.stats.movementVector.y = sin(angle);
 }
