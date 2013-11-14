@@ -91,6 +91,7 @@ void AStarTestApp::teardown()
 vector<Node> createNavGraph1()
 {
 	vector<Node> navGraph;
+	navGraph.reserve(11);
 	navGraph.push_back(Node(GridLocation(0, 0), 10, 20));	// 0
 	navGraph.push_back(Node(GridLocation(0, 1), 10, 20));	// 1
 	navGraph.push_back(Node(GridLocation(0, 2), 10, 20));	// 2

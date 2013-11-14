@@ -21,10 +21,10 @@ public:
 	{
 	}
 
-	std::size_t operator()(const unique_ptr<Node>& node) const
+	std::size_t operator()(const Node& node) const
 	{
-		return (target.getRow() == node->getRow() &&
-				target.getColumn() == node->getColumn());
+		return (target.getRow() == node.getRow() &&
+				target.getColumn() == node.getColumn());
 	}
 
 private:
@@ -34,21 +34,21 @@ private:
 }; 
 
 
-NavGraphHelper::NavGraphHelper(std::vector<std::unique_ptr<Node>>& graph) :
+NavGraphHelper::NavGraphHelper(const std::vector<Node>& graph) :
 	navGraph(&graph),
 	maxRow(0),
 	maxColumn(0)
 {
 	for (auto& node : *navGraph)
 	{
-		if (node->getRow() > maxRow)
+		if (node.getRow() > maxRow)
 		{
-			maxRow = node->getRow();
+			maxRow = node.getRow();
 		}
 
-		if (node->getColumn() > maxColumn)
+		if (node.getColumn() > maxColumn)
 		{
-			maxColumn = node->getColumn();
+			maxColumn = node.getColumn();
 		}
 	}
 }
@@ -70,7 +70,7 @@ bool NavGraphHelper::isValid(GridLocation nodeLocation) const
 	auto foundItem = std::find_if(navGraph->cbegin(), navGraph->cend(), predicateFunctor);
 	if (foundItem != navGraph->cend())
 	{
-		return ((*foundItem)->getEdgeList().size() > 0);
+		return (!foundItem->getEdgeList().empty());
 	}
 	else
 	{
@@ -103,7 +103,8 @@ Node* NavGraphHelper::getNode(GridLocation location)
 			return nullptr;
 		}
 
-		nodes[location] = foundNode->get();
-		return foundNode->get();
+		Node* node = const_cast<Node*>(&(*foundNode));
+		nodes[location] = node;
+		return node;
 	}
 }

@@ -12,7 +12,6 @@
 
 #include <vector>
 #include <memory>
-#include <iostream>
 #include <functional>
 
 
@@ -75,9 +74,6 @@ namespace cdc
 		bool operator!=(const Node& other) const;
 
 	private:
-		Node(const Node&);
-		Node& operator=(const Node&);
-
 		void removeEdge(Edge& edge);
 
 		std::vector<std::shared_ptr<Edge>> edges;

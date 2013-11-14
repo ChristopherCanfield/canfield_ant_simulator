@@ -27,25 +27,26 @@ GuiTestApp::GuiTestApp() :
 {
 	using namespace std;
 
-	nodes.push_back(make_unique<Node>(GridLocation(0, 0), 10, 10));
-	nodes.push_back(make_unique<Node>(GridLocation(0, 0), 40, 10));
-	nodes.push_back(make_unique<Node>(GridLocation(0, 0), 40, 40));
-	nodes.push_back(make_unique<Node>(GridLocation(0, 0), 10, 40));
-	nodes.push_back(make_unique<Node>(GridLocation(0, 0), 10, 80));
+	nodes.reserve(5);
+	nodes.push_back(Node(GridLocation(0, 0), 10, 10));
+	nodes.push_back(Node(GridLocation(0, 0), 40, 10));
+	nodes.push_back(Node(GridLocation(0, 0), 40, 40));
+	nodes.push_back(Node(GridLocation(0, 0), 10, 40));
+	nodes.push_back(Node(GridLocation(0, 0), 10, 80));
 
-	auto edge01 = make_shared<Edge>(*nodes[0], *nodes[1], 10);
-	auto edge12 = make_shared<Edge>(*nodes[1], *nodes[2], 10);
-	auto edge23 = make_shared<Edge>(*nodes[2], *nodes[3], 10);
-	auto edge30 = make_shared<Edge>(*nodes[3], *nodes[0], 10);
-	auto edge34 = make_shared<Edge>(*nodes[3], *nodes[4], 10);
+	auto edge01 = make_shared<Edge>(nodes[0], nodes[1], 10);
+	auto edge12 = make_shared<Edge>(nodes[1], nodes[2], 10);
+	auto edge23 = make_shared<Edge>(nodes[2], nodes[3], 10);
+	auto edge30 = make_shared<Edge>(nodes[3], nodes[0], 10);
+	auto edge34 = make_shared<Edge>(nodes[3], nodes[4], 10);
 
-	nodes[0]->addEdge(edge01).addEdge(edge30);
-	nodes[1]->addEdge(edge01).addEdge(edge12);
-	nodes[2]->addEdge(edge12).addEdge(edge23);
-	nodes[3]->addEdge(edge23).addEdge(edge30).addEdge(edge34);
-	nodes[4]->addEdge(edge34);
+	nodes[0].addEdge(edge01).addEdge(edge30);
+	nodes[1].addEdge(edge01).addEdge(edge12);
+	nodes[2].addEdge(edge12).addEdge(edge23);
+	nodes[3].addEdge(edge23).addEdge(edge30).addEdge(edge34);
+	nodes[4].addEdge(edge34);
 
-	antHome = new AntHome(*nodes[0]);
+	antHome = new AntHome(nodes[0]);
 
 	food.push_back(AntFood(60.f, 60.f));
 
@@ -61,7 +62,7 @@ GuiTestApp::GuiTestApp() :
 	spiders.push_back(new Spider(eventManager));
 	spiders[0]->setPosition(40, 400);
 
-	foodPile = new AntFoodPile(10, *nodes[4]);
+	foodPile = new AntFoodPile(10, nodes[4]);
 }
 
 
@@ -121,11 +122,11 @@ bool GuiTestApp::run()
 
 	for (auto& node : nodes)
 	{
-		for (auto edge : node->getEdgeList())
+		for (auto edge : node.getEdgeList())
 		{
 			window->draw(*edge);
 		}
-		window->draw(*node);
+		window->draw(node);
 	}
 
 	for (auto& f : food)

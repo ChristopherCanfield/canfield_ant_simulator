@@ -9,6 +9,7 @@
 #include "../sim/agent/testagent/AntGoHomeAntTest.hpp"
 #include "../sim/agent/testagent/AntMoveToLocationAntTest.hpp"
 #include "../util/make_unique.hpp"
+#include "../sim/knowledge/GenericPercept.hpp"
 
 #include <iostream>
 #include <vector>
@@ -21,12 +22,13 @@
 using namespace std;
 using namespace cdc;
 
-vector<unique_ptr<Node>> createNavGraph1();
+void createNavGraph1(vector<Node>& graph);
 unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& node);
 
 
 AntGoalTestApp::AntGoalTestApp() :
-	viewManager(eventManager, 1000, 1000, 800, 800, 200, 800)
+	viewManager(eventManager, 1000, 1000, 800, 800, 200, 800),
+	ticks(0)
 {
 }
 
@@ -37,19 +39,29 @@ AntGoalTestApp::~AntGoalTestApp()
 
 void AntGoalTestApp::setup()
 {
-	navGraph = createNavGraph1();
+	createNavGraph1(navGraph);
 	navGraphHelper = NavGraphHelper(navGraph);
 
-	ant = getTestAnt(eventManager, *antHome, navGraphHelper, *navGraph[6]);
+	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[6]);
 
-	
+	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
+	window->setFramerateLimit(60);
 
-
+	viewManager.setWindow(window.get());
+	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 }
 
 bool AntGoalTestApp::run()
 {
-	return false;
+	GenericPercept percept;
+	ant->update(ticks, percept);
+	++ticks;
+
+	window->clear(sf::Color::Green);
+	window->draw(*ant);
+	window->display();
+
+	return !ant->isGoalFinished();
 }
 
 void AntGoalTestApp::teardown()
@@ -95,60 +107,58 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 	}
 }
 
-vector<unique_ptr<Node>> createNavGraph1()
+void createNavGraph1(vector<Node>& navGraph)
 {
-	vector<unique_ptr<Node>> navGraph;
-	navGraph.push_back(make_unique<Node>(GridLocation(0, 0), 10, 20));	// 0
-	navGraph.push_back(make_unique<Node>(GridLocation(0, 1), 10, 20));	// 1
-	navGraph.push_back(make_unique<Node>(GridLocation(0, 2), 10, 20));	// 2
-	navGraph.push_back(make_unique<Node>(GridLocation(0, 3), 10, 20));	// 3
-	navGraph.push_back(make_unique<Node>(GridLocation(1, 0), 10, 20));	// 4
-	navGraph.push_back(make_unique<Node>(GridLocation(1, 1), 10, 20));	// 5
-	navGraph.push_back(make_unique<Node>(GridLocation(1, 2), 10, 20));	// 6
-	navGraph.push_back(make_unique<Node>(GridLocation(1, 3), 10, 20));	// 7
-	navGraph.push_back(make_unique<Node>(GridLocation(2, 0), 10, 20));	// 8
-	navGraph.push_back(make_unique<Node>(GridLocation(2, 1), 10, 20));	// 9
-	navGraph.push_back(make_unique<Node>(GridLocation(2, 2), 10, 20));	// 10
-	navGraph.push_back(make_unique<Node>(GridLocation(2, 3), 10, 20));	// 11
+	navGraph.reserve(11);
+	navGraph.push_back(Node(GridLocation(0, 0), 10, 20));	// 0
+	navGraph.push_back(Node(GridLocation(0, 1), 10, 20));	// 1
+	navGraph.push_back(Node(GridLocation(0, 2), 10, 20));	// 2
+	navGraph.push_back(Node(GridLocation(0, 3), 10, 20));	// 3
+	navGraph.push_back(Node(GridLocation(1, 0), 10, 20));	// 4
+	navGraph.push_back(Node(GridLocation(1, 1), 10, 20));	// 5
+	navGraph.push_back(Node(GridLocation(1, 2), 10, 20));	// 6
+	navGraph.push_back(Node(GridLocation(1, 3), 10, 20));	// 7
+	navGraph.push_back(Node(GridLocation(2, 0), 10, 20));	// 8
+	navGraph.push_back(Node(GridLocation(2, 1), 10, 20));	// 9
+	navGraph.push_back(Node(GridLocation(2, 2), 10, 20));	// 10
+	navGraph.push_back(Node(GridLocation(2, 3), 10, 20));	// 11
 
-	auto edge_00_01 = make_shared<Edge>(*navGraph[0], *navGraph[1], 1);
-	auto edge_00_10 = make_shared<Edge>(*navGraph[0], *navGraph[4], 1);
-	navGraph[0]->addEdge(edge_00_01).addEdge(edge_00_10);
+	auto edge_00_01 = make_shared<Edge>(navGraph[0], navGraph[1], 1);
+	auto edge_00_10 = make_shared<Edge>(navGraph[0], navGraph[4], 1);
+	navGraph[0].addEdge(edge_00_01).addEdge(edge_00_10);
 			
-	auto edge_01_02 = make_shared<Edge>(*navGraph[1], *navGraph[2], 1);
-	auto edge_01_11 = make_shared<Edge>(*navGraph[1], *navGraph[5], 1);
-	navGraph[1]->addEdge(edge_01_02).addEdge(edge_01_11);
+	auto edge_01_02 = make_shared<Edge>(navGraph[1], navGraph[2], 1);
+	auto edge_01_11 = make_shared<Edge>(navGraph[1], navGraph[5], 1);
+	navGraph[1].addEdge(edge_01_02).addEdge(edge_01_11);
 
-	auto edge_02_03 = make_shared<Edge>(*navGraph[2], *navGraph[3], 1);
-	auto edge_02_12 = make_shared<Edge>(*navGraph[2], *navGraph[6], 1);
-	navGraph[2]->addEdge(edge_02_03).addEdge(edge_02_12);
+	auto edge_02_03 = make_shared<Edge>(navGraph[2], navGraph[3], 1);
+	auto edge_02_12 = make_shared<Edge>(navGraph[2], navGraph[6], 1);
+	navGraph[2].addEdge(edge_02_03).addEdge(edge_02_12);
 
-	auto edge_03_13 = make_shared<Edge>(*navGraph[3], *navGraph[7], 1);
-	navGraph[3]->addEdge(edge_03_13);
+	auto edge_03_13 = make_shared<Edge>(navGraph[3], navGraph[7], 1);
+	navGraph[3].addEdge(edge_03_13);
 
-	auto edge_10_11 = make_shared<Edge>(*navGraph[4], *navGraph[5], 1);
-	auto edge_10_20 = make_shared<Edge>(*navGraph[4], *navGraph[8], 1);
-	navGraph[4]->addEdge(edge_10_11).addEdge(edge_10_20);
+	auto edge_10_11 = make_shared<Edge>(navGraph[4], navGraph[5], 1);
+	auto edge_10_20 = make_shared<Edge>(navGraph[4], navGraph[8], 1);
+	navGraph[4].addEdge(edge_10_11).addEdge(edge_10_20);
 
-	auto edge_11_12 = make_shared<Edge>(*navGraph[5], *navGraph[6], 1);
-	auto edge_11_21 = make_shared<Edge>(*navGraph[5], *navGraph[9], 1);
-	navGraph[5]->addEdge(edge_11_12).addEdge(edge_11_21);
+	auto edge_11_12 = make_shared<Edge>(navGraph[5], navGraph[6], 1);
+	auto edge_11_21 = make_shared<Edge>(navGraph[5], navGraph[9], 1);
+	navGraph[5].addEdge(edge_11_12).addEdge(edge_11_21);
 
-	auto edge_12_13 = make_shared<Edge>(*navGraph[6], *navGraph[7], 1);
-	auto edge_12_22 = make_shared<Edge>(*navGraph[6], *navGraph[10], 1);
-	navGraph[6]->addEdge(edge_12_13).addEdge(edge_12_22);
+	auto edge_12_13 = make_shared<Edge>(navGraph[6], navGraph[7], 1);
+	auto edge_12_22 = make_shared<Edge>(navGraph[6], navGraph[10], 1);
+	navGraph[6].addEdge(edge_12_13).addEdge(edge_12_22);
 
-	auto edge_13_23 = make_shared<Edge>(*navGraph[7], *navGraph[11], 1);
-	navGraph[7]->addEdge(edge_13_23);
+	auto edge_13_23 = make_shared<Edge>(navGraph[7], navGraph[11], 1);
+	navGraph[7].addEdge(edge_13_23);
 
-	auto edge_20_21 = make_shared<Edge>(*navGraph[8], *navGraph[9], 1);
-	navGraph[8]->addEdge(edge_20_21);
+	auto edge_20_21 = make_shared<Edge>(navGraph[8], navGraph[9], 1);
+	navGraph[8].addEdge(edge_20_21);
 
-	auto edge_21_22 = make_shared<Edge>(*navGraph[9], *navGraph[10], 1);
-	navGraph[9]->addEdge(edge_21_22);
+	auto edge_21_22 = make_shared<Edge>(navGraph[9], navGraph[10], 1);
+	navGraph[9].addEdge(edge_21_22);
 
-	auto edge_22_23 = make_shared<Edge>(*navGraph[10], *navGraph[11], 1);
-	navGraph[10]->addEdge(edge_22_23);
-
-	return navGraph;
+	auto edge_22_23 = make_shared<Edge>(navGraph[10], navGraph[11], 1);
+	navGraph[10].addEdge(edge_22_23);
 }

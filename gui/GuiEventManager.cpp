@@ -109,15 +109,18 @@ void GuiEventManager::addDirectClickListener(DirectGuiEventObserver& o)
 
 void GuiEventManager::removeDirectClickListener(const DirectGuiEventObserver& o)
 {
-	for (auto observer = directClickObservers.begin(); observer != directClickObservers.end();)
+	if (!directClickObservers.empty())
 	{
-		if (*observer == &o)
+		for (auto observer = directClickObservers.begin(); observer != directClickObservers.end();)
 		{
-			observer = directClickObservers.erase(observer);
-		}
-		else
-		{
-			++observer;
+			if (*observer == &o)
+			{
+				observer = directClickObservers.erase(observer);
+			}
+			else
+			{
+				++observer;
+			}
 		}
 	}
 }
@@ -130,15 +133,18 @@ void GuiEventManager::addDirectMouseMoveListener(DirectGuiEventObserver& o)
 
 void GuiEventManager::removeDirectMouseMoveListener(const DirectGuiEventObserver& o)
 {
-	for (auto observer = directMouseMoveObservers.begin(); observer != directMouseMoveObservers.end();)
+	if (!directMouseMoveObservers.empty())
 	{
-		if (*observer == &o)
+		for (auto observer = directMouseMoveObservers.begin(); observer != directMouseMoveObservers.end();)
 		{
-			observer = directMouseMoveObservers.erase(observer);
-		}
-		else
-		{
-			++observer;
+			if (*observer == &o)
+			{
+				observer = directMouseMoveObservers.erase(observer);
+			}
+			else
+			{
+				++observer;
+			}
 		}
 	}
 }
@@ -172,15 +178,18 @@ void notifyDirectGuiEventObservers(const std::vector<DirectGuiEventObserver*>& o
 
 void removeIfMatchFound(std::vector<GuiEventObserver*>& observers, const GuiEventObserver& o)
 {
-	for (auto observer = observers.begin(); observer != observers.end();)
+	if (!observers.empty())
 	{
-		if (*observer == &o)
+		for (auto observer = observers.begin(); observer != observers.end();)
 		{
-			observer = observers.erase(observer);
-		}
-		else
-		{
-			++observer;
+			if (*observer == &o)
+			{
+				observer = observers.erase(observer);
+			}
+			else
+			{
+				++observer;
+			}
 		}
 	}
 }

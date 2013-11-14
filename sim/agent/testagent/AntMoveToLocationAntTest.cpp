@@ -25,7 +25,11 @@ AntMoveToLocationAntTest::~AntMoveToLocationAntTest()
 
 void AntMoveToLocationAntTest::update(long ticks, const Percept& percept)
 {
-
+	if (!goal->isFinished())
+	{
+		AntPercept antPercept(percept);
+		goal->update(*this, ticks, antPercept);
+	}
 }
 
 bool AntMoveToLocationAntTest::isGoalFinished() const

@@ -41,8 +41,10 @@ namespace cdc
 		AntFoodPile* foodPile;
 		AntHome* antHome;
 
-		std::vector<std::unique_ptr<Node>> navGraph;
+		std::vector<Node> navGraph;
 		NavGraphHelper navGraphHelper;
+
+		uint ticks;
 
 		std::unique_ptr<sf::RenderWindow> window;
 

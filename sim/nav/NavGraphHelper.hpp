@@ -24,7 +24,7 @@ namespace cdc
 		NavGraphHelper();
 		// Constructs the nav graph using the graph parameter, which is a non-owning
 		// reference to the navigation graph vector.
-		explicit NavGraphHelper(std::vector<std::unique_ptr<Node>>& graph);
+		explicit NavGraphHelper(const std::vector<Node>& graph);
 		~NavGraphHelper();
 		
 		// Returns true if the node location is valid, or false if not.
@@ -38,7 +38,7 @@ namespace cdc
 		Node* getNode(GridLocation location);
 
 	private:
-		std::vector<std::unique_ptr<Node>>* navGraph;
+		const std::vector<Node>* navGraph;
 		std::unordered_map<GridLocation, Node*> nodes;
 		uint maxRow;
 		uint maxColumn;

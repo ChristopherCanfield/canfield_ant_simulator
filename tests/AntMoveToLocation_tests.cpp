@@ -22,7 +22,7 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
-			vector<unique_ptr<Node>> vec;
+			vector<Node> vec;
 			NavGraphHelper graph(vec);
 			Ant ant(manager, home, graph);
 
@@ -41,7 +41,7 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			AntHome home(node);
-			vector<unique_ptr<Node>> vec;
+			vector<Node> vec;
 			NavGraphHelper graph(vec);
 			Ant ant(manager, home, graph);
 

@@ -55,7 +55,7 @@ namespace cdc
 		PauseSimButton pauseButton;
 
 		// Nodes.
-		std::vector<std::unique_ptr<Node>> nodes;
+		std::vector<Node> nodes;
 
 		NavGraphHelper navGraphHelper;
 

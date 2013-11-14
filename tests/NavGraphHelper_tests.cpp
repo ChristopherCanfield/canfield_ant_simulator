@@ -4,7 +4,6 @@
 #include "../sim/nav/Node.hpp"
 #include "../sim/nav/Edge.hpp"
 #include "../sim/nav/GridLocation.hpp"
-#include "../util/make_unique.hpp"
 
 #include <memory>
 
@@ -21,32 +20,30 @@ namespace tests
 		TEST_METHOD(NavGraphHelper_create)
 		{
 			GridLocation location(5, 1);
-			auto node1 = make_unique<Node>(location, 100, 200);
-			auto node2 = make_unique<Node>(location, 100, 300);
-			
-			auto edge = make_shared<Edge>(*node1.get(), *node2.get(), 10);
-			node1->addEdge(edge);
+			vector<Node> navGraph;
+			navGraph.reserve(2);
+			navGraph.push_back(Node(location, 100, 200));
+			navGraph.push_back(Node(location, 100, 300));
 
-			vector<unique_ptr<Node>> navGraph;
-
-			navGraph.push_back(std::move(node1));
-			navGraph.push_back(std::move(node2));
+			auto edge = make_shared<Edge>(navGraph[0], navGraph[1], 10);
+			navGraph[0].addEdge(edge);
 
 			NavGraphHelper graph(navGraph);
 		}
 
 		TEST_METHOD(NavGraphHelper_isValid)
 		{
-			auto node1 = make_unique<Node>(GridLocation(5, 1), 100, 200);
-			auto node2 = make_unique<Node>(GridLocation(4, 4), 100, 300);
+			auto node1 = Node(GridLocation(5, 1), 100, 200);
+			auto node2 = Node(GridLocation(4, 4), 100, 300);
 			
-			auto edge = make_shared<Edge>(*node1.get(), *node2.get(), 10);
-			node1->addEdge(edge);
+			auto edge = make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 
-			vector<unique_ptr<Node>> navGraph;
+			vector<Node> navGraph;
+			navGraph.reserve(2);
 
-			navGraph.push_back(std::move(node1));
-			navGraph.push_back(std::move(node2));
+			navGraph.push_back(node1);
+			navGraph.push_back(node2);
 
 			NavGraphHelper graph(navGraph);
 			Assert::IsTrue(graph.isValid(GridLocation(5, 1)));
@@ -58,16 +55,17 @@ namespace tests
 
 		TEST_METHOD(NavGraphHelper_getMaxRow)
 		{
-			auto node1 = make_unique<Node>(GridLocation(5, 1), 100, 200);
-			auto node2 = make_unique<Node>(GridLocation(4, 4), 100, 300);
+			auto node1 = Node(GridLocation(5, 1), 100, 200);
+			auto node2 = Node(GridLocation(4, 4), 100, 300);
 			
-			auto edge = make_shared<Edge>(*node1.get(), *node2.get(), 10);
-			node1->addEdge(edge);
+			auto edge = make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 
-			vector<unique_ptr<Node>> navGraph;
+			vector<Node> navGraph;
+			navGraph.reserve(2);
 
-			navGraph.push_back(std::move(node1));
-			navGraph.push_back(std::move(node2));
+			navGraph.push_back(node1);
+			navGraph.push_back(node2);
 
 			NavGraphHelper graph(navGraph);
 			Assert::AreEqual(5u, graph.getMaxRow());
@@ -75,16 +73,17 @@ namespace tests
 
 		TEST_METHOD(NavGraphHelper_getMaxColumn)
 		{
-			auto node1 = make_unique<Node>(GridLocation(5, 1), 100, 200);
-			auto node2 = make_unique<Node>(GridLocation(4, 4), 100, 300);
+			auto node1 = Node(GridLocation(5, 1), 100, 200);
+			auto node2 = Node(GridLocation(4, 4), 100, 300);
 			
-			auto edge = make_shared<Edge>(*node1.get(), *node2.get(), 10);
-			node1->addEdge(edge);
+			auto edge = make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 
-			vector<unique_ptr<Node>> navGraph;
+			vector<Node> navGraph;
+			navGraph.reserve(2);
 
-			navGraph.push_back(std::move(node1));
-			navGraph.push_back(std::move(node2));
+			navGraph.push_back(node1);
+			navGraph.push_back(node2);
 
 			NavGraphHelper graph(navGraph);
 			Assert::AreEqual(4u, graph.getMaxColumn());
@@ -92,21 +91,22 @@ namespace tests
 
 		TEST_METHOD(NavGraphHelper_getNode)
 		{
-			auto node1 = make_unique<Node>(GridLocation(5, 1), 100, 200);
-			auto node2 = make_unique<Node>(GridLocation(4, 4), 100, 300);
+			auto node1 = Node(GridLocation(5, 1), 100, 200);
+			auto node2 = Node(GridLocation(4, 4), 100, 300);
 			
-			auto edge = make_shared<Edge>(*node1.get(), *node2.get(), 10);
-			node1->addEdge(edge);
+			auto edge = make_shared<Edge>(node1, node2, 10);
+			node1.addEdge(edge);
 
-			vector<unique_ptr<Node>> navGraph;
+			vector<Node> navGraph;
+			navGraph.reserve(2);
 
-			navGraph.push_back(std::move(node1));
-			navGraph.push_back(std::move(node2));
+			navGraph.push_back(node1);
+			navGraph.push_back(node2);
 
 			NavGraphHelper graph(navGraph);
 			auto node = graph.getNode(GridLocation(5, 1));
-			Assert::IsTrue(navGraph[0].get() == node);
-			Assert::IsFalse(navGraph[1].get() == node);
+			Assert::IsTrue(navGraph[0] == *node);
+			Assert::IsFalse(navGraph[1] == *node);
 		}
 	};
 }
