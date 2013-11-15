@@ -198,6 +198,6 @@ Ant::AntStats::AntStats() :
 	maxHunger(100),
 	isHoldingFood(false),
 	isDead(false),
-	movementSpeed(0.75f)
+	movementSpeed(1.25f)
 {
 }

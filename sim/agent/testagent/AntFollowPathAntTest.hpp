@@ -2,6 +2,8 @@
 
 #include "AntGoalTester.hpp"
 
+#include <deque>
+
 // Christopher D. Canfield
 // November 2013
 // AntFollowPathAntTest.hpp
@@ -14,7 +16,7 @@ namespace cdc
 		public AntGoalTester
 	{
 	public:
-		AntFollowPathAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode);
+		AntFollowPathAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode, const Node& targetNode);
 		virtual ~AntFollowPathAntTest();
 
 		virtual void update(long ticks, const Percept& percept) override;
@@ -22,5 +24,6 @@ namespace cdc
 		virtual bool isGoalFinished() const override;
 
 		friend class AntMoveToNode;
+		friend class AntFollowPath;
 	};
 }

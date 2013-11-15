@@ -8,6 +8,7 @@
 #include "../sim/agent/testagent/AntForageAntTest.hpp"
 #include "../sim/agent/testagent/AntGoHomeAntTest.hpp"
 #include "../sim/agent/testagent/AntMoveToNodeAntTest.hpp"
+#include "../sim/agent/testagent/AntFollowPathAntTest.hpp"
 #include "../util/make_unique.hpp"
 #include "../sim/knowledge/GenericPercept.hpp"
 
@@ -23,7 +24,8 @@ using namespace std;
 using namespace cdc;
 
 void createNavGraph1(vector<Node>& graph);
-unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& startNode, Node& node);
+unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, 
+									 Node& startNode, Node& nearTarget, Node& farTarget);
 
 
 AntGoalTestApp::AntGoalTestApp() :
@@ -42,7 +44,7 @@ void AntGoalTestApp::setup()
 	createNavGraph1(navGraph);
 	navGraphHelper = NavGraphHelper(navGraph);
 
-	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1]);
+	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1], navGraph.back());
 
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
 	window->setFramerateLimit(60);
@@ -75,7 +77,8 @@ void AntGoalTestApp::teardown()
 
 }
 
-unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, Node& startNode, Node& target)
+unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, 
+									 Node& startNode, Node& nearTarget, Node& farTarget)
 {
 	cout << "Ant goal tester type: " << endl;
 	cout << "  1: AntEat" << endl;
@@ -109,10 +112,10 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 		return make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper, startNode);
 		break;
 	case 6:
-		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, target);
+		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, nearTarget);
 		break;
 	case 7:
-		// TODO: AntFollowPath.
+		return make_unique<AntFollowPathAntTest>(manager, home, navGraphHelper, startNode, farTarget);
 	case 8:
 		// TODO: run all tests.
 	default:

@@ -18,12 +18,17 @@ namespace cdc
 	// Contains functions for creating impassable objects in the world. The functions
 	// modify the nav graph, and return a sprite. The sprite should not be moved after
 	// it is returned by these functions.
-	namespace SolidObject
+	class SolidObject
 	{
+	public:
 		// Returns a sprite representing a rock.
-		sf::Sprite createRock(std::vector<std::unique_ptr<Node>>& navGraph, int left, int top);
+		static sf::Sprite createRock(std::vector<Node>& navGraph, int left, int top);
 
 		// Returns a sprite representing water.
-		sf::Sprite createWater(std::vector<std::unique_ptr<Node>>& navGraph, int left, int top);
-	}
+		static sf::Sprite createWater(std::vector<Node>& navGraph, int left, int top);
+
+	private:
+		static sf::Texture* rockTexture;
+		static sf::Texture* waterTexture;
+	};
 }

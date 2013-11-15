@@ -64,6 +64,7 @@ namespace cdc
 		friend class AntExplore;
 		friend class AntMoveToNode;
 		friend class AntFindFood;
+		friend class AntFollowPath;
 
 	protected:
 		// The ant's non-knowledge info.

@@ -14,47 +14,35 @@
 using namespace cdc;
 using namespace std;
 
-static sf::Texture* rockTexture;
-static sf::Texture* waterTexture;
+sf::Texture* SolidObject::rockTexture(nullptr);
+sf::Texture* SolidObject::waterTexture(nullptr);
 
 
-bool loadTexture(sf::Texture* texture, string path)
-{
-	if (texture == nullptr)
-	{
-		try
-		{
-			texture = new sf::Texture();
-			return  texture->loadFromFile(path);
-		}
-		catch (...)
-		{
-			return false;
-		}
-	}
-
-	return true;
-}
-
-void removeBlockedEdges(vector<unique_ptr<Node>>& navGraph, int left, int top, float width, float height)
+void removeBlockedEdges(vector<Node>& navGraph, int left, int top, float width, float height)
 {
 	sf::Rect<float> blockedRect(static_cast<float>(left), static_cast<float>(top), width, height);
 
 	for (auto& node : navGraph)
 	{
-		if (blockedRect.intersects(node->getBoundingBox()))
+		if (blockedRect.intersects(node.getBoundingBox()))
 		{
-			auto edges = node->getEdgeList();
+			auto edges = node.getEdgeList();
 			edges.clear();
 		}
 	}
 }
 
-sf::Sprite cdc::SolidObject::createRock(vector<unique_ptr<Node>>& navGraph, int left, int top)
+sf::Sprite cdc::SolidObject::createRock(vector<Node>& navGraph, int left, int top)
 {
-	const string path = "res/rock.png";
+	const string path = "res/rock - stylized.png";
 
-	if (loadTexture(rockTexture, path))
+	if (rockTexture == nullptr)
+	{
+		rockTexture = new sf::Texture();
+		rockTexture->loadFromFile(path);
+	}
+
+	if (rockTexture != nullptr)
 	{
 		auto sprite = sf::Sprite(*rockTexture);
 		sprite.setPosition(left + (sprite.getGlobalBounds().width / 2.f), 
@@ -69,11 +57,17 @@ sf::Sprite cdc::SolidObject::createRock(vector<unique_ptr<Node>>& navGraph, int 
 }
 
 
-sf::Sprite cdc::SolidObject::createWater(std::vector<unique_ptr<Node>>& navGraph, int left, int top)
+sf::Sprite cdc::SolidObject::createWater(std::vector<Node>& navGraph, int left, int top)
 {
 	const string path = "res/water.png";
 
-	if (loadTexture(rockTexture, path))
+	if (waterTexture == nullptr)
+	{
+		waterTexture = new sf::Texture();
+		waterTexture->loadFromFile(path);
+	}
+
+	if (waterTexture != nullptr)
 	{
 		auto sprite = sf::Sprite(*waterTexture);
 		sprite.setPosition(left + (sprite.getGlobalBounds().width / 2.f), 

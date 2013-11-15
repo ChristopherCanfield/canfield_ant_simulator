@@ -1,5 +1,6 @@
 #include "GuiTestApp.hpp"
 #include "../util/make_unique.hpp"
+#include "../sim/worldobject/SolidObject.hpp"
 
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -23,7 +24,8 @@ GuiTestApp::GuiTestApp() :
 	startButton(eventManager, simulator),
 	pauseButton(eventManager, simulator),
 	viewManager(eventManager, 1000, 1000, 800, 800, 200, 800),
-	simulator(eventManager)
+	simulator(eventManager),
+	background(sf::Vector2f(1600, 1600))
 {
 	using namespace std;
 
@@ -63,6 +65,17 @@ GuiTestApp::GuiTestApp() :
 	spiders[0]->setPosition(40, 400);
 
 	foodPile = new AntFoodPile(10, nodes[4]);
+
+	using namespace sf;
+	backgroundImage.loadFromFile("res/grass1 - stylized.jpg");
+	backgroundImage.setRepeated(true);
+
+	background.setTextureRect(sf::IntRect(0, 0, 1600, 1600));
+	background.scale(.75f, .75f);
+	background.setTexture(&backgroundImage);
+
+	rocks.push_back(SolidObject::createRock(nodes, 500, 400));
+	rocks.push_back(SolidObject::createRock(nodes, 1000, 600));
 }
 
 
@@ -114,6 +127,8 @@ bool GuiTestApp::run()
 
 	window->setView(viewManager.getSimView());
 
+	window->draw(background);
+
 	window->draw(decreaseSpeedButton);
 	window->draw(increaseSpeedButton);
 	window->draw(startButton);
@@ -132,6 +147,11 @@ bool GuiTestApp::run()
 	for (auto& f : food)
 	{
 		window->draw(f);
+	}
+
+	for (auto& rock : rocks)
+	{
+		window->draw(rock);
 	}
 
 	for (auto& ant : ants)

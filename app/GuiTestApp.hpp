@@ -47,6 +47,9 @@ namespace cdc
 		GuiEventManager eventManager;
 		Simulator simulator;
 
+		sf::Texture backgroundImage;
+		sf::RectangleShape background;
+
 		// Gui elements.
 		DecreaseSimSpeedButton decreaseSpeedButton;
 		IncreaseSimSpeedButton increaseSpeedButton;
@@ -70,6 +73,9 @@ namespace cdc
 
 		// Spider.
 		std::vector<Spider*> spiders;
+
+		// Rocks
+		std::vector<sf::Sprite> rocks;
 
 		ViewManager viewManager;
 	};
