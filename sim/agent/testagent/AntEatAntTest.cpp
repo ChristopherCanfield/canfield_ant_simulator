@@ -6,10 +6,14 @@
 #include "../../goal/AntEat.hpp"
 #include "../util/make_unique.hpp"
 
+#include <cassert>
+#include <iostream>
+
 // Christopher D. Canfield
 // November 2013
 // AntEatAntTest.cpp
 
+using namespace std;
 using namespace cdc;
 
 
@@ -25,7 +29,8 @@ AntEatAntTest::~AntEatAntTest()
 
 void AntEatAntTest::update(long ticks, const Percept& percept)
 {
-
+	cout << "AntEatAntTest::update is not implemented" << endl;
+	assert(false);
 }
 
 bool AntEatAntTest::isGoalFinished() const

@@ -6,10 +6,14 @@
 #include "../../goal/AntFindFood.hpp"
 #include "../util/make_unique.hpp"
 
+#include <cassert>
+#include <iostream>
+
 // Christopher D. Canfield
 // November 2013
 // AntFindFoodAntTest.cpp
 
+using namespace std;
 using namespace cdc;
 
 
@@ -25,7 +29,8 @@ AntFindFoodAntTest::~AntFindFoodAntTest()
 
 void AntFindFoodAntTest::update(long ticks, const Percept& percept)
 {
-
+	cout << "AntFindFoodAntTest::update is not implemented" << endl;
+	assert(false);
 }
 
 bool AntFindFoodAntTest::isGoalFinished() const

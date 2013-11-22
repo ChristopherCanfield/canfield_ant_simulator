@@ -6,10 +6,14 @@
 #include "../../goal/AntForage.hpp"
 #include "../util/make_unique.hpp"
 
+#include <cassert>
+#include <iostream>
+
 // Christopher D. Canfield
 // November 2013
 // AntForageAntTest.cpp
 
+using namespace std;
 using namespace cdc;
 
 
@@ -25,7 +29,8 @@ AntForageAntTest::~AntForageAntTest()
 
 void AntForageAntTest::update(long ticks, const Percept& percept)
 {
-
+	cout << "AntForageAntTest::update is not implemented" << endl;
+	assert(false);
 }
 
 bool AntForageAntTest::isGoalFinished() const
