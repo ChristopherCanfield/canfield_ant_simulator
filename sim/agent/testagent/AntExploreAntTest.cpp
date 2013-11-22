@@ -13,7 +13,6 @@
 // November 2013
 // AntExploreAntTest.cpp
 
-using namespace std;
 using namespace cdc;
 
 
@@ -29,8 +28,11 @@ AntExploreAntTest::~AntExploreAntTest()
 
 void AntExploreAntTest::update(long ticks, const Percept& percept)
 {
-	cout << "AntExploreAntTest::update is not implemented" << endl;
-	assert(false);
+	if (!goal->isFinished())
+	{
+		AntPercept antPercept(percept);
+		goal->update(*this, ticks, antPercept);
+	}
 }
 
 bool AntExploreAntTest::isGoalFinished() const

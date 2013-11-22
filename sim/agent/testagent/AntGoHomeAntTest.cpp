@@ -6,14 +6,11 @@
 #include "../../goal/AntGoHome.hpp"
 #include "../util/make_unique.hpp"
 
-#include <cassert>
-#include <iostream>
 
 // Christopher D. Canfield
 // November 2013
 // AntGoHomeAntTest.cpp
 
-using namespace std;
 using namespace cdc;
 
 
@@ -29,8 +26,11 @@ AntGoHomeAntTest::~AntGoHomeAntTest()
 
 void AntGoHomeAntTest::update(long ticks, const Percept& percept)
 {
-	cout << "AntGoHomeAntTest::update is not implemented" << endl;
-	assert(false);
+	if (!goal->isFinished())
+	{
+		AntPercept antPercept(percept);
+		goal->update(*this, ticks, antPercept);
+	}
 }
 
 bool AntGoHomeAntTest::isGoalFinished() const

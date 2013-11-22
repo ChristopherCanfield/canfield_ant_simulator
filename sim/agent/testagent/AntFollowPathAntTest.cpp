@@ -7,15 +7,12 @@
 #include "../../goal/AntFollowPath.hpp"
 #include "../util/make_unique.hpp"
 
-#include <cassert>
-#include <iostream>
 
 // Christopher D. Canfield
 // November 2013
 // AntFollowPathAntTest.cpp
 
 using namespace cdc;
-using namespace std;
 
 
 AntFollowPathAntTest::AntFollowPathAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode, const Node& targetNode) :
