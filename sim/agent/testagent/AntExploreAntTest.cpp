@@ -6,8 +6,6 @@
 #include "../../goal/AntExplore.hpp"
 #include "../util/make_unique.hpp"
 
-#include <cassert>
-#include <iostream>
 
 // Christopher D. Canfield
 // November 2013
