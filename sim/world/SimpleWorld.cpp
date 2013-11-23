@@ -4,9 +4,13 @@
 #include "../gui/GuiEventManager.hpp"
 #include "../sim/nav/Node.hpp"
 #include "../sim/nav/Edge.hpp"
+#include "../sim/worldobject/AntFoodPile.hpp"
+#include "../sim/worldobject/SolidObject.hpp"
+#include "../sim/worldobject/AntHome.hpp"
 
 #include <vector>
 #include <memory>
+#include <cassert>
 
 // Christopher D. Canfield
 // November 2013
@@ -17,10 +21,14 @@ using cdc::GuiEventManager;
 using cdc::Node;
 using cdc::Edge;
 using cdc::GridLocation;
+using cdc::AntFoodPile;
 
+using namespace sf;
 using namespace std;
 
 void createNavGraph(vector<Node>& navGraph);
+void addFood(vector<Node>& navGraph, vector<AntFoodPile> antFoodPiles);
+void addObstructions(vector<Node>& navGraph, vector<Sprite> obstructions);
 
 
 SimpleWorld::SimpleWorld()
@@ -35,6 +43,8 @@ SimpleWorld::~SimpleWorld()
 void SimpleWorld::create(GuiEventManager& eventManager)
 {
 	createNavGraph(navGraph);
+	addFood(navGraph, antFoodPiles);
+	addObstructions(navGraph, obstructions);
 }
 
 
@@ -92,7 +102,7 @@ void createNavGraph(vector<Node>& navGraph)
 			}
 			if (column < nav_graph_columns - 1)
 			{
-				auto& endNode = navGraph[(row + 1) * nav_graph_columns + column];
+				auto& endNode = navGraph[row * nav_graph_columns + column + 1];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
 				if (!startNode.edgeExists(edge))
 				{
@@ -101,4 +111,14 @@ void createNavGraph(vector<Node>& navGraph)
 			}
 		}
 	}
+}
+
+void addFood(vector<Node>& navGraph, vector<AntFoodPile> antFoodPiles)
+{
+	assert(false);
+}
+
+void addObstructions(vector<Node>& navGraph, vector<Sprite> obstructions)
+{
+	assert(false);
 }

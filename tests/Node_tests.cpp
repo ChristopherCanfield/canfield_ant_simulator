@@ -75,11 +75,12 @@ namespace tests
 			auto edge = make_shared<Edge>(startNode, endNode, 10);
 			startNode.addEdge(edge);
 			auto edge2 = make_shared<Edge>(startNode, otherNode, 10);
+			startNode.addEdge(edge2);
 			Assert::IsTrue(startNode.edgeExists(edge));
 			Assert::IsTrue(startNode.edgeExists(edge2));
 		}
 
-		TEST_METHOD(Edge_edgeExists2)
+		TEST_METHOD(Edge_edgeExists3)
 		{
 			Node startNode(GridLocation(1, 2), 20, 30);
 			Node endNode(GridLocation(1, 2), 20, 30);
