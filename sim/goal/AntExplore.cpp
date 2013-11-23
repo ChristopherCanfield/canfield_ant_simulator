@@ -25,7 +25,8 @@ using cdc::AntHome;
 
 
 
-AntExplore::AntExplore()
+AntExplore::AntExplore(bool debug) :
+	debug(debug)
 {
 }
 
@@ -52,6 +53,8 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 			
 			// Set the path to the target.
 			path = Search::aStar(currentNode, target, Search::straightLineHeuristic);
+
+			if (debug) cout << "Target: " << target.getRow() << "," << target.getColumn() << endl;
 		}
 		processNextInPath(ant);
 	}

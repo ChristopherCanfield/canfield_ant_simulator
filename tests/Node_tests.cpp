@@ -5,6 +5,8 @@
 #include "../sim/nav/GridLocation.hpp"
 #include "../sim/nav/Edge.hpp"
 
+#include <memory>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace cdc;
 using namespace std;
@@ -52,6 +54,41 @@ namespace tests
 			auto edge3 = node1.getEdgeList()[0];
 			Assert::IsTrue(*edge3 == edge2);
 			Assert::IsTrue(*edge == edge2);
+		}
+
+		TEST_METHOD(Edge_edgeExists1)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+
+			auto edge = make_shared<Edge>(startNode, endNode, 10);
+			startNode.addEdge(edge);
+			Assert::IsTrue(startNode.edgeExists(edge));
+		}
+
+		TEST_METHOD(Edge_edgeExists2)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+			Node otherNode(GridLocation(2, 2), 25, 35);
+
+			auto edge = make_shared<Edge>(startNode, endNode, 10);
+			startNode.addEdge(edge);
+			auto edge2 = make_shared<Edge>(startNode, otherNode, 10);
+			Assert::IsTrue(startNode.edgeExists(edge));
+			Assert::IsTrue(startNode.edgeExists(edge2));
+		}
+
+		TEST_METHOD(Edge_edgeExists2)
+		{
+			Node startNode(GridLocation(1, 2), 20, 30);
+			Node endNode(GridLocation(1, 2), 20, 30);
+			Node otherNode(GridLocation(2, 2), 25, 35);
+
+			auto edge = make_shared<Edge>(startNode, endNode, 10);
+			startNode.addEdge(edge);
+			auto edge2 = make_shared<Edge>(startNode, otherNode, 10);
+			Assert::IsFalse(startNode.edgeExists(edge2));
 		}
 
 		TEST_METHOD(Node_getPixelX)

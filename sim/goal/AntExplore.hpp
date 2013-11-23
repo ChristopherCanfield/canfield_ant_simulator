@@ -18,7 +18,7 @@ namespace cdc
 			public AntGoal
 	{
 	public:
-		AntExplore();
+		AntExplore(bool debug = false);
 		virtual ~AntExplore();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
@@ -29,6 +29,8 @@ namespace cdc
 
 		Node& getNewTarget(const Ant& ant);
 		void processNextInPath(Ant& ant);
+
+		bool debug;
 	};
 }
 

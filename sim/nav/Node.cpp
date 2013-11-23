@@ -113,6 +113,18 @@ const Edge& Node::getEdge(uint index) const
 	}
 }
 
+bool Node::edgeExists(std::shared_ptr<Edge> edge) const
+{
+	for (auto e : edges)
+	{
+		if (e == edge)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 int Node::getPixelX() const
 {
 	return pixelX;

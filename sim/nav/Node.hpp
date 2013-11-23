@@ -46,6 +46,9 @@ namespace cdc
 		// - index: the edge's index in the Node's edge list.
 		const Edge& getEdge(uint index) const;
 
+		// Returns true if the edge exists.
+		bool edgeExists(std::shared_ptr<Edge> edge) const;
+
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;
 		// Gets the y location of the Node, in pixels.
