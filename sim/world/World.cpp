@@ -1,5 +1,8 @@
 #include "World.hpp"
 
+// Christopher D. Canfield
+// November 2013
+// World.cpp
 
 using cdc::World;
 using cdc::Node;
@@ -7,6 +10,7 @@ using cdc::Ant;
 using cdc::Spider;
 using cdc::AntFood;
 using cdc::AntFoodPile;
+using cdc::AntHome;
 
 
 World::~World()
@@ -42,4 +46,9 @@ std::vector<AntFood> World::getAntFood()
 std::vector<AntFoodPile> World::getAntFoodPiles()
 {
 	return antFoodPiles;
+}
+
+std::vector<AntHome> World::getAntHills()
+{
+	return antHills;
 }

@@ -25,13 +25,58 @@ uint default_sim_speed = 30;
 Simulator::Simulator(GuiEventManager& eventManager) :
 	eventManager(eventManager),
 	started(false),
-	speed(default_sim_speed)
+	speed(default_sim_speed),
+	displayPheromones(false),
+	displayNavGraph(false)
 {
 }
 
 
 Simulator::~Simulator()
 {
+}
+
+
+void Simulator::update()
+{
+	if (started)
+	{
+		// draw
+		world->getAnts()
+	}
+}
+
+void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	if (displayPheromones)
+	{
+
+	}
+
+	if (displayNavGraph)
+	{
+
+	}
+
+	for (auto& ant : world->getAnts())
+	{
+		target.draw(ant);
+	}
+
+	for (auto& antFood : world->getAntFood())
+	{
+
+	}
+
+	for (auto& antFoodPile : world->getAntFoodPiles())
+	{
+
+	}
+
+	for (auto& antHill : world->getAntHills())
+	{
+
+	}
 }
 
 
@@ -92,4 +137,20 @@ void Simulator::decreaseSpeed()
 	{
 		cout << "Simulator: at min speed" << endl;
 	}
+}
+
+
+bool Simulator::isPaused() const
+{
+	return !started;
+}
+
+void Simulator::drawPheromones()
+{
+	displayPheromones = !displayPheromones;
+}
+
+void Simulator::drawNavGraph()
+{
+	displayNavGraph = !displayNavGraph;
 }

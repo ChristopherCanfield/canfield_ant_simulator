@@ -6,6 +6,7 @@
 #include "../agent/Spider.hpp"
 #include "../worldobject/AntFood.hpp"
 #include "../worldobject/AntFoodPile.hpp"
+#include "../worldobject/AntHome.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -36,6 +37,7 @@ namespace cdc
 		std::vector<sf::Sprite> getObstructions();
 		std::vector<AntFood> getAntFood();
 		std::vector<AntFoodPile> getAntFoodPiles();
+		std::vector<AntHome> getAntHills();
 
 	protected:
 		std::vector<Node> navGraph;
@@ -49,5 +51,7 @@ namespace cdc
 
 		std::vector<AntFood> antFood;
 		std::vector<AntFoodPile> antFoodPiles;
+
+		std::vector<AntHome> antHills;
 	};
 }

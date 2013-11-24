@@ -55,11 +55,11 @@ void processInput(const sf::Event& e, Simulator& sim)
 	{
 		if (e.key.code == Keyboard::Subtract)
 		{
-			// TODO: decrease sim speed.
+			sim.decreaseSpeed();
 		}
 		else if (e.key.code == Keyboard::Add || e.key.code == Keyboard::Equal)
 		{
-			// TODO: increase sim speed.
+			sim.increaseSpeed();
 		}
 		else if (e.key.code == Keyboard::Num1)
 		{

@@ -21,7 +21,8 @@ namespace cdc
 {
 	// The ant world simulator.
 	class Simulator :
-			public boost::noncopyable
+			public boost::noncopyable,
+			public sf::Drawable
 	{
 	public:
 		explicit Simulator(GuiEventManager& eventManager);
@@ -42,11 +43,25 @@ namespace cdc
 		// Decreases the speed of the simulation.
 		void decreaseSpeed();
 
+		bool isPaused() const;
+
+		void drawPheromones();
+
+		void drawNavGraph();
+
+		void update();
+
+	protected:
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
 	private:
 		GuiEventManager& eventManager;
 		
 		bool started;
 		uint speed;
+
+		bool displayPheromones;
+		bool displayNavGraph;
 
 		std::unique_ptr<World> world;
 	};
