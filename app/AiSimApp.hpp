@@ -5,6 +5,7 @@
 // AiSimApp.hpp
 
 #include "App.hpp"
+#include "../sim/Simulator.hpp"
 
 
 namespace cdc 
@@ -22,6 +23,10 @@ namespace cdc
 		virtual bool run() override;
 
 		virtual void teardown() override;
+
+	private:
+		GuiEventManager eventManager;
+		Simulator simulator;
 	};
 
 }
