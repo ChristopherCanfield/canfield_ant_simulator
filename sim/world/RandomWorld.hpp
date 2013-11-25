@@ -4,17 +4,17 @@
 
 // Christopher D. Canfield
 // November 2013
-// SimpleWorld.hpp
+// RandomWorld.hpp
 
 
 namespace cdc
 {
-	class SimpleWorld :
+	class RandomWorld :
 			public World
 	{
 	public:
-		SimpleWorld();
-		virtual ~SimpleWorld();
+		RandomWorld();
+		virtual ~RandomWorld();
 		
 		virtual void create(GuiEventManager& eventManager) override;
 	};

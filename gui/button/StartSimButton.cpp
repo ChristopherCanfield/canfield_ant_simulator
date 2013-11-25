@@ -1,5 +1,5 @@
 #include "StartSimButton.hpp"
-#include "../sim/world/SimpleWorld.hpp"
+#include "../sim/world/RandomWorld.hpp"
 
 // Christopher D. Canfield
 // October 2013
@@ -36,7 +36,7 @@ void StartSimButton::onDirectGuiEvent(const sf::Event& e)
 	Button::onDirectGuiEvent(e);
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		unique_ptr<World> world = unique_ptr<World>(new SimpleWorld());
+		unique_ptr<World> world = unique_ptr<World>(new RandomWorld());
 		simulator.start(move(world));
 	}
 }

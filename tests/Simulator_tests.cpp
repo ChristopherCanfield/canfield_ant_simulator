@@ -2,7 +2,7 @@
 #include "CppUnitTest.h"
 
 #include "../sim/Simulator.hpp"
-#include "../sim/world/SimpleWorld.hpp"
+#include "../sim/world/RandomWorld.hpp"
 
 #include <memory>
 
@@ -26,7 +26,7 @@ namespace tests
 		{
 			GuiEventManager manager;
 			Simulator sim(manager);
-			auto world = unique_ptr<World>(new SimpleWorld());
+			auto world = unique_ptr<World>(new RandomWorld());
 			sim.start(move(world));
 		}
 

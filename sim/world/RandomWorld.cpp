@@ -1,4 +1,4 @@
-#include "SimpleWorld.hpp"
+#include "RandomWorld.hpp"
 #include "../Simulator.hpp"
 #include "../agent/Ant.hpp"
 #include "../gui/GuiEventManager.hpp"
@@ -14,9 +14,9 @@
 
 // Christopher D. Canfield
 // November 2013
-// SimpleWorld.cpp
+// RandomWorld.cpp
 
-using cdc::SimpleWorld;
+using cdc::RandomWorld;
 using cdc::GuiEventManager;
 using cdc::Node;
 using cdc::Edge;
@@ -31,16 +31,16 @@ void addFood(vector<Node>& navGraph, vector<AntFoodPile> antFoodPiles);
 void addObstructions(vector<Node>& navGraph, vector<Sprite> obstructions);
 
 
-SimpleWorld::SimpleWorld()
+RandomWorld::RandomWorld()
 {
 }
 
-SimpleWorld::~SimpleWorld()
+RandomWorld::~RandomWorld()
 {
 }
 
 
-void SimpleWorld::create(GuiEventManager& eventManager)
+void RandomWorld::create(GuiEventManager& eventManager)
 {
 	createNavGraph(navGraph);
 	addFood(navGraph, antFoodPiles);
