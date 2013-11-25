@@ -42,7 +42,12 @@ namespace cdc
 	private:
 		AntHome& operator=(const AntHome& rhs);
 
+		static sf::Texture* texture;
+		static bool wasTextureLoaded;
+
 		uint foodCount;
 		Node& node;
+
+		sf::Sprite sprite;
 	};
 }
