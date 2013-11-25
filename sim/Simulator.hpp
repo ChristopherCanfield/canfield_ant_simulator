@@ -60,6 +60,8 @@ namespace cdc
 		bool started;
 		uint speed;
 
+		uint ticks;
+
 		bool displayPheromones;
 		bool displayNavGraph;
 

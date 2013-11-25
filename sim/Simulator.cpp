@@ -1,6 +1,7 @@
 #include "Simulator.hpp"
 #include "world/World.hpp"
 #include "../gui/GuiEventManager.hpp"
+#include "../sim/knowledge/GenericPercept.hpp"
 
 #include <iostream>
 
@@ -41,8 +42,23 @@ void Simulator::update()
 {
 	if (started)
 	{
-		// draw
-		world->getAnts()
+		for (auto& node : world->getNavGraph())
+		{
+			node.update(ticks);
+		}
+
+		GenericPercept percept;
+		for (auto& ant : world->getAnts())
+		{
+			ant.update(ticks, percept);
+		}
+
+		for (auto& antHill : world->getAntHills())
+		{
+			antHill.update(ticks);
+		}
+		
+		++ticks;
 	}
 }
 
@@ -54,14 +70,17 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		{
 			for (auto& edge : node.getEdgeList())
 			{
-				target.draw(edge);
+				edge->drawPheromone(target, states);
 			}
 		}
 	}
 
 	if (displayNavGraph)
 	{
-
+		for (auto& node : world->getNavGraph())
+		{
+			node.draw(target, states);
+		}
 	}
 
 	for (auto& ant : world->getAnts())
@@ -71,17 +90,17 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	for (auto& antFood : world->getAntFood())
 	{
-
+		target.draw(antFood);
 	}
 
 	for (auto& antFoodPile : world->getAntFoodPiles())
 	{
-
+		target.draw(antFoodPile);
 	}
 
 	for (auto& antHill : world->getAntHills())
 	{
-
+		target.draw(antHill);
 	}
 }
 

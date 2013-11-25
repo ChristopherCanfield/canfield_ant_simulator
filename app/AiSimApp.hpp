@@ -7,6 +7,8 @@
 #include "App.hpp"
 #include "../sim/Simulator.hpp"
 
+#include <SFML/Window.hpp>
+
 
 namespace cdc 
 {
@@ -25,6 +27,8 @@ namespace cdc
 		virtual void teardown() override;
 
 	private:
+		sf::RenderWindow window;
+
 		GuiEventManager eventManager;
 		Simulator simulator;
 	};

@@ -3,6 +3,8 @@
 #include "PathNode.hpp"
 #include "../util/Vector2fAdapter.hpp"
 
+#include <cassert>
+
 // Christopher D. Canfield
 // October 2013
 // Edge.cpp
@@ -130,6 +132,12 @@ Node* Edge::getPheromoneNextNode() const
 	return pheromone.getNextNode();
 }
 
+void Edge::update(uint ticks)
+{
+	// TODO: implement this; reduce the pheromone level over time.
+	assert(false);
+}
+
 void Edge::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (endNode != nullptr)
@@ -138,36 +146,35 @@ void Edge::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
-void Edge::drawPheromone(sf::RenderTarget& target, sf::RenderStates states) const
+void Edge::drawPheromone(sf::RenderTarget& target, sf::RenderStates states)
 {
 	auto pheromoneStrength = getPheromone();
-	sf::Color color;
-
+	
 	if (pheromoneStrength == 0)
 	{
-		color = sf::Color(0, 0, 0, 0);
+		pheromoneVertices.setFillColor(sf::Color::Transparent);
 	}
 	else if (pheromoneStrength > 8)
 	{
-		 color = sf::Color(170, 0,  255, 140);
+		 pheromoneVertices.setFillColor(sf::Color(170, 0,  255, 140));
 	}
 	else if (pheromoneStrength > 5)
 	{
-		color = sf::Color(199, 89, 255, 140);
+		pheromoneVertices.setFillColor(sf::Color(199, 89, 255, 140));
 	}
 	else if (pheromoneStrength > 3)
 	{
-		color = sf::Color(216, 140, 255, 140);
+		pheromoneVertices.setFillColor(sf::Color(216, 140, 255, 140));
 	}
 	else if (pheromoneStrength > 0)
 	{
-		color = sf::Color(232, 186, 255, 140);
+		pheromoneVertices.setFillColor(sf::Color(232, 186, 255, 140));
 	}
 
 	if (startNode != nullptr && endNode != nullptr)
 	{
 		
-		target.draw(
+		target.draw(pheromoneVertices, states);
 	}
 }
 

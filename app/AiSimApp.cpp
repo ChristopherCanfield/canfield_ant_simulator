@@ -30,7 +30,10 @@ void AiSimApp::setup()
 
 bool AiSimApp::run()
 {
-	return false;
+	simulator.update();
+	window.draw(simulator);
+	
+	return true;
 }
 
 void AiSimApp::teardown()

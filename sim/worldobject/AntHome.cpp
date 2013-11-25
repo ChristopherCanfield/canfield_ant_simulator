@@ -1,6 +1,8 @@
 #include "AntHome.hpp"
 #include "../nav/Node.hpp"
 
+#include <cassert>
+
 // Christopher D. Canfield
 // November 2013
 // AntHome.hpp
@@ -48,4 +50,10 @@ void AntHome::addFood()
 Node& AntHome::getNode() const
 {
 	return node;
+}
+
+void AntHome::update(uint ticks)
+{
+	// TODO: generate ants based on the amount of food.
+	assert(false);
 }

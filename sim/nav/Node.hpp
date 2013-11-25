@@ -71,6 +71,8 @@ namespace cdc
 		// Gets a non-owning pointer to the ant food pile at this node.
 		AntFoodPile* getAntFoodPile() const;
 
+		void update(uint ticks);
+
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		bool operator==(const Node& other) const;

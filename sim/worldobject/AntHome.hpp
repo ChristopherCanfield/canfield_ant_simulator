@@ -2,6 +2,7 @@
 
 #include "../util/Typedefs.hpp"
 
+#include <SFML/Graphics.hpp>
 
 // Christopher D. Canfield
 // November 2013
@@ -13,7 +14,8 @@ namespace cdc
 	class Node;
 
 	// The home for a colony of Ants. Stores food and generates new ants.
-	class AntHome
+	class AntHome :
+		public sf::Drawable
 	{
 	public:
 		AntHome(Node& node);
@@ -31,6 +33,11 @@ namespace cdc
 
 		// Returns the node that the anthill is attached to.
 		Node& getNode() const;
+
+		void update(uint ticks);
+
+	protected:
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 	private:
 		AntHome& operator=(const AntHome& rhs);

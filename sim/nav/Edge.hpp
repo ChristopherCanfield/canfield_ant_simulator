@@ -49,7 +49,9 @@ namespace cdc
 		bool operator==(const Edge& other) const;
 		bool operator!=(const Edge& other) const;
 
-		void drawPheromone(sf::RenderTarget& target, sf::RenderStates states) const;
+		void update(uint ticks);
+
+		void drawPheromone(sf::RenderTarget& target, sf::RenderStates states);
 
 	protected:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

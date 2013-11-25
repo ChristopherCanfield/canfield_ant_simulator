@@ -167,6 +167,14 @@ AntFoodPile* Node::getAntFoodPile() const
 	return antFoodPile;
 }
 
+void Node::update(uint ticks)
+{
+	for (auto& edge : edges)
+	{
+		edge->update(ticks);
+	}
+}
+
 
 void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
