@@ -50,7 +50,13 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	if (displayPheromones)
 	{
-
+		for (auto& node : world->getNavGraph())
+		{
+			for (auto& edge : node.getEdgeList())
+			{
+				target.draw(edge);
+			}
+		}
 	}
 
 	if (displayNavGraph)

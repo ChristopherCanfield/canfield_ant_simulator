@@ -46,12 +46,17 @@ namespace cdc
 		void setPheromoneNextNode(Node& node);
 		Node* getPheromoneNextNode() const;
 
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
 		bool operator==(const Edge& other) const;
 		bool operator!=(const Edge& other) const;
 
+		void drawPheromone(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	protected:
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
 	private:
+		void Edge::setVertices(Node& startNode, Node& endNode);
+
 		// The start node.
 		Node* startNode;
 		// The end node, or nullptr if no node is connected to the other edge
@@ -62,6 +67,7 @@ namespace cdc
 
 		// The graphical representation of the edge.
 		sf::VertexArray vertices;
+		sf::RectangleShape pheromoneVertices;
 
 		// Ant pheromone, which ants use to create paths leading from home to food.
 		// Pheromones are put onto edges.

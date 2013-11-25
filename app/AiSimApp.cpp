@@ -63,11 +63,11 @@ void processInput(const sf::Event& e, Simulator& sim)
 		}
 		else if (e.key.code == Keyboard::Num1)
 		{
-			// TODO: draw nav graph.
+			sim.drawNavGraph();
 		}
 		else if (e.key.code == Keyboard::Num2)
 		{
-			// TODO: draw pheromones.
+			sim.drawPheromones();
 		}
 		else if (e.key.code == Keyboard::Escape)
 		{

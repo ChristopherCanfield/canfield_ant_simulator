@@ -25,15 +25,7 @@ Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, float cost) :
 	endNode(&endNode), 
 	cost(cost)
 {
-	vertices.setPrimitiveType(sf::Lines);
-
-	vertices.append(sf::Vertex(
-			Vector2fAdapter(startNode.getPixelX(), startNode.getPixelY()), 
-			sf::Color(0, 0, 255)));
-
-	vertices.append(sf::Vertex(
-			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
-			sf::Color(0, 0, 255)));
+	setVertices(startNode, endNode);
 }
 
 Edge::Edge(Node& startNode, Node& endNode, int cost) :
@@ -41,15 +33,7 @@ Edge::Edge(Node& startNode, Node& endNode, int cost) :
 	endNode(&endNode),
 	cost(static_cast<float>(cost))
 {
-	vertices.setPrimitiveType(sf::Lines);
-
-	vertices.append(sf::Vertex(
-			Vector2fAdapter(startNode.getPixelX(), startNode.getPixelY()), 
-			sf::Color(0, 0, 255)));
-
-	vertices.append(sf::Vertex(
-			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
-			sf::Color(0, 0, 255)));
+	setVertices(startNode, endNode);
 }
 
 void Edge::set(cdc::Node& endNode, float cost)
@@ -59,13 +43,33 @@ void Edge::set(cdc::Node& endNode, float cost)
 
 	if (vertices.getVertexCount() > 0) vertices.clear();
 
+	setVertices(*startNode, endNode);
+}
+
+void Edge::setVertices(Node& startNode, Node& endNode)
+{
+	vertices.setPrimitiveType(sf::Lines);
+
 	vertices.append(sf::Vertex(
-			Vector2fAdapter(startNode->getPixelX(), startNode->getPixelY()), 
+			Vector2fAdapter(startNode.getPixelX(), startNode.getPixelY()), 
 			sf::Color(0, 0, 255)));
 
 	vertices.append(sf::Vertex(
 			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
 			sf::Color(0, 0, 255)));
+
+	sf::Vector2f startPoint(startNode.getPixelX(), startNode.getPixelY());
+	sf::Vector2f endPoint(endNode.getPixelX(), endNode.getPixelY());
+	if (startPoint.x == endPoint.x)
+	{
+		pheromoneVertices.setPosition(sf::Vector2f(startPoint.x - 25.f, startPoint.y));
+		pheromoneVertices.setSize(sf::Vector2f(50.f, abs(startPoint.y - endPoint.y)));
+	}
+	else
+	{
+		pheromoneVertices.setPosition(sf::Vector2f(startPoint.x, startPoint.y - 25.f));
+		pheromoneVertices.setSize(sf::Vector2f(abs(startPoint.y - endPoint.y), 50.f));
+	}
 }
 
 Node* Edge::getNode1() const
@@ -126,11 +130,44 @@ Node* Edge::getPheromoneNextNode() const
 	return pheromone.getNextNode();
 }
 
-void Edge::draw(sf::RenderTarget &target, sf::RenderStates states) const
+void Edge::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (endNode != nullptr)
 	{
 		target.draw(vertices, states);
+	}
+}
+
+void Edge::drawPheromone(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	auto pheromoneStrength = getPheromone();
+	sf::Color color;
+
+	if (pheromoneStrength == 0)
+	{
+		color = sf::Color(0, 0, 0, 0);
+	}
+	else if (pheromoneStrength > 8)
+	{
+		 color = sf::Color(170, 0,  255, 140);
+	}
+	else if (pheromoneStrength > 5)
+	{
+		color = sf::Color(199, 89, 255, 140);
+	}
+	else if (pheromoneStrength > 3)
+	{
+		color = sf::Color(216, 140, 255, 140);
+	}
+	else if (pheromoneStrength > 0)
+	{
+		color = sf::Color(232, 186, 255, 140);
+	}
+
+	if (startNode != nullptr && endNode != nullptr)
+	{
+		
+		target.draw(
 	}
 }
 
