@@ -11,6 +11,8 @@
 #include "worldobject/AntFoodPile.hpp"
 #include "world/World.hpp"
 
+#include <SFML/System/Clock.hpp>
+
 #include <boost/noncopyable.hpp>
 
 #include <vector>
@@ -61,6 +63,9 @@ namespace cdc
 		uint speed;
 
 		uint ticks;
+		// Next tick time, in milliseconds.
+		long nextTickTime;
+		sf::Clock clock;
 
 		bool displayPheromones;
 		bool displayNavGraph;

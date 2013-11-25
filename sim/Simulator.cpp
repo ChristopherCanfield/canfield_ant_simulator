@@ -40,8 +40,8 @@ Simulator::~Simulator()
 
 void Simulator::update()
 {
-	// TODO: only update if the tick per second count has been reached.
-	if (started)
+	sf::Int32 speedMilliseconds = speed / 1000;
+	if (started && (clock.getElapsedTime().asMilliseconds() >= speedMilliseconds))
 	{
 		for (auto& node : world->getNavGraph())
 		{
@@ -59,6 +59,7 @@ void Simulator::update()
 			antHill.update(ticks);
 		}
 		
+		clock.restart();
 		++ticks;
 	}
 }
