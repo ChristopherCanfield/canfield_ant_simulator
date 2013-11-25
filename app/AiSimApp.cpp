@@ -1,4 +1,7 @@
 #include "AiSimApp.hpp"
+#include "../sim/world/RandomWorld.hpp"
+#include "../util/Random.hpp"
+#include "../util/make_unique.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -15,18 +18,19 @@ using namespace sf;
 bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim);
 int getSeed();
 void printUserCommands();
+void printWorldStats(World& world);
 
 
 AiSimApp::AiSimApp() :
 	simulator(eventManager),
 	// TODO: the world size should come from the simulator.
-	viewManager(eventManager, 3000, 3000, 800, 800, 200, 800)
+	viewManager(eventManager, 3100, 3100, 800, 800, 200, 800)
 {
 	backgroundImage.loadFromFile("res/grass1 - stylized.jpg");
 	backgroundImage.setRepeated(true);
 
 	// TODO: the world size should come from the simulator.
-	background.setTextureRect(sf::IntRect(0, 0, 3000, 3000));
+	background.setTextureRect(sf::IntRect(0, 0, 3100, 3100));
 	background.scale(.75f, .75f);
 	background.setTexture(&backgroundImage);
 }
@@ -41,8 +45,13 @@ void AiSimApp::setup()
 {
 	Random::setSeed(getSeed());
 
+	unique_ptr<World> world = make_unique<RandomWorld>();
+	printWorldStats(*world.get());
+
 	cout << endl;
 	printUserCommands();
+
+	simulator.start(move(world));
 }
 
 bool AiSimApp::run()
@@ -88,6 +97,15 @@ int getSeed()
 	int seed = 0;
 	cin >> seed;
 	return seed;
+}
+
+void printWorldStats(World& world)
+{
+	auto antHillNode = world.getAntHills()[0].getNode();
+	cout << endl 
+		<< "Ant hill location: (" << antHillNode.getRow() << "," << antHillNode.getColumn() << ")" << endl
+		<< "Number of food piles: " << world.getAntFoodPiles().size() << endl
+		<< "Number of ants: " << world.getAnts().size() << endl;
 }
 
 void printUserCommands()
