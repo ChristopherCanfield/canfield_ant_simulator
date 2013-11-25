@@ -120,7 +120,6 @@ bool GuiTestApp::run()
 		{
 			eventManager.update(event, *window);
 		}
-
 	}
 
 	window->clear(sf::Color::White);

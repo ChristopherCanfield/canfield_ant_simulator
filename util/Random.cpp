@@ -32,6 +32,12 @@ Random::Random()
 {
 }
 
+void Random::setSeed(uint seed)
+{
+	rand.seed(seed);
+	isSeeded = true;
+}
+
 int Random::getInteger(int min, int max)
 {
 	uniform_int_distribution<int> dist(min, max);

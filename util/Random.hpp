@@ -20,6 +20,8 @@ namespace cdc
 		explicit Random(uint seed);
 		Random();
 
+		static void setSeed(uint seed);
+
 		// Returns a random integer, between min and max, inclusive.
 		int getInteger(int min, int max); 
 

@@ -12,6 +12,10 @@ using namespace cdc;
 using namespace std;
 using namespace sf;
 
+bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim);
+int getSeed();
+
+
 AiSimApp::AiSimApp() :
 	simulator(eventManager)
 {
@@ -25,20 +29,35 @@ AiSimApp::~AiSimApp()
 
 void AiSimApp::setup()
 {
-
+	Random::setSeed(getSeed());
 }
 
 bool AiSimApp::run()
 {
+	bool continueRunning = true;
+	sf::Event event;
+	while (window.pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
+			window.close();
+			return false;
+		}
+		else
+		{
+			continueRunning = processInput(event, window, simulator);
+			eventManager.update(event, window);
+		}
+	}
+
 	simulator.update();
 	window.draw(simulator);
 	
-	return true;
+	return continueRunning;
 }
 
 void AiSimApp::teardown()
 {
-
 }
 
 
@@ -52,7 +71,7 @@ int getSeed()
 	return seed;
 }
 
-void processInput(const sf::Event& e, Simulator& sim)
+bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim)
 {
 	if (e.type == Event::KeyReleased)
 	{
@@ -74,7 +93,9 @@ void processInput(const sf::Event& e, Simulator& sim)
 		}
 		else if (e.key.code == Keyboard::Escape)
 		{
-			// TODO: close window.
+			window.close();
+			return false;
 		}
 	}
+	return true;
 }
