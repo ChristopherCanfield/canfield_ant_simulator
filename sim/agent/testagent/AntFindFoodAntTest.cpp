@@ -24,7 +24,7 @@ AntFindFoodAntTest::~AntFindFoodAntTest()
 {
 }
 
-void AntFindFoodAntTest::update(long ticks, const Percept& percept)
+void AntFindFoodAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

@@ -34,7 +34,7 @@ namespace cdc
 		Ant(Ant&& other);
 		virtual ~Ant();
 
-		virtual void update(long ticks, const Percept& percept) override;
+		virtual void update(uint ticks, const Percept& percept) override;
 
 		// Returns the last known Node to contain food, or nullptr if no Node
 		// is known to have food.
@@ -116,7 +116,7 @@ namespace cdc
 		Random random;
 
 		// Increases the ant's hunger when appropriate.
-		void processHunger(long ticks, AntStats& stats);
+		void processHunger(uint ticks, AntStats& stats);
 
 	private:
 		Ant(const Ant&);

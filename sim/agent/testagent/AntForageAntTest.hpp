@@ -17,7 +17,7 @@ namespace cdc
 		AntForageAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode);
 		virtual ~AntForageAntTest();
 
-		virtual void update(long ticks, const Percept& percept) override;
+		virtual void update(uint ticks, const Percept& percept) override;
 
 		virtual bool isGoalFinished() const override;
 

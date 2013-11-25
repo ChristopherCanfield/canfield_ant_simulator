@@ -24,7 +24,7 @@ AntMoveToNodeAntTest::~AntMoveToNodeAntTest()
 {
 }
 
-void AntMoveToNodeAntTest::update(long ticks, const Percept& percept)
+void AntMoveToNodeAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

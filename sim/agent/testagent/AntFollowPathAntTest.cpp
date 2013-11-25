@@ -25,7 +25,7 @@ AntFollowPathAntTest::~AntFollowPathAntTest()
 {
 }
 
-void AntFollowPathAntTest::update(long ticks, const Percept& percept)
+void AntFollowPathAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

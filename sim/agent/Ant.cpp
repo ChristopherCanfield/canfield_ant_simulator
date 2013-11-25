@@ -70,7 +70,7 @@ Ant::~Ant()
 {
 }
 
-void Ant::update(long ticks, const Percept& percept)
+void Ant::update(uint ticks, const Percept& percept)
 {
 	if (!isDead())
 	{
@@ -136,7 +136,7 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 
 ////// Private methods //////
 
-void Ant::processHunger(long ticks, AntStats& stats)
+void Ant::processHunger(uint ticks, AntStats& stats)
 {
 	if (ticks >= stats.nextHungerIncrease)
 	{

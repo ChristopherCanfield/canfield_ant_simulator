@@ -24,7 +24,7 @@ AntGoHomeAntTest::~AntGoHomeAntTest()
 {
 }
 
-void AntGoHomeAntTest::update(long ticks, const Percept& percept)
+void AntGoHomeAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

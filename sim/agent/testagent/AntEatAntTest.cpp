@@ -24,7 +24,7 @@ AntEatAntTest::~AntEatAntTest()
 {
 }
 
-void AntEatAntTest::update(long ticks, const Percept& percept)
+void AntEatAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

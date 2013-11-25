@@ -24,7 +24,7 @@ AntExploreAntTest::~AntExploreAntTest()
 {
 }
 
-void AntExploreAntTest::update(long ticks, const Percept& percept)
+void AntExploreAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

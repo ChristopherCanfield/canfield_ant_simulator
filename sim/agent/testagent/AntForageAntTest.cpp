@@ -23,7 +23,7 @@ AntForageAntTest::~AntForageAntTest()
 {
 }
 
-void AntForageAntTest::update(long ticks, const Percept& percept)
+void AntForageAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{

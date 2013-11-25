@@ -19,7 +19,7 @@ namespace cdc
 		AntFollowPathAntTest(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, const Node& startNode, const Node& targetNode);
 		virtual ~AntFollowPathAntTest();
 
-		virtual void update(long ticks, const Percept& percept) override;
+		virtual void update(uint ticks, const Percept& percept) override;
 
 		virtual bool isGoalFinished() const override;
 

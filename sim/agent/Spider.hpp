@@ -22,7 +22,7 @@ namespace cdc
 		explicit Spider(GuiEventManager& manager);
 		virtual ~Spider();
 
-		virtual void update(long ticks, const Percept& percept) override;
+		virtual void update(uint ticks, const Percept& percept) override;
 
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 

@@ -16,6 +16,6 @@ namespace cdc
 		virtual ~Agent() {}
 
 		// Called once per simulation tick.
-		virtual void update(long ticks, const Percept& percept) = 0;
+		virtual void update(uint ticks, const Percept& percept) = 0;
 	};
 }
