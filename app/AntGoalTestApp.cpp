@@ -44,7 +44,7 @@ void AntGoalTestApp::setup()
 	createNavGraph1(navGraph);
 	navGraphHelper = NavGraphHelper(navGraph);
 
-	antHome = new AntHome(navGraph[10]);
+	antHome = new AntHome(navGraph[10], navGraph);
 	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1], navGraph.back());
 
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));

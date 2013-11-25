@@ -1,8 +1,11 @@
 #pragma once
 
 #include "../util/Typedefs.hpp"
+#include "../nav/NavGraphHelper.hpp"
 
 #include <SFML/Graphics.hpp>
+
+#include <vector>
 
 // Christopher D. Canfield
 // November 2013
@@ -18,7 +21,7 @@ namespace cdc
 		public sf::Drawable
 	{
 	public:
-		AntHome(Node& node);
+		AntHome(Node& node, std::vector<Node>& navGraph);
 		~AntHome();
 
 		// Returns a count of the food stored in the anthill.
@@ -34,6 +37,8 @@ namespace cdc
 		// Returns the node that the anthill is attached to.
 		Node& getNode() const;
 
+		NavGraphHelper& getNavGraphHelper();
+
 		void update(uint ticks);
 
 	protected:
@@ -47,6 +52,8 @@ namespace cdc
 
 		uint foodCount;
 		Node& node;
+
+		NavGraphHelper navGraphHelper;
 
 		sf::Sprite sprite;
 	};

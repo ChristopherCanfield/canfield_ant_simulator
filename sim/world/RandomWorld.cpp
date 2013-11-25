@@ -4,6 +4,7 @@
 #include "../gui/GuiEventManager.hpp"
 #include "../sim/nav/Node.hpp"
 #include "../sim/nav/Edge.hpp"
+#include "../sim/agent/Ant.hpp"
 #include "../sim/worldobject/AntFoodPile.hpp"
 #include "../sim/worldobject/SolidObject.hpp"
 #include "../sim/worldobject/AntHome.hpp"
@@ -26,6 +27,7 @@ using cdc::AntFoodPile;
 using cdc::AntHome;
 using cdc::Random;
 using cdc::SolidObject;
+using cdc::Ant;
 
 using namespace sf;
 using namespace std;
@@ -44,7 +46,11 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 int addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
 
 // Adds a random number of ants to the world.
-void addAnts(vector<Node>& navGraph, AntHome& antHill, int antHillNodeLocation);
+void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants);
+
+// Finds an unoccupied location between the min and max node (inclusive).
+// Returns the index of the node within the nav graph.
+int findValidLocation(vector<Node>& navGraph, vector<Node*>& occupiedAreas, int minAllowedNode, int maxAllowedNode, Random& rand);
 
 // Returns true if the node is occupied, or false if not.
 bool isOccupied(vector<Node*> occupiedAreas, Node& location);
@@ -59,7 +65,8 @@ const int side_offset = 50;
 const int node_offset = 100;
 
 
-RandomWorld::RandomWorld()
+RandomWorld::RandomWorld(GuiEventManager& eventManager) :
+	eventManager(eventManager)
 {
 }
 
@@ -76,7 +83,7 @@ void RandomWorld::create(GuiEventManager& eventManager)
 	addFood(navGraph, offLimitAreas, antFoodPiles);
 	addObstructions(navGraph, offLimitAreas, obstructions);
 	int antHillLocation = addAntHill(navGraph, offLimitAreas, antHills);
-	addAnts(navGraph, antHills[0], antHillLocation);
+	addAnts(navGraph, antHills[0], eventManager, ants);
 }
 
 
@@ -142,7 +149,20 @@ void createNavGraph(vector<Node>& navGraph)
 
 void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoodPile>& antFoodPiles)
 {
-	assert(false);
+	Random rand;
+
+	// Add between 3 and 10 piles of food.
+	const int minFoodPiles = 3;
+	const int maxFoodPiles = 10;
+
+	int foodPileCount = rand.getInteger(minFoodPiles, maxFoodPiles);
+	for (int i = 0; i < maxFoodPiles; ++i)
+	{
+		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
+		int foodInPile = rand.getInteger(50, 750);
+		antFoodPiles.push_back(AntFoodPile(foodInPile, navGraph[nodeLocation]));
+		occupiedAreas.push_back(&navGraph[nodeLocation]);
+	}
 }
 
 void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<Sprite>& obstructions)
@@ -156,18 +176,10 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	int obstructionCount = rand.getInteger(minObstructions, maxObstructions);
 	for (int i = 0; i < maxObstructions; ++i)
 	{
-		bool validLocationFound = false;
-		while (!validLocationFound)
-		{
-			int nodeLocation = rand.getInteger(0, navGraph.size() - 1);
-			if (!isOccupied(occupiedAreas, navGraph[nodeLocation]))
-			{
-				validLocationFound = true;
-				auto rock = SolidObject::createRock(navGraph, navGraph[nodeLocation].getPixelX(), navGraph[nodeLocation].getPixelY());
-				obstructions.push_back(rock);
-				occupiedAreas.push_back(&navGraph[nodeLocation]);
-			}
-		}
+		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
+		auto rock = SolidObject::createRock(navGraph, navGraph[nodeLocation].getPixelX(), navGraph[nodeLocation].getPixelY());
+		obstructions.push_back(rock);
+		occupiedAreas.push_back(&navGraph[nodeLocation]);
 	}
 }
 
@@ -175,25 +187,40 @@ int addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntH
 {
 	Random rand;
 
-	bool validLocationFound = false;
-	while (!validLocationFound)
-	{
-		// Ant hill can be in any node within the first three rows.
-		int antHillLocation = rand.getInteger(0, 3 * nav_graph_columns);
-		if (!isOccupied(occupiedAreas, navGraph[antHillLocation]))
-		{
-			antHills.push_back(AntHome(navGraph[antHillLocation]));
-			occupiedAreas.push_back(&navGraph[antHillLocation]);
-			return antHillLocation;
-		}
-	}
+	// Ant hill can be in any node within the first three rows.
+	int antHillLocation = rand.getInteger(0, 3 * nav_graph_columns);
+	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * nav_graph_columns, rand);
+	
+	antHills.push_back(AntHome(navGraph[antHillLocation], navGraph));
+	occupiedAreas.push_back(&navGraph[antHillLocation]);
+	return antHillLocation;
 }
 
-void addAnts(vector<Node>& navGraph, AntHome& antHill, int antHillNodeLocation)
+void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants)
 {
 	Random rand;
 
+	const int minAnts = 30;
+	const int maxAnts = 60;
 
+	int antCount = rand.getInteger(minAnts, maxAnts);
+	for (int i = 0; i < antCount; ++i)
+	{
+		ants.push_back(Ant(eventManager, antHill, antHill.getNavGraphHelper(), antHill.getNode()));
+	}
+}
+
+int findValidLocation(vector<Node>& navGraph, vector<Node*>& occupiedAreas, int minAllowedNode, int maxAllowedNode, Random& rand)
+{
+	bool validLocationFound = false;
+	while (!validLocationFound)
+	{
+		int nodeLocation = rand.getInteger(minAllowedNode, maxAllowedNode);
+		if (!isOccupied(occupiedAreas, navGraph[nodeLocation]))
+		{
+			return nodeLocation;
+		}
+	}
 }
 
 bool isOccupied(vector<Node*> occupiedAreas, Node& location)

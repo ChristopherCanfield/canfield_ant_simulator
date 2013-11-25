@@ -26,7 +26,7 @@ namespace tests
 		{
 			GuiEventManager manager;
 			Simulator sim(manager);
-			auto world = unique_ptr<World>(new RandomWorld());
+			auto world = unique_ptr<World>(new RandomWorld(manager));
 			sim.start(move(world));
 		}
 

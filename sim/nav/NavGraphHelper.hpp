@@ -39,6 +39,7 @@ namespace cdc
 
 	private:
 		const std::vector<Node>* navGraph;
+
 		std::unordered_map<GridLocation, Node*> nodes;
 		uint maxRow;
 		uint maxColumn;

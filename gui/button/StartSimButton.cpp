@@ -13,7 +13,9 @@ using std::unique_ptr;
 
 
 StartSimButton::StartSimButton(GuiEventManager& eventManager, Simulator& simulator) :
-	Button(eventManager), simulator(simulator)
+	Button(eventManager), 
+	simulator(simulator),
+	eventManager(eventManager)
 {
 	using namespace std;
 	using namespace sf;
@@ -36,7 +38,7 @@ void StartSimButton::onDirectGuiEvent(const sf::Event& e)
 	Button::onDirectGuiEvent(e);
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		unique_ptr<World> world = unique_ptr<World>(new RandomWorld());
+		unique_ptr<World> world = unique_ptr<World>(new RandomWorld(eventManager));
 		simulator.start(move(world));
 	}
 }

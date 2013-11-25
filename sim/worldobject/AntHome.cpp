@@ -11,14 +11,16 @@
 
 using cdc::AntHome;
 using cdc::Node;
+using cdc::NavGraphHelper;
 
 bool AntHome::wasTextureLoaded = false;
 sf::Texture* AntHome::texture = nullptr;
 
 
-AntHome::AntHome(Node& node) :
+AntHome::AntHome(Node& node, std::vector<Node>& navGraph) :
 	foodCount(0),
-	node(node)
+	node(node),
+	navGraphHelper(navGraph)
 {
 	if (!AntHome::wasTextureLoaded)
 	{
@@ -75,6 +77,11 @@ void AntHome::addFood()
 Node& AntHome::getNode() const
 {
 	return node;
+}
+
+NavGraphHelper& AntHome::getNavGraphHelper()
+{
+	return navGraphHelper;
 }
 
 void AntHome::update(uint ticks)

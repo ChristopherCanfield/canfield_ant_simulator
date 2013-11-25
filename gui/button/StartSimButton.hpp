@@ -21,5 +21,6 @@ namespace cdc
 
 	private:
 		Simulator& simulator;
+		GuiEventManager& eventManager;
 	};
 }

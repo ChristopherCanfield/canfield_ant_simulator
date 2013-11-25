@@ -21,8 +21,9 @@ namespace tests
 			GuiEventManager manager;
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
-			AntHome home(node);
 			vector<Node> vec;
+			AntHome home(node, vec);
+			
 			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			Ant ant(manager, home, graph, vec[0]);
@@ -41,8 +42,9 @@ namespace tests
 			GuiEventManager manager;
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
-			AntHome home(node);
 			vector<Node> vec;
+			AntHome home(node, vec);
+			
 			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
 			Ant ant(manager, home, graph, vec[0]);

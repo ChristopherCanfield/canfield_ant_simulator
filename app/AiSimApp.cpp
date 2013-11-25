@@ -45,7 +45,7 @@ void AiSimApp::setup()
 {
 	Random::setSeed(getSeed());
 
-	unique_ptr<World> world = make_unique<RandomWorld>();
+	unique_ptr<World> world = make_unique<RandomWorld>(eventManager);
 	printWorldStats(*world.get());
 
 	cout << endl;
