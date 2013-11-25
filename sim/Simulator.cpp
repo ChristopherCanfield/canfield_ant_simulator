@@ -119,9 +119,9 @@ void Simulator::start(std::unique_ptr<World> world)
 	this->world->create(eventManager);
 
 	started = true;
-	cout << "Simulator: started" << endl;
+	clock.restart();
 
-	// TODO: start a new simulation.
+	cout << "Simulator: started" << endl;
 }
 
 // Pauses the simulation.
@@ -129,14 +129,14 @@ void Simulator::pause()
 {
 	started = false;
 	cout << "Simulator: paused" << endl;
-	// TODO: pause the simulation.
 }
 
 void Simulator::unpause()
 {
 	started = true;
+	clock.restart();
+
 	cout << "Simulator: unpaused" << endl;
-	// TODO: unpause the simulation.
 }
 
 // Increases the speed of the simulation.

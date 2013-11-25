@@ -14,6 +14,7 @@ using namespace sf;
 
 bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim);
 int getSeed();
+void printUserCommands();
 
 
 AiSimApp::AiSimApp() :
@@ -39,6 +40,9 @@ AiSimApp::~AiSimApp()
 void AiSimApp::setup()
 {
 	Random::setSeed(getSeed());
+
+	cout << endl;
+	printUserCommands();
 }
 
 bool AiSimApp::run()
@@ -86,6 +90,18 @@ int getSeed()
 	return seed;
 }
 
+void printUserCommands()
+{
+	cout << "Simulation Commands" << endl
+		<<  "-------------------" << endl
+		<< "  Space:  Pause/Unpause" << endl
+		<< "  +:      Increase simulation speed" << endl
+		<< "  -:      Decrease simulation speed" << endl
+		<< "  1:      Show/Hide navigation graph" << endl
+		<< "  2:      Show/Hide pheromone strength" << endl
+		<< "  Escape: Exit" << endl;
+}
+
 bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim)
 {
 	if (e.type == Event::KeyReleased)
@@ -97,6 +113,17 @@ bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim)
 		else if (e.key.code == Keyboard::Add || e.key.code == Keyboard::Equal)
 		{
 			sim.increaseSpeed();
+		}
+		else if (e.key.code == Keyboard::Space)
+		{
+			if (sim.isPaused())
+			{
+				sim.unpause();
+			}
+			else
+			{
+				sim.pause();
+			}
 		}
 		else if (e.key.code == Keyboard::Num1)
 		{
