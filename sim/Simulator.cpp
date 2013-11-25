@@ -100,6 +100,11 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		target.draw(antFoodPile);
 	}
 
+	for (auto& sprite : world->getObstructions())
+	{
+		target.draw(sprite);
+	}
+
 	for (auto& antHill : world->getAntHills())
 	{
 		target.draw(antHill);

@@ -17,8 +17,17 @@ int getSeed();
 
 
 AiSimApp::AiSimApp() :
-	simulator(eventManager)
+	simulator(eventManager),
+	// TODO: the world size should come from the simulator.
+	viewManager(eventManager, 3000, 3000, 800, 800, 200, 800)
 {
+	backgroundImage.loadFromFile("res/grass1 - stylized.jpg");
+	backgroundImage.setRepeated(true);
+
+	// TODO: the world size should come from the simulator.
+	background.setTextureRect(sf::IntRect(0, 0, 3000, 3000));
+	background.scale(.75f, .75f);
+	background.setTexture(&backgroundImage);
 }
 
 
@@ -51,6 +60,12 @@ bool AiSimApp::run()
 	}
 
 	simulator.update();
+
+	window.clear(sf::Color::White);
+
+	window.setView(viewManager.getSimView());
+
+	window.draw(background);
 	window.draw(simulator);
 	
 	return continueRunning;

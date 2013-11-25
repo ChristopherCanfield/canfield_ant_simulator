@@ -6,6 +6,7 @@
 
 #include "App.hpp"
 #include "../sim/Simulator.hpp"
+#include "../gui/ViewManager.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -31,6 +32,10 @@ namespace cdc
 
 		GuiEventManager eventManager;
 		Simulator simulator;
+		ViewManager viewManager;
+
+		sf::Texture backgroundImage;
+		sf::RectangleShape background;
 	};
 
 }
