@@ -57,3 +57,9 @@ void AntHome::update(uint ticks)
 	// TODO: generate ants based on the amount of food.
 	assert(false);
 }
+
+void AntHome::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	// TODO: draw the ant hill once the graphic has been added.
+	assert(false);
+}

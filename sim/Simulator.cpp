@@ -40,6 +40,7 @@ Simulator::~Simulator()
 
 void Simulator::update()
 {
+	// TODO: only update if the tick per second count has been reached.
 	if (started)
 	{
 		for (auto& node : world->getNavGraph())

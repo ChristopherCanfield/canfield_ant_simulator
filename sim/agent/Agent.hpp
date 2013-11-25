@@ -5,6 +5,7 @@
 // Agent.hpp
 
 #include "../knowledge/Percept.hpp"
+#include "../util/Typedefs.hpp"
 
 
 namespace cdc
