@@ -38,6 +38,7 @@ void AntMoveToNode::update(Ant& ant, uint ticks, AntPercept& percept)
 	if (ant.getBoundingBox().intersects(target->getBoundingBox()))
 	{
 		setFinished(true);
+		ant.kb.lastNodePassed = const_cast<Node*>(target);
 		if (debug) cout << "Reached node" << endl;
 	}
 	else

@@ -65,6 +65,7 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	manager.removeMouseMoveListener(*this);
 
 	goal = make_unique<AntMoveToNode>(*this, startNode);
+	kb.lastNodePassed = const_cast<Node*>(&startNode);
 	// TODO: remove this if the change above works.
 	//moveToNode(startNode);
 }
