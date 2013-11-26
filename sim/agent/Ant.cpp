@@ -64,10 +64,8 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
 
-	goal = make_unique<AntMoveToNode>(*this, startNode);
-	kb.lastNodePassed = const_cast<Node*>(&startNode);
-	// TODO: remove this if the change above works.
-	//moveToNode(startNode);
+	goal = make_unique<AntForage>();
+	setPositionToNode(startNode);
 }
 
 Ant::Ant(Ant&& other) :
@@ -100,16 +98,25 @@ void Ant::update(uint ticks, const Percept& percept)
 	}
 }
 
-// TODO: remove this if the initial AntMoveToNode goal works.
-//void Ant::moveToNode(const Node& node)
-//{
-//	kb.lastNodePassed = const_cast<Node*>(&node);
-//	setPosition(node.getPixelX(), node.getPixelY());
-//}
 
-Node* Ant::getLastKnownFoodPosition() const
+void Ant::setPositionToNode(const Node& node)
 {
-	return kb.lastKnownFoodPosition;
+	kb.lastNodePassed = const_cast<Node*>(&node);
+	setPosition(node.getPixelX(), node.getPixelY());
+}
+
+const Node* Ant::popLastKnownFoodPosition()
+{
+	if (!kb.lastKnownFoodPosition.empty())
+	{
+		auto mostRecent = kb.lastKnownFoodPosition.front();
+		kb.lastKnownFoodPosition.pop_front();
+		return mostRecent;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 uint Ant::getHunger() const
@@ -195,7 +202,10 @@ void Ant::processHunger(uint ticks, AntStats& stats)
 		else
 		{
 			++stats.hunger;
-			stats.nextHungerIncrease += stats.hungerIncreaseRate;
+			// Modify the hunger increase rate by between 0.75 and 1.25, to 
+			// differentiate the behaviors of the ants.
+			float modifier = random.getInteger(75, 125) / 100.f;
+			stats.nextHungerIncrease += static_cast<uint>(stats.hungerIncreaseRate * modifier);
 		}
 	}
 }
@@ -237,7 +247,8 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home, NavGraphHelper& graphHelper) :
 	home(home),
 	navGraphHelper(graphHelper),
-	lastKnownFoodPosition(nullptr),
+	// Up to four food piles are remembered by the ant.
+	lastKnownFoodPosition(4),
 	lastNodePassed(nullptr)
 {
 }

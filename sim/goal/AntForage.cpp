@@ -48,7 +48,7 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 				if (foodPile.takeFood())
 				{
 					ant.stats.isHoldingFood = true;
-					ant.kb.lastKnownFoodPosition = &foodPileNode;
+					ant.kb.lastKnownFoodPosition.push_front(&foodPileNode);
 				}
 			}
 			// Bring the food home.

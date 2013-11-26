@@ -54,7 +54,6 @@ void AntEat::update(Ant& ant, uint ticks, AntPercept& percept)
 				// to Find Food.
 				currentSubgoal = &antFindFoodSubgoal;
 			}
-			
 		}
 
 		// Found food outside of home.
@@ -69,7 +68,7 @@ void AntEat::update(Ant& ant, uint ticks, AntPercept& percept)
 				if (foodPile.takeFood())
 				{
 					ant.stats.hunger = 0;
-					ant.kb.lastKnownFoodPosition = &foodPileNode;
+					ant.kb.lastKnownFoodPosition.push_front(&foodPileNode);
 				}
 			}
 			setFinished(true);

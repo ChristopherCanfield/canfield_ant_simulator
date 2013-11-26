@@ -14,6 +14,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include <boost/circular_buffer.hpp>
+
 #include <memory>
 
 
@@ -36,9 +38,9 @@ namespace cdc
 
 		virtual void update(uint ticks, const Percept& percept) override;
 
-		// Returns the last known Node to contain food, or nullptr if no Node
+		// Pops the last known Node that had food on it, or nullptr if no Node
 		// is known to have food.
-		Node* getLastKnownFoodPosition() const;
+		const Node* popLastKnownFoodPosition();
 
 		// Returns the ant's hunger level, from 0 (full/satiated) to 100 (starving).
 		uint getHunger() const;
@@ -84,7 +86,7 @@ namespace cdc
 			const uint hungerIncreaseRate;
 
 			// The next tick that will cause the ant's hunger to increase.
-			long nextHungerIncrease;
+			uint nextHungerIncrease;
 
 			// The max hunger that the ant can have. If this is exceeded, the ant dies.
 			const uint maxHunger;
@@ -105,8 +107,9 @@ namespace cdc
 		struct AntKnowledgeBase
 		{
 			AntKnowledgeBase(AntHome& home, NavGraphHelper& navGraphHelper);
-			// TODO: change this to use a circular buffer (look into boost version).
-			Node* lastKnownFoodPosition;
+			// Circular buffer (stack) that remembers up to 4 food piles that the 
+			// ant has found.
+			boost::circular_buffer<const Node*> lastKnownFoodPosition;
 			AntHome& home;
 			Node* lastNodePassed;
 			NavGraphHelper& navGraphHelper;
@@ -130,9 +133,8 @@ namespace cdc
 		// Called when the ant has died.
 		void onDeath();
 
-		// TODO: remove this if the initial AntMoveToNode goal works properly.
-		// Moves the ant to the specified node.
-		//void moveToNode(const Node& node);
+		// Sets the position of the ant to the position of the specified node.
+		void setPositionToNode(const Node& node);
 
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;

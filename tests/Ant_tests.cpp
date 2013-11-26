@@ -62,7 +62,7 @@ namespace tests
 			
 			Ant ant(manager, home, graph, vec[0]);
 
-			Assert::IsTrue(nullptr == ant.getLastKnownFoodPosition());
+			Assert::IsTrue(nullptr == ant.popLastKnownFoodPosition());
 		}
 
 		TEST_METHOD(Ant_getHunger)

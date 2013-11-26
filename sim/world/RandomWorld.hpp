@@ -22,6 +22,9 @@ namespace cdc
 		virtual void create(GuiEventManager& eventManager) override;
 
 	private:
+		RandomWorld(const RandomWorld&);
+		RandomWorld& operator=(const RandomWorld& other);
+
 		GuiEventManager& eventManager;
 	};
 }

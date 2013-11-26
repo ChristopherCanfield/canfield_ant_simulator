@@ -43,9 +43,12 @@ void AntMoveToNode::update(Ant& ant, uint ticks, AntPercept& percept)
 		auto antFoodPile = target->getAntFoodPile();
 		if (antFoodPile != nullptr)
 		{
-			// TODO: this needs to be corrected to use the circular buffer interface.
-			// Implement 11/25.
-			ant.kb.lastKnownFoodPosition.push(antFoodPile);
+			auto& foodPositions = ant.kb.lastKnownFoodPosition;
+			// Don't add the food position if it was the most recent one added.
+			if (foodPositions.empty() || foodPositions.back() != target)
+			{
+				foodPositions.push_front(target);
+			}
 		}
 
 		if (debug) cout << "Reached node" << endl;
