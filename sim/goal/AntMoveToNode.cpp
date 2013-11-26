@@ -18,7 +18,7 @@ using namespace cdc::MathHelper;
 using namespace std;
 
 
-AntMoveToNode::AntMoveToNode(Ant& ant, Node& target, bool debug) :
+AntMoveToNode::AntMoveToNode(Ant& ant, const Node& target, bool debug) :
 	target(&target),
 	debug(debug),
 	AntGoal("AntMoveToNode")

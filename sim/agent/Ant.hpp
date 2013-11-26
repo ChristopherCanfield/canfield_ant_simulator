@@ -129,8 +129,9 @@ namespace cdc
 		// Called when the ant has died.
 		void onDeath();
 
+		// TODO: remove this if the initial AntMoveToNode goal works properly.
 		// Moves the ant to the specified node.
-		void moveToNode(const Node& node);
+		//void moveToNode(const Node& node);
 
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;

@@ -19,7 +19,7 @@ namespace cdc
 			public AntGoal
 	{
 	public:
-		AntMoveToNode(Ant& ant, Node& target, bool debug = false);
+		AntMoveToNode(Ant& ant, const Node& target, bool debug = false);
 		virtual ~AntMoveToNode();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
@@ -30,7 +30,7 @@ namespace cdc
 		AntMoveToNode& operator=(const AntMoveToNode&);
 
 		bool debug;
-		Node* target;
+		const Node* target;
 
 		// Calculates the ant's movement vectors, and rotates it to face the 
 		// new target.

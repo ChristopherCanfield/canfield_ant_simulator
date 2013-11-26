@@ -6,6 +6,8 @@
 #include "../goal/AntEat.hpp"
 #include "../goal/AntForage.hpp"
 #include "../goal/AntExplore.hpp"
+#include "../goal/AntMoveToNode.hpp"
+#include "../util/make_unique.hpp"
 
 #include <iostream>
 
@@ -20,8 +22,11 @@ using cdc::Node;
 using cdc::NavGraphHelper;
 using cdc::AntHome;
 using cdc::AntGoal;
+using cdc::AntMoveToNode;
 
 using std::unique_ptr;
+using std::cout;
+using std::endl;
 
 
 bool Ant::wasTextureLoaded = false;
@@ -59,7 +64,9 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
 
-	moveToNode(startNode);
+	goal = make_unique<AntMoveToNode>(*this, startNode);
+	// TODO: remove this if the change above works.
+	//moveToNode(startNode);
 }
 
 Ant::Ant(Ant&& other) :
@@ -80,7 +87,7 @@ void Ant::update(uint ticks, const Percept& percept)
 		processHunger(ticks, stats);
 		
 		// Process the goal if one is set, or set a new one if not.
-		if (goal != nullptr && !goal->isFinished())
+		if (!goal->isFinished())
 		{
 			auto antPercept = AntPercept(percept);
 			goal->update(*this, ticks, antPercept);
@@ -92,11 +99,12 @@ void Ant::update(uint ticks, const Percept& percept)
 	}
 }
 
-void Ant::moveToNode(const Node& node)
-{
-	kb.lastNodePassed = const_cast<Node*>(&node);
-	setPosition(node.getPixelX(), node.getPixelY());
-}
+// TODO: remove this if the initial AntMoveToNode goal works.
+//void Ant::moveToNode(const Node& node)
+//{
+//	kb.lastNodePassed = const_cast<Node*>(&node);
+//	setPosition(node.getPixelX(), node.getPixelY());
+//}
 
 Node* Ant::getLastKnownFoodPosition() const
 {
@@ -135,8 +143,8 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 	if (e.type == sf::Event::MouseButtonReleased && !isSelected)
 	{
 		isSelected = true;
-		std::cout << "Ant " << getObserverId().toString() << " selected" << std::endl;
-		std::cout << "  Current Goal: " << goal->toString() << std::endl;
+		cout << "Ant " << getObserverId().toString() << " selected" << endl;
+		cout << "  Current Goal: " << goal->toString() << endl;
 	}
 }
 
@@ -165,9 +173,13 @@ void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 void Ant::onDeath()
 {
-	stats.isDead = true;
-	deadAntSprite.setPosition(getPosition());
-	deadAntSprite.setColor(sf::Color(128, 128, 128));
+	if (!stats.isDead)
+	{
+		if (isSelected) cout << "  Ant " << getObserverId().toString() << " has died" << endl;
+		stats.isDead = true;
+		deadAntSprite.setPosition(getPosition());
+		deadAntSprite.setColor(sf::Color(128, 128, 128));
+	}
 }
 
 void Ant::processHunger(uint ticks, AntStats& stats)
@@ -197,6 +209,7 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 	if (stats.hunger > hungry)
 	{
 		auto newGoal = unique_ptr<AntEat>(new AntEat());
+		if (isSelected) cout << "  Goal changed: " << newGoal->toString() << endl;
 		return move(newGoal);
 	}
 
@@ -206,11 +219,13 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 	if (decision <= exploreChance)
 	{
 		auto newGoal = unique_ptr<AntExplore>(new AntExplore());
+		if (isSelected) cout << "  Goal changed: " << newGoal->toString() << endl;
 		return move(newGoal);
 	}
 	else
 	{
 		auto newGoal = unique_ptr<AntForage>(new AntForage());
+		if (isSelected) cout << "  Goal changed: " << newGoal->toString() << endl;
 		return move(newGoal);
 	}
 }
