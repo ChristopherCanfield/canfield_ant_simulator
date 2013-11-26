@@ -16,15 +16,18 @@ namespace cdc
 			Goal<Ant, AntPercept>
 	{
 	public:
-		AntGoal();
+		AntGoal(std::string goalName);
 		virtual ~AntGoal();
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) = 0;
 		virtual bool isFinished() const override;
+
+		virtual std::string toString() const override;
 
 	protected:
 		void setFinished(bool finished);
 
 	private:
 		bool finished;
+		std::string goalName;
 	};
 }

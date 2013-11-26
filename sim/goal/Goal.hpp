@@ -2,6 +2,8 @@
 
 #include "../util/Typedefs.hpp"
 
+#include <string>
+
 
 // Christopher D. Canfield
 // November 2013
@@ -18,5 +20,6 @@ namespace cdc
 		virtual ~Goal() {}
 		virtual void update(AgentType& agent, uint ticks, PerceptType& percept) = 0;
 		virtual bool isFinished() const = 0;
+		virtual std::string toString() const = 0;
 	};
 }

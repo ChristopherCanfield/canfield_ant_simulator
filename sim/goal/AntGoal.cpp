@@ -8,10 +8,13 @@ using cdc::AntGoal;
 using cdc::Ant;
 using cdc::AntPercept;
 
+using std::string;
 
 
-AntGoal::AntGoal() :
-	finished(false)
+
+AntGoal::AntGoal(string goalName) :
+	finished(false),
+	goalName(goalName)
 {
 }
 
@@ -29,4 +32,9 @@ bool AntGoal::isFinished() const
 void AntGoal::setFinished(bool finished)
 {
 	this->finished = finished;
+}
+
+string AntGoal::toString() const
+{
+	return goalName;
 }

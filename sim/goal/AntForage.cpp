@@ -18,7 +18,8 @@ using cdc::Node;
 
 
 AntForage::AntForage() :
-	currentSubgoal(&antFindFoodSubgoal)
+	currentSubgoal(&antFindFoodSubgoal),
+	AntGoal("AntForage")
 {
 }
 

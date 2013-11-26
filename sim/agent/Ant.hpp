@@ -54,7 +54,9 @@ namespace cdc
 		// Kill's the ant (sets isDead to true).
 		void kill();
 
+		// GUI event handlers.
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
+		virtual void onGuiEvent(const sf::Event& e) override;
 
 		// The AntGoal classes are friends, because they control the ant and 
 		// need access to details that should not be made public.
@@ -67,6 +69,8 @@ namespace cdc
 		friend class AntFollowPath;
 
 	protected:
+		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
 		// The ant's non-knowledge info.
 		struct AntStats
 		{
@@ -122,12 +126,20 @@ namespace cdc
 		Ant(const Ant&);
 		Ant& operator=(const Ant& other);
 
+		// Called when the ant has died.
+		void onDeath();
+
 		// Moves the ant to the specified node.
 		void moveToNode(const Node& node);
 
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;
 		static bool wasTextureLoaded;
+		sf::Sprite deadAntSprite;
+
+		// Whether the ant is currently selected. This can be used to get debug
+		// or state information.
+		bool isSelected;
 
 		// Gets a new goal for the ant.
 		std::unique_ptr<AntGoal> getNewGoal(AntStats& stats);

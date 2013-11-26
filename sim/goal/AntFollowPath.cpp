@@ -18,7 +18,8 @@ using namespace std;
 
 
 AntFollowPath::AntFollowPath(Ant& ant, const Node& target, bool debug) :
-	debug(debug)
+	debug(debug),
+	AntGoal("AntFollowPath")
 {
 	path = Search::aStar(ant.getNode(), target, Search::straightLineHeuristic);
 	

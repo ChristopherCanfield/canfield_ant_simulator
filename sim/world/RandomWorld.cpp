@@ -221,6 +221,7 @@ int findValidLocation(vector<Node>& navGraph, vector<Node*>& occupiedAreas, int 
 			return nodeLocation;
 		}
 	}
+	return -1;
 }
 
 bool isOccupied(vector<Node*> occupiedAreas, Node& location)

@@ -26,7 +26,8 @@ using cdc::AntHome;
 
 
 AntExplore::AntExplore(bool debug) :
-	debug(debug)
+	debug(debug),
+	AntGoal("AntExplore")
 {
 }
 

@@ -10,7 +10,8 @@ using cdc::Ant;
 using cdc::AntPercept;
 
 
-AntFindFood::AntFindFood()
+AntFindFood::AntFindFood() :
+	AntGoal("AntFindFood")
 {
 }
 

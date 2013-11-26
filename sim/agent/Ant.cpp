@@ -30,7 +30,8 @@ sf::Texture* Ant::texture = nullptr;
 
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
 		Button(manager),
-		kb(home, graphHelper)
+		kb(home, graphHelper),
+		isSelected(false)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -52,6 +53,8 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	auto antSprite = std::unique_ptr<sf::Sprite>(new sf::Sprite(*Ant::texture));			
 	setDefaultImage(std::move(antSprite));
 	setOriginToCenter();
+
+	deadAntSprite.setTexture(*Ant::texture, true);
 
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
@@ -117,7 +120,7 @@ bool Ant::isDead() const
 
 void Ant::kill()
 {
-	stats.isDead = true;
+	onDeath();
 }
 
 Node& Ant::getNode() const
@@ -129,12 +132,43 @@ Node& Ant::getNode() const
 
 void Ant::onDirectGuiEvent(const sf::Event& e)
 {
-	// TODO: replace this with correct functionality.
-	std::cout << "Ant event" << std::endl;
+	if (e.type == sf::Event::MouseButtonReleased && !isSelected)
+	{
+		isSelected = true;
+		std::cout << "Ant " << getObserverId().toString() << " selected" << std::endl;
+		std::cout << "  Current Goal: " << goal->toString() << std::endl;
+	}
+}
+
+void Ant::onGuiEvent(const sf::Event& e)
+{
+	if (e.type == sf::Event::MouseButtonPressed && isSelected)
+	{
+		isSelected = false;
+	}
+}
+
+void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	if (isDead())
+	{
+		target.draw(deadAntSprite, states);
+	}
+	else
+	{
+		Button::draw(target, states);
+	}
 }
 
 
 ////// Private methods //////
+
+void Ant::onDeath()
+{
+	stats.isDead = true;
+	deadAntSprite.setPosition(getPosition());
+	deadAntSprite.setColor(sf::Color(128, 128, 128));
+}
 
 void Ant::processHunger(uint ticks, AntStats& stats)
 {
@@ -142,7 +176,8 @@ void Ant::processHunger(uint ticks, AntStats& stats)
 	{
 		if (stats.hunger >= stats.maxHunger)
 		{
-			stats.isDead = true;
+			// The ant has starved to death.
+			onDeath();
 		}
 		else
 		{

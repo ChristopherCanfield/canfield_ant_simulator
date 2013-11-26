@@ -20,7 +20,8 @@ using namespace std;
 
 AntMoveToNode::AntMoveToNode(Ant& ant, Node& target, bool debug) :
 	target(&target),
-	debug(debug)
+	debug(debug),
+	AntGoal("AntMoveToNode")
 {
 	calculateMovementVectors(ant);
 	if (debug) cout << "target: (" << target.getRow() << "," << target.getColumn() << "); " <<

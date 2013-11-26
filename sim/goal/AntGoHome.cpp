@@ -20,7 +20,8 @@ using cdc::AntHome;
 
 
 AntGoHome::AntGoHome() :
-	currentTarget(nullptr)
+	currentTarget(nullptr),
+	AntGoal("AntGoHome")
 {
 }
 

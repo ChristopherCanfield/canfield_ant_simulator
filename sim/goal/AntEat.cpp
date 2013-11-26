@@ -19,7 +19,8 @@ using cdc::AntFoodPile;
 
 
 AntEat::AntEat() :
-	currentSubgoal(&antFindFoodSubgoal)
+	currentSubgoal(&antFindFoodSubgoal),
+	AntGoal("AntEat")
 {
 }
 
