@@ -105,6 +105,7 @@ namespace cdc
 		struct AntKnowledgeBase
 		{
 			AntKnowledgeBase(AntHome& home, NavGraphHelper& navGraphHelper);
+			// TODO: change this to use a circular buffer (look into boost version).
 			Node* lastKnownFoodPosition;
 			AntHome& home;
 			Node* lastNodePassed;
