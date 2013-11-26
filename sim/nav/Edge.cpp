@@ -134,8 +134,13 @@ Node* Edge::getPheromoneNextNode() const
 
 void Edge::update(uint ticks)
 {
-	// TODO: implement this; reduce the pheromone level over time.
-	assert(false);
+	const int pheromoneReducationRate = 10;
+
+	if (ticks >= nextPheromoneReduction)
+	{
+		pheromone.decrease();
+		nextPheromoneReduction += pheromoneReducationRate;
+	}
 }
 
 void Edge::draw(sf::RenderTarget& target, sf::RenderStates states) const

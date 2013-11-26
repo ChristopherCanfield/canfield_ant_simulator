@@ -100,5 +100,8 @@ namespace cdc
 		};
 
 		Pheromone pheromone;
+
+		// The time of the next pheromone reduction, in ticks.
+		uint nextPheromoneReduction;
 	};
 }
