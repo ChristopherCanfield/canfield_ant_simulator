@@ -106,6 +106,7 @@ void createNavGraph(vector<Node>& navGraph)
 		for (int column = 0; column < nav_graph_columns; ++column)
 		{
 			auto& startNode = navGraph[(row * nav_graph_columns) + column];
+			// Add up connection.
 			if (row > 0)
 			{
 				auto& endNode = navGraph[(row - 1) * nav_graph_columns + column];
@@ -115,6 +116,7 @@ void createNavGraph(vector<Node>& navGraph)
 					startNode.addEdge(edge);
 				}
 			}
+			// Add down connection.
 			if (row < nav_graph_columns - 1)
 			{
 				auto& endNode = navGraph[(row + 1) * nav_graph_columns + column];
@@ -124,7 +126,7 @@ void createNavGraph(vector<Node>& navGraph)
 					startNode.addEdge(edge);
 				}
 			}
-
+			// Add left connection.
 			if (column > 0)
 			{
 				auto& endNode = navGraph[row * nav_graph_columns + column - 1];
@@ -134,6 +136,7 @@ void createNavGraph(vector<Node>& navGraph)
 					startNode.addEdge(edge);
 				}
 			}
+			// Add right connection.
 			if (column < nav_graph_columns - 1)
 			{
 				auto& endNode = navGraph[row * nav_graph_columns + column + 1];
@@ -143,6 +146,9 @@ void createNavGraph(vector<Node>& navGraph)
 					startNode.addEdge(edge);
 				}
 			}
+			// Add diagonal connection 1.
+
+			// Add diagonal connection 2.
 		}
 	}
 }

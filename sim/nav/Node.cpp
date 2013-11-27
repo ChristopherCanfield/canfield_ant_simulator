@@ -117,7 +117,7 @@ bool Node::edgeExists(std::shared_ptr<Edge> edge) const
 {
 	for (auto e : edges)
 	{
-		if (e == edge)
+		if (*e == *edge)
 		{
 			return true;
 		}
