@@ -90,6 +90,7 @@ void RandomWorld::create(GuiEventManager& eventManager)
 void createNavGraph(vector<Node>& navGraph)
 {
 	navGraph.reserve(nav_graph_rows * nav_graph_rows);
+	vector<vector<Node*>> navGraphEdgeHelper(nav_graph_rows, vector<Node*>(nav_graph_columns, nullptr));
 
 	for (int row = 0; row < nav_graph_rows; ++row)
 	{
@@ -98,6 +99,7 @@ void createNavGraph(vector<Node>& navGraph)
 			int pixelX = side_offset + (column * node_offset);
 			int pixelY = side_offset + (row * node_offset);
 			navGraph.push_back(Node(GridLocation(row, column), pixelX, pixelY));
+			navGraphEdgeHelper[row][column] = &navGraph.back();
 		}
 	}
 
@@ -105,11 +107,11 @@ void createNavGraph(vector<Node>& navGraph)
 	{
 		for (int column = 0; column < nav_graph_columns; ++column)
 		{
-			auto& startNode = navGraph[(row * nav_graph_columns) + column];
+			auto& startNode = *navGraphEdgeHelper[row][column];
 			// Add up connection.
 			if (row > 0)
 			{
-				auto& endNode = navGraph[(row - 1) * nav_graph_columns + column];
+				auto& endNode = *navGraphEdgeHelper[row - 1][column];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
 				if (!startNode.edgeExists(edge))
 				{
@@ -119,7 +121,7 @@ void createNavGraph(vector<Node>& navGraph)
 			// Add down connection.
 			if (row < nav_graph_columns - 1)
 			{
-				auto& endNode = navGraph[(row + 1) * nav_graph_columns + column];
+				auto& endNode = *navGraphEdgeHelper[row + 1][column];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
 				if (!startNode.edgeExists(edge))
 				{
@@ -129,7 +131,7 @@ void createNavGraph(vector<Node>& navGraph)
 			// Add left connection.
 			if (column > 0)
 			{
-				auto& endNode = navGraph[row * nav_graph_columns + column - 1];
+				auto& endNode = *navGraphEdgeHelper[row][column - 1];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
 				if (!startNode.edgeExists(edge))
 				{
@@ -139,16 +141,45 @@ void createNavGraph(vector<Node>& navGraph)
 			// Add right connection.
 			if (column < nav_graph_columns - 1)
 			{
-				auto& endNode = navGraph[row * nav_graph_columns + column + 1];
+				auto& endNode = *navGraphEdgeHelper[row][column + 1];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
 				if (!startNode.edgeExists(edge))
 				{
 					startNode.addEdge(edge);
 				}
 			}
-			// Add diagonal connection 1.
+			// Add diagonal connections
+			if (row > 0 && row < (nav_graph_rows - 1) && column > 0 && column < (nav_graph_columns - 1))
+			{
+				auto& diagonal1Node = *navGraphEdgeHelper[row + 1][column - 1];
+				auto edge1 = make_shared<Edge>(startNode, diagonal1Node, 1);
+				
+				auto& diagonal2Node = *navGraphEdgeHelper[row + 1][column + 1];
+				auto edge2 = make_shared<Edge>(startNode, diagonal2Node, 1);
 
-			// Add diagonal connection 2.
+				auto& diagonal3Node = *navGraphEdgeHelper[row - 1][column - 1];
+				auto edge3 = make_shared<Edge>(startNode, diagonal3Node, 1);
+
+				auto& diagonal4Node = *navGraphEdgeHelper[row - 1][column + 1];
+				auto edge4 = make_shared<Edge>(startNode, diagonal4Node, 1);
+
+				if (!startNode.edgeExists(edge1))
+				{
+					startNode.addEdge(edge1);
+				}
+				else if (!startNode.edgeExists(edge2))
+				{
+					startNode.addEdge(edge2);
+				}
+				else if (!startNode.edgeExists(edge3))
+				{
+					startNode.addEdge(edge3);
+				}
+				else if (!startNode.edgeExists(edge4))
+				{
+					startNode.addEdge(edge4);
+				}
+			}
 		}
 	}
 }
