@@ -58,11 +58,11 @@ bool isOccupied(vector<Node*> occupiedAreas, Node& location);
 
 // TODO: the size of the world should be accessible outside of the class,
 // or the size should be passed into the world.
-const int nav_graph_rows = 30;
-const int nav_graph_columns = 30;
+const int navGraphRows = 30;
+const int navGraphColumns = 30;
 
-const int side_offset = 50;
-const int node_offset = 100;
+const int sideOffset = 50;
+const int nodeOffset = 100;
 
 
 RandomWorld::RandomWorld(GuiEventManager& eventManager) :
@@ -89,23 +89,23 @@ void RandomWorld::create(GuiEventManager& eventManager)
 
 void createNavGraph(vector<Node>& navGraph)
 {
-	navGraph.reserve(nav_graph_rows * nav_graph_rows);
-	vector<vector<Node*>> navGraphEdgeHelper(nav_graph_rows, vector<Node*>(nav_graph_columns, nullptr));
+	navGraph.reserve(navGraphRows * navGraphColumns);
+	vector<vector<Node*>> navGraphEdgeHelper(navGraphRows, vector<Node*>(navGraphColumns, nullptr));
 
-	for (int row = 0; row < nav_graph_rows; ++row)
+	for (int row = 0; row < navGraphRows; ++row)
 	{
-		for (int column = 0; column < nav_graph_columns; ++column)
+		for (int column = 0; column < navGraphColumns; ++column)
 		{
-			int pixelX = side_offset + (column * node_offset);
-			int pixelY = side_offset + (row * node_offset);
+			int pixelX = sideOffset + (column * nodeOffset);
+			int pixelY = sideOffset + (row * nodeOffset);
 			navGraph.push_back(Node(GridLocation(row, column), pixelX, pixelY));
 			navGraphEdgeHelper[row][column] = &navGraph.back();
 		}
 	}
 
-	for (int row = 0; row < nav_graph_rows; ++row)
+	for (int row = 0; row < navGraphRows; ++row)
 	{
-		for (int column = 0; column < nav_graph_columns; ++column)
+		for (int column = 0; column < navGraphColumns; ++column)
 		{
 			auto& startNode = *navGraphEdgeHelper[row][column];
 			// Add up connection.
@@ -119,7 +119,7 @@ void createNavGraph(vector<Node>& navGraph)
 				}
 			}
 			// Add down connection.
-			if (row < nav_graph_columns - 1)
+			if (row < navGraphColumns - 1)
 			{
 				auto& endNode = *navGraphEdgeHelper[row + 1][column];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
@@ -139,7 +139,7 @@ void createNavGraph(vector<Node>& navGraph)
 				}
 			}
 			// Add right connection.
-			if (column < nav_graph_columns - 1)
+			if (column < navGraphColumns - 1)
 			{
 				auto& endNode = *navGraphEdgeHelper[row][column + 1];
 				auto edge = make_shared<Edge>(startNode, endNode, 1);
@@ -149,7 +149,7 @@ void createNavGraph(vector<Node>& navGraph)
 				}
 			}
 			// Add diagonal connections
-			if (row > 0 && row < (nav_graph_rows - 1) && column > 0 && column < (nav_graph_columns - 1))
+			if (row > 0 && row < (navGraphRows - 1) && column > 0 && column < (navGraphColumns - 1))
 			{
 				auto& diagonal1Node = *navGraphEdgeHelper[row + 1][column - 1];
 				auto edge1 = make_shared<Edge>(startNode, diagonal1Node, 1);
@@ -225,8 +225,8 @@ int addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntH
 	Random rand;
 
 	// Ant hill can be in any node within the first three rows.
-	int antHillLocation = rand.getInteger(0, 3 * nav_graph_columns);
-	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * nav_graph_columns, rand);
+	int antHillLocation = rand.getInteger(0, 3 * navGraphColumns);
+	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * navGraphColumns, rand);
 	
 	antHills.push_back(AntHome(navGraph[antHillLocation], navGraph));
 	occupiedAreas.push_back(&navGraph[antHillLocation]);

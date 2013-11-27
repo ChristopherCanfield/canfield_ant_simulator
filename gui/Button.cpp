@@ -215,20 +215,20 @@ void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 bool Button::hoverTimerExpired() const
 {
-	const sf::Time max_hover_image_time = sf::milliseconds(200);
+	const sf::Time maxHoverImageTime = sf::milliseconds(200);
 
 	return (currentImage != nullptr &&
 			currentImage == onHoverImage.get() &&
-			hoverTimer.getElapsedTime().asMilliseconds() > max_hover_image_time.asMilliseconds());
+			hoverTimer.getElapsedTime().asMilliseconds() > maxHoverImageTime.asMilliseconds());
 }
 
 bool Button::clickTimerExpired() const
 {
-	const sf::Time max_click_image_time = sf::milliseconds(300);
+	const sf::Time maxClickImageTime = sf::milliseconds(300);
 
 	return (currentImage != nullptr &&
 			currentImage == onClickImage.get() &&
-			clickTimer.getElapsedTime().asMilliseconds() > max_click_image_time.asMilliseconds());
+			clickTimer.getElapsedTime().asMilliseconds() > maxClickImageTime.asMilliseconds());
 }
 
 void Button::update(sf::Vector2f& observable)
