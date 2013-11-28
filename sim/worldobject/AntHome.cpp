@@ -88,6 +88,14 @@ void AntHome::update(uint ticks)
 {
 	// TODO: generate ants based on the amount of food.
 	assert(false);
+
+	const int antIncreaseRate = Simulator::defaultTicksPerSecond * 10;
+	if (nextAntCreatedTick < ticks)
+	{
+		nextAntCreatedTick += antIncreaseRate;
+		
+	}
+	
 }
 
 void AntHome::draw(sf::RenderTarget &target, sf::RenderStates states) const

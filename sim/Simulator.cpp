@@ -17,10 +17,11 @@ using cdc::GuiEventManager;
 using namespace std;
 
 
-uint max_sim_speed = 60;
-uint min_sim_speed = 0;
-uint sim_speed_increment = 10;
-uint default_sim_speed = 30;
+uint maxSimSpeed = 60;
+uint minSimSpeed = 0;
+uint simSpeedIncrement = 10;
+
+uint Simulator::defaultTicksPerSecond = 30;
 
 
 Simulator::Simulator(GuiEventManager& eventManager) :
@@ -143,9 +144,9 @@ void Simulator::unpause()
 // Increases the speed of the simulation.
 void Simulator::increaseSpeed()
 {
-	if ((speed + sim_speed_increment) <= max_sim_speed)
+	if ((speed + simSpeedIncrement) <= maxSimSpeed)
 	{
-		speed += sim_speed_increment;
+		speed += simSpeedIncrement;
 		cout << "Simulator: speed increased" << endl;
 	}
 	else
@@ -157,9 +158,9 @@ void Simulator::increaseSpeed()
 // Decreases the speed of the simulation.
 void Simulator::decreaseSpeed()
 {
-	if ((speed - sim_speed_increment) > min_sim_speed)
+	if ((speed - simSpeedIncrement) > minSimSpeed)
 	{
-		speed -= sim_speed_increment;
+		speed -= simSpeedIncrement;
 		cout << "Simulator: speed decreased" << endl;
 		if (speed == 0)
 		{

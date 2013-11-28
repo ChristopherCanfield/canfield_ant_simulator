@@ -55,6 +55,9 @@ namespace cdc
 
 		NavGraphHelper navGraphHelper;
 
+		// The tick at which the next ant is created.
+		uint nextAntCreatedTick;
+
 		sf::Sprite sprite;
 	};
 }
