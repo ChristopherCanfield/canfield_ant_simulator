@@ -89,7 +89,6 @@ void ViewManager::moveMainView(const sf::Event& e)
 	{
 		if (simView.getCenter().x > simView.getSize().x / 2.f)
 		{
-			std::cout << "Left" << std::endl;
 			simView.move(-movementAmount, 0.f);
 			window->setView(simView);
 		}
@@ -98,7 +97,6 @@ void ViewManager::moveMainView(const sf::Event& e)
 	{
 		if (simView.getCenter().x < (worldWidth - simView.getSize().x / 2.f))
 		{
-			std::cout << "Right" << std::endl;
 			simView.move(movementAmount, 0.f);
 			window->setView(simView);
 		}
@@ -107,7 +105,6 @@ void ViewManager::moveMainView(const sf::Event& e)
 	{
 		if (simView.getCenter().y > simView.getSize().y / 2.f)
 		{
-			std::cout << "Up" << std::endl;
 			simView.move(0.f, -movementAmount);
 			window->setView(simView);
 		}
@@ -116,7 +113,6 @@ void ViewManager::moveMainView(const sf::Event& e)
 	{
 		if (simView.getCenter().y < (worldHeight - simView.getSize().y / 2.f))
 		{
-			std::cout << "Down" << std::endl;
 			simView.move(0.f, movementAmount);
 			window->setView(simView);
 		}

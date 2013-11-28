@@ -35,6 +35,7 @@ using namespace std;
 
 // Creates the world's navigation graph.
 void createNavGraph(vector<Node>& navGraph);
+void addConnections(vector<Node>& navGraph, vector<vector<Node*>>& navGraphEdgeHelper);
 
 // Adds food piles to the world.
 void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoodPile>& antFoodPiles);
@@ -103,6 +104,11 @@ void createNavGraph(vector<Node>& navGraph)
 		}
 	}
 
+	addConnections(navGraph, navGraphEdgeHelper);
+}
+
+void addConnections(vector<Node>& navGraph, vector<vector<Node*>>& navGraphEdgeHelper)
+{
 	for (int row = 0; row < navGraphRows; ++row)
 	{
 		for (int column = 0; column < navGraphColumns; ++column)
@@ -167,21 +173,38 @@ void createNavGraph(vector<Node>& navGraph)
 				{
 					startNode.addEdge(edge1);
 				}
-				else if (!startNode.edgeExists(edge2))
+				if (!startNode.edgeExists(edge2))
 				{
 					startNode.addEdge(edge2);
 				}
-				else if (!startNode.edgeExists(edge3))
+				if (!startNode.edgeExists(edge3))
 				{
 					startNode.addEdge(edge3);
 				}
-				else if (!startNode.edgeExists(edge4))
+				if (!startNode.edgeExists(edge4))
 				{
 					startNode.addEdge(edge4);
 				}
 			}
 		}
 	}
+
+	// Add diagonal connections to corners.
+	auto& node_0_1 = *navGraphEdgeHelper[0][1];
+	auto edge1 = make_shared<Edge>(node_0_1, *navGraphEdgeHelper[1][0], 1);
+	node_0_1.addEdge(edge1);
+				
+	auto& node_0_last = *navGraphEdgeHelper[0][navGraphColumns - 2];
+	auto edge2 = make_shared<Edge>(node_0_last, *navGraphEdgeHelper[1][navGraphColumns - 1], 1);
+	node_0_last.addEdge(edge2);
+
+	auto& node_last2_0 = *navGraphEdgeHelper[navGraphRows - 2][0];
+	auto edge3 = make_shared<Edge>(node_last2_0, *navGraphEdgeHelper[navGraphRows - 1][1], 1);
+	node_last2_0.addEdge(edge3);
+
+	auto& node_last_last2 = *navGraphEdgeHelper[navGraphRows - 1][navGraphColumns - 2];
+	auto edge4 = make_shared<Edge>(node_last_last2, *navGraphEdgeHelper[navGraphRows - 2][navGraphColumns - 1], 1);
+	node_last_last2.addEdge(edge4);
 }
 
 void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoodPile>& antFoodPiles)
