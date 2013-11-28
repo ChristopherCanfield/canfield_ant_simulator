@@ -22,11 +22,12 @@ const uint antIncreaseRate = Simulator::defaultTicksPerSecond * 10;
 const uint foodPerAnt = 10;
 
 
-AntHome::AntHome(Node& node, std::vector<Node>& navGraph) :
+AntHome::AntHome(Node& node, std::vector<Node>& navGraph, World& world) :
 	foodCount(0),
 	node(node),
 	navGraphHelper(navGraph),
-	nextAntCreatedTick(antIncreaseRate)
+	nextAntCreatedTick(antIncreaseRate),
+	world(world)
 {
 	if (!AntHome::wasTextureLoaded)
 	{
@@ -92,9 +93,6 @@ NavGraphHelper& AntHome::getNavGraphHelper()
 
 void AntHome::update(uint ticks)
 {
-	// TODO: generate ants based on the amount of food.
-	assert(false);
-
 	if (nextAntCreatedTick < ticks)
 	{
 		nextAntCreatedTick += antIncreaseRate;

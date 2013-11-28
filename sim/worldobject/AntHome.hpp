@@ -21,7 +21,7 @@ namespace cdc
 		public sf::Drawable
 	{
 	public:
-		AntHome(Node& node, std::vector<Node>& navGraph);
+		AntHome(Node& node, std::vector<Node>& navGraph, World& world);
 		~AntHome();
 
 		// Returns a count of the food stored in the anthill.
@@ -52,6 +52,8 @@ namespace cdc
 
 		uint foodCount;
 		Node& node;
+
+		World& world;
 
 		NavGraphHelper navGraphHelper;
 
