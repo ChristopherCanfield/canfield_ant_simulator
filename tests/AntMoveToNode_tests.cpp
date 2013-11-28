@@ -4,6 +4,7 @@
 #include "../sim/nav/Node.hpp"
 #include "../sim/worldobject/AntHome.hpp"
 #include "../sim/nav/NavGraphHelper.hpp"
+#include "../sim/world/TestWorld.hpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -22,7 +23,8 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			vector<Node> vec;
-			AntHome home(node, vec);
+			TestWorld world;
+			AntHome home(node, vec, world);
 			
 			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
@@ -43,7 +45,8 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			vector<Node> vec;
-			AntHome home(node, vec);
+			TestWorld world;
+			AntHome home(node, vec, world);
 			
 			vec.push_back(Node(GridLocation(0, 0), 0, 0));
 			NavGraphHelper graph(vec);
