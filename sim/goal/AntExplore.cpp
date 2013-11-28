@@ -104,3 +104,11 @@ void AntExplore::processNextInPath(Ant& ant)
 		subgoal = make_unique<AntMoveToNode>(ant, *target);
 	}
 }
+
+void AntExplore::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (!path.empty())
+	{
+		// TODO: Draw the path.
+	}
+}

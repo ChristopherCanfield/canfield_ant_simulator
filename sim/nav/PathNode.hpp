@@ -20,8 +20,8 @@ namespace cdc
 	public:
 		PathNode(const PathNode& pathNode);
 		PathNode(const Node& node, float g, float h);
-		PathNode(const Node& node, PathNode& parent, float g, float h);
-		PathNode(const Node& node, PathNode& parent, int g, int h);
+		PathNode(const Node& node, const std::shared_ptr<PathNode> parent, float g, float h);
+		PathNode(const Node& node, const std::shared_ptr<PathNode> parent, int g, int h);
 
 		PathNode& operator=(const PathNode& rhs);
 	
@@ -33,7 +33,6 @@ namespace cdc
 		// Returns the parent search node (i.e., the node that led to this node). 
 		// May return nullptr if there is no parent.
 		PathNode* getParent() const;
-		void setParent(PathNode& parent);
 
 		float getG() const;
 		float getH() const;
@@ -48,7 +47,7 @@ namespace cdc
 		// Reference to a node. This is a non-owning class.
 		Node* node;
 		// The search node's parent.
-		PathNode* parent;
+		std::shared_ptr<PathNode> parent;
 		// The actual cost of the path from the start to this node.
 		float gCost;
 		// The heuristic cost of this node.

@@ -6,6 +6,7 @@
 #include "../agent/Ant.hpp"
 #include "../util/make_unique.hpp"
 
+
 // Christopher D. Canfield
 // November 2013
 // AntGoHome.cpp
@@ -48,5 +49,13 @@ void AntGoHome::update(Ant& ant, uint ticks, AntPercept& percept)
 	else
 	{
 		subgoal->update(ant, ticks, percept);
+	}
+}
+
+void AntGoHome::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (!path.empty())
+	{
+		// TODO: Draw the path.
 	}
 }

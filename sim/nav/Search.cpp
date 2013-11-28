@@ -55,87 +55,87 @@ float cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endN
 class PathNodeComparison
 {
 public:
-	bool operator()(PathNode& node1, PathNode& node2)
+	bool operator()(shared_ptr<PathNode> node1, shared_ptr<PathNode> node2)
 	{
-		return (node1.getCost() > node2.getCost());
+		return (node1->getCost() > node2->getCost());
 	}
 };
 
-std::deque<Node*> cdc::Search::graphSearch(const Node& startNode, const Node& endNode,
-									 float (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
-{
-	if (debug) cout << "start node: " << startNode.getRow() << "," << startNode.getColumn() << endl;
-	if (debug) cout << "end node: " << endNode.getRow() << "," << endNode.getColumn() << endl;
-
-	// Check if the path was already computed. If it was, return it.
-	if (paths.count(PathKey(startNode, endNode)) != 0)
-	{
-		if (debug) cout << "+path found in map; returning" << endl;
-		return paths[PathKey(startNode, endNode)];
-	}
-
-	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
-	PathNode firstNode(startNode, 0, heuristic(startNode, endNode));
-
-	deque<Node*> path;
-	std::unordered_set<Node*> searched;
-
-	searched.insert(&const_cast<Node&>(startNode));
-	frontier.push(firstNode);
-
-	while (!frontier.empty())
-	{
-		// Get lowest cost node.
-		PathNode lowestCost(frontier.top());
-		frontier.pop();
-		if (debug) cout << endl << "popped from frontier: " << lowestCost.getNode().getRow() 
-				<< "," << lowestCost.getNode().getColumn() << endl;
-
-		path.push_back(&lowestCost.getNode());
-		
-		// Return the path if the goal has been reached.
-		if (lowestCost.getNode() == endNode)
-		{
-			if (debug) cout << "+reached end node; returning" << endl;
-			// Add path to map.
-			paths[PathKey(startNode, endNode)] = path;
-			return path;
-		}
-
-		auto edges = lowestCost.getEdgeList();
-		for (auto edge : edges)
-		{
-			auto currentNode = edge->getOppositeNode(lowestCost);
-			if (debug) cout << "|-searching edge: current node: " << currentNode->getRow() << "," 
-					<< currentNode->getColumn() << endl;
-
-			// Calculate the cost for traversing this edge.
-			float h = heuristic(*currentNode, endNode);
-			float g = edge->getCost();
-			float cost = h + g;
-			if (debug) cout << "|---current node cost: " << cost << endl;
-
-			// Determine if this node has already been traversed.
-			auto foundNode = find(searched.begin(), searched.end(), currentNode);
-			bool found = (foundNode != searched.end());
-			if (debug) cout << "|---found: " << found << endl;
-
-			// If it was not already searched, add it to the frontier.
-			if (!found)
-			{
-				if (debug) cout << "|---adding to frontier: " << currentNode->getRow() << "," 
-					<< currentNode->getColumn() << endl;
-
-				auto currentPathNode = PathNode(*currentNode, lowestCost, g, h);
-				frontier.push(currentPathNode);
-				searched.insert(currentNode);
-			}
-		}
-	}
-
-	if (debug) cout << "-no path found; returning" << endl;
-	return path;
-}
+//std::deque<Node*> cdc::Search::graphSearch(const Node& startNode, const Node& endNode,
+//									 float (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
+//{
+//	if (debug) cout << "start node: " << startNode.getRow() << "," << startNode.getColumn() << endl;
+//	if (debug) cout << "end node: " << endNode.getRow() << "," << endNode.getColumn() << endl;
+//
+//	// Check if the path was already computed. If it was, return it.
+//	if (paths.count(PathKey(startNode, endNode)) != 0)
+//	{
+//		if (debug) cout << "+path found in map; returning" << endl;
+//		return paths[PathKey(startNode, endNode)];
+//	}
+//
+//	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
+//	PathNode firstNode(startNode, 0, heuristic(startNode, endNode));
+//
+//	deque<Node*> path;
+//	std::unordered_set<Node*> searched;
+//
+//	searched.insert(&const_cast<Node&>(startNode));
+//	frontier.push(firstNode);
+//
+//	while (!frontier.empty())
+//	{
+//		// Get lowest cost node.
+//		PathNode lowestCost(frontier.top());
+//		frontier.pop();
+//		if (debug) cout << endl << "popped from frontier: " << lowestCost.getNode().getRow() 
+//				<< "," << lowestCost.getNode().getColumn() << endl;
+//
+//		path.push_back(&lowestCost.getNode());
+//		
+//		// Return the path if the goal has been reached.
+//		if (lowestCost.getNode() == endNode)
+//		{
+//			if (debug) cout << "+reached end node; returning" << endl;
+//			// Add path to map.
+//			paths[PathKey(startNode, endNode)] = path;
+//			return path;
+//		}
+//
+//		auto edges = lowestCost.getEdgeList();
+//		for (auto edge : edges)
+//		{
+//			auto currentNode = edge->getOppositeNode(lowestCost);
+//			if (debug) cout << "|-searching edge: current node: " << currentNode->getRow() << "," 
+//					<< currentNode->getColumn() << endl;
+//
+//			// Calculate the cost for traversing this edge.
+//			float h = heuristic(*currentNode, endNode);
+//			float g = edge->getCost();
+//			float cost = h + g;
+//			if (debug) cout << "|---current node cost: " << cost << endl;
+//
+//			// Determine if this node has already been traversed.
+//			auto foundNode = find(searched.begin(), searched.end(), currentNode);
+//			bool found = (foundNode != searched.end());
+//			if (debug) cout << "|---found: " << found << endl;
+//
+//			// If it was not already searched, add it to the frontier.
+//			if (!found)
+//			{
+//				if (debug) cout << "|---adding to frontier: " << currentNode->getRow() << "," 
+//					<< currentNode->getColumn() << endl;
+//
+//				//auto currentPathNode = PathNode(*currentNode, lowestCost, g, h);
+//				//frontier.push(currentPathNode);
+//				//searched.insert(currentNode);
+//			}
+//		}
+//	}
+//
+//	if (debug) cout << "-no path found; returning" << endl;
+//	return path;
+//}
 
 std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 									 float (*heuristic)(const Node& startNode, const Node& endNode), bool debug)
@@ -150,8 +150,8 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 		return paths[PathKey(startNode, endNode)];
 	}
 
-	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
-	PathNode firstNode(startNode, 0, heuristic(startNode, endNode));
+	priority_queue<shared_ptr<PathNode>, vector<shared_ptr<PathNode>>, PathNodeComparison> frontier;
+	auto firstNode = make_shared<PathNode>(startNode, 0.f, heuristic(startNode, endNode));
 
 	std::unordered_set<Node*> searched;
 
@@ -161,31 +161,31 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 	while (!frontier.empty())
 	{
 		// Get lowest cost node.
-		PathNode lowestCost(frontier.top());
+		auto lowestCost(frontier.top());
 		frontier.pop();
-		if (debug) cout << endl << "popped from frontier: " << lowestCost.getNode().getRow() 
-				<< "," << lowestCost.getNode().getColumn() << endl;
+		if (debug) cout << endl << "popped from frontier: " << lowestCost->getNode().getRow() 
+				<< "," << lowestCost->getNode().getColumn() << endl;
 		
 		// Return the path if the goal has been reached.
-		if (lowestCost.getNode() == endNode)
+		if (lowestCost->getNode() == endNode)
 		{
 			if (debug) cout << "+reached end node; returning" << endl;
 			// Add path to map.
-			auto path = constructPath(lowestCost, startNode);
+			auto path = constructPath(*lowestCost, startNode);
 			paths[PathKey(startNode, endNode)] = path;
 			return path;
 		}
 
-		auto edges = lowestCost.getEdgeList();
+		auto edges = lowestCost->getEdgeList();
 		for (auto edge : edges)
 		{
-			auto currentNode = edge->getOppositeNode(lowestCost);
+			auto currentNode = edge->getOppositeNode(*lowestCost);
 			if (debug) cout << "|-searching edge: current node: " << currentNode->getRow() << "," 
 					<< currentNode->getColumn() << endl;
 
 			// Calculate the cost for traversing this edge.
 			float h = heuristic(*currentNode, endNode);
-			float g = edge->getCost() + lowestCost.getG();
+			float g = edge->getCost() + lowestCost->getG();
 			float cost = h + g;
 			if (debug) cout << "|---current node cost: " << cost << endl;
 
@@ -200,7 +200,7 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 				if (debug) cout << "|---adding to frontier: " << currentNode->getRow() << "," 
 					<< currentNode->getColumn() << endl;
 
-				auto currentPathNode = PathNode(*currentNode, lowestCost, g, h);
+				auto currentPathNode = make_shared<PathNode>(*currentNode, lowestCost, g, h);
 				frontier.push(currentPathNode);
 				searched.insert(currentNode);
 			}

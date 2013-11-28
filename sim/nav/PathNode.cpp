@@ -1,4 +1,5 @@
 #include "PathNode.hpp"
+#include "../util/make_unique.hpp"
 
 
 // Christopher D. Canfield
@@ -9,6 +10,9 @@ using cdc::PathNode;
 using cdc::Node;
 using cdc::Edge;
 
+using std::move;
+using std::shared_ptr;
+
 
 PathNode::PathNode(const Node& node, float g, float h) :
 		node(const_cast<Node*>(&node)),
@@ -18,19 +22,19 @@ PathNode::PathNode(const Node& node, float g, float h) :
 {
 }
 
-PathNode::PathNode(const Node& node, PathNode& parent, float g, float h) :
+PathNode::PathNode(const Node& node, const shared_ptr<PathNode> parent, float g, float h) :
 		node(const_cast<Node*>(&node)),
 		gCost(g),
 		hCost(h),
-		parent(&parent)
+		parent(parent)
 {
 }
 
-PathNode::PathNode(const Node& node, PathNode& parent, int g, int h) :
+PathNode::PathNode(const Node& node, const shared_ptr<PathNode> parent, int g, int h) :
 		node(const_cast<Node*>(&node)),
 		gCost(static_cast<float>(g)),
 		hCost(static_cast<float>(h)),
-		parent(&parent)
+		parent(parent)
 {
 }
 
@@ -38,7 +42,7 @@ PathNode::PathNode(const PathNode& pathNode) :
 		node(pathNode.node),
 		gCost(pathNode.gCost),
 		hCost(pathNode.hCost),
-		parent(pathNode.parent)
+		parent(parent)
 {
 }
 
@@ -68,12 +72,7 @@ Node& PathNode::getNode() const
 
 PathNode* PathNode::getParent() const
 {
-	return parent;
-}
-
-void PathNode::setParent(PathNode& parent)
-{
-	this->parent = &parent;
+	return parent.get();
 }
 
 float PathNode::getG() const

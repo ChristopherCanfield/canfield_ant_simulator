@@ -66,3 +66,8 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 		}
 	}
 }
+
+void AntForage::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	currentSubgoal->drawPath(target, states);
+}

@@ -19,6 +19,7 @@ namespace cdc
 		AntGoal(std::string goalName);
 		virtual ~AntGoal();
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) = 0;
+		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
 		virtual bool isFinished() const override;
 
 		virtual std::string toString() const override;

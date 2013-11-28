@@ -58,3 +58,11 @@ void AntFollowPath::update(Ant& agent, uint ticks, AntPercept& percept)
 		}
 	}
 }
+
+void AntFollowPath::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	if (!path.empty())
+	{
+		// TODO: Draw the path.
+	}
+}

@@ -34,6 +34,11 @@ void AntGoal::setFinished(bool finished)
 	this->finished = finished;
 }
 
+void AntGoal::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	// Default implementation: do nothing.
+}
+
 string AntGoal::toString() const
 {
 	return goalName;

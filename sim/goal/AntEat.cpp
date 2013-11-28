@@ -75,3 +75,8 @@ void AntEat::update(Ant& ant, uint ticks, AntPercept& percept)
 		}
 	}
 }
+
+void AntEat::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	currentSubgoal->drawPath(target, states);
+}

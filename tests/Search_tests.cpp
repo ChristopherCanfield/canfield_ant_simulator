@@ -157,7 +157,7 @@ namespace tests
 			
 			Node* node = path.back();
 			
-			Assert::AreEqual(3u, path.size());
+			Assert::AreEqual(2u, path.size());
 			Assert::IsTrue(*node == navGraph[5]);
 		}
 
@@ -170,7 +170,7 @@ namespace tests
 			
 			Node* node = path.back();
 			
-			Assert::AreEqual(3u, path.size());
+			Assert::AreEqual(2u, path.size());
 			Assert::IsTrue(*node == navGraph[0]);
 		}
 
@@ -183,7 +183,7 @@ namespace tests
 			
 			Node* node = path.back();
 			
-			Assert::AreEqual(3u, path.size());
+			Assert::AreEqual(2u, path.size());
 			Assert::IsTrue(*node == navGraph[2]);
 		}
 
@@ -194,11 +194,7 @@ namespace tests
 			auto path = cdc::Search::aStar(navGraph[6], navGraph[6], 
 					cdc::Search::straightLineHeuristic);
 			
-			Assert::AreEqual(path.size(), 1u);
-
-			Node* node = path.back();
-
-			Assert::IsTrue(*node == navGraph[6]);
+			Assert::IsTrue(path.empty());
 		}
 
 		TEST_METHOD(Search_AStarStraightLine_cache1)
@@ -216,10 +212,9 @@ namespace tests
 			Node* startNode1 = path.front();
 			Node* startNode2 = path2.front();
 
-			Assert::IsTrue(endNode1 == endNode2);
-			Assert::IsTrue(startNode1 == startNode2);
+			Assert::IsTrue(*endNode1 == *endNode2);
+			Assert::IsTrue(*startNode1 == *startNode2);
 			Assert::IsTrue(*endNode1 == navGraph[9]);
-			Assert::IsTrue(*startNode1 == navGraph[3]);
 		}
 
 		TEST_METHOD(Search_AStarStraightLine_cache2)
@@ -240,7 +235,6 @@ namespace tests
 			Assert::IsTrue(endNode1 == endNode2);
 			Assert::IsTrue(startNode1 == startNode2);
 			Assert::IsTrue(*endNode1 == navGraph[3]);
-			Assert::IsTrue(*startNode1 == navGraph[9]);
 		}
 
 		TEST_METHOD(Search_AStarManhattan_1)
@@ -288,7 +282,7 @@ namespace tests
 			
 			Node* node = path.back();
 			
-			Assert::AreEqual(3u, path.size());
+			Assert::AreEqual(2u, path.size());
 			Assert::IsTrue(*node == navGraph[5]);
 		}
 
@@ -301,7 +295,7 @@ namespace tests
 			
 			Node* node = path.back();
 			
-			Assert::AreEqual(3u, path.size());
+			Assert::AreEqual(2u, path.size());
 			Assert::IsTrue(*node == navGraph[0]);
 		}
 
@@ -314,7 +308,7 @@ namespace tests
 			
 			Node* node = path.back();
 			
-			Assert::AreEqual(3u, path.size());
+			Assert::AreEqual(2u, path.size());
 			Assert::IsTrue(*node == navGraph[2]);
 		}
 
@@ -325,16 +319,7 @@ namespace tests
 			auto path = cdc::Search::aStar(navGraph[3], navGraph[3],
 					cdc::Search::manhattanHeuristic);
 			
-			Assert::AreEqual(path.size(), 1u);
-
-			Node* node = nullptr;
-			while (!path.empty())
-			{
-				node = path.front();
-				path.pop_front();
-			}
-
-			Assert::IsTrue(*node == navGraph[3]);
+			Assert::IsTrue(path.empty());
 		}
 
 		TEST_METHOD(Search_AStarManhattan_cache1)
