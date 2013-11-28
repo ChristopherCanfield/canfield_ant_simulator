@@ -5,9 +5,7 @@
 // Search.hpp
 
 #include "../util/Typedefs.hpp"
-#include "Node.hpp"
 #include "PathKey.hpp"
-#include "PathNode.hpp"
 
 #include <deque>
 #include <vector>
@@ -15,6 +13,9 @@
 
 namespace cdc
 {
+	class Node;
+	class PathNode;
+
 	class Search
 	{
 	public:
@@ -33,11 +34,15 @@ namespace cdc
 		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode,
 				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
 
+		// My original attempt at searching the graph. This does usually, but not always, return 
+		// the optimal path, at least when the graph is not complex.
+		static std::deque<Node*> graphSearch(const Node& startNode, const Node& endNode,
+				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
+
 		static void printPath(std::deque<Node*> path);
 
 	private:
-		//static Node* findLowestCost(const Node& startNode, const Node& endNode, const std::vector<PathNode>& frontier);
-		//static void expandFrontier(const Node* lowestCostNode, std::vector<PathNode>& frontier, std::unordered_set<Node*>& searched);
+		static std::deque<Node*> constructPath(PathNode& finalNodeInPath, Node& startNode);
 
 		// Contains previously calculated paths from start nodes to end nodes.
 		// - key: NodeMapKey made up of a start node and end node.

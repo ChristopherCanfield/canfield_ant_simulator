@@ -88,6 +88,9 @@ uint NavGraphHelper::getMaxColumn() const
 	return maxColumn;
 }
 
+// This may be overly complicated. Storing points to the rows and columns in a 
+// multi-dimensional vector may be more computationally efficient, at the cost
+// of additional memory usage (11/28/2013).
 Node* NavGraphHelper::getNode(GridLocation location)
 {
 	if (nodes.count(location) != 0)

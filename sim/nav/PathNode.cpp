@@ -10,21 +10,35 @@ using cdc::Node;
 using cdc::Edge;
 
 
-PathNode::PathNode(const Node& node, float cost) :
+PathNode::PathNode(const Node& node, float g, float h) :
 		node(const_cast<Node*>(&node)),
-		cost(cost)
+		gCost(g),
+		hCost(h),
+		parent(nullptr)
 {
 }
 
-PathNode::PathNode(const Node& node, int cost) :
+PathNode::PathNode(const Node& node, PathNode& parent, float g, float h) :
 		node(const_cast<Node*>(&node)),
-		cost(static_cast<float>(cost))
+		gCost(g),
+		hCost(h),
+		parent(&parent)
+{
+}
+
+PathNode::PathNode(const Node& node, PathNode& parent, int g, int h) :
+		node(const_cast<Node*>(&node)),
+		gCost(static_cast<float>(g)),
+		hCost(static_cast<float>(h)),
+		parent(&parent)
 {
 }
 
 PathNode::PathNode(const PathNode& pathNode) :
 		node(pathNode.node),
-		cost(pathNode.cost)
+		gCost(pathNode.gCost),
+		hCost(pathNode.hCost),
+		parent(pathNode.parent)
 {
 }
 
@@ -36,7 +50,9 @@ PathNode& PathNode::operator=(const PathNode& rhs)
 	}
 
 	this->node = rhs.node;
-	this->cost = rhs.cost;
+	this->gCost = rhs.gCost;
+	this->hCost = rhs.hCost;
+	this->parent = rhs.parent;
 	return *this;
 }
 
@@ -50,9 +66,29 @@ Node& PathNode::getNode() const
 	return *node;
 }
 
+PathNode* PathNode::getParent() const
+{
+	return parent;
+}
+
+void PathNode::setParent(PathNode& parent)
+{
+	this->parent = &parent;
+}
+
+float PathNode::getG() const
+{
+	return gCost;
+}
+
+float PathNode::getH() const
+{
+	return hCost;
+}
+
 float PathNode::getCost() const
 {
-	return cost;
+	return gCost + hCost;
 }
 
 
