@@ -165,7 +165,7 @@ namespace tests
 			Node endNode(GridLocation(2, 1), 20, 30);
 
 			auto edge = make_shared<Edge>(startNode, endNode, 5);
-			PathNode pathNode(startNode, 10);
+			PathNode pathNode(startNode, 10, 10);
 			Node* oppNode = edge->getOppositeNode(pathNode);
 
 			Assert::AreNotEqual(startNode.getRow(), oppNode->getRow());

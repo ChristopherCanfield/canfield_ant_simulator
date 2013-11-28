@@ -153,7 +153,6 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 	priority_queue<PathNode, vector<PathNode>, PathNodeComparison> frontier;
 	PathNode firstNode(startNode, 0, heuristic(startNode, endNode));
 
-	deque<Node*> path;
 	std::unordered_set<Node*> searched;
 
 	searched.insert(&const_cast<Node&>(startNode));
@@ -166,14 +165,13 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 		frontier.pop();
 		if (debug) cout << endl << "popped from frontier: " << lowestCost.getNode().getRow() 
 				<< "," << lowestCost.getNode().getColumn() << endl;
-
-		path.push_back(&lowestCost.getNode());
 		
 		// Return the path if the goal has been reached.
 		if (lowestCost.getNode() == endNode)
 		{
 			if (debug) cout << "+reached end node; returning" << endl;
 			// Add path to map.
+			auto path = constructPath(lowestCost, startNode);
 			paths[PathKey(startNode, endNode)] = path;
 			return path;
 		}
@@ -210,10 +208,10 @@ std::deque<Node*> cdc::Search::aStar(const Node& startNode, const Node& endNode,
 	}
 
 	if (debug) cout << "-no path found; returning" << endl;
-	return path;
+	return deque<Node*>();
 }
 
-std::deque<Node*> cdc::Search::constructPath(PathNode& finalNodeInPath, Node& startNode)
+std::deque<Node*> cdc::Search::constructPath(PathNode& finalNodeInPath, const Node& startNode)
 {
 	deque<Node*> path;
 	PathNode* currentPathNode = &finalNodeInPath;

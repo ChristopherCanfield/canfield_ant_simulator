@@ -42,7 +42,7 @@ namespace cdc
 		static void printPath(std::deque<Node*> path);
 
 	private:
-		static std::deque<Node*> constructPath(PathNode& finalNodeInPath, Node& startNode);
+		static std::deque<Node*> constructPath(PathNode& finalNodeInPath, const Node& startNode);
 
 		// Contains previously calculated paths from start nodes to end nodes.
 		// - key: NodeMapKey made up of a start node and end node.
