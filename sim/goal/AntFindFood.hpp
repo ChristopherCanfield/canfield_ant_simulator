@@ -20,6 +20,15 @@ namespace cdc
 		virtual ~AntFindFood();
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
+
+		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+	private:
+		void setGoal(Ant& ant);
+
+		std::unique_ptr<AntGoal> goal;
+
+		bool foodFound;
 	};
 }
 
