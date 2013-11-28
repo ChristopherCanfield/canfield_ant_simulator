@@ -132,7 +132,7 @@ void printUserCommands()
 		<< "  1        Show/Hide navigation graph" << endl
 		<< "  2        Show/Hide pheromone strength" << endl
 		<< "  3        Show/Hide background" << endl
-		<< "  Escape   Exit" << endl;
+		<< "  Escape   Exit" << endl << endl;
 }
 
 bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& sim)

@@ -21,7 +21,8 @@ Node::Node(GridLocation location, int pixelX, int pixelY) :
 	location(location), 
 	pixelX(pixelX), 
 	pixelY(pixelY), 
-	circle(5)
+	circle(5),
+	antFoodPile(nullptr)
 {
 	circle.setOrigin(circle.getLocalBounds().width / 2.f, circle.getLocalBounds().height / 2.f);
 	circle.setPosition(Vector2fAdapter(pixelX, pixelY));
@@ -34,7 +35,8 @@ Node::Node(const Node&& other) :
 	location(other.location), 
 	pixelX(other.pixelX), 
 	pixelY(other.pixelY), 
-	circle(other.circle)
+	circle(other.circle),
+	antFoodPile(nullptr)
 {
 	edges = std::move(other.edges);
 }
