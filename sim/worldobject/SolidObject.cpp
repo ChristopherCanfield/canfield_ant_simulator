@@ -45,9 +45,11 @@ sf::Sprite cdc::SolidObject::createRock(vector<Node>& navGraph, int left, int to
 	if (rockTexture != nullptr)
 	{
 		auto sprite = sf::Sprite(*rockTexture);
-		sprite.setPosition(left + (sprite.getGlobalBounds().width / 2.f), 
-				top + (sprite.getGlobalBounds().height / 2.f));
-		removeBlockedEdges(navGraph, left, top, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+		sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
+		sprite.setPosition(left, top);
+		removeBlockedEdges(navGraph, left - (sprite.getGlobalBounds().width / 2.f), 
+				top - (sprite.getGlobalBounds().height / 2.f), 
+				sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
 		return sprite;
 	}
 	else
