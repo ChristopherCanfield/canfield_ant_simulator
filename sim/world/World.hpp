@@ -31,6 +31,7 @@ namespace cdc
 		// Creates the world.
 		virtual void create(GuiEventManager& eventManager) = 0;
 
+		GuiEventManager& getGuiEventManager();
 		std::vector<Node>& getNavGraph();
 		std::vector<Ant>& getAnts();
 		std::vector<Spider>& getSpiders();
@@ -40,6 +41,8 @@ namespace cdc
 		std::vector<AntHome> getAntHills();
 
 	protected:
+		GuiEventManager* eventManager;
+
 		std::vector<Node> navGraph;
 
 		std::vector<Ant> ants;

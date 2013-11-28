@@ -2,6 +2,7 @@
 #include "../nav/Node.hpp"
 #include "../util/Vector2fAdapter.hpp"
 #include "../Simulator.hpp"
+#include "../world/World.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -14,6 +15,7 @@ using cdc::AntHome;
 using cdc::Node;
 using cdc::NavGraphHelper;
 using cdc::Simulator;
+using cdc::World;
 
 bool AntHome::wasTextureLoaded = false;
 sf::Texture* AntHome::texture = nullptr;
@@ -101,7 +103,9 @@ void AntHome::update(uint ticks)
 		
 		for (uint i = 0; i < numberOfAntsToCreate; ++i)
 		{
-			
+			auto& ants = world.getAnts();
+			ants.push_back(Ant(world.getGuiEventManager(), *this, 
+					getNavGraphHelper(), getNode()));
 		}
 	}
 }

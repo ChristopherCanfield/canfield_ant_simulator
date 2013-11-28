@@ -19,6 +19,7 @@
 #include "../gui/ViewManager.hpp"
 #include "../sim/worldobject/AntFoodPile.hpp"
 #include "../sim/worldobject/AntHome.hpp"
+#include "../sim/world/TestWorld.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -61,6 +62,7 @@ namespace cdc
 		std::vector<Node> nodes;
 
 		NavGraphHelper navGraphHelper;
+		TestWorld world;
 
 		AntFoodPile* foodPile;
 		AntHome* antHome;

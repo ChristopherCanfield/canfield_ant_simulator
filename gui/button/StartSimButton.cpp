@@ -38,7 +38,8 @@ void StartSimButton::onDirectGuiEvent(const sf::Event& e)
 	Button::onDirectGuiEvent(e);
 	if (e.type == sf::Event::MouseButtonReleased)
 	{
-		unique_ptr<World> world = unique_ptr<World>(new RandomWorld(eventManager));
+		auto world = unique_ptr<RandomWorld>();
+		//unique_ptr<World> world = unique_ptr<World>(new RandomWorld());
 		simulator.start(move(world));
 	}
 }

@@ -48,7 +48,7 @@ GuiTestApp::GuiTestApp() :
 	nodes[3].addEdge(edge23).addEdge(edge30).addEdge(edge34);
 	nodes[4].addEdge(edge34);
 
-	antHome = new AntHome(nodes[0], nodes);
+	antHome = new AntHome(nodes[0], nodes, world);
 
 	food.push_back(AntFood(60.f, 60.f));
 

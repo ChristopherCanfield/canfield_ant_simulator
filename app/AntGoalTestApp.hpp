@@ -4,6 +4,7 @@
 #include "../gui/ViewManager.hpp"
 #include "../sim/nav/NavGraphHelper.hpp"
 #include "../sim/Simulator.hpp"
+#include "../sim/world/TestWorld.hpp"
 
 #include <SFML/Window.hpp>
 
@@ -37,6 +38,7 @@ namespace cdc
 		std::unique_ptr<AntGoalTester> ant;
 
 		GuiEventManager eventManager;
+		TestWorld world;
 
 		AntFoodPile* foodPile;
 		AntHome* antHome;

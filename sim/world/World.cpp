@@ -11,12 +11,17 @@ using cdc::Spider;
 using cdc::AntFood;
 using cdc::AntFoodPile;
 using cdc::AntHome;
+using cdc::GuiEventManager;
 
 
 World::~World()
 {
 }
 
+GuiEventManager& World::getGuiEventManager()
+{
+	return *eventManager;
+}
 
 std::vector<Node>& World::getNavGraph()
 {

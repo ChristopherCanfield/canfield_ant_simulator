@@ -16,7 +16,7 @@ namespace cdc
 			public World
 	{
 	public:
-		RandomWorld(GuiEventManager& eventManager);
+		RandomWorld();
 		virtual ~RandomWorld();
 		
 		virtual void create(GuiEventManager& eventManager) override;
@@ -24,7 +24,5 @@ namespace cdc
 	private:
 		RandomWorld(const RandomWorld&);
 		RandomWorld& operator=(const RandomWorld& other);
-
-		GuiEventManager& eventManager;
 	};
 }

@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../sim/worldobject/AntHome.hpp"
 #include "../sim/nav/Node.hpp"
+#include "../sim/world/TestWorld.hpp"
 
 #include <vector>
 
@@ -21,8 +22,9 @@ namespace tests
 			Node node(location, 100, 200);
 			vector<Node> navGraph;
 			navGraph.push_back(node);
+			TestWorld world;
 
-			AntHome home(node, navGraph);
+			AntHome home(node, navGraph, world);
 		}
 
 		TEST_METHOD(AntHome_getFoundCount)
@@ -31,8 +33,9 @@ namespace tests
 			Node node(location, 100, 200);
 			vector<Node> navGraph;
 			navGraph.push_back(node);
+			TestWorld world;
 
-			AntHome home(node, navGraph);
+			AntHome home(node, navGraph, world);
 			Assert::AreEqual(0u, home.getFoodCount());
 		}
 
@@ -42,8 +45,9 @@ namespace tests
 			Node node(location, 100, 200);
 			vector<Node> navGraph;
 			navGraph.push_back(node);
+			TestWorld world;
 
-			AntHome home(node, navGraph);
+			AntHome home(node, navGraph, world);
 			home.addFood();
 			Assert::AreEqual(1u, home.getFoodCount());
 		}
@@ -54,8 +58,9 @@ namespace tests
 			Node node(location, 100, 200);
 			vector<Node> navGraph;
 			navGraph.push_back(node);
+			TestWorld world;
 
-			AntHome home(node, navGraph);
+			AntHome home(node, navGraph, world);
 			Assert::IsFalse(home.takeFood());
 			Assert::AreEqual(0u, home.getFoodCount());
 

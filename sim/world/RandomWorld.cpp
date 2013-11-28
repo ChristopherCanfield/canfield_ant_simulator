@@ -28,6 +28,7 @@ using cdc::AntHome;
 using cdc::Random;
 using cdc::SolidObject;
 using cdc::Ant;
+using cdc::World;
 
 using namespace sf;
 using namespace std;
@@ -42,7 +43,7 @@ void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoo
 void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<Sprite>& obstructions);
 
 // Adds the ant hill to the world.
-void addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
+void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
 
 // Adds a random number of ants to the world.
 void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants);
@@ -64,8 +65,7 @@ const int sideOffset = 50;
 const int nodeOffset = 100;
 
 
-RandomWorld::RandomWorld(GuiEventManager& eventManager) :
-	eventManager(eventManager)
+RandomWorld::RandomWorld()
 {
 }
 
@@ -76,12 +76,13 @@ RandomWorld::~RandomWorld()
 
 void RandomWorld::create(GuiEventManager& eventManager)
 {
+	this->eventManager = &eventManager;
 	createNavGraph(navGraph);
 	vector<Node*> offLimitAreas;
 
 	addFood(navGraph, offLimitAreas, antFoodPiles);
 	addObstructions(navGraph, offLimitAreas, obstructions);
-	addAntHill(navGraph, offLimitAreas, antHills);
+	addAntHill(*this, navGraph, offLimitAreas, antHills);
 	addAnts(navGraph, antHills[0], eventManager, ants);
 }
 
@@ -219,14 +220,14 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	}
 }
 
-void addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills)
+void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills)
 {
 	Random rand;
 
 	// Ant hill can be in any node within the first three rows.
 	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * navGraphColumns, rand);
 	
-	antHills.push_back(AntHome(navGraph[nodeLocation], navGraph));
+	antHills.push_back(AntHome(navGraph[nodeLocation], navGraph, world));
 	occupiedAreas.push_back(&navGraph[nodeLocation]);
 }
 

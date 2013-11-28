@@ -15,6 +15,7 @@
 namespace cdc
 {
 	class Node;
+	class World;
 
 	// The home for a colony of Ants. Stores food and generates new ants.
 	class AntHome :
