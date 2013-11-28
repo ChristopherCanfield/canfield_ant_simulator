@@ -32,7 +32,7 @@ AiSimApp::AiSimApp() :
 
 	// TODO: the world size should come from the simulator.
 	background.setTextureRect(sf::IntRect(0, 0, 3100, 3100));
-	background.scale(.75f, .75f);
+	//background.scale(.75f, .75f);
 	background.setTexture(&backgroundImage);
 }
 
@@ -52,7 +52,7 @@ void AiSimApp::setup()
 	cout << endl;
 	printUserCommands();
 
-	window.create(sf::VideoMode(800, 800), "GUI Tests");
+	window.create(sf::VideoMode(800, 800), "Canfield: Ant Simulator");
 	window.setFramerateLimit(60);
 
 	viewManager.setWindow(window);
