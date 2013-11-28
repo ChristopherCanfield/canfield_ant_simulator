@@ -24,9 +24,9 @@ namespace cdc
 		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
-		void setGoal(Ant& ant);
+		void setSubgoal(Ant& ant);
 
-		std::unique_ptr<AntGoal> goal;
+		std::unique_ptr<AntGoal> subgoal;
 
 		bool foodFound;
 	};

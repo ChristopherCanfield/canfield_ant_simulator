@@ -1,4 +1,6 @@
 #include "AntFindFood.hpp"
+#include "../agent/Ant.hpp"
+#include "../nav/Node.hpp"
 
 
 // Christopher D. Canfield
@@ -35,17 +37,24 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		return;
 	}
 
-	if (goal == nullptr || !goal->isFinished())
+	if (subgoal == nullptr || !subgoal->isFinished())
 	{
-		
+		if (ant.kb.lastNodePassed->getAntFoodPile() != nullptr)
+		{
+			foodFound = true;
+		}
+		else
+		{
+
+		}
 	}
 	else
 	{
-		setGoal(ant);
+		
 	}
 }
 
-void AntFindFood::setGoal(Ant& ant)
+void AntFindFood::setSubgoal(Ant& ant)
 {
 	auto lastKnowFood = ant.popLastKnownFoodPosition();
 	// TODO: implement the rest of this.
