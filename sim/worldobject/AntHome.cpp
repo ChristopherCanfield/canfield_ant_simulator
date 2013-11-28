@@ -1,6 +1,7 @@
 #include "AntHome.hpp"
 #include "../nav/Node.hpp"
 #include "../util/Vector2fAdapter.hpp"
+#include "../Simulator.hpp"
 
 #include <cassert>
 #include <iostream>
@@ -12,15 +13,20 @@
 using cdc::AntHome;
 using cdc::Node;
 using cdc::NavGraphHelper;
+using cdc::Simulator;
 
 bool AntHome::wasTextureLoaded = false;
 sf::Texture* AntHome::texture = nullptr;
+
+const uint antIncreaseRate = Simulator::defaultTicksPerSecond * 10;
+const uint foodPerAnt = 10;
 
 
 AntHome::AntHome(Node& node, std::vector<Node>& navGraph) :
 	foodCount(0),
 	node(node),
-	navGraphHelper(navGraph)
+	navGraphHelper(navGraph),
+	nextAntCreatedTick(antIncreaseRate)
 {
 	if (!AntHome::wasTextureLoaded)
 	{
@@ -89,13 +95,17 @@ void AntHome::update(uint ticks)
 	// TODO: generate ants based on the amount of food.
 	assert(false);
 
-	const int antIncreaseRate = Simulator::defaultTicksPerSecond * 10;
 	if (nextAntCreatedTick < ticks)
 	{
 		nextAntCreatedTick += antIncreaseRate;
+		uint numberOfAntsToCreate = foodCount / foodPerAnt;
+		if (numberOfAntsToCreate == 0) ++numberOfAntsToCreate;
 		
+		for (uint i = 0; i < numberOfAntsToCreate; ++i)
+		{
+			
+		}
 	}
-	
 }
 
 void AntHome::draw(sf::RenderTarget &target, sf::RenderStates states) const

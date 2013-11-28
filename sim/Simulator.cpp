@@ -21,13 +21,13 @@ uint maxSimSpeed = 60;
 uint minSimSpeed = 0;
 uint simSpeedIncrement = 10;
 
-uint Simulator::defaultTicksPerSecond = 30;
+const uint Simulator::defaultTicksPerSecond = 30;
 
 
 Simulator::Simulator(GuiEventManager& eventManager) :
 	eventManager(eventManager),
 	started(false),
-	speed(default_sim_speed),
+	speed(defaultTicksPerSecond),
 	displayPheromones(false),
 	displayNavGraph(false),
 	ticks(0)
