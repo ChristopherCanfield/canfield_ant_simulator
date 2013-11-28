@@ -45,8 +45,6 @@ namespace cdc
 		std::vector<Ant> ants;
 		std::vector<Spider> spiders;
 
-		// TODO (2013-11-02): add ant hill and spider home.
-
 		std::vector<sf::Sprite> obstructions;
 
 		std::vector<AntFood> antFood;
