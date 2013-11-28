@@ -29,7 +29,7 @@ namespace cdc
 
 		Poco::UUID getObserverId() const;
 
-		void setWindow(sf::RenderWindow* window);
+		void setWindow(sf::RenderWindow& window);
 		sf::View& getSimView();
 		sf::View& getUiView();
 

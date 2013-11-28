@@ -95,7 +95,7 @@ void GuiTestApp::setup()
 	unpauseButton.setPosition(350, 350);
 	pauseButton.setPosition(25, 450);
 
-	viewManager.setWindow(window.get());
+	viewManager.setWindow(*window);
 	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 	//viewManager.getUiView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 0.2f));
 }

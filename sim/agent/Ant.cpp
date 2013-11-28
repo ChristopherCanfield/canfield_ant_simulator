@@ -27,6 +27,7 @@ using cdc::AntMoveToNode;
 using std::unique_ptr;
 using std::cout;
 using std::endl;
+using std::move;
 
 
 bool Ant::wasTextureLoaded = false;
@@ -69,9 +70,12 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 }
 
 Ant::Ant(Ant&& other) :
-	Button(std::move(other)),
-	kb(std::move(other.kb)),
-	stats(other.stats)
+	Button(move(other)),
+	kb(move(other.kb)),
+	stats(other.stats),
+	goal(move(other.goal)),
+	isSelected(other.isSelected),
+	deadAntSprite(other.deadAntSprite)
 {
 }
 

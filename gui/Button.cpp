@@ -37,18 +37,18 @@ Button::Button(Button&& other) :
 	guiManager(other.guiManager),
 	defaultImage(nullptr)
 {
-	if (defaultImage)
+	if (other.defaultImage)
 	{
 		this->defaultImage = std::move(other.defaultImage);
 		this->currentImage = this->defaultImage.get();
 	}
 
-	if (onClickImage)
+	if (other.onClickImage)
 	{
 		this->onClickImage = std::move(other.onClickImage);
 	}
 
-	if (onHoverImage)
+	if (other.onHoverImage)
 	{
 		this->onHoverImage = std::move(other.onHoverImage);
 	}

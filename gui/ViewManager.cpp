@@ -49,9 +49,9 @@ sf::View& ViewManager::getUiView()
 	return uiView;
 }
 
-void ViewManager::setWindow(sf::RenderWindow* window)
+void ViewManager::setWindow(sf::RenderWindow& window)
 {
-	this->window = window;
+	this->window = &window;
 }
 
 void ViewManager::onGuiEvent(const sf::Event& e)

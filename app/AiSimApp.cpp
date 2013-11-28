@@ -51,6 +51,12 @@ void AiSimApp::setup()
 	cout << endl;
 	printUserCommands();
 
+	window.create(sf::VideoMode(800, 800), "GUI Tests");
+	window.setFramerateLimit(60);
+
+	viewManager.setWindow(window);
+	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+
 	simulator.start(move(world));
 }
 
@@ -77,9 +83,10 @@ bool AiSimApp::run()
 	window.clear(sf::Color::White);
 
 	window.setView(viewManager.getSimView());
-
 	window.draw(background);
 	window.draw(simulator);
+
+	window.display();
 	
 	return continueRunning;
 }

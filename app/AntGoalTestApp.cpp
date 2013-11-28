@@ -50,7 +50,7 @@ void AntGoalTestApp::setup()
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
 	window->setFramerateLimit(60);
 
-	viewManager.setWindow(window.get());
+	viewManager.setWindow(*window);
 	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 }
 
