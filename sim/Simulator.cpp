@@ -28,7 +28,8 @@ Simulator::Simulator(GuiEventManager& eventManager) :
 	started(false),
 	speed(default_sim_speed),
 	displayPheromones(false),
-	displayNavGraph(false)
+	displayNavGraph(false),
+	ticks(0)
 {
 }
 

@@ -42,8 +42,7 @@ void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoo
 void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<Sprite>& obstructions);
 
 // Adds the ant hill to the world.
-// Returns the ant hill location within the nav graph.
-int addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
+void addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
 
 // Adds a random number of ants to the world.
 void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants);
@@ -82,7 +81,7 @@ void RandomWorld::create(GuiEventManager& eventManager)
 
 	addFood(navGraph, offLimitAreas, antFoodPiles);
 	addObstructions(navGraph, offLimitAreas, obstructions);
-	int antHillLocation = addAntHill(navGraph, offLimitAreas, antHills);
+	addAntHill(navGraph, offLimitAreas, antHills);
 	addAnts(navGraph, antHills[0], eventManager, ants);
 }
 
@@ -220,17 +219,15 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	}
 }
 
-int addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills)
+void addAntHill(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills)
 {
 	Random rand;
 
 	// Ant hill can be in any node within the first three rows.
-	int antHillLocation = rand.getInteger(0, 3 * navGraphColumns);
 	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * navGraphColumns, rand);
 	
-	antHills.push_back(AntHome(navGraph[antHillLocation], navGraph));
-	occupiedAreas.push_back(&navGraph[antHillLocation]);
-	return antHillLocation;
+	antHills.push_back(AntHome(navGraph[nodeLocation], navGraph));
+	occupiedAreas.push_back(&navGraph[nodeLocation]);
 }
 
 void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants)

@@ -135,6 +135,16 @@ int Node::getPixelY() const
 	return pixelY;
 }
 
+float Node::getPixelXAsFloat() const
+{
+	return static_cast<float>(pixelX);
+}
+
+float Node::getPixelYAsFloat() const
+{
+	return static_cast<float>(pixelY);
+}
+
 sf::Rect<float> Node::getBoundingBox() const
 {
 	const float width = 6;

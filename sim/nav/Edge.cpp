@@ -60,8 +60,8 @@ void Edge::setVertices(Node& startNode, Node& endNode)
 			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
 			sf::Color(0, 0, 255)));
 
-	sf::Vector2f startPoint(startNode.getPixelX(), startNode.getPixelY());
-	sf::Vector2f endPoint(endNode.getPixelX(), endNode.getPixelY());
+	sf::Vector2f startPoint(startNode.getPixelXAsFloat(), startNode.getPixelYAsFloat());
+	sf::Vector2f endPoint(endNode.getPixelXAsFloat(), endNode.getPixelYAsFloat());
 	if (startPoint.x == endPoint.x)
 	{
 		pheromoneVertices.setPosition(sf::Vector2f(startPoint.x - 25.f, startPoint.y));

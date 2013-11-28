@@ -101,11 +101,14 @@ int getSeed()
 
 void printWorldStats(World& world)
 {
-	auto antHillNode = world.getAntHills()[0].getNode();
-	cout << endl 
-		<< "Ant hill location: (" << antHillNode.getRow() << "," << antHillNode.getColumn() << ")" << endl
-		<< "Number of food piles: " << world.getAntFoodPiles().size() << endl
-		<< "Number of ants: " << world.getAnts().size() << endl;
+	if (!world.getAntHills().empty())
+	{
+		auto antHillNode = world.getAntHills()[0].getNode();
+		cout << endl 
+			<< "Ant hill location: (" << antHillNode.getRow() << "," << antHillNode.getColumn() << ")" << endl
+			<< "Number of food piles: " << world.getAntFoodPiles().size() << endl
+			<< "Number of ants: " << world.getAnts().size() << endl;
+	}
 }
 
 void printUserCommands()

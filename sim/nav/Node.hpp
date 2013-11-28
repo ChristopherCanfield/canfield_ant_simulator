@@ -51,8 +51,10 @@ namespace cdc
 
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;
+		float getPixelXAsFloat() const;
 		// Gets the y location of the Node, in pixels.
 		int getPixelY() const;
+		float getPixelYAsFloat() const;
 
 		sf::Rect<float> getBoundingBox() const;
 
