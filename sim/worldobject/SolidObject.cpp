@@ -26,8 +26,10 @@ void removeBlockedEdges(vector<Node>& navGraph, int left, int top, float width, 
 	{
 		if (blockedRect.intersects(node.getBoundingBox()))
 		{
-			auto edges = node.getEdgeList();
-			edges.clear();
+			while (!node.getEdgeList().empty())
+			{
+				node.removeEdge(node.getEdge(0), true);
+			}
 		}
 	}
 }

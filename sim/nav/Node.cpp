@@ -101,7 +101,7 @@ const std::vector<shared_ptr<Edge>>& Node::getEdgeList() const
 	return edges;
 }
 
-const Edge& Node::getEdge(uint index) const
+Edge& Node::getEdge(uint index) const
 {
 	if (index < edges.size())
 	{
