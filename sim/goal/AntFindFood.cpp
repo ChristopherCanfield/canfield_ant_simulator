@@ -27,7 +27,7 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 	// 1. Check last known food location.
 	// 2. If pheromone is found at any time, follow that trail.
 	// 3. Otherwise, search randomly until food is found.
-	assert(false);
+	//assert(false);
 
 	if (foodFound)
 	{
@@ -35,7 +35,7 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		return;
 	}
 
-	if (!goal->isFinished())
+	if (goal == nullptr || !goal->isFinished())
 	{
 		
 	}

@@ -28,6 +28,8 @@ namespace cdc
 		virtual void teardown() override;
 
 	private:
+		bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& sim);
+
 		sf::RenderWindow window;
 
 		GuiEventManager eventManager;
@@ -36,6 +38,7 @@ namespace cdc
 
 		sf::Texture backgroundImage;
 		sf::RectangleShape background;
+		bool drawBackground;
 	};
 
 }

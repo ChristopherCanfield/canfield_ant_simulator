@@ -15,7 +15,6 @@ using namespace cdc;
 using namespace std;
 using namespace sf;
 
-bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim);
 int getSeed();
 void printUserCommands();
 void printWorldStats(World& world);
@@ -24,7 +23,9 @@ void printWorldStats(World& world);
 AiSimApp::AiSimApp() :
 	simulator(eventManager),
 	// TODO: the world size should come from the simulator.
-	viewManager(eventManager, 3100, 3100, 800, 800, 200, 800)
+	viewManager(eventManager, 3100, 3100, 800, 800, 200, 800),
+	background(sf::Vector2f(3100, 3100)),
+	drawBackground(true)
 {
 	backgroundImage.loadFromFile("res/grass1 - stylized.jpg");
 	backgroundImage.setRepeated(true);
@@ -80,10 +81,13 @@ bool AiSimApp::run()
 
 	simulator.update();
 
-	window.clear(sf::Color::White);
-
+	window.clear(sf::Color(211, 211, 211));
+	
 	window.setView(viewManager.getSimView());
-	window.draw(background);
+	if (drawBackground)
+	{
+		window.draw(background);
+	}
 	window.draw(simulator);
 
 	window.display();
@@ -122,15 +126,16 @@ void printUserCommands()
 {
 	cout << "Simulation Commands" << endl
 		<<  "-------------------" << endl
-		<< "  Space:  Pause/Unpause" << endl
-		<< "  +:      Increase simulation speed" << endl
-		<< "  -:      Decrease simulation speed" << endl
-		<< "  1:      Show/Hide navigation graph" << endl
-		<< "  2:      Show/Hide pheromone strength" << endl
-		<< "  Escape: Exit" << endl;
+		<< "  Space    Pause/Unpause" << endl
+		<< "  +        Increase simulation speed" << endl
+		<< "  -        Decrease simulation speed" << endl
+		<< "  1        Show/Hide navigation graph" << endl
+		<< "  2        Show/Hide pheromone strength" << endl
+		<< "  3        Show/Hide background" << endl
+		<< "  Escape   Exit" << endl;
 }
 
-bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim)
+bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& sim)
 {
 	if (e.type == Event::KeyReleased)
 	{
@@ -160,6 +165,10 @@ bool processInput(const sf::Event& e, sf::Window& window, Simulator& sim)
 		else if (e.key.code == Keyboard::Num2)
 		{
 			sim.drawPheromones();
+		}
+		else if (e.key.code ==Keyboard::Num3)
+		{
+			drawBackground = !drawBackground;
 		}
 		else if (e.key.code == Keyboard::Escape)
 		{
