@@ -10,6 +10,7 @@
 using cdc::AntFindFood;
 using cdc::Ant;
 using cdc::AntPercept;
+using cdc::Node;
 
 
 AntFindFood::AntFindFood() :
@@ -45,12 +46,12 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		}
 		else
 		{
-
+			// TODO: complete this.
 		}
 	}
 	else
 	{
-		
+		// TODO: complete this.
 	}
 }
 
@@ -58,6 +59,20 @@ void AntFindFood::setSubgoal(Ant& ant)
 {
 	auto lastKnowFood = ant.popLastKnownFoodPosition();
 	// TODO: implement the rest of this.
+}
+
+// Checks the current node's edges for pheromones. If found, the node that
+// the pheromone points to is returned. Otherwise, nullptr is returned.
+Node* AntFindFood::checkEdgesForPheromone(Node& currentNode)
+{
+	for (auto& edge : currentNode.getEdgeList())
+	{
+		if (edge->getPheromone() > 0 && *edge->getPheromoneNextNode() != currentNode)
+		{
+			return edge->getPheromoneNextNode();
+		}
+	}
+	return nullptr;
 }
 
 void AntFindFood::drawPath(sf::RenderTarget& target, sf::RenderStates states) const

@@ -9,6 +9,8 @@
 
 namespace cdc 
 {
+	class Node;
+
 	// A subgoal that instructs the ant to find food. Once the food
 	// has been found, isFinished() returns true. Other goals or subgoals are then
 	// used to actually determine what to do with the food (eat / pick up)
@@ -25,6 +27,10 @@ namespace cdc
 
 	private:
 		void setSubgoal(Ant& ant);
+
+		// Checks the current node's edges for pheromones. If found, the node that
+		// the pheromone points to is returned. Otherwise, nullptr is returned.
+		Node* checkEdgesForPheromone(Node& currentNode);
 
 		std::unique_ptr<AntGoal> subgoal;
 

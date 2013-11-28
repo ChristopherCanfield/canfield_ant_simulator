@@ -39,8 +39,6 @@ namespace cdc
 		// Removes an edge.
 		void removeEdge(Edge& edge, bool removeEdgeFromOpposite = true);
 
-		//void removeEdge(const Node& connectedNode);
-
 		// Returns a reference to the edge list.
 		const std::vector<std::shared_ptr<Edge>>& getEdgeList() const;
 
@@ -49,7 +47,7 @@ namespace cdc
 		Edge& getEdge(uint index) const;
 
 		// Returns true if the edge exists.
-		bool edgeExists(std::shared_ptr<Edge> edge) const;
+		bool edgeExists(std::shared_ptr<Edge>& edge) const;
 
 		// Gets the x location of the Node, in pixels.
 		int getPixelX() const;

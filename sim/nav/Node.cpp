@@ -113,7 +113,7 @@ Edge& Node::getEdge(uint index) const
 	}
 }
 
-bool Node::edgeExists(std::shared_ptr<Edge> edge) const
+bool Node::edgeExists(std::shared_ptr<Edge>& edge) const
 {
 	for (auto e : edges)
 	{

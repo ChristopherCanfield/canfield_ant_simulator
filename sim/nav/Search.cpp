@@ -55,7 +55,7 @@ float cdc::Search::straightLineHeuristic(const Node& startNode, const Node& endN
 class PathNodeComparison
 {
 public:
-	bool operator()(shared_ptr<PathNode> node1, shared_ptr<PathNode> node2)
+	bool operator()(shared_ptr<PathNode>& node1, shared_ptr<PathNode>& node2)
 	{
 		return (node1->getCost() > node2->getCost());
 	}
