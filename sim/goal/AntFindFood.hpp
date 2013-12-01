@@ -35,6 +35,8 @@ namespace cdc
 		std::unique_ptr<AntGoal> subgoal;
 
 		bool foodFound;
+
+		std::deque<Node*> path;
 	};
 }
 

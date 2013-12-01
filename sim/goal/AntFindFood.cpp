@@ -1,6 +1,10 @@
 #include "AntFindFood.hpp"
+#include "AntMoveToNode.hpp"
+#include "AntGoalHelper.hpp"
 #include "../agent/Ant.hpp"
 #include "../nav/Node.hpp"
+#include "../nav/Search.hpp"
+#include "../util/make_unique.hpp"
 
 
 // Christopher D. Canfield
@@ -8,9 +12,12 @@
 // AntFindFood.cpp
 
 using cdc::AntFindFood;
+using cdc::AntGoalHelper;
+using cdc::AntMoveToNode;
 using cdc::Ant;
 using cdc::AntPercept;
 using cdc::Node;
+using cdc::Search;
 
 
 AntFindFood::AntFindFood() :
@@ -46,19 +53,50 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		}
 		else
 		{
-			// TODO: complete this.
+			setSubgoal(ant);
 		}
 	}
 	else
 	{
-		// TODO: complete this.
+		subgoal->update(ant, ticks, percept);
 	}
 }
 
 void AntFindFood::setSubgoal(Ant& ant)
 {
-	auto lastKnowFood = ant.popLastKnownFoodPosition();
-	// TODO: implement the rest of this.
+	// If path is not empty, check the recently reached node for pheromones.
+	// If pheromones are found, go to that node. If they aren't found,
+	// continue following the path.
+	if (!path.empty())
+	{
+		auto target = path.front();
+		path.pop_front();
+		auto pheromoneTarget = checkEdgesForPheromone(*target);
+		if (pheromoneTarget == nullptr)
+		{
+			target = pheromoneTarget;
+			path.clear();
+		}
+		subgoal = make_unique<AntMoveToNode>(ant, *target);
+	}
+	// If not following a path, attempt to go to the last known food position.
+	else if (!ant.kb.lastKnownFoodPosition.empty())
+	{
+		auto target = ant.popLastKnownFoodPosition();
+		path = Search::aStar(*ant.kb.lastNodePassed, *target, Search::manhattanHeuristic);
+		auto next = path.front();
+		path.pop_front();
+		subgoal = make_unique<AntMoveToNode>(ant, *next);
+	}
+	// If not following a path and there is no last known food position, set a random target.
+	else
+	{
+		auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper);
+		path = Search::aStar(*ant.kb.lastNodePassed, target, Search::manhattanHeuristic);
+		auto next = path.front();
+		path.pop_front();
+		subgoal = make_unique<AntMoveToNode>(ant, *next);
+	}
 }
 
 // Checks the current node's edges for pheromones. If found, the node that

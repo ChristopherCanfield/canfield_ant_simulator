@@ -1,5 +1,6 @@
 #include "AntExplore.hpp"
 #include "AntMoveToNode.hpp"
+#include "AntGoalHelper.hpp"
 #include "../agent/Ant.hpp"
 #include "../util/Random.hpp"
 #include "../util/MathHelper.hpp"
@@ -22,6 +23,7 @@ using cdc::Random;
 using cdc::Node;
 using cdc::GridLocation;
 using cdc::AntHome;
+using cdc::AntGoalHelper;
 
 
 
@@ -49,7 +51,7 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 		if (path.empty())
 		{
 			// if the path is empty, get a new target.
-			const auto& target = getNewTarget(ant);
+			const auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper);
 			const auto& currentNode = ant.getNode();
 			
 			// Set the path to the target.
@@ -65,27 +67,7 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 }
 
-Node& AntExplore::getNewTarget(const Ant& ant)
-{
-	auto& navGraphHelper = ant.kb.navGraphHelper;
-	const int maxRow = static_cast<int>(navGraphHelper.getMaxRow());
-	const int maxColumn = static_cast<int>(navGraphHelper.getMaxColumn());
 
-	uint row = 0;
-	uint column = 0;
-	Random rand;
-	bool validNodeLocation = false;
-
-	while (!validNodeLocation)
-	{
-		row = rand.getInteger(0, maxRow);
-		column = rand.getInteger(0, maxColumn);
-
-		validNodeLocation = navGraphHelper.isValid(GridLocation(row, column));
-	}
-
-	return *navGraphHelper.getNode(GridLocation(row, column));
-}
 
 void AntExplore::processNextInPath(Ant& ant)
 {
