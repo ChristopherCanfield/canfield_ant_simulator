@@ -36,6 +36,7 @@ namespace cdc
 
 	private:
 		std::unique_ptr<AntGoalTester> ant;
+		std::vector<std::unique_ptr<AntGoalTester>> goalTestAnts;
 
 		GuiEventManager eventManager;
 		TestWorld world;
