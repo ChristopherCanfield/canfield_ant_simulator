@@ -50,7 +50,7 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		return;
 	}
 
-	if (subgoal == nullptr || !subgoal->isFinished())
+	if (subgoal == nullptr || subgoal->isFinished())
 	{
 		if (ant.kb.lastNodePassed->getAntFoodPile() != nullptr)
 		{
@@ -82,7 +82,14 @@ void AntFindFood::setSubgoal(Ant& ant)
 			target = pheromoneTarget;
 			path.clear();
 		}
-		subgoal = make_unique<AntMoveToNode>(ant, *target);
+		if (subgoal == nullptr)
+		{
+			subgoal = make_unique<AntMoveToNode>(ant, *target);
+		}
+		else
+		{
+			dynamic_cast<AntMoveToNode*>(subgoal.get())->reset(ant, *target);
+		}
 	}
 	// If not following a path, attempt to go to the last known food position.
 	else if (!ant.kb.lastKnownFoodPosition.empty())
@@ -91,7 +98,14 @@ void AntFindFood::setSubgoal(Ant& ant)
 		path = Search::aStar(*ant.kb.lastNodePassed, *target, Search::manhattanHeuristic);
 		auto next = path.front();
 		path.pop_front();
-		subgoal = make_unique<AntMoveToNode>(ant, *next);
+		if (subgoal == nullptr)
+		{
+			subgoal = make_unique<AntMoveToNode>(ant, *next);
+		}
+		else
+		{
+			dynamic_cast<AntMoveToNode*>(subgoal.get())->reset(ant, *next);
+		}
 	}
 	// If not following a path and there is no last known food position, set a random target.
 	else
@@ -100,7 +114,14 @@ void AntFindFood::setSubgoal(Ant& ant)
 		path = Search::aStar(*ant.kb.lastNodePassed, target, Search::manhattanHeuristic);
 		auto next = path.front();
 		path.pop_front();
-		subgoal = make_unique<AntMoveToNode>(ant, *next);
+		if (subgoal == nullptr)
+		{
+			subgoal = make_unique<AntMoveToNode>(ant, *next);
+		}
+		else
+		{
+			dynamic_cast<AntMoveToNode*>(subgoal.get())->reset(ant, *next);
+		}
 	}
 }
 

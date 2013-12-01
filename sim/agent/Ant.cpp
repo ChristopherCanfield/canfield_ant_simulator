@@ -36,8 +36,7 @@ sf::Texture* Ant::texture = nullptr;
 
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
 		Button(manager),
-		kb(home, graphHelper),
-		isSelected(false)
+		kb(home, graphHelper)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -264,6 +263,6 @@ Ant::AntStats::AntStats() :
 	maxHunger(100),
 	isHoldingFood(false),
 	isDead(false),
-	movementSpeed(1.25f)
+	movementSpeed(2.5f)
 {
 }

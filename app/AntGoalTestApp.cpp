@@ -23,8 +23,8 @@
 using namespace std;
 using namespace cdc;
 
-void createNavGraph1(vector<Node>& graph);
-unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, 
+void createNavGraph1(vector<Node>& navGraph);
+std::vector<unique_ptr<AntGoalTester>> getTestAnts(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, 
 									 Node& startNode, Node& nearTarget, Node& farTarget);
 
 
@@ -42,10 +42,11 @@ AntGoalTestApp::~AntGoalTestApp()
 void AntGoalTestApp::setup()
 {
 	createNavGraph1(navGraph);
+	foodPile = new AntFoodPile(100, navGraph[11]);
 	navGraphHelper = NavGraphHelper(navGraph);
 
 	antHome = new AntHome(navGraph[10], navGraph, world);
-	ant = getTestAnt(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1], navGraph.back());
+	goalTestAnts = getTestAnts(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1], navGraph.back());
 
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
 	window->setFramerateLimit(60);
@@ -56,21 +57,36 @@ void AntGoalTestApp::setup()
 
 bool AntGoalTestApp::run()
 {
-	GenericPercept percept;
-	ant->update(ticks, percept);
-	++ticks;
-
-	window->clear(sf::Color::Green);
-
-	for (auto& node : navGraph)
+	if (!goalTestAnts.empty())
 	{
-		window->draw(node);
+		if (ant == nullptr || ant->isGoalFinished())
+		{
+			ant = move(goalTestAnts.back());
+			goalTestAnts.pop_back();
+			cout << "----------------------------------------" << endl;
+			cout << "Running ant test: " << (typeid(*ant.get()).name()) << endl;
+			cout << "----------------------------------------" << endl;
+		}
+
+		GenericPercept percept;
+		ant->update(ticks, percept);
+		++ticks;
+
+		window->clear(sf::Color::Green);
+
+		for (auto& node : navGraph)
+		{
+			window->draw(node);
+		}
+		window->draw(*ant);
+		window->draw(*foodPile);
+
+		window->display();
 	}
-	window->draw(*ant);
-
-	window->display();
-
-	return !ant->isGoalFinished();
+	else
+	{
+		return false;
+	}
 }
 
 void AntGoalTestApp::teardown()
@@ -78,7 +94,7 @@ void AntGoalTestApp::teardown()
 
 }
 
-unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, 
+std::vector<unique_ptr<AntGoalTester>> getTestAnts(GuiEventManager& manager, AntHome& home, NavGraphHelper& navGraphHelper, 
 									 Node& startNode, Node& nearTarget, Node& farTarget)
 {
 	cout << "Ant goal tester type: " << endl;
@@ -95,33 +111,45 @@ unique_ptr<AntGoalTester> getTestAnt(GuiEventManager& manager, AntHome& home, Na
 	int goalType;
 	cin >> goalType;
 
+	std::vector<unique_ptr<AntGoalTester>> goals;
+
 	switch (goalType)
 	{
 	case 1:
-		return make_unique<AntEatAntTest>(manager, home, navGraphHelper, startNode);
+		goals.push_back(make_unique<AntEatAntTest>(manager, home, navGraphHelper, startNode));
 		break;
 	case 2:
-		return make_unique<AntExploreAntTest>(manager, home, navGraphHelper, startNode);
+		goals.push_back(make_unique<AntExploreAntTest>(manager, home, navGraphHelper, startNode));
 		break;
 	case 3:
-		return make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode);
+		goals.push_back(make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode));
 		break;
 	case 4:
-		return make_unique<AntForageAntTest>(manager, home, navGraphHelper, startNode);
+		goals.push_back(make_unique<AntForageAntTest>(manager, home, navGraphHelper, startNode));
 		break;
 	case 5:
-		return make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper, startNode);
+		goals.push_back(make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper, startNode));
 		break;
 	case 6:
-		return make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, nearTarget);
+		goals.push_back(make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, nearTarget));
 		break;
 	case 7:
-		return make_unique<AntFollowPathAntTest>(manager, home, navGraphHelper, startNode, farTarget);
+		goals.push_back(make_unique<AntFollowPathAntTest>(manager, home, navGraphHelper, startNode, farTarget));
+		break;
 	case 8:
-		// TODO: run all tests.
+		goals.push_back(make_unique<AntEatAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntExploreAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntForageAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntGoHomeAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntMoveToNodeAntTest>(manager, home, navGraphHelper, startNode, nearTarget));
+		goals.push_back(make_unique<AntFollowPathAntTest>(manager, home, navGraphHelper, startNode, farTarget));
+		break;
 	default:
 		throw runtime_error("Invalid goal selection");
 	}
+
+	return goals;
 }
 
 void createNavGraph1(vector<Node>& navGraph)
