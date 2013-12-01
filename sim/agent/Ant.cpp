@@ -36,7 +36,8 @@ sf::Texture* Ant::texture = nullptr;
 
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
 		Button(manager),
-		kb(home, graphHelper)
+		kb(home, graphHelper),
+		isSelected(false)
 {
 	if (!Ant::wasTextureLoaded)
 	{
@@ -157,6 +158,7 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 		cout << "Ant " << getObserverId().toString() << " selected" << endl;
 		cout << "  Current Goal: " << goal->toString() << endl;
 	}
+	cout << "Direct gui event" << endl;
 }
 
 void Ant::onGuiEvent(const sf::Event& e)
@@ -165,6 +167,7 @@ void Ant::onGuiEvent(const sf::Event& e)
 	{
 		isSelected = false;
 	}
+	cout << "Indirect gui event" << endl;
 }
 
 void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const

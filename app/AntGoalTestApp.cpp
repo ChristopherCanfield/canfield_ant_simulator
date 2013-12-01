@@ -57,36 +57,50 @@ void AntGoalTestApp::setup()
 
 bool AntGoalTestApp::run()
 {
-	if (!goalTestAnts.empty())
-	{
-		if (ant == nullptr || ant->isGoalFinished())
-		{
-			ant = move(goalTestAnts.back());
-			goalTestAnts.pop_back();
-			cout << "----------------------------------------" << endl;
-			cout << "Running ant test: " << (typeid(*ant.get()).name()) << endl;
-			cout << "----------------------------------------" << endl;
-		}
-
-		GenericPercept percept;
-		ant->update(ticks, percept);
-		++ticks;
-
-		window->clear(sf::Color::Green);
-
-		for (auto& node : navGraph)
-		{
-			window->draw(node);
-		}
-		window->draw(*ant);
-		window->draw(*foodPile);
-
-		window->display();
-	}
-	else
+	if (ant != nullptr && ant->isGoalFinished() && goalTestAnts.empty())
 	{
 		return false;
 	}
+
+	if (ant == nullptr || ant->isGoalFinished())
+	{
+		ant = move(goalTestAnts.back());
+		goalTestAnts.pop_back();
+		cout << "----------------------------------------" << endl;
+		cout << "Running ant test: " << (typeid(*ant.get()).name()) << endl;
+		cout << "----------------------------------------" << endl;
+	}
+
+	sf::Event event;
+	while (window->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
+			window->close();
+			return false;
+		}
+		else
+		{
+			eventManager.update(event, *window);
+		}
+	}
+
+	GenericPercept percept;
+	ant->update(ticks, percept);
+	++ticks;
+
+	window->clear(sf::Color::Green);
+
+	for (auto& node : navGraph)
+	{
+		window->draw(node);
+	}
+	window->draw(*ant);
+	window->draw(*foodPile);
+
+	window->display();
+
+	return true;
 }
 
 void AntGoalTestApp::teardown()
