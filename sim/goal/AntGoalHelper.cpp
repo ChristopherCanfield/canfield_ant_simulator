@@ -11,7 +11,7 @@
 using namespace cdc;
 
 
-Node& AntGoalHelper::getNewTarget(NavGraphHelper& navGraphHelper)
+Node& AntGoalHelper::getNewTarget(NavGraphHelper& navGraphHelper, const Node& nodeToExclude)
 {
 	const int maxRow = static_cast<int>(navGraphHelper.getMaxRow());
 	const int maxColumn = static_cast<int>(navGraphHelper.getMaxColumn());
@@ -27,6 +27,10 @@ Node& AntGoalHelper::getNewTarget(NavGraphHelper& navGraphHelper)
 		column = rand.getInteger(0, maxColumn);
 
 		validNodeLocation = navGraphHelper.isValid(GridLocation(row, column));
+		if (row == nodeToExclude.getRow() && column == nodeToExclude.getColumn())
+		{
+			validNodeLocation = false;
+		}
 	}
 
 	return *navGraphHelper.getNode(GridLocation(row, column));

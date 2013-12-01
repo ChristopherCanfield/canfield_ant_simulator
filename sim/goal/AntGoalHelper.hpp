@@ -14,6 +14,6 @@ namespace cdc
 	class AntGoalHelper
 	{
 	public:
-		static Node& getNewTarget(NavGraphHelper& navGraphHelper);
+		static Node& getNewTarget(NavGraphHelper& navGraphHelper, const Node& nodeToExclude);
 	};
 }

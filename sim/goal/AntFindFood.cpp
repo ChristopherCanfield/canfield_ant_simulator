@@ -77,7 +77,7 @@ void AntFindFood::setSubgoal(Ant& ant)
 		auto target = path.front();
 		path.pop_front();
 		auto pheromoneTarget = checkEdgesForPheromone(*target);
-		if (pheromoneTarget == nullptr)
+		if (pheromoneTarget != nullptr)
 		{
 			target = pheromoneTarget;
 			path.clear();
@@ -96,7 +96,7 @@ void AntFindFood::setSubgoal(Ant& ant)
 	// If not following a path and there is no last known food position, set a random target.
 	else
 	{
-		auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper);
+		auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper, *ant.kb.lastNodePassed);
 		path = Search::aStar(*ant.kb.lastNodePassed, target, Search::manhattanHeuristic);
 		auto next = path.front();
 		path.pop_front();

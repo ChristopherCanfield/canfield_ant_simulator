@@ -51,7 +51,7 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 		if (path.empty())
 		{
 			// if the path is empty, get a new target.
-			const auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper);
+			const auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper, *ant.kb.lastNodePassed);
 			const auto& currentNode = ant.getNode();
 			
 			// Set the path to the target.
