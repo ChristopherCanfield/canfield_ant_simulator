@@ -34,9 +34,10 @@ namespace tests
 			Ant ant(manager, home, graph, vec[0]);
 		}
 
-		TEST_METHOD(Ant_update)
-		{
-			GuiEventManager manager;
+		// TODO: remove this, and test using test apps.
+		//TEST_METHOD(Ant_update)
+		//{
+			/*GuiEventManager manager;
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 			vector<Node> vec;
@@ -49,8 +50,8 @@ namespace tests
 			Ant ant(manager, home, graph, vec[0]);
 
 			GenericPercept percept;
-			ant.update(10, percept);
-		}
+			ant.update(10, percept);*/
+		//}
 
 		TEST_METHOD(Ant_getLastKnownFoodPosition)
 		{

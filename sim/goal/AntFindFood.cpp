@@ -39,6 +39,11 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 	// 3. Otherwise, search randomly until food is found.
 	//assert(false);
 
+	if (isFinished())
+	{
+		return;
+	}
+
 	if (foodFound)
 	{
 		setFinished(true);
