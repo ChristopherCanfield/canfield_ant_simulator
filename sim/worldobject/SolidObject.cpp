@@ -1,4 +1,5 @@
 #include "SolidObject.hpp"
+#include "../nav/Node.hpp"
 
 #include <SFML/Graphics.hpp>
 

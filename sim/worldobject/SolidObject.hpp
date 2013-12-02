@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../util/Typedefs.hpp"
-#include "../nav/Node.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -15,6 +14,8 @@
 
 namespace cdc
 {
+	class Node;
+
 	// Contains functions for creating impassable objects in the world. The functions
 	// modify the nav graph, and return a sprite. The sprite should not be moved after
 	// it is returned by these functions.

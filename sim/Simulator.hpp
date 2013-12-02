@@ -5,10 +5,6 @@
 // Simulator.hpp
 
 #include "../util/Typedefs.hpp"
-#include "agent/Ant.hpp"
-#include "agent/Spider.hpp"
-#include "worldobject/AntFood.hpp"
-#include "worldobject/AntFoodPile.hpp"
 #include "world/World.hpp"
 
 #include <SFML/System/Clock.hpp>

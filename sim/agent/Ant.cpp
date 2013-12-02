@@ -8,6 +8,8 @@
 #include "../goal/AntExplore.hpp"
 #include "../goal/AntMoveToNode.hpp"
 #include "../util/make_unique.hpp"
+#include "../knowledge/Percept.hpp"
+#include "../knowledge/AntPercept.hpp"
 
 #include <iostream>
 

@@ -1,4 +1,5 @@
 #include "PathNode.hpp"
+#include "Node.hpp"
 #include "../util/make_unique.hpp"
 
 

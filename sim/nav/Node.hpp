@@ -18,6 +18,7 @@
 namespace cdc 
 {
 	class AntFoodPile;
+	class Edge;
 
 	// A node in a graph.
 	class Node :

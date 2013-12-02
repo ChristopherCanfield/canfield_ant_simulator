@@ -6,8 +6,6 @@
 
 #include "Agent.hpp"
 #include "../../gui/Button.hpp"
-#include "../knowledge/Percept.hpp"
-#include "../knowledge/AntPercept.hpp"
 #include "../util/Typedefs.hpp"
 #include "../util/Random.hpp"
 
@@ -25,6 +23,7 @@ namespace cdc
 	class NavGraphHelper;
 	class AntHome;
 	class AntGoal;
+	class Percept;
 
 	// An ant intelligent agent.
 	class Ant :

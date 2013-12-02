@@ -8,7 +8,7 @@
 
 namespace cdc
 {
-
+	// A key used in the A* algorithm.
 	class PathKey
 	{
 	public:

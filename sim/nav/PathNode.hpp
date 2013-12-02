@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Node.hpp"
 #include "Edge.hpp"
 
 #include <vector>
@@ -13,6 +12,8 @@
 
 namespace cdc
 {
+	class Node;
+
 	// A wrapper around a Node that includes the cost of getting to the Node
 	// (edge cost + heuristic cost).
 	class PathNode

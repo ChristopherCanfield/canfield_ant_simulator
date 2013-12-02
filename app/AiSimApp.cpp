@@ -126,13 +126,15 @@ void printUserCommands()
 {
 	cout << "Simulation Commands" << endl
 		<<  "-------------------" << endl
-		<< "  Space    Pause/Unpause" << endl
-		<< "  +        Increase simulation speed" << endl
-		<< "  -        Decrease simulation speed" << endl
-		<< "  1        Show/Hide navigation graph" << endl
-		<< "  2        Show/Hide pheromone strength" << endl
-		<< "  3        Show/Hide background" << endl
-		<< "  Escape   Exit" << endl << endl;
+		<< "  Space.........Pause/Unpause" << endl
+		<< "  +.............Increase simulation speed" << endl
+		<< "  -.............Decrease simulation speed" << endl
+		<< "  1.............Show/Hide navigation graph" << endl
+		<< "  2.............Show/Hide pheromone strength" << endl
+		<< "  3.............Show/Hide background" << endl
+		<< "  Mouse Wheel...Zoom in/out" << endl
+		<< "  Arrow Keys....Move screen up/down/left/right" << endl 
+		<< "  Escape........Exit" << endl << endl;
 }
 
 bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& sim)

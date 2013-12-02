@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 
 #include "../sim/nav/PathNode.hpp"
+#include "../sim/nav/Node.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

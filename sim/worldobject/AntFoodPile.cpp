@@ -1,4 +1,5 @@
 #include "AntFoodPile.hpp"
+#include "../nav/Node.hpp"
 #include "../util/Vector2fAdapter.hpp"
 
 #include <iostream>
@@ -9,7 +10,6 @@
 
 using cdc::AntFoodPile;
 using cdc::Node;
-using cdc::AntFood;
 
 bool AntFoodPile::wasTextureLoaded = false;
 sf::Texture* AntFoodPile::texture = nullptr;
