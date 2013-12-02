@@ -95,6 +95,14 @@ bool AntGoalTestApp::run()
 	{
 		window->draw(node);
 	}
+	for (auto& node : navGraph)
+	{
+		for (auto& edge : node.getEdgeList())
+		{
+			edge->drawPheromone(*window, sf::RenderStates::Default);
+		}
+	}
+
 	window->draw(*ant);
 	window->draw(*foodPile);
 
