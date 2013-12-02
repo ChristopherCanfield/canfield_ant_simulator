@@ -53,15 +53,15 @@ void Edge::setVertices(Node& startNode, Node& endNode)
 	vertices.setPrimitiveType(sf::Lines);
 
 	vertices.append(sf::Vertex(
-			Vector2fAdapter(startNode.getPixelX(), startNode.getPixelY()), 
+			Vector2fAdapter(startNode.getPixelX<uint>(), startNode.getPixelY<uint>()), 
 			sf::Color(0, 0, 255)));
 
 	vertices.append(sf::Vertex(
-			Vector2fAdapter(endNode.getPixelX(), endNode.getPixelY()), 
+			Vector2fAdapter(endNode.getPixelX<uint>(), endNode.getPixelY<uint>()), 
 			sf::Color(0, 0, 255)));
 
-	sf::Vector2f startPoint(startNode.getPixelXAsFloat(), startNode.getPixelYAsFloat());
-	sf::Vector2f endPoint(endNode.getPixelXAsFloat(), endNode.getPixelYAsFloat());
+	sf::Vector2f startPoint(startNode.getPixelX<float>(), startNode.getPixelY<float>());
+	sf::Vector2f endPoint(endNode.getPixelX<float>(), endNode.getPixelY<float>());
 	if (startPoint.x == endPoint.x)
 	{
 		pheromoneVertices.setPosition(sf::Vector2f(startPoint.x - 25.f, startPoint.y));

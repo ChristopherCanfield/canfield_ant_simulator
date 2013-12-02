@@ -237,7 +237,7 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	for (int i = 0; i < maxObstructions; ++i)
 	{
 		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
-		auto rock = SolidObject::createRock(navGraph, navGraph[nodeLocation].getPixelX(), navGraph[nodeLocation].getPixelY());
+		auto rock = SolidObject::createRock(navGraph, navGraph[nodeLocation].getPixelX<int>(), navGraph[nodeLocation].getPixelY<int>());
 		obstructions.push_back(rock);
 		occupiedAreas.push_back(&navGraph[nodeLocation]);
 	}

@@ -97,7 +97,7 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 
-			auto pixelX = node.getPixelX();
+			auto pixelX = node.getPixelX<int>();
 			Assert::AreEqual(pixelX, 100);
 		}
 
@@ -106,7 +106,7 @@ namespace tests
 			GridLocation location(5, 1);
 			Node node(location, 100, 200);
 
-			auto pixelY = node.getPixelY();
+			auto pixelY = node.getPixelY<int>();
 			Assert::AreEqual(pixelY, 200);
 		}
 

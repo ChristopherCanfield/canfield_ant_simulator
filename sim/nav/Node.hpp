@@ -50,11 +50,12 @@ namespace cdc
 		bool edgeExists(std::shared_ptr<Edge>& edge) const;
 
 		// Gets the x location of the Node, in pixels.
-		int getPixelX() const;
-		float getPixelXAsFloat() const;
+		template <class T>
+		T getPixelX() const;
+
 		// Gets the y location of the Node, in pixels.
-		int getPixelY() const;
-		float getPixelYAsFloat() const;
+		template <class T>
+		T getPixelY() const;
 
 		sf::Rect<float> getBoundingBox() const;
 
@@ -96,6 +97,18 @@ namespace cdc
 
 		AntFoodPile* antFoodPile;
 	};
+
+	template <class T>
+	T Node::getPixelX() const
+	{
+		return static_cast<T>(pixelX);
+	}
+
+	template <class T>
+	T Node::getPixelY() const
+	{
+		return static_cast<T>(pixelY);
+	}
 }
 
 std::ostream& operator<<(std::ostream& stream, const cdc::Node& node);

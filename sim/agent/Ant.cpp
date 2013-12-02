@@ -106,7 +106,7 @@ void Ant::update(uint ticks, const Percept& percept)
 void Ant::setPositionToNode(const Node& node)
 {
 	kb.lastNodePassed = const_cast<Node*>(&node);
-	setPosition(node.getPixelX(), node.getPixelY());
+	setPosition(node.getPixelX<int>(), node.getPixelY<int>());
 }
 
 const Node* Ant::popLastKnownFoodPosition()

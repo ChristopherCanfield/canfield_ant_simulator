@@ -127,26 +127,6 @@ bool Node::edgeExists(std::shared_ptr<Edge>& edge) const
 	return false;
 }
 
-int Node::getPixelX() const
-{
-	return pixelX;
-}
-
-int Node::getPixelY() const
-{
-	return pixelY;
-}
-
-float Node::getPixelXAsFloat() const
-{
-	return static_cast<float>(pixelX);
-}
-
-float Node::getPixelYAsFloat() const
-{
-	return static_cast<float>(pixelY);
-}
-
 sf::Rect<float> Node::getBoundingBox() const
 {
 	const float width = 6;

@@ -50,7 +50,7 @@ AntHome::AntHome(Node& node, std::vector<Node>& navGraph, World& world) :
 
 	sprite.setTexture(*AntHome::texture, true);
 	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
-	sprite.setPosition(Vector2fAdapter(node.getPixelX(), node.getPixelY()));
+	sprite.setPosition(Vector2fAdapter(node.getPixelX<uint>(), node.getPixelY<uint>()));
 }
 
 

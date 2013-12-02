@@ -73,7 +73,7 @@ void AntMoveToNode::calculateMovementVectors(Ant& ant)
 {
 	// Turn the ant to face the new target node.
 	float angle = MathHelper::angleInRadians(ant.getPosition().x, ant.getPosition().y, 
-			target->getPixelX(), target->getPixelY());
+			target->getPixelX<float>(), target->getPixelY<float>());
 
 	if (MathHelper::radiansToDegrees(debug)) cout << "Angle: " << angle << endl;
 	ant.setRotation(MathHelper::radiansToDegrees(angle));
