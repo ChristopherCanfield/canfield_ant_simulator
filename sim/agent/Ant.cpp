@@ -155,19 +155,18 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 	if (e.type == sf::Event::MouseButtonReleased && !isSelected)
 	{
 		isSelected = true;
+		selectedTimer.restart();
 		cout << "Ant " << getObserverId().toString() << " selected" << endl;
 		cout << "  Current Goal: " << goal->toString() << endl;
 	}
-	cout << "Direct gui event" << endl;
 }
 
 void Ant::onGuiEvent(const sf::Event& e)
 {
-	if (e.type == sf::Event::MouseButtonPressed && isSelected)
+	if (e.type == sf::Event::MouseButtonPressed && isSelected && selectedTimer.getElapsedTime().asMilliseconds() > 300)
 	{
 		isSelected = false;
 	}
-	cout << "Indirect gui event" << endl;
 }
 
 void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const

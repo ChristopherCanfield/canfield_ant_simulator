@@ -144,6 +144,7 @@ namespace cdc
 		// Whether the ant is currently selected. This can be used to get debug
 		// or state information.
 		bool isSelected;
+		sf::Clock selectedTimer;
 
 		// Gets a new goal for the ant.
 		std::unique_ptr<AntGoal> getNewGoal(AntStats& stats);
