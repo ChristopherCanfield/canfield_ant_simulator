@@ -100,6 +100,7 @@ bool AntGoalTestApp::run()
 		for (auto& edge : node.getEdgeList())
 		{
 			edge->drawPheromone(*window, sf::RenderStates::Default);
+			edge->update(ticks);
 		}
 	}
 

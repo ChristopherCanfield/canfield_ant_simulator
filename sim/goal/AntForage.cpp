@@ -40,7 +40,6 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 		if (currentSubgoal == &antFindFoodSubgoal)
 		{
 			auto& foodPileNode = ant.getNode();
-				
 			if (foodPileNode.getAntFoodPile() != nullptr)
 			{
 				auto& foodPile = *foodPileNode.getAntFoodPile();

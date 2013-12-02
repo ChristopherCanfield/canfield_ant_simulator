@@ -24,15 +24,6 @@ namespace tests
 			Edge edge(startNode, endNode, 5);
 		}
 
-		TEST_METHOD(Edge_set)
-		{
-			Node startNode(GridLocation(1, 2), 20, 30);
-			Node endNode(GridLocation(1, 2), 20, 30);
-
-			Edge edge(startNode);
-			edge.set(endNode, 10);
-		}
-
 		TEST_METHOD(Edge_getNode1)
 		{
 			Node startNode(GridLocation(1, 2), 20, 30);

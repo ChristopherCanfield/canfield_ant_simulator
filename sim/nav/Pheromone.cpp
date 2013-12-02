@@ -22,11 +22,19 @@ Edge::Pheromone::~Pheromone()
 {
 }
 
+const uint max = 10u;
 
 void Edge::Pheromone::increase()
 {
-	const uint max = 10u;
 	if (strength < max)
+	{
+		++strength;
+	}
+}
+
+void Edge::Pheromone::increaseToMax()
+{
+	for (strength = strength; strength < max; ++strength)
 	{
 		++strength;
 	}

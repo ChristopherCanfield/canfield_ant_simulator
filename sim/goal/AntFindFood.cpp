@@ -98,6 +98,12 @@ void AntFindFood::setSubgoal(Ant& ant)
 		path = Search::aStar(*ant.kb.lastNodePassed, *target, Search::manhattanHeuristic);
 		auto next = path.front();
 		path.pop_front();
+		auto pheromoneTarget = checkEdgesForPheromone(*next);
+		if (pheromoneTarget != nullptr)
+		{
+			next = pheromoneTarget;
+			path.clear();
+		}
 		if (subgoal == nullptr)
 		{
 			subgoal = make_unique<AntMoveToNode>(ant, *next);
@@ -114,6 +120,12 @@ void AntFindFood::setSubgoal(Ant& ant)
 		path = Search::aStar(*ant.kb.lastNodePassed, target, Search::manhattanHeuristic);
 		auto next = path.front();
 		path.pop_front();
+		auto pheromoneTarget = checkEdgesForPheromone(*next);
+		if (pheromoneTarget != nullptr)
+		{
+			next = pheromoneTarget;
+			path.clear();
+		}
 		if (subgoal == nullptr)
 		{
 			subgoal = make_unique<AntMoveToNode>(ant, *next);

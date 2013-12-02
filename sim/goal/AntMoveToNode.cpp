@@ -38,7 +38,6 @@ void AntMoveToNode::update(Ant& ant, uint ticks, AntPercept& percept)
 	if (ant.getBoundingBox().intersects(target->getBoundingBox()))
 	{
 		setFinished(true);
-		ant.kb.lastNodePassed = const_cast<Node*>(target);
 
 		auto antFoodPile = target->getAntFoodPile();
 		if (antFoodPile != nullptr)
@@ -50,6 +49,23 @@ void AntMoveToNode::update(Ant& ant, uint ticks, AntPercept& percept)
 				foodPositions.push_front(target);
 			}
 		}
+
+		if (ant.stats.isHoldingFood)
+		{
+			auto& edges = target->getEdgeList();
+			for (auto& edge : edges)
+			{
+				Node* node = nullptr;
+				if ((node = edge->getOppositeNode(*ant.kb.lastNodePassed)) != nullptr)
+				{
+					edge->increasePheromoneToMax();
+					edge->setPheromoneNextNode(*ant.kb.lastNodePassed);
+					break;
+				}
+			}
+		}
+
+		ant.kb.lastNodePassed = const_cast<Node*>(target);
 
 		if (debug) cout << "Reached node" << endl;
 	}

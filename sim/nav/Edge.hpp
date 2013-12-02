@@ -24,9 +24,6 @@ namespace cdc
 		Edge(Node& startNode, Node& endNode, float cost);
 		Edge(Node& startNode, Node& endNode, int cost);
 
-		// Sets the attached node.
-		void set(Node& endNode, float cost);
-
 		// Returns the the first node that the edge is connected to.
 		Node* getNode1() const;
 
@@ -34,6 +31,8 @@ namespace cdc
 		// is no connected node.
 		Node* getNode2() const;
 
+		// Returns the node opposite the specified node, or nullptr if 
+		// none exists.
 		Node* getOppositeNode(const Node& node) const;
 		Node* getOppositeNode(PathNode node) const;
 
@@ -42,6 +41,7 @@ namespace cdc
 
 		uint getPheromone() const;
 		void increasePheromone();
+		void increasePheromoneToMax();
 		void decreasePheromone();
 		void setPheromoneNextNode(Node& node);
 		Node* getPheromoneNextNode() const;
@@ -69,7 +69,9 @@ namespace cdc
 
 		// The graphical representation of the edge.
 		sf::VertexArray vertices;
-		sf::RectangleShape pheromoneVertices;
+		// TODO: Implement this as a triangle if time permits.
+		//sf::RectangleShape pheromoneVertices;
+		sf::VertexArray pheromoneVertices;
 
 		// Ant pheromone, which ants use to create paths leading from home to food.
 		// Pheromones are put onto edges.
@@ -81,6 +83,7 @@ namespace cdc
 
 			// Increases the strength of the pheromone.
 			void increase();
+			void increaseToMax();
 			// Decreases the strength of the pheromone.
 			void decrease();
 
