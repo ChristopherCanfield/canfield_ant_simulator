@@ -11,6 +11,7 @@
 #include "../worldobject/AntHome.hpp"
 
 #include <cmath>
+#include <iostream>
 
 // Christopher D. Canfield
 // November 2013
@@ -24,6 +25,9 @@ using cdc::Node;
 using cdc::GridLocation;
 using cdc::AntHome;
 using cdc::AntGoalHelper;
+
+using std::cout;
+using std::endl;
 
 
 

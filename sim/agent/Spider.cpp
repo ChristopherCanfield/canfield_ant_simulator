@@ -2,11 +2,13 @@
 
 #include <iostream>
 #include <memory>
+#include <cassert>
 
 // Christopher D. Canfield
 // October 2013
 // Spider.cpp
 
+// TODO: Not currently implemented.
 
 using cdc::Spider;
 using cdc::Percept;
@@ -39,7 +41,7 @@ Spider::Spider(GuiEventManager& manager) :
 		}
 	}
 
-	// Ants don't need to know about mouse move events or indirect click events.
+	// Spiders don't need to know about mouse move events or indirect click events.
 	manager.removeMouseMoveListener(*this);
 	manager.removeClickListener(*this);
 }
@@ -51,7 +53,8 @@ Spider::~Spider()
 
 void Spider::update(uint ticks, const Percept& percept)
 {
-
+	// Not currently implemented.
+	assert(false);
 }
 
 void Spider::onDirectGuiEvent(const sf::Event& e)

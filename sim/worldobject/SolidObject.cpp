@@ -18,9 +18,9 @@ sf::Texture* SolidObject::rockTexture(nullptr);
 sf::Texture* SolidObject::waterTexture(nullptr);
 
 
-void removeBlockedEdges(vector<Node>& navGraph, int left, int top, float width, float height)
+void removeBlockedEdges(vector<Node>& navGraph, float left, float top, float width, float height)
 {
-	sf::Rect<float> blockedRect(static_cast<float>(left), static_cast<float>(top), width, height);
+	sf::Rect<float> blockedRect(left, top, width, height);
 
 	for (auto& node : navGraph)
 	{

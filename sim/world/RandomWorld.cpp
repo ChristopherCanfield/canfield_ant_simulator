@@ -35,7 +35,7 @@ using namespace std;
 
 // Creates the world's navigation graph.
 void createNavGraph(vector<Node>& navGraph);
-void addConnections(vector<Node>& navGraph, vector<vector<Node*>>& navGraphEdgeHelper);
+void addConnections(vector<vector<Node*>>& navGraphEdgeHelper);
 
 // Adds food piles to the world.
 void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoodPile>& antFoodPiles);
@@ -47,7 +47,7 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
 
 // Adds a random number of ants to the world.
-void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants);
+void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants);
 
 // Finds an unoccupied location between the min and max node (inclusive).
 // Returns the index of the node within the nav graph.
@@ -84,7 +84,7 @@ void RandomWorld::create(GuiEventManager& eventManager)
 	addFood(navGraph, offLimitAreas, antFoodPiles);
 	addObstructions(navGraph, offLimitAreas, obstructions);
 	addAntHill(*this, navGraph, offLimitAreas, antHills);
-	addAnts(navGraph, antHills[0], eventManager, ants);
+	addAnts(antHills[0], eventManager, ants);
 }
 
 
@@ -104,10 +104,10 @@ void createNavGraph(vector<Node>& navGraph)
 		}
 	}
 
-	addConnections(navGraph, navGraphEdgeHelper);
+	addConnections(navGraphEdgeHelper);
 }
 
-void addConnections(vector<Node>& navGraph, vector<vector<Node*>>& navGraphEdgeHelper)
+void addConnections(vector<vector<Node*>>& navGraphEdgeHelper)
 {
 	for (int row = 0; row < navGraphRows; ++row)
 	{
@@ -213,10 +213,10 @@ void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoo
 
 	// Add between 3 and 10 piles of food.
 	const int minFoodPiles = 3;
-	const int maxFoodPiles = 10;
+	const int maxFoodPiles = 15;
 
 	int foodPileCount = rand.getInteger(minFoodPiles, maxFoodPiles);
-	for (int i = 0; i < maxFoodPiles; ++i)
+	for (int i = 0; i < foodPileCount; ++i)
 	{
 		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
 		int foodInPile = rand.getInteger(50, 750);
@@ -230,11 +230,11 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	Random rand;
 
 	// Add between 10 and 20 obstructions.
-	const int maxObstructions = 20;
+	const int maxObstructions = 30;
 	const int minObstructions = 10;
 
 	int obstructionCount = rand.getInteger(minObstructions, maxObstructions);
-	for (int i = 0; i < maxObstructions; ++i)
+	for (int i = 0; i < obstructionCount; ++i)
 	{
 		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
 		auto rock = SolidObject::createRock(navGraph, navGraph[nodeLocation].getPixelX<int>(), navGraph[nodeLocation].getPixelY<int>());
@@ -254,7 +254,7 @@ void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAre
 	occupiedAreas.push_back(&navGraph[nodeLocation]);
 }
 
-void addAnts(vector<Node>& navGraph, AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants)
+void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants)
 {
 	Random rand;
 
