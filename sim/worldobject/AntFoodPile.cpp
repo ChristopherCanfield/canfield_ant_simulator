@@ -38,7 +38,7 @@ AntFoodPile::AntFoodPile(uint foodCount, Node& node) :
 
 	sprite.setTexture(*AntFoodPile::texture, true);
 	sprite.setOrigin(sprite.getLocalBounds().width / 2.f, sprite.getLocalBounds().height / 2.f);
-	sprite.setPosition(Vector2fAdapter(node.getPixelX(), node.getPixelY()));
+	sprite.setPosition(Vector2fAdapter(node.getPixelX<uint>(), node.getPixelY<uint>()));
 
 	node.setAntFoodPile(this);
 }

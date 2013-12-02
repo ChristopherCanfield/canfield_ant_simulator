@@ -44,7 +44,7 @@ namespace tests
 		{
 			auto test = make_unique<Node>(GridLocation(1, 2), 100, 200);
 			Assert::AreEqual(2u, test->getColumn());
-			Assert::AreEqual(100, test->getPixelX());
+			Assert::AreEqual(100, test->getPixelX<int>());
 		}
 
 		TEST_METHOD(make_unique_4)

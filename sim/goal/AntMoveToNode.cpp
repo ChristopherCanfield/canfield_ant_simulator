@@ -25,7 +25,7 @@ AntMoveToNode::AntMoveToNode(Ant& ant, const Node& target, bool debug) :
 {
 	calculateMovementVectors(ant);
 	if (debug) cout << "target: (" << target.getRow() << "," << target.getColumn() << "); " <<
-			target.getPixelX() << "," << target.getPixelY() << "px" << endl;
+			target.getPixelX<int>() << "," << target.getPixelY<int>() << "px" << endl;
 }
 
 
