@@ -68,6 +68,14 @@ void Simulator::update()
 
 void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
+	if (displayNavGraph)
+	{
+		for (auto& node : world->getNavGraph())
+		{
+			node.draw(target, states);
+		}
+	}
+
 	if (displayPheromones)
 	{
 		for (auto& node : world->getNavGraph())
@@ -76,14 +84,6 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 			{
 				edge->drawPheromone(target, states);
 			}
-		}
-	}
-
-	if (displayNavGraph)
-	{
-		for (auto& node : world->getNavGraph())
-		{
-			node.draw(target, states);
 		}
 	}
 

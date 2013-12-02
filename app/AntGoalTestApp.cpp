@@ -45,7 +45,7 @@ void AntGoalTestApp::setup()
 	foodPile = new AntFoodPile(100, navGraph[11]);
 	navGraphHelper = NavGraphHelper(navGraph);
 
-	antHome = new AntHome(navGraph[10], navGraph, world);
+	antHome = new AntHome(navGraph[6], navGraph, world);
 	goalTestAnts = getTestAnts(eventManager, *antHome, navGraphHelper, navGraph[0], navGraph[1], navGraph.back());
 
 	window = std::unique_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(800, 800), "GUI Tests"));
@@ -128,7 +128,8 @@ std::vector<unique_ptr<AntGoalTester>> getTestAnts(GuiEventManager& manager, Ant
 	cout << "  5: AntGoHome" << endl;
 	cout << "  6: AntMoveToNode" << endl;
 	cout << "  7: AntFollowPath" << endl;
-	cout << "  8: Run all tests" << endl;
+	cout << "  8: Pheromone Tests" << endl;
+	cout << "  9: Run all tests" << endl;
 	cout << "Type: ";
 
 	int goalType;
@@ -160,6 +161,13 @@ std::vector<unique_ptr<AntGoalTester>> getTestAnts(GuiEventManager& manager, Ant
 		goals.push_back(make_unique<AntFollowPathAntTest>(manager, home, navGraphHelper, startNode, farTarget));
 		break;
 	case 8:
+		goals.push_back(make_unique<AntForageAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntEatAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode));
+		goals.push_back(make_unique<AntForageAntTest>(manager, home, navGraphHelper, startNode));
+		break;
+	case 9:
 		goals.push_back(make_unique<AntEatAntTest>(manager, home, navGraphHelper, startNode));
 		goals.push_back(make_unique<AntExploreAntTest>(manager, home, navGraphHelper, startNode));
 		goals.push_back(make_unique<AntFindFoodAntTest>(manager, home, navGraphHelper, startNode));
