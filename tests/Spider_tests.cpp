@@ -20,13 +20,13 @@ namespace tests
 			Spider spider(manager);
 		}
 
-		TEST_METHOD(Spider_update)
+		/*TEST_METHOD(Spider_update)
 		{
 			GuiEventManager manager;
 			Spider spider(manager);
 
 			GenericPercept percept;
 			spider.update(20, percept);
-		}
+		}*/
 	};
 }

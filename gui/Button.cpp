@@ -115,6 +115,15 @@ void Button::setRotation(float rotation)
 	}
 }
 
+float Button::getRotation() const
+{
+	if (currentImage)
+	{
+		return currentImage->getRotation();
+	}
+	return 0;
+}
+
 void Button::setOriginToCenter()
 {
 	if (defaultImage)

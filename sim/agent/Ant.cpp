@@ -32,6 +32,7 @@ using std::move;
 
 bool Ant::wasTextureLoaded = false;
 sf::Texture* Ant::texture = nullptr;
+sf::Texture* Ant::textureWithFood = nullptr;
 
 
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
@@ -44,11 +45,16 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		if (Ant::texture == nullptr)
 		{
 			Ant::texture = new sf::Texture;
+			Ant::textureWithFood = new sf::Texture;
 		}
 
 		if (!Ant::texture->loadFromFile("res/ant.png"))
 		{
 			std::cout << "Unable to load ant image: res/ant.png" << std::endl;
+		}
+		else if (!Ant::textureWithFood->loadFromFile("res/ant - holding food.png"))
+		{
+			std::cout << "Unable to load ant image: res/ant - holding food.png" << std::endl;
 		}
 		else
 		{
@@ -61,6 +67,9 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	setOriginToCenter();
 
 	deadAntSprite.setTexture(*Ant::texture, true);
+	deadAntSprite.setOrigin(deadAntSprite.getGlobalBounds().width / 1.9f, deadAntSprite.getGlobalBounds().height / 1.9f);
+	antWithFoodSprite.setTexture(*Ant::textureWithFood, true);
+	antWithFoodSprite.setOrigin(antWithFoodSprite.getGlobalBounds().width / 1.9f, antWithFoodSprite.getGlobalBounds().height / 1.9f);
 
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
@@ -88,6 +97,11 @@ void Ant::update(uint ticks, const Percept& percept)
 	if (!isDead())
 	{
 		processHunger(ticks, stats);
+		if (stats.isHoldingFood)
+		{
+			antWithFoodSprite.setPosition(getPosition());
+			antWithFoodSprite.setRotation(getRotation());
+		}
 		
 		// Process the goal if one is set, or set a new one if not.
 		if (!goal->isFinished())
@@ -99,6 +113,11 @@ void Ant::update(uint ticks, const Percept& percept)
 		{
 			goal = getNewGoal(stats);
 		}
+	}
+	else
+	{
+		deadAntSprite.setPosition(getPosition());
+		deadAntSprite.setRotation(getRotation());
 	}
 }
 
@@ -175,6 +194,10 @@ void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		target.draw(deadAntSprite, states);
 	}
+	else if (stats.isHoldingFood)
+	{
+		target.draw(antWithFoodSprite, states);
+	}
 	else
 	{
 		Button::draw(target, states);
@@ -182,7 +205,7 @@ void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 }
 
 
-////// Private methods //////
+////// Private & protected methods //////
 
 void Ant::onDeath()
 {
@@ -215,10 +238,16 @@ void Ant::processHunger(uint ticks, AntStats& stats)
 	}
 }
 
+void Ant::setAntWithFoodSpritePosition(float x, float y, float rotation)
+{
+	antWithFoodSprite.setPosition(x, y);
+	antWithFoodSprite.setRotation(rotation);
+}
+
 unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 {
 	using std::move;
-
+	// Higher = hungrier when the ant starts looking for food to eat.
 	const uint hungry = 60;
 
 	// Look for food if hungry. This takes priority over other potential goals.

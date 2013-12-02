@@ -52,6 +52,7 @@ namespace cdc
 
 	protected:
 		void setRotation(float rotation);
+		float getRotation() const;
 		void setOriginToCenter();
 
 		// Sets the default image for the button.

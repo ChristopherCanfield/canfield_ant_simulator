@@ -126,6 +126,8 @@ namespace cdc
 		// Increases the ant's hunger when appropriate.
 		void processHunger(uint ticks, AntStats& stats);
 
+		void setAntWithFoodSpritePosition(float x, float y, float rotation);
+
 	private:
 		Ant(const Ant&);
 		Ant& operator=(const Ant& other);
@@ -140,6 +142,8 @@ namespace cdc
 		static sf::Texture* texture;
 		static bool wasTextureLoaded;
 		sf::Sprite deadAntSprite;
+		static sf::Texture* textureWithFood;
+		sf::Sprite antWithFoodSprite;
 
 		// Whether the ant is currently selected. This can be used to get debug
 		// or state information.
