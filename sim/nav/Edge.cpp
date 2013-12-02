@@ -17,7 +17,8 @@ using cdc::PathNode;
 Edge::Edge(cdc::Node& startNode) :
 	startNode(&startNode),
 	endNode(nullptr), 
-	cost(999999)
+	cost(999999),
+	nextPheromoneReduction(0)
 {
 	vertices.setPrimitiveType(sf::Lines);
 }
@@ -25,7 +26,8 @@ Edge::Edge(cdc::Node& startNode) :
 Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, float cost) :
 	startNode(&startNode),
 	endNode(&endNode), 
-	cost(cost)
+	cost(cost),
+	nextPheromoneReduction(0)
 {
 	setVertices(startNode, endNode);
 }
@@ -33,7 +35,8 @@ Edge::Edge(cdc::Node& startNode, cdc::Node& endNode, float cost) :
 Edge::Edge(Node& startNode, Node& endNode, int cost) :
 	startNode(&startNode),
 	endNode(&endNode),
-	cost(static_cast<float>(cost))
+	cost(static_cast<float>(cost)),
+	nextPheromoneReduction(0)
 {
 	setVertices(startNode, endNode);
 }
@@ -50,12 +53,23 @@ void Edge::setVertices(Node& startNode, Node& endNode)
 			Vector2fAdapter(endNode.getPixelX<uint>(), endNode.getPixelY<uint>()), 
 			sf::Color(0, 0, 255)));
 
-	pheromoneVertices.setPrimitiveType(sf::Lines);
+	pheromoneStrongVertices.setPrimitiveType(sf::Lines);
 	sf::Vector2f startPoint(startNode.getPixelX<float>(), startNode.getPixelY<float>());
 	sf::Vector2f endPoint(endNode.getPixelX<float>(), endNode.getPixelY<float>());
-	
-	pheromoneVertices.append(sf::Vertex(startPoint, sf::Color::Red));
-	pheromoneVertices.append(sf::Vertex(endPoint, sf::Color::Red));
+	pheromoneStrongVertices.append(sf::Vertex(startPoint, sf::Color(220, 0, 0)));
+	pheromoneStrongVertices.append(sf::Vertex(endPoint, sf::Color(220, 0, 0)));
+
+	pheromoneMediumVertices.setPrimitiveType(sf::Lines);
+	sf::Vector2f startPoint2(startNode.getPixelX<float>(), startNode.getPixelY<float>());
+	sf::Vector2f endPoint2(endNode.getPixelX<float>(), endNode.getPixelY<float>());
+	pheromoneMediumVertices.append(sf::Vertex(startPoint2, sf::Color(255, 0, 0)));
+	pheromoneMediumVertices.append(sf::Vertex(endPoint2, sf::Color(255, 0, 0)));
+
+	pheromoneMediumVertices.setPrimitiveType(sf::Lines);
+	sf::Vector2f startPoint3(startNode.getPixelX<float>(), startNode.getPixelY<float>());
+	sf::Vector2f endPoint3(endNode.getPixelX<float>(), endNode.getPixelY<float>());
+	pheromoneMediumVertices.append(sf::Vertex(startPoint3, sf::Color(255, 120, 0)));
+	pheromoneMediumVertices.append(sf::Vertex(endPoint3, sf::Color(255, 120, 0)));
 
 	/*if (startPoint.x == endPoint.x)
 	{
@@ -134,7 +148,7 @@ Node* Edge::getPheromoneNextNode() const
 
 void Edge::update(uint ticks)
 {
-	const int pheromoneReducationRate = 100;
+	const int pheromoneReducationRate = 200;
 
 	if (ticks >= nextPheromoneReduction)
 	{
@@ -159,10 +173,19 @@ void Edge::drawPheromone(sf::RenderTarget& target, sf::RenderStates states)
 	{
 		//pheromoneVertices.(sf::Color::Transparent);
 	}
-	else 
+	else if (pheromoneStrength > 6)
 	{
-		target.draw(pheromoneVertices, states);
+		target.draw(pheromoneStrongVertices, states);
 	}
+	else if (pheromoneStrength > 3)
+	{
+		target.draw(pheromoneMediumVertices, states);
+	}
+	else if (pheromoneStrength > 0)
+	{
+		target.draw(pheromoneWeakVertices, states);
+	}
+
 	/*else if (pheromoneStrength > 8)
 	{
 		 pheromoneVertices.setFillColor(sf::Color(170, 0,  255, 140));

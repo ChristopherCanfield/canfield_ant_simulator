@@ -71,8 +71,9 @@ namespace cdc
 		sf::VertexArray vertices;
 		// TODO: Implement this as a triangle if time permits.
 		//sf::RectangleShape pheromoneVertices;
-		sf::VertexArray pheromoneVertices;
-
+		sf::VertexArray pheromoneStrongVertices;
+		sf::VertexArray pheromoneMediumVertices;
+		sf::VertexArray pheromoneWeakVertices;
 		// Ant pheromone, which ants use to create paths leading from home to food.
 		// Pheromones are put onto edges.
 		class Pheromone
