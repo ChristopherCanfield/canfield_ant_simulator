@@ -21,12 +21,5 @@ namespace tests
 			AntFindFood goal;
 			Assert::IsFalse(goal.isFinished());
 		}
-
-		TEST_METHOD(AntFindFood_update)
-		{
-			// TODO: implement this.
-			Assert::IsTrue(false);
-		}
-
 	};
 }

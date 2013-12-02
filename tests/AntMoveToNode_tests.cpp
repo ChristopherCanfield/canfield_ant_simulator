@@ -33,12 +33,6 @@ namespace tests
 			AntMoveToNode goal(ant, node);
 		}
 
-		TEST_METHOD(AntMoveToNode_update)
-		{
-			// TODO: implement this.
-			Assert::IsTrue(false);
-		}
-
 		TEST_METHOD(AntMoveToNode_reset)
 		{
 			GuiEventManager manager;

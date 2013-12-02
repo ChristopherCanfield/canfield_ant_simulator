@@ -21,12 +21,5 @@ namespace tests
 			AntExplore goal;
 			Assert::IsFalse(goal.isFinished());
 		}
-
-		TEST_METHOD(AntExplore_update)
-		{
-			// TODO: implement this.
-			Assert::IsTrue(false);
-		}
-
 	};
 }

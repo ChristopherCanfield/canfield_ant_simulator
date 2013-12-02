@@ -21,12 +21,5 @@ namespace tests
 			AntEat goal;
 			Assert::IsFalse(goal.isFinished());
 		}
-
-		TEST_METHOD(AntEat_update)
-		{
-			// TODO: implement this.
-			Assert::IsTrue(false);
-		}
-
 	};
 }

@@ -23,11 +23,5 @@ namespace tests
 			AntGoHome goal;
 			Assert::IsFalse(goal.isFinished());
 		}
-
-		TEST_METHOD(AntGoHome_update)
-		{
-			// TODO: implement this.
-			Assert::IsTrue(false);
-		}
 	};
 }

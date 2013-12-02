@@ -21,11 +21,5 @@ namespace tests
 			AntForage goal;
 			Assert::IsFalse(goal.isFinished());
 		}
-
-		TEST_METHOD(AntForage_update)
-		{
-			// TODO: implement this.
-			Assert::IsTrue(false);
-		}
 	};
 }
