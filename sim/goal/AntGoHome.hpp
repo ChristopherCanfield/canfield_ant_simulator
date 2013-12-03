@@ -27,6 +27,8 @@ namespace cdc
 
 		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		virtual std::string toString() const override;
+
 	private:
 		// The path to the ant's home.
 		std::deque<Node*> path;

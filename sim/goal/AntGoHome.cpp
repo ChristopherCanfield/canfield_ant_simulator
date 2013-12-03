@@ -59,3 +59,15 @@ void AntGoHome::drawPath(sf::RenderTarget& target, sf::RenderStates states) cons
 		// TODO: Draw the path.
 	}
 }
+
+std::string AntGoHome::toString() const
+{
+	if (subgoal != nullptr)
+	{
+		return AntGoal::toString() + " | Subgoal: " + subgoal->toString();
+	}
+	else
+	{
+		return AntGoal::toString();
+	}
+}

@@ -80,3 +80,15 @@ void AntEat::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	currentSubgoal->drawPath(target, states);
 }
+
+std::string AntEat::toString() const
+{
+	if (currentSubgoal != nullptr)
+	{
+		return AntGoal::toString() + " | Subgoal: " + currentSubgoal->toString();
+	}
+	else
+	{
+		return AntGoal::toString();
+	}
+}

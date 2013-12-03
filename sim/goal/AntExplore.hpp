@@ -25,6 +25,8 @@ namespace cdc
 
 		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		virtual std::string toString() const override;
+
 	private:
 		std::deque<Node*> path;
 		std::unique_ptr<AntGoal> subgoal;

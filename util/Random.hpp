@@ -23,7 +23,7 @@ namespace cdc
 		static void setSeed(uint seed);
 
 		// Returns a random integer, between min and max, inclusive.
-		int getInteger(int min, int max); 
+		int getInteger(int min, int max);
 
 	private:
 		Random(const Random& other);

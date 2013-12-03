@@ -96,6 +96,11 @@ void AntFindFood::setSubgoal(Ant& ant)
 	{
 		auto target = ant.popLastKnownFoodPosition();
 		path = Search::aStar(*ant.kb.lastNodePassed, *target, Search::manhattanHeuristic);
+		if (path.empty())
+		{
+			return;
+		}
+
 		auto next = path.front();
 		path.pop_front();
 		auto pheromoneTarget = checkEdgesForPheromone(*ant.kb.lastNodePassed);
@@ -154,4 +159,16 @@ Node* AntFindFood::checkEdgesForPheromone(Node& currentNode)
 void AntFindFood::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// TODO: draw the path.
+}
+
+std::string AntFindFood::toString() const
+{
+	if (subgoal != nullptr)
+	{
+		return AntGoal::toString() + " | Subgoal: " + subgoal->toString();
+	}
+	else
+	{
+		return AntGoal::toString();
+	}
 }

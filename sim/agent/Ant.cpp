@@ -260,9 +260,9 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 		return move(newGoal);
 	}
 
-	// The chance that the ant will explore rather than forage, from 1 to 10.
+	// The chance that the ant will explore rather than forage, from 1 to 100.
 	const int exploreChance = 1;
-	int decision = random.getInteger(1, 10);
+	int decision = random.getInteger(1, 100);
 	if (decision <= exploreChance)
 	{
 		auto newGoal = unique_ptr<AntExplore>(new AntExplore());

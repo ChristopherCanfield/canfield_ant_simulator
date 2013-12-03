@@ -24,6 +24,8 @@ namespace cdc
 
 		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		virtual std::string toString() const override;
+
 	private:
 		AntGoHome antGoHomeSubgoal;
 		AntFindFood antFindFoodSubgoal;

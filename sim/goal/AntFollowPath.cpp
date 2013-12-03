@@ -66,3 +66,15 @@ void AntFollowPath::drawPath(sf::RenderTarget& target, sf::RenderStates states) 
 		// TODO: Draw the path.
 	}
 }
+
+std::string AntFollowPath::toString() const
+{
+	if (subgoal != nullptr)
+	{
+		return AntGoal::toString() + " | Subgoal: " + subgoal->toString();
+	}
+	else
+	{
+		return AntGoal::toString();
+	}
+}

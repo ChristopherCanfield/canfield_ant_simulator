@@ -98,3 +98,15 @@ void AntExplore::drawPath(sf::RenderTarget& target, sf::RenderStates states) con
 		// TODO: Draw the path.
 	}
 }
+
+std::string AntExplore::toString() const
+{
+	if (subgoal != nullptr)
+	{
+		return AntGoal::toString() + " | Subgoal: " + subgoal->toString();
+	}
+	else
+	{
+		return AntGoal::toString();
+	}
+}

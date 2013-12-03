@@ -60,6 +60,16 @@ void Simulator::update()
 		{
 			antHill->update(ticks);
 		}
+
+		auto& foodPiles = world->getAntFoodPiles();
+		for (auto foodPile = foodPiles.begin(); foodPile != foodPiles.end(); ++foodPile)
+		{
+			if ((*foodPile)->getFoodCount() == 0)
+			{
+				foodPiles.erase(foodPile);
+				break;
+			}
+		}
 		
 		clock.restart();
 		++ticks;

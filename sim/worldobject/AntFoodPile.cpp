@@ -70,5 +70,8 @@ bool AntFoodPile::takeFood()
 
 void AntFoodPile::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	target.draw(sprite, states);
+	if (foodCount > 0)
+	{
+		target.draw(sprite, states);
+	}
 }

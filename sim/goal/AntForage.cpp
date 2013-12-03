@@ -60,6 +60,7 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 			{
 				auto& anthill = ant.kb.home;
 				anthill.addFood();
+				ant.stats.isHoldingFood = false;
 			}
 			setFinished(true);
 		}
@@ -69,4 +70,16 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 void AntForage::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	currentSubgoal->drawPath(target, states);
+}
+
+std::string AntForage::toString() const
+{
+	if (currentSubgoal != nullptr)
+	{
+		return AntGoal::toString() + " | Subgoal: " + currentSubgoal->toString();
+	}
+	else
+	{
+		return AntGoal::toString();
+	}
 }
