@@ -33,26 +33,26 @@ namespace cdc
 
 		GuiEventManager& getGuiEventManager();
 		std::vector<Node>& getNavGraph();
-		std::vector<Ant>& getAnts();
+		std::vector<std::unique_ptr<Ant>>& getAnts();
 		std::vector<Spider>& getSpiders();
 		std::vector<sf::Sprite>& getObstructions();
 		std::vector<AntFood>& getAntFood();
-		std::vector<AntFoodPile>& getAntFoodPiles();
-		std::vector<AntHome>& getAntHills();
+		std::vector<std::unique_ptr<AntFoodPile>>& getAntFoodPiles();
+		std::vector<std::unique_ptr<AntHome>>& getAntHills();
 
 	protected:
 		GuiEventManager* eventManager;
 
 		std::vector<Node> navGraph;
 
-		std::vector<Ant> ants;
+		std::vector<std::unique_ptr<Ant>> ants;
 		std::vector<Spider> spiders;
 
 		std::vector<sf::Sprite> obstructions;
 
 		std::vector<AntFood> antFood;
-		std::vector<AntFoodPile> antFoodPiles;
+		std::vector<std::unique_ptr<AntFoodPile>> antFoodPiles;
 
-		std::vector<AntHome> antHills;
+		std::vector<std::unique_ptr<AntHome>> antHills;
 	};
 }

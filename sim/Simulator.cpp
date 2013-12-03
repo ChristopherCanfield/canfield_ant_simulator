@@ -53,12 +53,12 @@ void Simulator::update()
 		GenericPercept percept;
 		for (auto& ant : world->getAnts())
 		{
-			ant.update(ticks, percept);
+			ant->update(ticks, percept);
 		}
 
 		for (auto& antHill : world->getAntHills())
 		{
-			antHill.update(ticks);
+			antHill->update(ticks);
 		}
 		
 		clock.restart();
@@ -89,7 +89,7 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	for (auto& ant : world->getAnts())
 	{
-		target.draw(ant);
+		target.draw(*ant);
 	}
 
 	for (auto& antFood : world->getAntFood())
@@ -99,7 +99,7 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	for (auto& antFoodPile : world->getAntFoodPiles())
 	{
-		target.draw(antFoodPile);
+		target.draw(*antFoodPile);
 	}
 
 	for (auto& sprite : world->getObstructions())
@@ -109,7 +109,7 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	for (auto& antHill : world->getAntHills())
 	{
-		target.draw(antHill);
+		target.draw(*antHill);
 	}
 }
 

@@ -1,6 +1,7 @@
 #include "AntHome.hpp"
 #include "../nav/Node.hpp"
 #include "../util/Vector2fAdapter.hpp"
+#include "../util/make_unique.hpp"
 #include "../Simulator.hpp"
 #include "../world/World.hpp"
 
@@ -104,7 +105,7 @@ void AntHome::update(uint ticks)
 		for (uint i = 0; i < numberOfAntsToCreate; ++i)
 		{
 			auto& ants = world.getAnts();
-			ants.push_back(Ant(world.getGuiEventManager(), *this, 
+			ants.push_back(make_unique<Ant>(world.getGuiEventManager(), *this, 
 					getNavGraphHelper(), getNode()));
 		}
 	}

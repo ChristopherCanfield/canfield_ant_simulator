@@ -9,6 +9,7 @@
 #include "../sim/worldobject/SolidObject.hpp"
 #include "../sim/worldobject/AntHome.hpp"
 #include "../util/Random.hpp"
+#include "../util/make_unique.hpp"
 
 #include <vector>
 #include <memory>
@@ -38,16 +39,16 @@ void createNavGraph(vector<Node>& navGraph);
 void addConnections(vector<vector<Node*>>& navGraphEdgeHelper);
 
 // Adds food piles to the world.
-void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoodPile>& antFoodPiles);
+void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<unique_ptr<AntFoodPile>>& antFoodPiles);
 
 // Adds obstructions to the world.
 void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<Sprite>& obstructions);
 
 // Adds the ant hill to the world.
-void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills);
+void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<unique_ptr<AntHome>>& antHills);
 
 // Adds a random number of ants to the world.
-void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants);
+void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<unique_ptr<Ant>>& ants);
 
 // Finds an unoccupied location between the min and max node (inclusive).
 // Returns the index of the node within the nav graph.
@@ -84,7 +85,7 @@ void RandomWorld::create(GuiEventManager& eventManager)
 	addFood(navGraph, offLimitAreas, antFoodPiles);
 	addObstructions(navGraph, offLimitAreas, obstructions);
 	addAntHill(*this, navGraph, offLimitAreas, antHills);
-	addAnts(antHills[0], eventManager, ants);
+	addAnts(*antHills[0], eventManager, ants);
 }
 
 
@@ -207,7 +208,7 @@ void addConnections(vector<vector<Node*>>& navGraphEdgeHelper)
 	node_last_last2.addEdge(edge4);
 }
 
-void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoodPile>& antFoodPiles)
+void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<unique_ptr<AntFoodPile>>& antFoodPiles)
 {
 	Random rand;
 
@@ -220,7 +221,7 @@ void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntFoo
 	{
 		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
 		int foodInPile = rand.getInteger(50, 750);
-		antFoodPiles.push_back(AntFoodPile(foodInPile, navGraph[nodeLocation]));
+		antFoodPiles.push_back(make_unique<AntFoodPile>(foodInPile, navGraph[nodeLocation]));
 		occupiedAreas.push_back(&navGraph[nodeLocation]);
 	}
 }
@@ -243,18 +244,18 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	}
 }
 
-void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<AntHome>& antHills)
+void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<unique_ptr<AntHome>>& antHills)
 {
 	Random rand;
 
 	// Ant hill can be in any node within the first three rows.
 	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * navGraphColumns, rand);
 	
-	antHills.push_back(AntHome(navGraph[nodeLocation], navGraph, world));
+	antHills.push_back(make_unique<AntHome>(navGraph[nodeLocation], navGraph, world));
 	occupiedAreas.push_back(&navGraph[nodeLocation]);
 }
 
-void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants)
+void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<unique_ptr<Ant>>& ants)
 {
 	Random rand;
 
@@ -264,7 +265,7 @@ void addAnts(AntHome& antHill, GuiEventManager& eventManager, vector<Ant>& ants)
 	int antCount = rand.getInteger(minAnts, maxAnts);
 	for (int i = 0; i < antCount; ++i)
 	{
-		ants.push_back(Ant(eventManager, antHill, antHill.getNavGraphHelper(), antHill.getNode()));
+		ants.push_back(make_unique<Ant>(eventManager, antHill, antHill.getNavGraphHelper(), antHill.getNode()));
 	}
 }
 

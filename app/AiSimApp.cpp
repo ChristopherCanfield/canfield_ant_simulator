@@ -114,7 +114,7 @@ void printWorldStats(World& world)
 {
 	if (!world.getAntHills().empty())
 	{
-		auto antHillNode = world.getAntHills()[0].getNode();
+		auto antHillNode = world.getAntHills()[0]->getNode();
 		cout << endl 
 			<< "Ant hill location: (" << antHillNode.getRow() << "," << antHillNode.getColumn() << ")" << endl
 			<< "Number of food piles: " << world.getAntFoodPiles().size() << endl

@@ -28,7 +28,7 @@ std::vector<Node>& World::getNavGraph()
 	return navGraph;
 }
 
-std::vector<Ant>& World::getAnts()
+std::vector<std::unique_ptr<Ant>>& World::getAnts()
 {
 	return ants;
 }
@@ -48,12 +48,12 @@ std::vector<AntFood>& World::getAntFood()
 	return antFood;
 }
 
-std::vector<AntFoodPile>& World::getAntFoodPiles()
+std::vector<std::unique_ptr<AntFoodPile>>& World::getAntFoodPiles()
 {
 	return antFoodPiles;
 }
 
-std::vector<AntHome>& World::getAntHills()
+std::vector<std::unique_ptr<AntHome>>& World::getAntHills()
 {
 	return antHills;
 }
