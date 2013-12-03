@@ -35,10 +35,10 @@ namespace cdc
 		std::vector<Node>& getNavGraph();
 		std::vector<Ant>& getAnts();
 		std::vector<Spider>& getSpiders();
-		std::vector<sf::Sprite> getObstructions();
-		std::vector<AntFood> getAntFood();
-		std::vector<AntFoodPile> getAntFoodPiles();
-		std::vector<AntHome> getAntHills();
+		std::vector<sf::Sprite>& getObstructions();
+		std::vector<AntFood>& getAntFood();
+		std::vector<AntFoodPile>& getAntFoodPiles();
+		std::vector<AntHome>& getAntHills();
 
 	protected:
 		GuiEventManager* eventManager;

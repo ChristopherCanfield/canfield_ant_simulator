@@ -38,22 +38,22 @@ std::vector<Spider>& World::getSpiders()
 	return spiders;
 }
 
-std::vector<sf::Sprite> World::getObstructions()
+std::vector<sf::Sprite>& World::getObstructions()
 {
 	return obstructions;
 }
 
-std::vector<AntFood> World::getAntFood()
+std::vector<AntFood>& World::getAntFood()
 {
 	return antFood;
 }
 
-std::vector<AntFoodPile> World::getAntFoodPiles()
+std::vector<AntFoodPile>& World::getAntFoodPiles()
 {
 	return antFoodPiles;
 }
 
-std::vector<AntHome> World::getAntHills()
+std::vector<AntHome>& World::getAntHills()
 {
 	return antHills;
 }
