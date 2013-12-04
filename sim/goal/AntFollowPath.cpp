@@ -25,6 +25,7 @@ AntFollowPath::AntFollowPath(Ant& ant, const Node& target, bool debug) :
 	path = Search::aStar(ant.getNode(), target, Search::straightLineHeuristic);
 	if (path.empty())
 	{
+		// This should only occur if the ant is already on the target node.
 		setFinished(true);
 		if (debug) cout << "Unable to calculate path from " << ant.getNode().toString() << " to " << target.toString() << endl;
 		return;
