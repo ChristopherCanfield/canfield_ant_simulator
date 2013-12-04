@@ -98,15 +98,19 @@ void AntHome::update(uint ticks)
 {
 	if (nextAntCreatedTick < ticks)
 	{
-		nextAntCreatedTick += antIncreaseRate;
-		uint numberOfAntsToCreate = foodCount / foodPerAnt;
-		if (numberOfAntsToCreate == 0) ++numberOfAntsToCreate;
-		
-		for (uint i = 0; i < numberOfAntsToCreate; ++i)
+		if (foodCount > 0)
 		{
-			auto& ants = world.getAnts();
-			ants.push_back(make_unique<Ant>(world.getGuiEventManager(), *this, 
-					getNavGraphHelper(), getNode()));
+			nextAntCreatedTick += antIncreaseRate;
+			uint numberOfAntsToCreate = foodCount / foodPerAnt;
+			if (numberOfAntsToCreate == 0) ++numberOfAntsToCreate;
+		
+			for (uint i = 0; i < numberOfAntsToCreate; ++i)
+			{
+				auto& ants = world.getAnts();
+				ants.push_back(make_unique<Ant>(world.getGuiEventManager(), *this, 
+						getNavGraphHelper(), getNode()));
+			}
+			foodCount -= numberOfAntsToCreate;
 		}
 	}
 }

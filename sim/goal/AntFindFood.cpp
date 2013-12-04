@@ -153,14 +153,18 @@ void AntFindFood::setSubgoal(Ant& ant)
 // the pheromone points to is returned. Otherwise, nullptr is returned.
 Node* AntFindFood::checkEdgesForPheromone(Node& currentNode)
 {
+	Node* mostRecentNode = nullptr;
+	uint mostRecentTime = 0;
 	for (auto& edge : currentNode.getEdgeList())
 	{
-		if (edge->getPheromone() > 0 && *edge->getPheromoneNextNode() != currentNode)
+		if (edge->getPheromone() > 0 && *edge->getPheromoneNextNode() != currentNode && 
+			edge->getPheromoneNextNodeTickTime() > mostRecentTime)
 		{
-			return edge->getPheromoneNextNode();
+			mostRecentNode = edge->getPheromoneNextNode();
+			mostRecentTime = edge->getPheromoneNextNodeTickTime();
 		}
 	}
-	return nullptr;
+	return mostRecentNode;
 }
 
 std::string AntFindFood::toString() const

@@ -43,8 +43,9 @@ namespace cdc
 		void increasePheromone();
 		void increasePheromoneToMax();
 		void decreasePheromone();
-		void setPheromoneNextNode(Node& node);
+		void setPheromoneNextNode(Node& node, uint ticks);
 		Node* getPheromoneNextNode() const;
+		uint getPheromoneNextNodeTickTime() const;
 
 		bool operator==(const Edge& other) const;
 		bool operator!=(const Edge& other) const;
@@ -92,15 +93,18 @@ namespace cdc
 			uint getStrength() const;
 
 			// Sets the next node in the path leading from home to food.
-			void setNextNode(Node& node);
+			void setNextNode(Node& node, uint ticks);
 			// Gets the next node in the path leading from home to food.
 			Node* getNextNode() const;
+			uint getNextNodeTickTime() const;
 
 		private:
 			// The strength of the pheromone.
 			uint strength;
 			// The next node in the path leading from home to food.
 			Node* nextNode;
+
+			uint nextNodeTickTime;
 		};
 
 		Pheromone pheromone;

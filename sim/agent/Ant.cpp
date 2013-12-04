@@ -86,10 +86,11 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 Ant::Ant(Ant&& other) :
 	Button(move(other)),
 	kb(move(other.kb)),
-	stats(other.stats),
+	stats(move(other.stats)),
 	goal(move(other.goal)),
 	isSelected(other.isSelected),
-	deadAntSprite(other.deadAntSprite)
+	deadAntSprite(move(other.deadAntSprite)),
+	selectedAntSprite(move(other.selectedAntSprite))
 {
 }
 

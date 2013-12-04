@@ -125,9 +125,14 @@ void Edge::decreasePheromone()
 	pheromone.decrease();
 }
 
-void Edge::setPheromoneNextNode(Node& node)
+void Edge::setPheromoneNextNode(Node& node, uint ticks)
 {
-	pheromone.setNextNode(node);
+	pheromone.setNextNode(node, ticks);
+}
+
+uint Edge::getPheromoneNextNodeTickTime() const
+{
+	return pheromone.getNextNodeTickTime();
 }
 
 Node* Edge::getPheromoneNextNode() const

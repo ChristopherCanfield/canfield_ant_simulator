@@ -59,7 +59,7 @@ void AntMoveToNode::update(Ant& ant, uint ticks, AntPercept& percept)
 				if ((node = edge->getOppositeNode(*ant.kb.lastNodePassed)) != nullptr)
 				{
 					edge->increasePheromoneToMax();
-					edge->setPheromoneNextNode(*ant.kb.lastNodePassed);
+					edge->setPheromoneNextNode(*ant.kb.lastNodePassed, ticks);
 					break;
 				}
 			}

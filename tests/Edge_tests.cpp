@@ -91,8 +91,8 @@ namespace tests
 			Node endNode(GridLocation(1, 2), 20, 30);
 
 			Edge edge(startNode, endNode, 5);
-			edge.setPheromoneNextNode(startNode);
-			edge.setPheromoneNextNode(endNode);
+			edge.setPheromoneNextNode(startNode, 10u);
+			edge.setPheromoneNextNode(endNode, 10u);
 		}
 
 		TEST_METHOD(Edge_getPheromoneNextNode)
@@ -103,10 +103,10 @@ namespace tests
 			Edge edge(startNode, endNode, 5);
 			Assert::IsNull(edge.getPheromoneNextNode());
 
-			edge.setPheromoneNextNode(startNode);
+			edge.setPheromoneNextNode(startNode, 10u);
 			Assert::IsTrue(&startNode == edge.getPheromoneNextNode());
 
-			edge.setPheromoneNextNode(endNode);
+			edge.setPheromoneNextNode(endNode, 10u);
 			Assert::IsTrue(&endNode == edge.getPheromoneNextNode());
 		}
 

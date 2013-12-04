@@ -13,7 +13,8 @@ using cdc::Edge;
 
 Edge::Pheromone::Pheromone() :
 	nextNode(nullptr),
-	strength(0u)
+	strength(0u),
+	nextNodeTickTime(0u)
 {
 }
 
@@ -54,12 +55,18 @@ uint Edge::Pheromone::getStrength() const
 	return strength;
 }
 
-void Edge::Pheromone::setNextNode(Node& node)
+void Edge::Pheromone::setNextNode(Node& node, uint ticks)
 {
 	nextNode = &node;
+	nextNodeTickTime = ticks;
 }
 
 Node* Edge::Pheromone::getNextNode() const
 {
 	return nextNode;
+}
+
+uint Edge::Pheromone::getNextNodeTickTime() const
+{
+	return nextNodeTickTime;
 }
