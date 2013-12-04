@@ -239,7 +239,7 @@ void Ant::processHunger(uint ticks, AntStats& stats)
 		else
 		{
 			++stats.hunger;
-			if (isSelected) cout << "  Hunger: " << stats.hunger << endl;
+			if (isSelected) cout << "  Hunger: " << stats.hunger << "%" << endl;
 			// Modify the hunger increase rate by between 0.65 and 1.35, to 
 			// differentiate the behaviors of the ants.
 			float modifier = random.getInteger(65, 135) / 100.f;
