@@ -99,9 +99,22 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		}
 	}
 
+	// Draw dead ants.
+	if (displayDeadAnts)
+	{
+		for (auto& ant : world->getAnts())
+		{
+			if (ant->isDead())
+			{
+				target.draw(*ant);
+			}
+		}
+	}
+
+	// Draw live ants.
 	for (auto& ant : world->getAnts())
 	{
-		if (displayDeadAnts || !ant->isDead())
+		if (!ant->isDead())
 		{
 			target.draw(*ant);
 		}

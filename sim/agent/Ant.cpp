@@ -60,7 +60,7 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		{
 			std::cout << "Unable to load ant image: res/ant - holding food.png" << std::endl;
 		}
-		if (!Ant::textureDead->loadFromFile("res/ant - dead.png"));
+		if (!Ant::textureDead->loadFromFile("res/ant - dead.png"))
 		{
 			std::cout << "Unable to load ant image: res/ant - dead.png";
 		}
