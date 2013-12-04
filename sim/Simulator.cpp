@@ -14,6 +14,7 @@
 using cdc::Simulator;
 using cdc::World;
 using cdc::GuiEventManager;
+using cdc::Ant;
 
 using namespace std;
 
@@ -24,6 +25,11 @@ uint simSpeedIncrement = 10;
 
 const uint Simulator::defaultTicksPerSecond = 60;
 
+// Returns the selected ant, if there is one, or nullptr.
+const Ant* getSelectedAnt(const vector<unique_ptr<Ant>>& ants);
+// Returns a count of the live ants.
+uint getLiveAntCount(World& world);
+
 
 Simulator::Simulator(GuiEventManager& eventManager) :
 	eventManager(eventManager),
@@ -32,6 +38,7 @@ Simulator::Simulator(GuiEventManager& eventManager) :
 	displayPheromones(false),
 	displayNavGraph(false),
 	displayDeadAnts(true),
+	displayAntPaths(false),
 	ticks(0)
 {
 }
@@ -75,7 +82,7 @@ void Simulator::update()
 
 		if (antCountTimer.getElapsedTime().asSeconds() > 10.f)
 		{
-			cout << "Simulator: Ants: " << world->getAnts().size() << " | Live Ants: " << getLiveAntCount() << endl;
+			cout << "Simulator: Ants: " << world->getAnts().size() << " | Live Ants: " << getLiveAntCount(*world) << endl;
 			antCountTimer.restart();
 		}
 		
@@ -91,6 +98,17 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		for (auto& node : world->getNavGraph())
 		{
 			node.draw(target, states);
+		}
+	}
+
+	if (displayAntPaths)
+	{
+		for (auto& ant : world->getAnts())
+		{
+			if (!ant->isDead())
+			{
+				ant->drawPath(target, states);
+			}
 		}
 	}
 
@@ -129,6 +147,14 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		{
 			target.draw(*ant);
 		}
+	}
+	
+	// Draw the selected ant again after all other ants have been drawn, to make
+	// it easier to find the selected ant.
+	auto selectedAnt = getSelectedAnt(world->getAnts());
+	if (selectedAnt != nullptr)
+	{
+		target.draw(*selectedAnt);
 	}
 
 	for (auto& antFood : world->getAntFood())
@@ -231,10 +257,29 @@ void Simulator::drawDeadAnts()
 	displayDeadAnts = !displayDeadAnts;
 }
 
-uint Simulator::getLiveAntCount() const
+void Simulator::drawAntPaths()
 {
-	uint count = count_if(world->getAnts().cbegin(), world->getAnts().cend(), [](const unique_ptr<Ant>& ant) {
+	cout << (displayAntPaths ? "Simulator: hide ant paths" : "Simulator: show ants paths") << endl;
+	displayAntPaths = !displayAntPaths;
+}
+
+uint getLiveAntCount(World& world)
+{
+	uint count = count_if(world.getAnts().cbegin(), world.getAnts().cend(), [](const unique_ptr<Ant>& ant) {
 		return !ant->isDead();
 	});
 	return count;
+}
+
+const Ant* getSelectedAnt(const vector<unique_ptr<Ant>>& ants)
+{
+	auto selected = find_if(ants.cbegin(), ants.cend(), [](const unique_ptr<Ant>& ant) {
+		return ant->isSelected();
+	});
+
+	if (selected != ants.end())
+	{
+		return selected->get();
+	}
+	return nullptr;
 }

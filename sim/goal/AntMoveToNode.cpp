@@ -107,7 +107,7 @@ void AntMoveToNode::drawPath(sf::RenderTarget& target, sf::RenderStates states, 
 			auto oppNode = edge->getOppositeNode(lastNodePassed);
 			if (oppNode != nullptr && oppNode == this->target)
 			{
-				edge->draw(target, states, sf::Color::Black);
+				edge->draw(target, states, sf::Color(0, 255, 178));
 				break;
 			}
 		}

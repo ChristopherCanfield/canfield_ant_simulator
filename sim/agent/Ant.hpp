@@ -55,9 +55,15 @@ namespace cdc
 		// Sets isDead to true).
 		void kill();
 
+		// Returns true if the ant is selected.
+		bool isSelected() const;
+
 		// GUI event handlers.
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 		virtual void onGuiEvent(const sf::Event& e) override;
+
+		// Draws the ant's path to its target.
+		void drawPath(sf::RenderTarget &target, sf::RenderStates states) const;
 
 		// The AntGoal classes are friends, because they control the ant and 
 		// need access to details that should not be made public.
@@ -151,7 +157,7 @@ namespace cdc
 
 		// Whether the ant is currently selected. This can be used to get debug
 		// or state information.
-		bool isSelected;
+		bool selected;
 		sf::Clock selectedTimer;
 
 		// Gets a new goal for the ant.

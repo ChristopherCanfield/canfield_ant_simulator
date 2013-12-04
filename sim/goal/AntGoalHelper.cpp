@@ -49,7 +49,7 @@ void AntGoalHelper::drawPath(sf::RenderTarget& target, sf::RenderStates states, 
 				{
 					if (edge->getOppositeNode(*node) == previousNode)
 					{
-						edge->draw(target, states, sf::Color::Black);
+						edge->draw(target, states, sf::Color(0, 255, 178));
 						break;
 					}
 				}

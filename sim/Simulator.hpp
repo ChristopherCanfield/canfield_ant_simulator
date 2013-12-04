@@ -52,7 +52,9 @@ namespace cdc
 		// is visible.
 		void drawNavGraph();
 
-		void Simulator::drawDeadAnts();
+		void drawDeadAnts();
+
+		void drawAntPaths();
 
 		// Performs one tick of the simulation.
 		void update();
@@ -76,11 +78,10 @@ namespace cdc
 		bool displayPheromones;
 		bool displayNavGraph;
 		bool displayDeadAnts;
+		bool displayAntPaths;
 
 		std::unique_ptr<World> world;
 
-		// Returns a count of the live ants.
-		uint getLiveAntCount() const;
 		// Timer used for periodically sending the ant count to the console window.
 		sf::Clock antCountTimer;
 	};

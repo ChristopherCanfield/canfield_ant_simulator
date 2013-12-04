@@ -39,7 +39,7 @@ sf::Texture* Ant::textureWithFood = nullptr;
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
 		Button(manager),
 		kb(home, graphHelper),
-		isSelected(false)
+		selected(false)
 {
 	if (Ant::texture == nullptr)
 	{
@@ -88,7 +88,7 @@ Ant::Ant(Ant&& other) :
 	kb(move(other.kb)),
 	stats(move(other.stats)),
 	goal(move(other.goal)),
-	isSelected(other.isSelected),
+	selected(other.selected),
 	deadAntSprite(move(other.deadAntSprite)),
 	selectedAntSprite(move(other.selectedAntSprite))
 {
@@ -159,6 +159,11 @@ void Ant::kill()
 	onDeath();
 }
 
+bool Ant::isSelected() const
+{
+	return selected;
+}
+
 Node& Ant::getNode() const
 {
 	return *kb.lastNodePassed;
@@ -167,9 +172,9 @@ Node& Ant::getNode() const
 
 void Ant::onDirectGuiEvent(const sf::Event& e)
 {
-	if (e.type == sf::Event::MouseButtonReleased && !isSelected)
+	if (e.type == sf::Event::MouseButtonReleased && !isSelected())
 	{
-		isSelected = true;
+		selected = true;
 		selectedTimer.restart();
 		cout << "Ant " << getObserverId().toString() << " selected" << endl;
 		cout << "  Hunger: " << stats.hunger << "% | " << (!isDead() ? "Is Alive" : "Is Dead") << endl;
@@ -184,9 +189,9 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 
 void Ant::onGuiEvent(const sf::Event& e)
 {
-	if (e.type == sf::Event::MouseButtonReleased && isSelected && selectedTimer.getElapsedTime().asMilliseconds() > 300)
+	if (e.type == sf::Event::MouseButtonReleased && isSelected() && selectedTimer.getElapsedTime().asMilliseconds() > 300)
 	{
-		isSelected = false;
+		selected = false;
 
 		if (!isDead())
 		{
@@ -204,12 +209,17 @@ void Ant::onGuiEvent(const sf::Event& e)
 
 void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	if (isSelected && goal != nullptr)
+	if (isSelected() && goal != nullptr)
 	{
-		goal->drawPath(target, states, this->getNode());
+		drawPath(target, states);
 	}
 
 	Button::draw(target, states);
+}
+
+void Ant::drawPath(sf::RenderTarget &target, sf::RenderStates states) const
+{
+	goal->drawPath(target, states, this->getNode());
 }
 
 
@@ -219,7 +229,7 @@ void Ant::onDeath()
 {
 	if (!stats.isDead)
 	{
-		if (isSelected) cout << "  Ant " << getObserverId().toString() << " has died" << endl;
+		if (isSelected()) cout << "  Ant " << getObserverId().toString() << " has died" << endl;
 		stats.isDead = true;
 		deadAntSprite.setPosition(getPosition());
 		deadAntSprite.setRotation(getRotation());
@@ -231,7 +241,7 @@ void Ant::onPickUpFood()
 {
 	stats.isHoldingFood = true;
 	updateSpritePositions();
-	if (!isSelected)
+	if (!isSelected())
 	{
 		setCurrentImage(antWithFoodSprite);
 	}
@@ -244,7 +254,7 @@ void Ant::updateSpritePositions()
 		antWithFoodSprite.setPosition(getPosition());
 		antWithFoodSprite.setRotation(getRotation());
 	}
-	if (isSelected)
+	if (isSelected())
 	{
 		selectedAntSprite.setPosition(getPosition());
 		selectedAntSprite.setRotation(getRotation());
@@ -263,7 +273,7 @@ void Ant::processHunger(uint ticks, AntStats& stats)
 		else
 		{
 			++stats.hunger;
-			if (isSelected) cout << "  Hunger: " << stats.hunger << "%" << endl;
+			if (isSelected()) cout << "  Hunger: " << stats.hunger << "%" << endl;
 			// Modify the hunger increase rate by between 0.65 and 1.35, to 
 			// differentiate the behaviors of the ants.
 			float modifier = random.getInteger(65, 135) / 100.f;
@@ -288,7 +298,7 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 	if (stats.hunger > hungry)
 	{
 		auto newGoal = unique_ptr<AntEat>(new AntEat());
-		if (isSelected) cout << "  Goal changed: " << newGoal->toString() << endl;
+		if (isSelected()) cout << "  Goal changed: " << newGoal->toString() << endl;
 		return move(newGoal);
 	}
 
@@ -298,13 +308,13 @@ unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
 	if (decision <= exploreChance)
 	{
 		auto newGoal = unique_ptr<AntExplore>(new AntExplore());
-		if (isSelected) cout << "  Goal changed: " << newGoal->toString() << endl;
+		if (isSelected()) cout << "  Goal changed: " << newGoal->toString() << endl;
 		return move(newGoal);
 	}
 	else
 	{
 		auto newGoal = unique_ptr<AntForage>(new AntForage());
-		if (isSelected) cout << "  Goal changed: " << newGoal->toString() << endl;
+		if (isSelected()) cout << "  Goal changed: " << newGoal->toString() << endl;
 		return move(newGoal);
 	}
 }
