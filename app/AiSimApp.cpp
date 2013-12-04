@@ -57,6 +57,7 @@ void AiSimApp::setup()
 
 	viewManager.setWindow(window);
 	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	viewManager.setViewParameters(1150.f, 1150.f, 3.9);
 
 	simulator.start(move(world));
 }

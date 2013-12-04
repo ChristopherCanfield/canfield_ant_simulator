@@ -54,6 +54,13 @@ void ViewManager::setWindow(sf::RenderWindow& window)
 	this->window = &window;
 }
 
+void ViewManager::setViewParameters(float xMovement, float yMovement, float zoom)
+{
+	simView.zoom(zoom);
+	simView.move(sf::Vector2f(xMovement, yMovement));
+	window->setView(simView);
+}
+
 void ViewManager::onGuiEvent(const sf::Event& e)
 {
 	if (e.type == sf::Event::KeyPressed)

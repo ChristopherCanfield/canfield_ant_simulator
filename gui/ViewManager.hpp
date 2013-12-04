@@ -27,11 +27,13 @@ namespace cdc
 
 		virtual void onGuiEvent(const sf::Event& e) override;
 
-		Poco::UUID getObserverId() const;
+		virtual Poco::UUID getObserverId() const override;
 
 		void setWindow(sf::RenderWindow& window);
 		sf::View& getSimView();
 		sf::View& getUiView();
+
+		void setViewParameters(float xMovement, float yMovement, float zoom);
 
 	private:
 		void moveMainView(const sf::Event& e);
