@@ -57,6 +57,9 @@ namespace cdc
 		// Performs one tick of the simulation.
 		void update();
 
+		// Returns a count of the live ants.
+		uint getLiveAntCount() const;
+
 		static const uint defaultTicksPerSecond;
 
 	protected:

@@ -140,6 +140,7 @@ namespace cdc
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;
 		static bool wasTextureLoaded;
+		static sf::Texture* textureDead;
 		sf::Sprite deadAntSprite;
 		static sf::Texture* textureWithFood;
 		sf::Sprite antWithFoodSprite;

@@ -4,6 +4,7 @@
 #include "../sim/knowledge/GenericPercept.hpp"
 
 #include <iostream>
+#include <algorithm>
 
 
 // Christopher D. Canfield
@@ -195,15 +196,26 @@ bool Simulator::isPaused() const
 
 void Simulator::drawPheromones()
 {
+	cout << (displayPheromones ? "Simulator: hide pheromones" : "Simulator: show pheromones") << endl;
 	displayPheromones = !displayPheromones;
 }
 
 void Simulator::drawNavGraph()
 {
+	cout << (displayPheromones ? "Simulator: hide nav graph" : "Simulator: show nav graph") << endl;
 	displayNavGraph = !displayNavGraph;
 }
 
 void Simulator::drawDeadAnts()
 {
+	cout << (displayDeadAnts ? "Simulator: hide dead ants" : "Simulator: show dead ants") << endl;
 	displayDeadAnts = !displayDeadAnts;
+}
+
+uint Simulator::getLiveAntCount() const
+{
+	uint count = count_if(world->getAnts().cbegin(), world->getAnts().cend(), [](const unique_ptr<Ant>& ant) {
+		return !ant->isDead();
+	});
+	return count;
 }

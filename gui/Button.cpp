@@ -210,6 +210,16 @@ void Button::setOnHoverImage(std::unique_ptr<sf::Sprite> image)
 	onHoverImage = std::move(image);
 }
 
+void Button::switchToDefaultSprite(sf::Vector2f position, float rotation)
+{
+	if (defaultImage != nullptr)
+	{
+		currentImage = defaultImage.get();
+		currentImage->setPosition(position);
+		currentImage->setRotation(rotation);
+	}
+}
+
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {

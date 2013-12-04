@@ -3,6 +3,7 @@
 
 #include "../sim/Simulator.hpp"
 #include "../sim/world/RandomWorld.hpp"
+#include "../util/make_unique.hpp"
 
 #include <memory>
 
@@ -58,5 +59,18 @@ namespace tests
 			sim.decreaseSpeed();
 		}
 
+		TEST_METHOD(Simulator_getLiveAntCount)
+		{
+			Random rand;
+			rand.setSeed(1);
+			GuiEventManager manager;
+			auto world = make_unique<RandomWorld>();
+
+			Simulator sim(manager);
+			sim.start(move(world));
+
+			auto count = sim.getLiveAntCount();
+			Assert::AreEqual(40u, count);
+		}
 	};
 }

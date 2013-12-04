@@ -61,6 +61,7 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 				auto& anthill = ant.kb.home;
 				anthill.addFood();
 				ant.stats.isHoldingFood = false;
+				ant.switchToDefaultSprite(ant.antWithFoodSprite.getPosition(), ant.antWithFoodSprite.getRotation());
 			}
 			setFinished(true);
 		}

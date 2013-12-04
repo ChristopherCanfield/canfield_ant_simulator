@@ -34,6 +34,7 @@ using std::move;
 
 bool Ant::wasTextureLoaded = false;
 sf::Texture* Ant::texture = nullptr;
+sf::Texture* Ant::textureDead = nullptr;
 sf::Texture* Ant::textureWithFood = nullptr;
 
 
@@ -48,27 +49,29 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		{
 			Ant::texture = new sf::Texture;
 			Ant::textureWithFood = new sf::Texture;
+			Ant::textureDead = new sf::Texture;
 		}
 
 		if (!Ant::texture->loadFromFile("res/ant.png"))
 		{
 			std::cout << "Unable to load ant image: res/ant.png" << std::endl;
 		}
-		else if (!Ant::textureWithFood->loadFromFile("res/ant - holding food.png"))
+		if (!Ant::textureWithFood->loadFromFile("res/ant - holding food.png"))
 		{
 			std::cout << "Unable to load ant image: res/ant - holding food.png" << std::endl;
 		}
-		else
+		if (!Ant::textureDead->loadFromFile("res/ant - dead.png"));
 		{
-			Ant::wasTextureLoaded = true;
+			std::cout << "Unable to load ant image: res/ant - dead.png";
 		}
+		Ant::wasTextureLoaded = true;
 	}
 
-	auto antSprite = std::unique_ptr<sf::Sprite>(new sf::Sprite(*Ant::texture));			
+	auto antSprite = make_unique<sf::Sprite>(*Ant::texture);			
 	setDefaultImage(std::move(antSprite));
 	setOriginToCenter();
 
-	deadAntSprite.setTexture(*Ant::texture, true);
+	deadAntSprite.setTexture(*Ant::textureDead, true);
 	deadAntSprite.setOrigin(deadAntSprite.getGlobalBounds().width / 1.9f, deadAntSprite.getGlobalBounds().height / 1.9f);
 	antWithFoodSprite.setTexture(*Ant::textureWithFood, true);
 	antWithFoodSprite.setOrigin(antWithFoodSprite.getGlobalBounds().width / 1.9f, antWithFoodSprite.getGlobalBounds().height / 1.9f);
@@ -118,11 +121,6 @@ void Ant::update(uint ticks, const Percept& percept)
 		{
 			goal = getNewGoal(stats);
 		}
-	}
-	else
-	{
-		deadAntSprite.setPosition(getPosition());
-		deadAntSprite.setRotation(getRotation());
 	}
 }
 
@@ -181,7 +179,7 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 		isSelected = true;
 		selectedTimer.restart();
 		cout << "Ant " << getObserverId().toString() << " selected" << endl;
-		cout << "  Hunger: " << stats.hunger << "%" << endl;
+		cout << "  Hunger: " << stats.hunger << "% | " << (!isDead() ? "Is Alive" : "Is Dead") << endl;
 		cout << "  Current Goal: " << goal->toString() << endl;
 	}
 }
@@ -225,7 +223,7 @@ void Ant::onDeath()
 		if (isSelected) cout << "  Ant " << getObserverId().toString() << " has died" << endl;
 		stats.isDead = true;
 		deadAntSprite.setPosition(getPosition());
-		deadAntSprite.setColor(sf::Color(128, 128, 128));
+		deadAntSprite.setRotation(getRotation());
 	}
 }
 
@@ -241,9 +239,10 @@ void Ant::processHunger(uint ticks, AntStats& stats)
 		else
 		{
 			++stats.hunger;
-			// Modify the hunger increase rate by between 0.75 and 1.25, to 
+			if (isSelected) cout << "  Hunger: " << stats.hunger << endl;
+			// Modify the hunger increase rate by between 0.65 and 1.35, to 
 			// differentiate the behaviors of the ants.
-			float modifier = random.getInteger(75, 125) / 100.f;
+			float modifier = random.getInteger(65, 135) / 100.f;
 			stats.nextHungerIncrease += static_cast<uint>(stats.hungerIncreaseRate * modifier);
 		}
 	}
