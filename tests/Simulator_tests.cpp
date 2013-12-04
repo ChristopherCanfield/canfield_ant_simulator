@@ -59,6 +59,8 @@ namespace tests
 			sim.decreaseSpeed();
 		}
 
+		// Note that this does not succeed in Release mode, because the 
+		// random seed generates a different set of numbers.
 		TEST_METHOD(Simulator_getLiveAntCount)
 		{
 			Random rand;

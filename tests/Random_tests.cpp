@@ -17,6 +17,8 @@ namespace tests
 			Random rand(5);
 		}
 
+		// Note that this does not succeed in Release mode, because the 
+		// seed generates a different set of numbers.
 		TEST_METHOD(Random_getInteger)
 		{
 			Random rand(5);
@@ -25,6 +27,8 @@ namespace tests
 			Assert::AreEqual(11, rand.getInteger(0, 100));
 		}
 
+		// Note that this does not succeed in Release mode, because the 
+		// seed generates a different set of numbers.
 		TEST_METHOD(Random_getInteger2)
 		{
 			Random rand(500);
