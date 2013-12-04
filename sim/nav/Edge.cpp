@@ -56,20 +56,20 @@ void Edge::setVertices(Node& startNode, Node& endNode)
 	pheromoneStrongVertices.setPrimitiveType(sf::Lines);
 	sf::Vector2f startPoint(startNode.getPixelX<float>(), startNode.getPixelY<float>());
 	sf::Vector2f endPoint(endNode.getPixelX<float>(), endNode.getPixelY<float>());
-	pheromoneStrongVertices.append(sf::Vertex(startPoint, sf::Color(220, 0, 0)));
-	pheromoneStrongVertices.append(sf::Vertex(endPoint, sf::Color(220, 0, 0)));
+	pheromoneStrongVertices.append(sf::Vertex(startPoint, sf::Color(255, 0, 0)));
+	pheromoneStrongVertices.append(sf::Vertex(endPoint, sf::Color(255, 0, 0)));
 
 	pheromoneMediumVertices.setPrimitiveType(sf::Lines);
 	sf::Vector2f startPoint2(startNode.getPixelX<float>(), startNode.getPixelY<float>());
 	sf::Vector2f endPoint2(endNode.getPixelX<float>(), endNode.getPixelY<float>());
-	pheromoneMediumVertices.append(sf::Vertex(startPoint2, sf::Color(255, 0, 0)));
-	pheromoneMediumVertices.append(sf::Vertex(endPoint2, sf::Color(255, 0, 0)));
+	pheromoneMediumVertices.append(sf::Vertex(startPoint2, sf::Color(255, 145, 0)));
+	pheromoneMediumVertices.append(sf::Vertex(endPoint2, sf::Color(255, 145, 0)));
 
-	pheromoneMediumVertices.setPrimitiveType(sf::Lines);
+	pheromoneWeakVertices.setPrimitiveType(sf::Lines);
 	sf::Vector2f startPoint3(startNode.getPixelX<float>(), startNode.getPixelY<float>());
 	sf::Vector2f endPoint3(endNode.getPixelX<float>(), endNode.getPixelY<float>());
-	pheromoneMediumVertices.append(sf::Vertex(startPoint3, sf::Color(255, 120, 0)));
-	pheromoneMediumVertices.append(sf::Vertex(endPoint3, sf::Color(255, 120, 0)));
+	pheromoneWeakVertices.append(sf::Vertex(startPoint3, sf::Color(255, 195, 0)));
+	pheromoneWeakVertices.append(sf::Vertex(endPoint3, sf::Color(255, 195, 0)));
 }
 
 Node* Edge::getNode1() const
@@ -179,11 +179,7 @@ void Edge::drawPheromone(sf::RenderTarget& target, sf::RenderStates states)
 {
 	auto pheromoneStrength = getPheromone();
 	
-	if (pheromoneStrength == 0)
-	{
-		//pheromoneVertices.(sf::Color::Transparent);
-	}
-	else if (pheromoneStrength > 6)
+	if (pheromoneStrength > 6)
 	{
 		target.draw(pheromoneStrongVertices, states);
 	}
@@ -195,29 +191,6 @@ void Edge::drawPheromone(sf::RenderTarget& target, sf::RenderStates states)
 	{
 		target.draw(pheromoneWeakVertices, states);
 	}
-
-	/*else if (pheromoneStrength > 8)
-	{
-		 pheromoneVertices.setFillColor(sf::Color(170, 0,  255, 140));
-	}
-	else if (pheromoneStrength > 5)
-	{
-		pheromoneVertices.setFillColor(sf::Color(199, 89, 255, 140));
-	}
-	else if (pheromoneStrength > 3)
-	{
-		pheromoneVertices.setFillColor(sf::Color(216, 140, 255, 140));
-	}
-	else if (pheromoneStrength > 0)
-	{
-		pheromoneVertices.setFillColor(sf::Color(232, 186, 255, 140));
-	}*/
-
-	/*if (startNode != nullptr && endNode != nullptr)
-	{
-		
-		target.draw(pheromoneVertices, states);
-	}*/
 }
 
 bool Edge::operator==(const Edge& other) const

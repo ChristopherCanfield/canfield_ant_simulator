@@ -57,9 +57,6 @@ namespace cdc
 		// Performs one tick of the simulation.
 		void update();
 
-		// Returns a count of the live ants.
-		uint getLiveAntCount() const;
-
 		static const uint defaultTicksPerSecond;
 
 	protected:
@@ -81,6 +78,11 @@ namespace cdc
 		bool displayDeadAnts;
 
 		std::unique_ptr<World> world;
+
+		// Returns a count of the live ants.
+		uint getLiveAntCount() const;
+		// Timer used for periodically sending the ant count to the console window.
+		sf::Clock antCountTimer;
 	};
 }
 

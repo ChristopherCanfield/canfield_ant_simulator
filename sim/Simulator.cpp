@@ -72,6 +72,12 @@ void Simulator::update()
 				break;
 			}
 		}
+
+		if (antCountTimer.getElapsedTime().asSeconds() > 10.f)
+		{
+			cout << "Simulator: Ants: " << world->getAnts().size() << " | Live Ants: " << getLiveAntCount() << endl;
+			antCountTimer.restart();
+		}
 		
 		clock.restart();
 		++ticks;
