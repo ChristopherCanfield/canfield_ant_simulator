@@ -52,6 +52,8 @@ void AiSimApp::setup()
 	printUserCommands();
 
 	window.create(sf::VideoMode(800, 800), "Canfield: Ant Simulator");
+	// Limiting the frame rate reduces CPU usage by ~75% on my desktop.
+	window.setFramerateLimit(130);
 
 	viewManager.setWindow(window);
 	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
