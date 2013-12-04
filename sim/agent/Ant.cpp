@@ -33,9 +33,7 @@ using std::move;
 
 
 sf::Texture* Ant::texture = nullptr;
-sf::Texture* Ant::textureDead = nullptr;
 sf::Texture* Ant::textureWithFood = nullptr;
-//sf::Texture* Ant::textureSelected = nullptr;
 
 
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
@@ -49,7 +47,7 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		Ant::textureWithFood = new sf::Texture;
 		Ant::textureDead = new sf::Texture;
 
-		if (!Ant::texture->loadFromFile("res/ant - test.png"))
+		if (!Ant::texture->loadFromFile("res/ant.png"))
 		{
 			std::cout << "Unable to load ant image: res/ant.png" << std::endl;
 		}
@@ -57,14 +55,6 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		{
 			std::cout << "Unable to load ant image: res/ant - holding food.png" << std::endl;
 		}
-		if (!Ant::textureDead->loadFromFile("res/ant - dead.png"))
-		{
-			std::cout << "Unable to load ant image: res/ant - dead.png";
-		}
-		/*if (!Ant::textureSelected->loadFromFile("res/ant - selected.png"))
-		{
-			std::cout << "Unable to load ant image: res/ant - selected.png";
-		}*/
 	}
 
 	auto antSprite = make_unique<sf::Sprite>(*Ant::texture);	
@@ -72,7 +62,6 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	setDefaultImage(std::move(antSprite));
 	setOriginToCenter();
 
-	//deadAntSprite.setTexture(*Ant::textureDead, true);
 	deadAntSprite.setTexture(*Ant::texture, true);
 	deadAntSprite.setOrigin(deadAntSprite.getGlobalBounds().width / 1.9f, deadAntSprite.getGlobalBounds().height / 1.9f);
 	deadAntSprite.setColor(sf::Color(128, 128, 128));
@@ -88,6 +77,7 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	manager.removeMouseMoveListener(*this);
 	manager.addDirectMouseMoveListener(*this);
 
+	// Subscribe to indirect click events.
 	manager.addClickListener(*this);
 
 	goal = make_unique<AntForage>();
@@ -175,7 +165,6 @@ Node& Ant::getNode() const
 }
 
 
-
 void Ant::onDirectGuiEvent(const sf::Event& e)
 {
 	if (e.type == sf::Event::MouseButtonReleased && !isSelected)
@@ -215,23 +204,12 @@ void Ant::onGuiEvent(const sf::Event& e)
 
 void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	//if (isDead())
-	//{
-	//	target.draw(deadAntSprite, states);
-	//}
-	//else if (stats.isHoldingFood)
-	//{
-	//	target.draw(antWithFoodSprite, states);
-	//}
-	//else
-	//{
-		Button::draw(target, states);
-	//}
-
 	if (isSelected && goal != nullptr)
 	{
 		goal->drawPath(target, states, this->getNode());
 	}
+
+	Button::draw(target, states);
 }
 
 

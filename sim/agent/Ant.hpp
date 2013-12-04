@@ -52,7 +52,7 @@ namespace cdc
 
 		// Returns true if the ant is dead, or false if alive.
 		bool isDead() const;
-		// Kill's the ant (sets isDead to true).
+		// Sets isDead to true).
 		void kill();
 
 		// GUI event handlers.
@@ -142,9 +142,7 @@ namespace cdc
 
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;
-		static sf::Texture* Ant::textureSelected;
 		sf::Sprite selectedAntSprite;
-		static sf::Texture* textureDead;
 		sf::Sprite deadAntSprite;
 		static sf::Texture* textureWithFood;
 		sf::Sprite antWithFoodSprite;
