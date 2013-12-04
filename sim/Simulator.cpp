@@ -161,7 +161,7 @@ void Simulator::increaseSpeed()
 	if ((speed + simSpeedIncrement) <= maxSimSpeed)
 	{
 		speed += simSpeedIncrement;
-		cout << "Simulator: speed increased" << endl;
+		cout << "Simulator: speed increased (" << speed << ")" << endl;
 	}
 	else
 	{
@@ -175,7 +175,7 @@ void Simulator::decreaseSpeed()
 	if ((speed - simSpeedIncrement) > minSimSpeed)
 	{
 		speed -= simSpeedIncrement;
-		cout << "Simulator: speed decreased" << endl;
+		cout << "Simulator: speed decreased (" << speed << ")" << endl;
 		if (speed == 0)
 		{
 			pause();

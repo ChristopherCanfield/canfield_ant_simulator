@@ -132,6 +132,7 @@ void printUserCommands()
 		<< "  1.............Show/Hide navigation graph" << endl
 		<< "  2.............Show/Hide pheromone strength" << endl
 		<< "  3.............Show/Hide background" << endl
+		<< "  4.............Show/Hide dead ants" << endl
 		<< "  Mouse Wheel...Zoom in/out" << endl
 		<< "  Arrow Keys....Move screen up/down/left/right" << endl 
 		<< "  Escape........Exit" << endl << endl;
@@ -141,7 +142,7 @@ bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& s
 {
 	if (e.type == Event::KeyReleased)
 	{
-		if (e.key.code == Keyboard::Subtract)
+		if (e.key.code == Keyboard::Subtract || e.key.code == Keyboard::Dash)
 		{
 			sim.decreaseSpeed();
 		}
@@ -168,9 +169,13 @@ bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& s
 		{
 			sim.drawPheromones();
 		}
-		else if (e.key.code ==Keyboard::Num3)
+		else if (e.key.code == Keyboard::Num3)
 		{
 			drawBackground = !drawBackground;
+		}
+		else if (e.key.code == Keyboard::Num4)
+		{
+			sim.drawDeadAnts();
 		}
 		else if (e.key.code == Keyboard::Escape)
 		{
