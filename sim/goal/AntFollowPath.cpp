@@ -23,7 +23,13 @@ AntFollowPath::AntFollowPath(Ant& ant, const Node& target, bool debug) :
 	AntGoal("AntFollowPath")
 {
 	path = Search::aStar(ant.getNode(), target, Search::straightLineHeuristic);
-	
+	if (path.empty())
+	{
+		setFinished(true);
+		return;
+	}
+
+
 	if (debug)
 	{
 		cout << "Path: ";

@@ -134,16 +134,22 @@ namespace cdc
 		// Called when the ant has died.
 		void onDeath();
 
+		// Called when the ant picks up food.
+		void onPickUpFood();
+
 		// Sets the position of the ant to the position of the specified node.
 		void setPositionToNode(const Node& node);
 
 		// Ant texture; used by all ants.
 		static sf::Texture* texture;
-		static bool wasTextureLoaded;
+		static sf::Texture* Ant::textureSelected;
+		sf::Sprite selectedAntSprite;
 		static sf::Texture* textureDead;
 		sf::Sprite deadAntSprite;
 		static sf::Texture* textureWithFood;
 		sf::Sprite antWithFoodSprite;
+
+		void Ant::updateSpritePositions();
 
 		// Whether the ant is currently selected. This can be used to get debug
 		// or state information.

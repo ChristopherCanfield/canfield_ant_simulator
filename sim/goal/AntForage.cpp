@@ -46,7 +46,7 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 				// If the food pile has food available, take one and pick it up.
 				if (foodPile.takeFood())
 				{
-					ant.stats.isHoldingFood = true;
+					ant.onPickUpFood();
 					ant.kb.lastKnownFoodPosition.push_front(&foodPileNode);
 				}
 			}
@@ -61,7 +61,7 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 				auto& anthill = ant.kb.home;
 				anthill.addFood();
 				ant.stats.isHoldingFood = false;
-				ant.switchToDefaultSprite(ant.antWithFoodSprite.getPosition(), ant.antWithFoodSprite.getRotation());
+				ant.switchToDefaultImage(ant.antWithFoodSprite.getPosition(), ant.antWithFoodSprite.getRotation());
 			}
 			setFinished(true);
 		}

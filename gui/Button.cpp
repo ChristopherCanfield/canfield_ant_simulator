@@ -35,7 +35,8 @@ Button::Button(Button&& other) :
 	hoverTimer(other.hoverTimer),
 	clickTimer(other.clickTimer),
 	guiManager(other.guiManager),
-	defaultImage(nullptr)
+	defaultImage(nullptr),
+	currentImage(nullptr)
 {
 	if (other.defaultImage)
 	{
@@ -101,6 +102,7 @@ Poco::UUID Button::getObserverId() const
 
 void Button::setRotation(float rotation)
 {
+	currentImage->setRotation(rotation);
 	if (defaultImage)
 	{
 		defaultImage->setRotation(rotation);
@@ -126,6 +128,7 @@ float Button::getRotation() const
 
 void Button::setOriginToCenter()
 {
+	currentImage->setOrigin(defaultImage->getGlobalBounds().width / 1.9f, defaultImage->getGlobalBounds().height / 1.9f);
 	if (defaultImage)
 	{
 		defaultImage->setOrigin(defaultImage->getGlobalBounds().width / 1.9f, defaultImage->getGlobalBounds().height / 1.9f);
@@ -210,7 +213,18 @@ void Button::setOnHoverImage(std::unique_ptr<sf::Sprite> image)
 	onHoverImage = std::move(image);
 }
 
-void Button::switchToDefaultSprite(sf::Vector2f position, float rotation)
+void Button::setCurrentImage(sf::Sprite& sprite)
+{
+	if (currentImage != nullptr)
+	{
+		sprite.setPosition(currentImage->getPosition());
+		sprite.setRotation(currentImage->getRotation());
+	}
+
+	currentImage = &sprite;
+}
+
+void Button::switchToDefaultImage(sf::Vector2f position, float rotation)
 {
 	if (defaultImage != nullptr)
 	{
@@ -219,7 +233,6 @@ void Button::switchToDefaultSprite(sf::Vector2f position, float rotation)
 		currentImage->setRotation(rotation);
 	}
 }
-
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {

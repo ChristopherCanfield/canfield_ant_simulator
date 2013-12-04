@@ -27,10 +27,6 @@ void AntForageAntTest::update(uint ticks, const Percept& percept)
 {
 	if (!goal->isFinished())
 	{
-		if (stats.isHoldingFood)
-		{
-			setAntWithFoodSpritePosition(getPosition().x, getPosition().y, getRotation());
-		}
 		AntPercept antPercept(percept);
 		goal->update(*this, ticks, antPercept);
 	}

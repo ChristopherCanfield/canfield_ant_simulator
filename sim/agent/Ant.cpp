@@ -32,10 +32,10 @@ using std::endl;
 using std::move;
 
 
-bool Ant::wasTextureLoaded = false;
 sf::Texture* Ant::texture = nullptr;
 sf::Texture* Ant::textureDead = nullptr;
 sf::Texture* Ant::textureWithFood = nullptr;
+//sf::Texture* Ant::textureSelected = nullptr;
 
 
 Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, const Node& startNode) :
@@ -43,16 +43,13 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		kb(home, graphHelper),
 		isSelected(false)
 {
-	if (!Ant::wasTextureLoaded)
+	if (Ant::texture == nullptr)
 	{
-		if (Ant::texture == nullptr)
-		{
-			Ant::texture = new sf::Texture;
-			Ant::textureWithFood = new sf::Texture;
-			Ant::textureDead = new sf::Texture;
-		}
+		Ant::texture = new sf::Texture;
+		Ant::textureWithFood = new sf::Texture;
+		Ant::textureDead = new sf::Texture;
 
-		if (!Ant::texture->loadFromFile("res/ant.png"))
+		if (!Ant::texture->loadFromFile("res/ant - test.png"))
 		{
 			std::cout << "Unable to load ant image: res/ant.png" << std::endl;
 		}
@@ -64,17 +61,28 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 		{
 			std::cout << "Unable to load ant image: res/ant - dead.png";
 		}
-		Ant::wasTextureLoaded = true;
+		/*if (!Ant::textureSelected->loadFromFile("res/ant - selected.png"))
+		{
+			std::cout << "Unable to load ant image: res/ant - selected.png";
+		}*/
 	}
 
-	auto antSprite = make_unique<sf::Sprite>(*Ant::texture);			
+	auto antSprite = make_unique<sf::Sprite>(*Ant::texture);	
+	antSprite->setColor(sf::Color::Black);
 	setDefaultImage(std::move(antSprite));
 	setOriginToCenter();
 
-	deadAntSprite.setTexture(*Ant::textureDead, true);
+	//deadAntSprite.setTexture(*Ant::textureDead, true);
+	deadAntSprite.setTexture(*Ant::texture, true);
 	deadAntSprite.setOrigin(deadAntSprite.getGlobalBounds().width / 1.9f, deadAntSprite.getGlobalBounds().height / 1.9f);
+	deadAntSprite.setColor(sf::Color(128, 128, 128));
+
 	antWithFoodSprite.setTexture(*Ant::textureWithFood, true);
 	antWithFoodSprite.setOrigin(antWithFoodSprite.getGlobalBounds().width / 1.9f, antWithFoodSprite.getGlobalBounds().height / 1.9f);
+
+	selectedAntSprite.setTexture(*Ant::texture, true);
+	selectedAntSprite.setOrigin(selectedAntSprite.getGlobalBounds().width / 1.9f, selectedAntSprite.getGlobalBounds().height / 1.9f);
+	selectedAntSprite.setColor(sf::Color(255, 106, 0));
 
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
@@ -105,12 +113,8 @@ void Ant::update(uint ticks, const Percept& percept)
 	if (!isDead())
 	{
 		processHunger(ticks, stats);
-		if (stats.isHoldingFood)
-		{
-			antWithFoodSprite.setPosition(getPosition());
-			antWithFoodSprite.setRotation(getRotation());
-		}
-		
+		updateSpritePositions();
+
 		// Process the goal if one is set, or set a new one if not.
 		if (!goal->isFinished())
 		{
@@ -181,6 +185,11 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 		cout << "Ant " << getObserverId().toString() << " selected" << endl;
 		cout << "  Hunger: " << stats.hunger << "% | " << (!isDead() ? "Is Alive" : "Is Dead") << endl;
 		cout << "  Current Goal: " << goal->toString() << endl;
+
+		if (!isDead())
+		{
+			setCurrentImage(selectedAntSprite);
+		}
 	}
 }
 
@@ -189,23 +198,35 @@ void Ant::onGuiEvent(const sf::Event& e)
 	if (e.type == sf::Event::MouseButtonReleased && isSelected && selectedTimer.getElapsedTime().asMilliseconds() > 300)
 	{
 		isSelected = false;
+
+		if (!isDead())
+		{
+			if (!stats.isHoldingFood)
+			{
+				switchToDefaultImage(deadAntSprite.getPosition(), deadAntSprite.getRotation());
+			}
+			else
+			{
+				setCurrentImage(antWithFoodSprite);
+			}
+		}
 	}
 }
 
 void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-	if (isDead())
-	{
-		target.draw(deadAntSprite, states);
-	}
-	else if (stats.isHoldingFood)
-	{
-		target.draw(antWithFoodSprite, states);
-	}
-	else
-	{
+	//if (isDead())
+	//{
+	//	target.draw(deadAntSprite, states);
+	//}
+	//else if (stats.isHoldingFood)
+	//{
+	//	target.draw(antWithFoodSprite, states);
+	//}
+	//else
+	//{
 		Button::draw(target, states);
-	}
+	//}
 
 	if (isSelected && goal != nullptr)
 	{
@@ -224,6 +245,28 @@ void Ant::onDeath()
 		stats.isDead = true;
 		deadAntSprite.setPosition(getPosition());
 		deadAntSprite.setRotation(getRotation());
+		setCurrentImage(deadAntSprite);
+	}
+}
+
+void Ant::onPickUpFood()
+{
+	stats.isHoldingFood = true;
+	updateSpritePositions();
+	setCurrentImage(antWithFoodSprite);
+}
+
+void Ant::updateSpritePositions()
+{
+	if (stats.isHoldingFood)
+	{
+		antWithFoodSprite.setPosition(getPosition());
+		antWithFoodSprite.setRotation(getRotation());
+	}
+	if (isSelected)
+	{
+		selectedAntSprite.setPosition(getPosition());
+		selectedAntSprite.setRotation(getRotation());
 	}
 }
 

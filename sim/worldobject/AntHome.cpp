@@ -39,9 +39,9 @@ AntHome::AntHome(Node& node, std::vector<Node>& navGraph, World& world) :
 			AntHome::texture = new sf::Texture;
 		}
 
-		if (!AntHome::texture->loadFromFile("res/ant_hill.png"))
+		if (!AntHome::texture->loadFromFile("res/anthill.png"))
 		{
-			std::cout << "Unable to load ant hill image: res/ant_hill.png" << std::endl;
+			std::cout << "Unable to load ant hill image: res/anthill.png" << std::endl;
 		}
 		else
 		{

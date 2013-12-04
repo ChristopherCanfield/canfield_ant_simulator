@@ -99,6 +99,11 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		}
 	}
 
+	for (auto& antHill : world->getAntHills())
+	{
+		target.draw(*antHill);
+	}
+
 	// Draw dead ants.
 	if (displayDeadAnts)
 	{
@@ -133,11 +138,6 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	for (auto& sprite : world->getObstructions())
 	{
 		target.draw(sprite);
-	}
-
-	for (auto& antHill : world->getAntHills())
-	{
-		target.draw(*antHill);
 	}
 }
 

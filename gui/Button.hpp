@@ -66,7 +66,8 @@ namespace cdc
 		// set, the default image will be used.
 		void setOnHoverImage(std::unique_ptr<sf::Sprite> image);
 
-		void switchToDefaultSprite(sf::Vector2f position, float rotation);
+		void setCurrentImage(sf::Sprite& sprite);
+		void switchToDefaultImage(sf::Vector2f position, float rotation);
 
 		// Draws the button.
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
