@@ -230,7 +230,10 @@ void Ant::onPickUpFood()
 {
 	stats.isHoldingFood = true;
 	updateSpritePositions();
-	setCurrentImage(antWithFoodSprite);
+	if (!isSelected)
+	{
+		setCurrentImage(antWithFoodSprite);
+	}
 }
 
 void Ant::updateSpritePositions()
