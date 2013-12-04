@@ -57,6 +57,7 @@ void AntExplore::update(Ant& ant, uint ticks, AntPercept& percept)
 			// if the path is empty, get a new target.
 			const auto& target = AntGoalHelper::getNewTarget(ant.kb.navGraphHelper, *ant.kb.lastNodePassed);
 			const auto& currentNode = ant.getNode();
+			ant.kb.lastNodePassed = const_cast<Node*>(&currentNode);
 			
 			// Set the path to the target.
 			path = Search::aStar(currentNode, target, Search::straightLineHeuristic);
@@ -91,14 +92,6 @@ void AntExplore::processNextInPath(Ant& ant)
 	}
 }
 
-void AntExplore::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	if (!path.empty())
-	{
-		// TODO: Draw the path.
-	}
-}
-
 std::string AntExplore::toString() const
 {
 	if (subgoal != nullptr)
@@ -108,5 +101,18 @@ std::string AntExplore::toString() const
 	else
 	{
 		return AntGoal::toString();
+	}
+}
+
+
+void AntExplore::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
+{
+	if (!path.empty())
+	{
+		AntGoalHelper::drawPath(target, states, path, lastNodePassed);
+	}
+	else if (subgoal != nullptr)
+	{
+		subgoal->drawPath(target, states, lastNodePassed);
 	}
 }

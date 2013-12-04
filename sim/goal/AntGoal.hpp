@@ -11,7 +11,7 @@
 
 namespace cdc
 {
-
+	// An ant agent's goal. Goals control the agent, and may contain subgoals.
 	class AntGoal :
 			Goal<Ant, AntPercept>
 	{
@@ -19,7 +19,7 @@ namespace cdc
 		AntGoal(std::string goalName);
 		virtual ~AntGoal();
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) = 0;
-		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const override;
 		virtual bool isFinished() const override;
 
 		virtual std::string toString() const override;

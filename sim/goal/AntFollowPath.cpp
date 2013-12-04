@@ -2,8 +2,9 @@
 #include "../nav/Node.hpp"
 #include "../nav/NavGraphHelper.hpp"
 #include "../nav/Search.hpp"
-#include "../goal/AntGoal.hpp"
-#include "../goal/AntMoveToNode.hpp"
+#include "AntGoal.hpp"
+#include "AntMoveToNode.hpp"
+#include "AntGoalHelper.hpp"
 #include "../util/make_unique.hpp"
 
 #include <cassert>
@@ -59,11 +60,15 @@ void AntFollowPath::update(Ant& agent, uint ticks, AntPercept& percept)
 	}
 }
 
-void AntFollowPath::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+void AntFollowPath::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
 {
 	if (!path.empty())
 	{
-		// TODO: Draw the path.
+		AntGoalHelper::drawPath(target, states, path, lastNodePassed);
+	}
+	if (subgoal != nullptr)
+	{
+		subgoal->drawPath(target, states, lastNodePassed);
 	}
 }
 

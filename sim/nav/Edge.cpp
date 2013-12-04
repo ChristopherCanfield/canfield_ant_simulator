@@ -70,17 +70,6 @@ void Edge::setVertices(Node& startNode, Node& endNode)
 	sf::Vector2f endPoint3(endNode.getPixelX<float>(), endNode.getPixelY<float>());
 	pheromoneMediumVertices.append(sf::Vertex(startPoint3, sf::Color(255, 120, 0)));
 	pheromoneMediumVertices.append(sf::Vertex(endPoint3, sf::Color(255, 120, 0)));
-
-	/*if (startPoint.x == endPoint.x)
-	{
-		pheromoneVertices.setPosition(sf::Vector2f(startPoint.x - 25.f, startPoint.y));
-		pheromoneVertices.setSize(sf::Vector2f(50.f, abs(startPoint.y - endPoint.y)));
-	}
-	else
-	{
-		pheromoneVertices.setPosition(sf::Vector2f(startPoint.x, startPoint.y - 25.f));
-		pheromoneVertices.setSize(sf::Vector2f(abs(startPoint.y - endPoint.y), 50.f));
-	}*/
 }
 
 Node* Edge::getNode1() const
@@ -162,6 +151,22 @@ void Edge::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	if (endNode != nullptr)
 	{
 		target.draw(vertices, states);
+	}
+}
+
+void Edge::draw(sf::RenderTarget &target, sf::RenderStates states, sf::Color color) const
+{
+	using namespace sf;
+
+	if (endNode != nullptr)
+	{
+		VertexArray path;
+		path.setPrimitiveType(sf::Lines);
+
+		path.append(Vertex(Vector2f(startNode->getPixelX<float>(), startNode->getPixelY<float>()), color));
+		path.append(Vertex(Vector2f(endNode->getPixelX<float>(), endNode->getPixelY<float>()), color));
+
+		target.draw(path, states);
 	}
 }
 

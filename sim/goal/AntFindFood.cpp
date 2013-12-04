@@ -22,7 +22,8 @@ using cdc::Search;
 
 AntFindFood::AntFindFood() :
 	AntGoal("AntFindFood"),
-	foodFound(false)
+	foodFound(false),
+	nextNode(nullptr)
 {
 }
 
@@ -82,6 +83,8 @@ void AntFindFood::setSubgoal(Ant& ant)
 			target = pheromoneTarget;
 			path.clear();
 		}
+		nextNode = target;
+
 		if (subgoal == nullptr)
 		{
 			subgoal = make_unique<AntMoveToNode>(ant, *target);
@@ -109,6 +112,8 @@ void AntFindFood::setSubgoal(Ant& ant)
 			next = pheromoneTarget;
 			path.clear();
 		}
+		nextNode = next;
+
 		if (subgoal == nullptr)
 		{
 			subgoal = make_unique<AntMoveToNode>(ant, *next);
@@ -131,6 +136,8 @@ void AntFindFood::setSubgoal(Ant& ant)
 			next = pheromoneTarget;
 			path.clear();
 		}
+		nextNode = next;
+
 		if (subgoal == nullptr)
 		{
 			subgoal = make_unique<AntMoveToNode>(ant, *next);
@@ -156,11 +163,6 @@ Node* AntFindFood::checkEdgesForPheromone(Node& currentNode)
 	return nullptr;
 }
 
-void AntFindFood::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
-{
-	// TODO: draw the path.
-}
-
 std::string AntFindFood::toString() const
 {
 	if (subgoal != nullptr)
@@ -170,5 +172,17 @@ std::string AntFindFood::toString() const
 	else
 	{
 		return AntGoal::toString();
+	}
+}
+
+void AntFindFood::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
+{
+	if (!path.empty())
+	{
+		AntGoalHelper::drawPath(target, states, path, (nextNode != nullptr) ? *nextNode : lastNodePassed);
+	}
+	if (subgoal != nullptr)
+	{
+		subgoal->drawPath(target, states, lastNodePassed);
 	}
 }

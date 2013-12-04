@@ -14,6 +14,8 @@
 
 namespace cdc 
 {
+	class Node;
+
 	// An agent's goal.
 	template<class AgentType, class PerceptType>
 	class Goal
@@ -22,7 +24,7 @@ namespace cdc
 		virtual ~Goal() {}
 		virtual void update(AgentType& agent, uint ticks, PerceptType& percept) = 0;
 		virtual bool isFinished() const = 0;
-		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const = 0;
 		virtual std::string toString() const = 0;
 	};
 }

@@ -75,6 +75,9 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 
 	// Ants don't need to know about mouse move events.
 	manager.removeMouseMoveListener(*this);
+	manager.addDirectMouseMoveListener(*this);
+
+	manager.addClickListener(*this);
 
 	goal = make_unique<AntForage>();
 	setPositionToNode(startNode);
@@ -178,13 +181,14 @@ void Ant::onDirectGuiEvent(const sf::Event& e)
 		isSelected = true;
 		selectedTimer.restart();
 		cout << "Ant " << getObserverId().toString() << " selected" << endl;
+		cout << "  Hunger: " << stats.hunger << "%" << endl;
 		cout << "  Current Goal: " << goal->toString() << endl;
 	}
 }
 
 void Ant::onGuiEvent(const sf::Event& e)
 {
-	if (e.type == sf::Event::MouseButtonPressed && isSelected && selectedTimer.getElapsedTime().asMilliseconds() > 300)
+	if (e.type == sf::Event::MouseButtonReleased && isSelected && selectedTimer.getElapsedTime().asMilliseconds() > 300)
 	{
 		isSelected = false;
 	}
@@ -203,6 +207,11 @@ void Ant::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	else
 	{
 		Button::draw(target, states);
+	}
+
+	if (isSelected && goal != nullptr)
+	{
+		goal->drawPath(target, states, this->getNode());
 	}
 }
 

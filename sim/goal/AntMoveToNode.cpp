@@ -96,3 +96,20 @@ void AntMoveToNode::calculateMovementVectors(Ant& ant)
 	ant.stats.movementVector.x = cos(angle);
 	ant.stats.movementVector.y = sin(angle);
 }
+
+
+void AntMoveToNode::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
+{
+	if (lastNodePassed != *this->target)
+	{
+		for (auto& edge : this->target->getEdgeList())
+		{
+			auto oppNode = edge->getOppositeNode(lastNodePassed);
+			if (oppNode != nullptr && oppNode == this->target)
+			{
+				edge->draw(target, states, sf::Color::Black);
+				break;
+			}
+		}
+	}
+}

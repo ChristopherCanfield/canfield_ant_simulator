@@ -25,6 +25,8 @@ namespace cdc
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
 		void reset(Ant& ant, Node& newTarget);
 
+		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const override;
+
 	private:
 		AntMoveToNode(const AntMoveToNode&);
 		AntMoveToNode& operator=(const AntMoveToNode&);

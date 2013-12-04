@@ -1,5 +1,6 @@
 #include "AntGoHome.hpp"
 #include "AntFollowPath.hpp"
+#include "AntGoalHelper.hpp"
 #include "../nav/Node.hpp"
 #include "../nav/Search.hpp"
 #include "../worldobject/AntHome.hpp"
@@ -52,11 +53,15 @@ void AntGoHome::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 }
 
-void AntGoHome::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+void AntGoHome::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
 {
 	if (!path.empty())
 	{
-		// TODO: Draw the path.
+		AntGoalHelper::drawPath(target, states, path, lastNodePassed);
+	}
+	else if (subgoal != nullptr)
+	{
+		subgoal->drawPath(target, states, lastNodePassed);
 	}
 }
 

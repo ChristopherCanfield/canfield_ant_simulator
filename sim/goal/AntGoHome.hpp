@@ -25,7 +25,7 @@ namespace cdc
 
 		virtual void update(Ant& agent, uint ticks, AntPercept& percept) override;
 
-		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states) const override;
+		virtual void drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const override;
 
 		virtual std::string toString() const override;
 

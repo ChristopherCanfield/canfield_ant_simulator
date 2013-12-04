@@ -53,8 +53,8 @@ namespace cdc
 
 		void drawPheromone(sf::RenderTarget& target, sf::RenderStates states);
 
-	protected:
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states, sf::Color color) const;
 
 	private:
 		void Edge::setVertices(Node& startNode, Node& endNode);

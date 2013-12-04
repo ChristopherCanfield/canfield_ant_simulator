@@ -67,9 +67,12 @@ void AntForage::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 }
 
-void AntForage::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+void AntForage::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
 {
-	currentSubgoal->drawPath(target, states);
+	if (currentSubgoal != nullptr)
+	{
+		currentSubgoal->drawPath(target, states, lastNodePassed);
+	}
 }
 
 std::string AntForage::toString() const

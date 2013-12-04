@@ -35,3 +35,26 @@ Node& AntGoalHelper::getNewTarget(NavGraphHelper& navGraphHelper, const Node& no
 
 	return *navGraphHelper.getNode(GridLocation(row, column));
 }
+
+void AntGoalHelper::drawPath(sf::RenderTarget& target, sf::RenderStates states, const std::deque<Node*>& path, const Node& lastNodePassed)
+{
+	if (!path.empty())
+	{
+		const Node* previousNode = &lastNodePassed;
+		for (auto node : path)
+		{
+			if (previousNode != nullptr)
+			{
+				for (auto& edge : node->getEdgeList())
+				{
+					if (edge->getOppositeNode(*node) == previousNode)
+					{
+						edge->draw(target, states, sf::Color::Black);
+						break;
+					}
+				}
+			}
+			previousNode = node;
+		}
+	}
+}

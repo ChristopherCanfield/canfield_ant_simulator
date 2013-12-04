@@ -76,9 +76,12 @@ void AntEat::update(Ant& ant, uint ticks, AntPercept& percept)
 	}
 }
 
-void AntEat::drawPath(sf::RenderTarget& target, sf::RenderStates states) const
+void AntEat::drawPath(sf::RenderTarget& target, sf::RenderStates states, const Node& lastNodePassed) const
 {
-	currentSubgoal->drawPath(target, states);
+	if (currentSubgoal != nullptr)
+	{
+		currentSubgoal->drawPath(target, states, lastNodePassed);
+	}
 }
 
 std::string AntEat::toString() const
