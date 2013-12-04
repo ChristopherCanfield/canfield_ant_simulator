@@ -41,12 +41,20 @@ namespace cdc
 		// Decreases the speed of the simulation.
 		void decreaseSpeed();
 
+		// Returns true if the simulator is currently paused.
 		bool isPaused() const;
 
+		// Unhides the pheromones if they are currently hidden, or hides them 
+		// if they are visible.
 		void drawPheromones();
 
+		// Unhides the nav graph if it is currently hidden, or hides it if it
+		// is visible.
 		void drawNavGraph();
 
+		void Simulator::drawDeadAnts();
+
+		// Performs one tick of the simulation.
 		void update();
 
 		static const uint defaultTicksPerSecond;
@@ -67,6 +75,7 @@ namespace cdc
 
 		bool displayPheromones;
 		bool displayNavGraph;
+		bool displayDeadAnts;
 
 		std::unique_ptr<World> world;
 	};

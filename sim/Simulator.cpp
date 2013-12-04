@@ -17,11 +17,11 @@ using cdc::GuiEventManager;
 using namespace std;
 
 
-uint maxSimSpeed = 60;
+uint maxSimSpeed = 90;
 uint minSimSpeed = 0;
 uint simSpeedIncrement = 10;
 
-const uint Simulator::defaultTicksPerSecond = 30;
+const uint Simulator::defaultTicksPerSecond = 60;
 
 
 Simulator::Simulator(GuiEventManager& eventManager) :
@@ -30,6 +30,7 @@ Simulator::Simulator(GuiEventManager& eventManager) :
 	speed(defaultTicksPerSecond),
 	displayPheromones(false),
 	displayNavGraph(false),
+	displayDeadAnts(true),
 	ticks(0)
 {
 }
@@ -42,7 +43,7 @@ Simulator::~Simulator()
 
 void Simulator::update()
 {
-	sf::Int32 speedMilliseconds = speed / 1000;
+	sf::Int32 speedMilliseconds = 1000 / speed;
 	if (started && (clock.getElapsedTime().asMilliseconds() >= speedMilliseconds))
 	{
 		for (auto& node : world->getNavGraph())
@@ -99,7 +100,10 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 
 	for (auto& ant : world->getAnts())
 	{
-		target.draw(*ant);
+		if (displayDeadAnts || !ant->isDead())
+		{
+			target.draw(*ant);
+		}
 	}
 
 	for (auto& antFood : world->getAntFood())
@@ -197,4 +201,9 @@ void Simulator::drawPheromones()
 void Simulator::drawNavGraph()
 {
 	displayNavGraph = !displayNavGraph;
+}
+
+void Simulator::drawDeadAnts()
+{
+	displayDeadAnts = !displayDeadAnts;
 }

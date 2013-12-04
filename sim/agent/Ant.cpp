@@ -290,12 +290,12 @@ Ant::AntKnowledgeBase::AntKnowledgeBase(AntHome& home, NavGraphHelper& graphHelp
 }
 
 Ant::AntStats::AntStats() :
-	hungerIncreaseRate(120),	// default ticks per second is 30, so this gives a rate of 4 seconds per increase in hunger.
+	hungerIncreaseRate(180),	// default ticks per second is 60, so this gives a rate of 3 seconds per increase in hunger.
 	hunger(0),
 	nextHungerIncrease(hungerIncreaseRate),
 	maxHunger(100),
 	isHoldingFood(false),
 	isDead(false),
-	movementSpeed(2.5f)
+	movementSpeed(3.5f)
 {
 }
