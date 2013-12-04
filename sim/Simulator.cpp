@@ -17,7 +17,7 @@ using cdc::GuiEventManager;
 using namespace std;
 
 
-uint maxSimSpeed = 90;
+uint maxSimSpeed = 120;
 uint minSimSpeed = 0;
 uint simSpeedIncrement = 10;
 
