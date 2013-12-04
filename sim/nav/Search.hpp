@@ -34,11 +34,6 @@ namespace cdc
 		static std::deque<Node*> aStar(const Node& startNode, const Node& endNode,
 				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
 
-		// My original attempt at searching the graph. This does usually, but not always, return 
-		// the optimal path, at least when the graph is not complex.
-		static std::deque<Node*> graphSearch(const Node& startNode, const Node& endNode,
-				float (*heuristic)(const Node& startNode, const Node& endNode), bool debug = false);
-
 		static void printPath(std::deque<Node*> path);
 
 	private:

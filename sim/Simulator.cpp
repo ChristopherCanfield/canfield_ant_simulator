@@ -82,7 +82,9 @@ void Simulator::update()
 
 		if (antCountTimer.getElapsedTime().asSeconds() > 10.f)
 		{
-			cout << "Simulator: Ants: " << world->getAnts().size() << " | Live Ants: " << getLiveAntCount(*world) << endl;
+			cout << "Simulator: Ants: " << world->getAnts().size() << 
+					" | Live Ants: " << getLiveAntCount(*world) << 
+					" | Food in Anthill: " << world->getAntHills()[0]->getFoodCount() << endl;
 			antCountTimer.restart();
 		}
 		
