@@ -26,6 +26,7 @@ AntFollowPath::AntFollowPath(Ant& ant, const Node& target, bool debug) :
 	if (path.empty())
 	{
 		setFinished(true);
+		if (debug) cout << "Unable to calculate path from " << ant.getNode().toString() << " to " << target.toString() << endl;
 		return;
 	}
 

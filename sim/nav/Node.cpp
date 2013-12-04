@@ -3,6 +3,7 @@
 #include "../worldobject/AntFoodPile.hpp"
 
 #include <stdexcept>
+#include <sstream>
 
 // Christopher D. Canfield
 // October 2013
@@ -176,6 +177,13 @@ void Node::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	{
 		target.draw(*edge, states);
 	}
+}
+
+std::string Node::toString() const
+{
+	std::stringstream val;
+	val << "(" << getRow() << "," << getColumn() << ")";
+	return val.str();
 }
 
 

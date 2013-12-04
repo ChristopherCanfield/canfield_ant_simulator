@@ -45,7 +45,6 @@ Ant::Ant(GuiEventManager& manager, AntHome& home, NavGraphHelper& graphHelper, c
 	{
 		Ant::texture = new sf::Texture;
 		Ant::textureWithFood = new sf::Texture;
-		Ant::textureDead = new sf::Texture;
 
 		if (!Ant::texture->loadFromFile("res/ant.png"))
 		{

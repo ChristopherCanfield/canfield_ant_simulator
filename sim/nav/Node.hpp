@@ -79,6 +79,8 @@ namespace cdc
 
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+		std::string toString() const;
+
 		bool operator==(const Node& other) const;
 		bool operator!=(const Node& other) const;
 

@@ -49,7 +49,7 @@ sf::Sprite cdc::SolidObject::createRock(vector<Node>& navGraph, int left, int to
 	{
 		auto sprite = sf::Sprite(*rockTexture);
 		sprite.setOrigin(sprite.getGlobalBounds().width / 2.f, sprite.getGlobalBounds().height / 2.f);
-		sprite.setPosition(left, top);
+		sprite.setPosition(static_cast<float>(left), static_cast<float>(top));
 		removeBlockedEdges(navGraph, left - (sprite.getGlobalBounds().width / 2.f), 
 				top - (sprite.getGlobalBounds().height / 2.f), 
 				sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
@@ -77,7 +77,8 @@ sf::Sprite cdc::SolidObject::createWater(std::vector<Node>& navGraph, int left, 
 		auto sprite = sf::Sprite(*waterTexture);
 		sprite.setPosition(left + (sprite.getGlobalBounds().width / 2.f), 
 				top + (sprite.getGlobalBounds().height / 2.f));
-		removeBlockedEdges(navGraph, left, top, sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+		removeBlockedEdges(navGraph, static_cast<float>(left), static_cast<float>(top), 
+				sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
 		return sprite;
 	}
 	else
