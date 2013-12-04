@@ -78,6 +78,9 @@ namespace cdc
 	protected:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+		// Returns true if the ant is hungry.
+		bool isHungry() const;
+
 		// The ant's non-knowledge info.
 		struct AntStats
 		{
@@ -161,7 +164,7 @@ namespace cdc
 		sf::Clock selectedTimer;
 
 		// Gets a new goal for the ant.
-		std::unique_ptr<AntGoal> getNewGoal(AntStats& stats);
+		std::unique_ptr<AntGoal> getNewGoal();
 	};
 }
 

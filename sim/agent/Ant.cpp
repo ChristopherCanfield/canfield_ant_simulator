@@ -113,7 +113,7 @@ void Ant::update(uint ticks, const Percept& percept)
 		}
 		else
 		{
-			goal = getNewGoal(stats);
+			goal = getNewGoal();
 		}
 	}
 }
@@ -261,6 +261,13 @@ void Ant::updateSpritePositions()
 	}
 }
 
+bool Ant::isHungry() const
+{
+	// Higher = hungrier when the ant starts looking for food to eat.
+	const uint hungry = 60;
+	return stats.hunger >= hungry;
+}
+
 void Ant::processHunger(uint ticks, AntStats& stats)
 {
 	if (ticks >= stats.nextHungerIncrease)
@@ -288,14 +295,12 @@ void Ant::setAntWithFoodSpritePosition(float x, float y, float rotation)
 	antWithFoodSprite.setRotation(rotation);
 }
 
-unique_ptr<AntGoal> Ant::getNewGoal(AntStats& stats)
+unique_ptr<AntGoal> Ant::getNewGoal()
 {
 	using std::move;
-	// Higher = hungrier when the ant starts looking for food to eat.
-	const uint hungry = 60;
 
 	// Look for food if hungry. This takes priority over other potential goals.
-	if (stats.hunger > hungry)
+	if (isHungry())
 	{
 		auto newGoal = unique_ptr<AntEat>(new AntEat());
 		if (isSelected()) cout << "  Goal changed: " << newGoal->toString() << endl;

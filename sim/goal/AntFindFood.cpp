@@ -23,6 +23,7 @@ using cdc::Search;
 AntFindFood::AntFindFood() :
 	AntGoal("AntFindFood"),
 	foodFound(false),
+	searchAttemptsWhileHungry(0),
 	nextNode(nullptr)
 {
 }
@@ -45,7 +46,8 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		return;
 	}
 
-	if (foodFound)
+	const uint maxSearchAttempts = 20;
+	if (foodFound || searchAttemptsWhileHungry > maxSearchAttempts)
 	{
 		setFinished(true);
 		return;
@@ -59,6 +61,10 @@ void AntFindFood::update(Ant& ant, uint ticks, AntPercept& percept)
 		}
 		else
 		{
+			if (ant.isHungry())
+			{
+				++searchAttemptsWhileHungry;
+			}
 			setSubgoal(ant);
 		}
 	}

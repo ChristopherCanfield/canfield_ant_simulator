@@ -37,6 +37,9 @@ namespace cdc
 		std::unique_ptr<AntGoal> subgoal;
 
 		bool foodFound;
+		// The number of search attempts while the ant is hungry. This ensures 
+		// that the ant eventually goes back to the anthill for food.
+		uint searchAttemptsWhileHungry;
 
 		std::deque<Node*> path;
 		Node* nextNode;
