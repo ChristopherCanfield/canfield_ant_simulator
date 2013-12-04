@@ -202,7 +202,7 @@ void Simulator::drawPheromones()
 
 void Simulator::drawNavGraph()
 {
-	cout << (displayPheromones ? "Simulator: hide nav graph" : "Simulator: show nav graph") << endl;
+	cout << (displayNavGraph ? "Simulator: hide nav graph" : "Simulator: show nav graph") << endl;
 	displayNavGraph = !displayNavGraph;
 }
 
