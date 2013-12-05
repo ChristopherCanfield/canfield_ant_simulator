@@ -142,7 +142,7 @@ Node* Edge::getPheromoneNextNode() const
 
 void Edge::update(uint ticks)
 {
-	const int pheromoneReducationRate = 200;
+	const int pheromoneReducationRate = 100;
 
 	if (ticks >= nextPheromoneReduction)
 	{
