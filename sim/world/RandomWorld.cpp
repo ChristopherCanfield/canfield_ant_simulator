@@ -219,7 +219,7 @@ void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<unique
 	int foodPileCount = rand.getInteger(minFoodPiles, maxFoodPiles);
 	for (int i = 0; i < foodPileCount; ++i)
 	{
-		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
+		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size() - 1, rand);
 		int foodInPile = rand.getInteger(50, 750);
 		antFoodPiles.push_back(make_unique<AntFoodPile>(foodInPile, navGraph[nodeLocation]));
 		occupiedAreas.push_back(&navGraph[nodeLocation]);
@@ -237,7 +237,7 @@ void addObstructions(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vecto
 	int obstructionCount = rand.getInteger(minObstructions, maxObstructions);
 	for (int i = 0; i < obstructionCount; ++i)
 	{
-		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size(), rand);
+		int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size() - 1, rand);
 		auto rock = SolidObject::createRock(navGraph, navGraph[nodeLocation].getPixelX<int>(), navGraph[nodeLocation].getPixelY<int>());
 		obstructions.push_back(rock);
 		occupiedAreas.push_back(&navGraph[nodeLocation]);

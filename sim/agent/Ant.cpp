@@ -164,6 +164,11 @@ bool Ant::isSelected() const
 	return selected;
 }
 
+bool Ant::isHoldingFood() const
+{
+	return stats.isHoldingFood;
+}
+
 Node& Ant::getNode() const
 {
 	return *kb.lastNodePassed;

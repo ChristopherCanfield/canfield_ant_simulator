@@ -142,10 +142,19 @@ void Simulator::draw(sf::RenderTarget &target, sf::RenderStates states) const
 		}
 	}
 
-	// Draw live ants.
+	// Draw live ants. First draw the ants without food, followed by the
+	// ants that are holding food, to minimize texture switches.
 	for (auto& ant : world->getAnts())
 	{
-		if (!ant->isDead())
+		if (!ant->isDead() && !ant->isHoldingFood())
+		{
+			target.draw(*ant);
+		}
+	}
+
+	for (auto& ant : world->getAnts())
+	{
+		if (!ant->isDead() && ant->isHoldingFood())
 		{
 			target.draw(*ant);
 		}

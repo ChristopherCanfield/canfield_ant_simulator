@@ -58,6 +58,9 @@ namespace cdc
 		// Returns true if the ant is selected.
 		bool isSelected() const;
 
+		// Returns true if the ant is holding food.
+		bool isHoldingFood() const;
+
 		// GUI event handlers.
 		virtual void onDirectGuiEvent(const sf::Event& e) override;
 		virtual void onGuiEvent(const sf::Event& e) override;
