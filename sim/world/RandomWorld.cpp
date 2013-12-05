@@ -212,8 +212,8 @@ void addFood(vector<Node>& navGraph, vector<Node*>& occupiedAreas, vector<unique
 {
 	Random rand;
 
-	// Add between 3 and 15 piles of food.
-	const int minFoodPiles = 3;
+	// Add between 5 and 15 piles of food.
+	const int minFoodPiles = 5;
 	const int maxFoodPiles = 15;
 
 	int foodPileCount = rand.getInteger(minFoodPiles, maxFoodPiles);

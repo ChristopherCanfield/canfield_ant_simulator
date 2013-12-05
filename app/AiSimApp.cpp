@@ -57,7 +57,7 @@ void AiSimApp::setup()
 
 	viewManager.setWindow(window);
 	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-	viewManager.setViewParameters(1150.f, 1150.f, 3.9);
+	viewManager.setViewParameters(1150.f, 1150.f, 3.9f);
 
 	simulator.start(move(world));
 }
@@ -125,7 +125,7 @@ void printWorldStats(World& world)
 
 void printUserCommands()
 {
-	cout << "Simulation Commands" << endl
+	cout << endl << "Simulation Commands" << endl
 		<<  "-------------------" << endl
 		<< "  Space.........Pause/Unpause" << endl
 		<< "  +.............Increase simulation speed" << endl
@@ -137,6 +137,7 @@ void printUserCommands()
 		<< "  5.............Show/Hide background" << endl
 		<< "  Mouse Wheel...Zoom in/out" << endl
 		<< "  Arrow Keys....Move screen up/down/left/right" << endl 
+		<< "  ?.............Redisplay these commands" << endl
 		<< "  Escape........Exit" << endl << endl;
 }
 
@@ -182,6 +183,10 @@ bool AiSimApp::processInput(const sf::Event& e, sf::Window& window, Simulator& s
 		else if (e.key.code == Keyboard::Num5)
 		{
 			drawBackground = !drawBackground;
+		}
+		else if (e.key.code == Keyboard::Slash)
+		{
+			printUserCommands();
 		}
 		else if (e.key.code == Keyboard::Escape)
 		{
