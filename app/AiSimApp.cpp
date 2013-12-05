@@ -57,7 +57,7 @@ void AiSimApp::setup()
 
 	viewManager.setWindow(window);
 	viewManager.getSimView().setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-	viewManager.setViewParameters(1150.f, 1150.f, 3.9f);
+	viewManager.setViewParameters(1150.f, 1150.f, 3.95f);
 
 	simulator.start(move(world));
 }
@@ -82,16 +82,20 @@ bool AiSimApp::run()
 
 	simulator.update();
 
-	window.clear(sf::Color(211, 211, 211));
-	
-	window.setView(viewManager.getSimView());
-	if (drawBackground)
+	if (drawClock.getElapsedTime().asMilliseconds() > 17)
 	{
-		window.draw(background);
-	}
-	window.draw(simulator);
+		window.clear(sf::Color(211, 211, 211));
+	
+		window.setView(viewManager.getSimView());
+		if (drawBackground)
+		{
+			window.draw(background);
+		}
+		window.draw(simulator);
 
-	window.display();
+		window.display();
+		drawClock.restart();
+	}
 	
 	return continueRunning;
 }

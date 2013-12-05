@@ -248,9 +248,9 @@ void addAntHill(World& world, vector<Node>& navGraph, vector<Node*>& occupiedAre
 {
 	Random rand;
 
-	// Ant hill can be in any node within the first three rows.
-	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, 3 * navGraphColumns, rand);
-	
+	// Ant hill can be in any node.
+	int nodeLocation = findValidLocation(navGraph, occupiedAreas, 0, navGraph.size() - 1, rand);
+
 	antHills.push_back(make_unique<AntHome>(navGraph[nodeLocation], navGraph, world));
 	occupiedAreas.push_back(&navGraph[nodeLocation]);
 }

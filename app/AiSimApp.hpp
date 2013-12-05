@@ -39,6 +39,8 @@ namespace cdc
 		sf::Texture backgroundImage;
 		sf::RectangleShape background;
 		bool drawBackground;
+
+		sf::Clock drawClock;
 	};
 
 }
