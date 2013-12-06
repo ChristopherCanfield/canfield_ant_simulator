@@ -121,7 +121,11 @@ namespace tests
 				path.pop_front();
 			}
 
-			Assert::IsTrue(*node == navGraph[7]);
+			Assert::IsNotNull(node);
+			if (node != nullptr)
+			{
+				Assert::IsTrue(*node == navGraph[7]);
+			}
 		}
 
 		TEST_METHOD(Search_AStarStraightLine_2)
