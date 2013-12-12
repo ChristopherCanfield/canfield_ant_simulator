@@ -136,11 +136,11 @@ void printUserCommands()
 		<< "  -.............Decrease simulation speed" << endl
 		<< "  1.............Show/Hide navigation graph" << endl
 		<< "  2.............Show/Hide pheromone strength" << endl
-		<< "  3.............Show/hide ant paths" << endl
+		<< "  3.............Show/Hide ant paths" << endl
 		<< "  4.............Show/Hide dead ants" << endl
 		<< "  5.............Show/Hide background" << endl
 		<< "  Mouse Wheel...Zoom in/out" << endl
-		<< "  Arrow Keys....Move screen up/down/left/right" << endl 
+		<< "  Arrow Keys....Move screen up/down/left/right (when zoomed)" << endl 
 		<< "  ?.............Redisplay these commands" << endl
 		<< "  Escape........Exit" << endl << endl;
 }
