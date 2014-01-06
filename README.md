@@ -1,5 +1,6 @@
-      Canfield Ant Simulator: Swarm Intelligence using Goal-based Agents & A*
-                            Christopher D. Canfield
+<h2>Canfield Ant Simulator: Swarm Intelligence using Goal-based Agents & A*</h2>
+<h4>Christopher D. Canfield</h4>
+
 
 
 I. Overview
@@ -31,15 +32,15 @@ The simulation was written in C++, and uses the following libraries:
 III. More Information
 ---------------------
 
-- Binaries: 
-- Presentation:
-- Documentation: 
+- <a href="http://christopherdcanfield.com/projects/antsimulator/Canfield%20Ant%20Simulator.zip">Windows Binaries</a>
+- <a href="http://christopherdcanfield.com/projects/antsimulator/CS664%20Canfield%20Ant%20Simulator%20Presentation.pdf">Presentation</a>
+- <a href="http://christopherdcanfield.com/projects/antsimulator/CS664%20Canfield%20Ant%20Simulator%20Documentation.pdf">Documentation</a>
 
 
 IV. Running the Simulator
 -------------------------
 
-The windows binary is available here. It was successfully tested on the following operating systems:
+The windows executable is available <a href="http://christopherdcanfield.com/projects/antsimulator/Canfield%20Ant%20Simulator.zip">here</a>. It was successfully tested on the following operating systems:
 - Windows 8.1
 - Windows 8
 - Windows 7
